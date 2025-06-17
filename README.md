@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Messe AI
 
-## Getting Started
+Интеллектуальный помощник для выставок с кастомной дизайн-системой Material-UI.
 
-First, run the development server:
+## 🎨 Дизайн-система
+
+Проект включает полную дизайн-систему, основанную на токенах из Figma:
+
+- **Цветовая палитра**: Фиолетовые акценты с серой базовой палитрой
+- **Типографика**: Система на основе Roboto с четкой иерархией
+- **Компоненты**: Кастомизированные кнопки, формы и другие элементы
+- **Доступность**: Соответствие WCAG для контрастности цветов
+
+### UI Kit
+
+Посетите `/ui-kit` для просмотра всех компонентов дизайн-системы.
+
+📖 **Подробная документация**: [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)
+
+## 🚀 Быстрый старт
+
+### Установка зависимостей
+
+```bash
+npm install
+# или
+yarn install
+# или
+pnpm install
+```
+
+### Запуск сервера разработки
 
 ```bash
 npm run dev
-# or
+# или
 yarn dev
-# or
+# или
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Технологический стек
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 15.3.3** - React фреймворк с App Router
+- **React 19** - UI библиотека
+- **Material-UI 7.1.1** - Компоненты с кастомной темой
+- **TypeScript** - Типизация
+- **Emotion** - CSS-in-JS для стилизации
 
-## Learn More
+## 📁 Структура проекта
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                 # Next.js App Router страницы
+│   ├── page.tsx        # Главная страница
+│   └── ui-kit/         # UI Kit страница
+├── components/         # React компоненты
+│   ├── ThemeProvider.tsx
+│   └── ui-kit/         # UI Kit компоненты
+└── theme/              # Дизайн-система
+    ├── index.ts        # Основная тема
+    ├── tokens.ts       # Дизайн-токены
+    ├── palette.ts      # Цветовая палитра
+    ├── typography.ts   # Типографика
+    └── components.ts   # Кастомизация компонентов
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Особенности
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Дизайн-токены из Figma
+- Автоматически извлеченные цвета, типографика и размеры
+- Соответствие оригинальному дизайну
+- Легкое обновление при изменениях в Figma
 
-## Deploy on Vercel
+### Кастомные компоненты
+- Три варианта кнопок (Contained, Outlined, Text)
+- Множественные размеры и состояния
+- Семантические цвета для разных действий
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Типографическая система
+- Иерархия заголовков H1-H6
+- Варианты основного текста
+- Специальные стили для ссылок и подписей
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 Разработка
+
+### Добавление новых компонентов
+
+1. Создайте компонент в `src/components/`
+2. Используйте дизайн-токены из `src/theme/tokens.ts`
+3. Добавьте кастомизацию в `src/theme/components.ts` при необходимости
+
+### Обновление дизайн-системы
+
+1. Обновите токены в `src/theme/tokens.ts`
+2. Проверьте изменения в UI Kit (`/ui-kit`)
+3. Обновите документацию
+
+## 📚 Документация
+
+- [Дизайн-система](./DESIGN_SYSTEM.md) - Полное руководство по дизайн-системе
+- [Next.js Documentation](https://nextjs.org/docs) - Документация Next.js
+- [Material-UI](https://mui.com/) - Документация Material-UI
+
+## 🚀 Деплой
+
+Рекомендуется использовать [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme):
+
+```bash
+npm run build
+npm run start
+```
