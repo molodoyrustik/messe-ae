@@ -15,7 +15,15 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { Menu as MenuIcon, Palette, TextFields, SmartButton } from '@mui/icons-material';
+import {
+  Menu as MenuIcon,
+  Palette,
+  TextFields,
+  SmartButton,
+  Input,
+  Label,
+  Navigation
+} from '@mui/icons-material';
 
 type UIKitSection = {
   id: string;
@@ -203,6 +211,24 @@ export const defaultUIKitSections: UIKitSection[] = [
     id: 'buttons',
     title: 'Buttons',
     icon: <SmartButton />,
+    component: null,
+  },
+  {
+    id: 'forms',
+    title: 'Form Inputs',
+    icon: <Input />,
+    component: null,
+  },
+  {
+    id: 'chips',
+    title: 'Chips',
+    icon: <Label />,
+    component: null,
+  },
+  {
+    id: 'menu',
+    title: 'Menu Items',
+    icon: <Navigation />,
     component: null,
   },
 ];

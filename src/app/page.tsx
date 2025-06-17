@@ -1,7 +1,7 @@
 'use client';
 
-import { Container, Typography, Box, Button, Stack, Chip } from '@mui/material';
-import { Palette, TextFields, SmartButton } from '@mui/icons-material';
+import { Container, Typography, Box, Button, Stack, Chip, Grid } from '@mui/material';
+import { Palette, TextFields, SmartButton, Input, Label, Navigation } from '@mui/icons-material';
 import Link from 'next/link';
 
 export default function Home() {
@@ -47,44 +47,81 @@ export default function Home() {
 
         <Box sx={{ mt: 6, textAlign: 'center' }}>
           <Typography variant="h6" gutterBottom>
-            Design System Features
+            Design System Components
           </Typography>
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            spacing={4}
-            sx={{ mt: 3 }}
-            alignItems="center"
-          >
-            <Box sx={{ textAlign: 'center' }}>
-              <Palette sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
-              <Typography variant="subtitle1" fontWeight={600}>
-                Color Palette
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                WCAG compliant colors extracted from Figma
-              </Typography>
-            </Box>
+          <Grid container spacing={3} sx={{ mt: 2 }}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Palette sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Color Palette
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  WCAG compliant colors extracted from Figma
+                </Typography>
+              </Box>
+            </Grid>
 
-            <Box sx={{ textAlign: 'center' }}>
-              <TextFields sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
-              <Typography variant="subtitle1" fontWeight={600}>
-                Typography System
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Roboto-based type scale with proper hierarchy
-              </Typography>
-            </Box>
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <TextFields sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Typography System
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Roboto-based type scale with proper hierarchy
+                </Typography>
+              </Box>
+            </Grid>
 
-            <Box sx={{ textAlign: 'center' }}>
-              <SmartButton sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
-              <Typography variant="subtitle1" fontWeight={600}>
-                Button Components
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Three variants with consistent states and sizing
-              </Typography>
-            </Box>
-          </Stack>
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <SmartButton sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Button Components
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Three variants with consistent states and sizing
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Input sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Form Inputs
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Text fields with floating labels and states
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Label sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Chips
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Interactive chips for filtering and selection
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Navigation sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+                <Typography variant="subtitle1" fontWeight={600}>
+                  Menu Items
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Navigation elements with underline indicators
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

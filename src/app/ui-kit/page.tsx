@@ -4,6 +4,9 @@ import UIKitLayout, { defaultUIKitSections } from '../../components/ui-kit/UIKit
 import ColorPalette from '../../components/ui-kit/ColorPalette';
 import TypographyShowcase from '../../components/ui-kit/TypographyShowcase';
 import ButtonShowcase from '../../components/ui-kit/ButtonShowcase';
+import FormShowcase from '../../components/ui-kit/FormShowcase';
+import ChipShowcase from '../../components/ui-kit/ChipShowcase';
+import MenuShowcase from '../../components/ui-kit/MenuShowcase';
 
 export default function UIKitPage() {
   const sections = [
@@ -18,6 +21,18 @@ export default function UIKitPage() {
     {
       ...defaultUIKitSections[2],
       component: <ButtonShowcase />,
+    },
+    {
+      ...defaultUIKitSections[3],
+      component: <FormShowcase />,
+    },
+    {
+      ...defaultUIKitSections[4],
+      component: <ChipShowcase />,
+    },
+    {
+      ...defaultUIKitSections[5],
+      component: <MenuShowcase />,
     },
   ];
 
