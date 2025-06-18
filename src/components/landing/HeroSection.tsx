@@ -11,21 +11,19 @@ const HeroSection = () => {
   return (
     <Box
       sx={{
-        width: '1440px',
+        width: '100vw',
         height: '800px',
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84.13%)',
         overflow: 'hidden',
-        mx: 'auto', // Center the container
-        maxWidth: '100vw', // Ensure it doesn't exceed viewport width
       }}
     >
-      {/* Main Title */}
-      <Typography
-        sx={{
-          position: 'absolute',
-          left: '40px',
-          top: '367px',
+             {/* Main Title */}
+       <Typography
+         sx={{
+           position: 'absolute',
+           left: '40px',
+           top: '367px',
           width: '1084px',
           fontSize: '54px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
@@ -39,12 +37,12 @@ const HeroSection = () => {
         Exhibition Stand Builder & Designer in UAE and around the world
       </Typography>
 
-      {/* Subtitle with mixed styling */}
-      <Box
-        sx={{
-          position: 'absolute',
-          left: '40px',
-          top: '511px',
+             {/* Subtitle with mixed styling */}
+       <Box
+         sx={{
+           position: 'absolute',
+           left: '40px',
+           top: '511px',
           display: 'flex',
           justifyContent: 'flex-start',
           flexDirection: 'column',
@@ -120,12 +118,12 @@ const HeroSection = () => {
         </Typography>
       </Box>
 
-      {/* "20" Large Number */}
-      <Typography
-        sx={{
-          position: 'absolute',
-          left: '40px',
-          top: '619px',
+             {/* "20" Large Number */}
+       <Typography
+         sx={{
+           position: 'absolute',
+           left: '40px',
+           top: '619px',
           fontSize: '120px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 700,
@@ -138,12 +136,12 @@ const HeroSection = () => {
         20
       </Typography>
 
-      {/* "years of award winning expertise" */}
-      <Typography
-        sx={{
-          position: 'absolute',
-          left: '190px',
-          top: '669px',
+             {/* "years of award winning expertise" */}
+       <Typography
+         sx={{
+           position: 'absolute',
+           left: '202px', // 190px + 12px дополнительный отступ
+           top: '669px',
           fontSize: '34px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 400,
@@ -157,21 +155,21 @@ const HeroSection = () => {
         years of award winning expertise
       </Typography>
 
-      {/* CTA Button */}
-      <Box
-        sx={{
-          position: 'absolute',
-          left: '1084px',
-          top: '529px',
-          width: '316px',
-          height: '48px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'hidden',
-        }}
-      >
+             {/* CTA Button */}
+       <Box
+         sx={{
+           position: 'absolute',
+           right: '40px', // 40px from right edge
+           top: '529px',
+           width: '316px',
+           height: '48px',
+           display: 'flex',
+           flexDirection: 'column',
+           justifyContent: 'center',
+           alignItems: 'center',
+           overflow: 'hidden',
+         }}
+       >
         <Button
           variant="contained"
           sx={{
