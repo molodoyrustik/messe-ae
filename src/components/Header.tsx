@@ -10,6 +10,8 @@ import {
   useTheme,
 } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Facebook,
   Instagram,
@@ -20,66 +22,70 @@ import {
 import { useState } from 'react';
 
 // Custom Menu Item component with proper states
-const CustomMenuItem = ({ 
-  children, 
+const CustomMenuItem = ({
+  children,
   selected = false,
-  size = 'medium' 
-}: { 
+  size = 'medium',
+  href = '#'
+}: {
   children: React.ReactNode;
   selected?: boolean;
   size?: 'medium' | 'small';
+  href?: string;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
-    <Box
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      sx={{
-        height: size === 'medium' ? 32 : 'auto',
-        py: size === 'medium' ? 0.5 : 0,
-        position: 'relative',
-        display: size === 'medium' ? 'flex' : 'inline-flex',
-        flexDirection: size === 'medium' ? 'row' : 'column',
-        justifyContent: size === 'medium' ? 'flex-start' : 'center',
-        alignItems: size === 'medium' ? 'center' : 'flex-start',
-        gap: size === 'medium' ? 1.25 : 1.25,
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
-      }}
-    >
-      <Typography
+    <Link href={href} style={{ textDecoration: 'none' }}>
+      <Box
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         sx={{
-                  fontSize: size === 'medium' ? 24 : 16,
-        fontWeight: 700,
-        fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
-          lineHeight: size === 'medium' ? '28px' : '24px',
-          letterSpacing: size === 'medium' ? '0.01em' : '0.02em',
-          color: '#4C53A2', // Direct color from Figma
-          transition: 'color 0.2s ease',
-          
-          '&:hover': {
-            color: '#656CAF',
-          },
+          height: size === 'medium' ? 32 : 'auto',
+          py: size === 'medium' ? 0.5 : 0,
+          position: 'relative',
+          display: size === 'medium' ? 'flex' : 'inline-flex',
+          flexDirection: size === 'medium' ? 'row' : 'column',
+          justifyContent: size === 'medium' ? 'flex-start' : 'center',
+          alignItems: size === 'medium' ? 'center' : 'flex-start',
+          gap: size === 'medium' ? 1.25 : 1.25,
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
         }}
       >
-        {children}
-      </Typography>
-      
-      {/* Underline indicator - exactly like Tailwind */}
-      <Box
-        sx={{
-          position: 'absolute',
-          left: 0,
-          bottom: 0, // Changed from top to bottom
-          width: 36, // w-9 = 36px
-          height: 3, // h-[3px] = 3px  
-          backgroundColor: '#C7CAE3', // bg-Primary-purple-100
-          opacity: selected || isHovered ? 1 : 0,
-          transition: 'all 0.3s ease',
-        }}
-      />
-    </Box>
+        <Typography
+          sx={{
+                    fontSize: size === 'medium' ? 24 : 16,
+          fontWeight: 700,
+          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+            lineHeight: size === 'medium' ? '28px' : '24px',
+            letterSpacing: size === 'medium' ? '0.01em' : '0.02em',
+            color: '#4C53A2', // Direct color from Figma
+            transition: 'color 0.2s ease',
+
+            '&:hover': {
+              color: '#656CAF',
+            },
+          }}
+        >
+          {children}
+        </Typography>
+
+        {/* Underline indicator - exactly like Tailwind */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 0,
+            bottom: 0, // Changed from top to bottom
+            width: 36, // w-9 = 36px
+            height: 3, // h-[3px] = 3px
+            backgroundColor: '#C7CAE3', // bg-Primary-purple-100
+            opacity: selected || isHovered ? 1 : 0,
+            transition: 'all 0.3s ease',
+          }}
+        />
+      </Box>
+    </Link>
   );
 };
 
@@ -197,7 +203,14 @@ const TopInfoBar = () => {
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const menuItems = ['Projects', 'About Us', 'Articles', 'Manifestos'];
+  const pathname = usePathname();
+
+  const menuItems = [
+    { label: 'Projects', href: '/projects' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Articles', href: '/articles' },
+    { label: 'Manifestos', href: '/manifestos' },
+  ];
   
   return (
     <Box
@@ -235,20 +248,22 @@ const Header = () => {
             }}
           >
             {/* Logo Section */}
-            <Box
-              sx={{
-                position: 'absolute',
-                left: { xs: 16, md: 40 },
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: '7.625rem', // 122px
-                height: '5.25rem', // 84px
-                flexShrink: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-              }}
-            >
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: { xs: 16, md: 40 },
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '7.625rem', // 122px
+                  height: '5.25rem', // 84px
+                  flexShrink: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  cursor: 'pointer',
+                }}
+              >
               {/* Logo Image Container */}
               <Box
                 sx={{
@@ -366,7 +381,8 @@ const Header = () => {
                   ervices
                 </Typography>
               </Box>
-            </Box>
+              </Box>
+            </Link>
 
             {/* Navigation Menu - Center on desktop, hidden on mobile */}
             <Box
@@ -381,13 +397,14 @@ const Header = () => {
                 alignItems: 'center',
               }}
             >
-              {menuItems.map((item, index) => (
-                <CustomMenuItem 
-                  key={item} 
+              {menuItems.map((item) => (
+                <CustomMenuItem
+                  key={item.href}
                   size="medium"
-                  selected={index === 0} // First item selected for demo
+                  href={item.href}
+                  selected={pathname === item.href}
                 >
-                  {item}
+                  {item.label}
                 </CustomMenuItem>
               ))}
             </Box>
