@@ -1,4 +1,5 @@
 import ThemeProvider from '@/components/ThemeProvider';
+import EmotionRegistry from '@/lib/emotion-registry';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -15,8 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="emotion-insertion-point" content="" />
+      </head>
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <EmotionRegistry>
+          <ThemeProvider>{children}</ThemeProvider>
+        </EmotionRegistry>
       </body>
     </html>
   );
