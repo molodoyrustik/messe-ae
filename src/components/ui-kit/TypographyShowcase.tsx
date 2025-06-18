@@ -152,10 +152,10 @@ export default function TypographyShowcase() {
             <Typography variant="h6" gutterBottom>
               Primary Font
             </Typography>
-            <Typography variant="body1" fontFamily="Roboto" sx={{ mb: 2 }}>
+            <Typography variant="body1" fontFamily="Roboto,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Arial,sans-serif" sx={{ mb: 2 }}>
               Roboto Regular (400)
             </Typography>
-            <Typography variant="body1" fontFamily="Roboto" fontWeight={700} sx={{ mb: 2 }}>
+            <Typography variant="body1" fontFamily="Roboto,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Arial,sans-serif" fontWeight={700} sx={{ mb: 2 }}>
               Roboto Bold (700)
             </Typography>
             <Typography variant="caption" color="text.secondary">

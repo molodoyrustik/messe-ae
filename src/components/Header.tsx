@@ -9,6 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import Image from 'next/image';
 import {
   Facebook,
   Instagram,
@@ -49,9 +50,9 @@ const CustomMenuItem = ({
     >
       <Typography
         sx={{
-          fontSize: size === 'medium' ? 24 : 16,
-          fontWeight: 700,
-          fontFamily: 'Roboto',
+                  fontSize: size === 'medium' ? 24 : 16,
+        fontWeight: 700,
+        fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           lineHeight: size === 'medium' ? '28px' : '24px',
           letterSpacing: size === 'medium' ? '0.01em' : '0.02em',
           color: '#4C53A2', // Direct color from Figma
@@ -77,8 +78,8 @@ const CustomMenuItem = ({
           opacity: selected || isHovered ? 1 : 0,
           transition: 'all 0.3s ease',
         }}
-              />
-      </Box>
+      />
+    </Box>
   );
 };
 
@@ -153,9 +154,9 @@ const TopInfoBar = () => {
             {/* Company Info */}
             <Typography
               sx={{
-                fontSize: 12,
-                fontFamily: 'Roboto',
-                fontWeight: 400,
+                            fontSize: 12,
+            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+            fontWeight: 400,
                 lineHeight: '16px',
                 letterSpacing: '0.04em',
                 color: 'grey.900',
@@ -175,9 +176,9 @@ const TopInfoBar = () => {
             {/* Phone Number */}
             <Typography
               sx={{
-                fontSize: 12,
-                fontFamily: 'Roboto',
-                fontWeight: 700,
+                            fontSize: 12,
+            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+            fontWeight: 700,
                 lineHeight: '16px',
                 letterSpacing: '0.04em',
                 color: 'grey.900',
@@ -240,54 +241,131 @@ const Header = () => {
                 left: { xs: 16, md: 40 },
                 top: '50%',
                 transform: 'translateY(-50%)',
+                width: '7.625rem', // 122px
+                height: '5.25rem', // 84px
+                flexShrink: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
               }}
             >
-              {/* Logo */}
+              {/* Logo Image Container */}
               <Box
-                component="img"
-                src="/messe-logo.png"
-                alt="Messe.ae"
                 sx={{
-                  width: { xs: 100, md: 128 },
-                  height: { xs: 44, md: 56 },
-                  objectFit: 'contain',
-                  mb: 0.5,
-                }}
-              />
-              
-              {/* Company Tagline - Desktop only */}
-              <Typography
-                sx={{
-                  fontSize: 8,
-                  fontFamily: 'Onest', // Using Onest as in Figma
-                  fontWeight: 700,
-                  lineHeight: '12px',
-                  color: 'grey.900',
-                  display: { xs: 'none', md: 'block' },
+                  width: '7.625rem', // 122px
+                  height: '3.75rem', // 60px
+                  flexShrink: 0,
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  overflow: 'hidden',
                 }}
               >
-                <Box component="span" sx={{ color: '#656CAF' }}>
+                <Image
+                  src="/messe-logo.png"
+                  alt="Messe.ae"
+                  width={244} // 122px * 2 для компенсации внутренних отступов
+                  height={120} // 60px * 2 для компенсации внутренних отступов
+                  style={{
+                    position: 'absolute',
+                    left: -68,
+                    top: -34,
+                    objectFit: 'contain',
+                  }}
+                  priority
+                />
+              </Box>
+              
+              {/* Company Tagline - Desktop only */}
+              <Box
+                sx={{
+                  width: '7.625rem', // 122px
+                  position: 'absolute',
+                  left: 0,
+                  top: 72, // top-[72px] from Tailwind
+                  justifyContent: 'flex-start',
+                  display: { xs: 'none', md: 'flex' },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '0.75rem', // 12px - 150%
+                    color: '#656CAF', // Primary-purple-400
+                  }}
+                  component="span"
+                >
                   M
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '0.75rem', // 12px
+                    color: '#000', // Basic-grey-900
+                  }}
+                  component="span"
+                >
                   arketing and{' '}
-                </Box>
-                <Box component="span" sx={{ color: '#656CAF' }}>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '0.75rem', // 12px
+                    color: '#656CAF',
+                  }}
+                  component="span"
+                >
                   E
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '0.75rem', // 12px
+                    color: '#000',
+                  }}
+                  component="span"
+                >
                   xhibition{' '}
-                </Box>
-                <Box component="span" sx={{ color: '#656CAF' }}>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '0.75rem', // 12px
+                    color: '#656CAF',
+                  }}
+                  component="span"
+                >
                   S
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+                    fontSize: '0.5rem', // 8px
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '0.75rem', // 12px
+                    color: '#000',
+                  }}
+                  component="span"
+                >
                   ervices
-                </Box>
-              </Typography>
+                </Typography>
+              </Box>
             </Box>
 
             {/* Navigation Menu - Center on desktop, hidden on mobile */}
@@ -341,7 +419,7 @@ const Header = () => {
               <Typography
                 sx={{
                   fontSize: { xs: 14, md: 16 },
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                   fontWeight: 400,
                   lineHeight: '24px',
                   letterSpacing: '0.02em',

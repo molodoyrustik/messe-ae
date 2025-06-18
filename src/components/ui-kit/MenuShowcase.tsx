@@ -70,7 +70,7 @@ const CustomMenuItem = ({
       cursor: 'pointer',
 
       // Text styles: text-Primary-purple-500 text-2xl font-bold font-['Roboto'] leading-7 tracking-tight
-      fontFamily: 'Roboto',
+      fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
       fontWeight: 700, // font-bold
       fontSize: size === 'medium' ? 24 : 16, // text-2xl
       lineHeight: size === 'medium' ? '28px' : '24px', // leading-7
@@ -221,7 +221,7 @@ export default function MenuShowcase() {
                 onChange={(_, newValue) => setTabValue(newValue)}
                 sx={{
                   '& .MuiTab-root': {
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontWeight: 700,
                     fontSize: 24,
                     lineHeight: '28px',
