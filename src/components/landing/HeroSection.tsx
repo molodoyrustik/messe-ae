@@ -2,137 +2,211 @@
 
 import {
   Box,
-  Container,
   Typography,
   Button,
-  Stack,
-  useTheme,
 } from '@mui/material';
 
 const HeroSection = () => {
-  const theme = useTheme();
 
   return (
     <Box
       sx={{
+        width: '1440px',
+        height: '800px',
         position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: '#000',
-        background: `linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84%), url('/hero-bg.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84.13%)',
         overflow: 'hidden',
+        mx: 'auto', // Center the container
+        maxWidth: '100vw', // Ensure it doesn't exceed viewport width
       }}
     >
-      {/* Background overlay */}
+      {/* Main Title */}
+      <Typography
+        sx={{
+          position: 'absolute',
+          left: '40px',
+          top: '367px',
+          width: '1084px',
+          fontSize: '54px',
+          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+          fontWeight: 700,
+          lineHeight: '60px',
+          color: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'flex-start',
+        }}
+      >
+        Exhibition Stand Builder & Designer in UAE and around the world
+      </Typography>
+
+      {/* Subtitle with mixed styling */}
       <Box
         sx={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84%)',
-          zIndex: 1,
-        }}
-      />
-      
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          position: 'relative', 
-          zIndex: 2, 
-          color: 'white',
-          py: 8,
+          left: '40px',
+          top: '511px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          flexDirection: 'column',
         }}
       >
-        <Stack spacing={4} alignItems="flex-start" maxWidth="800px">
-          {/* Main Title */}
+        <Typography
+          component="span"
+          sx={{
+            fontSize: '34px',
+            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+            fontWeight: 400,
+            lineHeight: '42px',
+            letterSpacing: '-0.025em',
+            color: '#FFFFFF',
+          }}
+        >
+          Your great{' '}
           <Typography
-            variant="h1"
+            component="span"
             sx={{
-              fontSize: { xs: 36, md: 54 },
+              fontSize: '34px',
+              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 700,
-              lineHeight: 1.11,
-              letterSpacing: '0.01em',
-              color: 'white',
+              lineHeight: '42px',
+              letterSpacing: '-0.025em',
+              color: '#FFFFFF',
             }}
           >
-            Exhibition Stand Builder & Designer in UAE and around the world
+            exhibition stand design
           </Typography>
-
-          {/* Subtitle */}
+          {' '}starts here.
+        </Typography>
+        <Typography
+          component="span"
+          sx={{
+            fontSize: '34px',
+            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+            fontWeight: 700,
+            lineHeight: '42px',
+            letterSpacing: '-0.025em',
+            color: '#656CAF',
+            mt: 1,
+          }}
+        >
+          Fill in
           <Typography
-            variant="h6"
+            component="span"
             sx={{
-              fontSize: { xs: 18, md: 34 },
+              fontSize: '34px',
+              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 400,
-              lineHeight: 1.24,
-              letterSpacing: '0.01em',
-              color: 'white',
-              maxWidth: '600px',
+              lineHeight: '42px',
+              letterSpacing: '-0.025em',
+              color: '#FFFFFF',
             }}
           >
-            Your great exhibition stand design starts here.
-            <br />
-            Fill in the form, and we will handle the rest.
+            {' '}the{' '}
           </Typography>
-
-          {/* Years Section */}
-          <Stack direction="row" alignItems="center" spacing={2} sx={{ my: 4 }}>
-            <Typography
-              sx={{
-                fontSize: { xs: 80, md: 120 },
-                fontWeight: 700,
-                lineHeight: 1.17,
-                color: 'white',
-              }}
-            >
-              20
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: 18, md: 34 },
-                fontWeight: 400,
-                lineHeight: 1.24,
-                letterSpacing: '0.01em',
-                color: 'white',
-              }}
-            >
-              years of award winning expertise
-            </Typography>
-          </Stack>
-
-          {/* CTA Button */}
-          <Button
-            variant="contained"
-            size="large"
+          form
+          <Typography
+            component="span"
             sx={{
-              minWidth: 316,
-              height: 48,
-              px: 3,
-              py: 1,
-              backgroundColor: 'primary.400',
-              borderRadius: 1,
-              fontSize: 24,
+              fontSize: '34px',
+              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 400,
-              letterSpacing: '0.01em',
-              textTransform: 'none',
-              boxShadow: theme.customShadows?.button || '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-              
-              '&:hover': {
-                backgroundColor: 'primary.500',
-                boxShadow: theme.customShadows?.buttonHover,
-              },
+              lineHeight: '42px',
+              letterSpacing: '-0.025em',
+              color: '#FFFFFF',
+            }}
+          >
+            , and we will handle the rest.
+          </Typography>
+        </Typography>
+      </Box>
+
+      {/* "20" Large Number */}
+      <Typography
+        sx={{
+          position: 'absolute',
+          left: '40px',
+          top: '619px',
+          fontSize: '120px',
+          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+          fontWeight: 700,
+          lineHeight: '140px',
+          color: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'flex-start',
+        }}
+      >
+        20
+      </Typography>
+
+      {/* "years of award winning expertise" */}
+      <Typography
+        sx={{
+          position: 'absolute',
+          left: '190px',
+          top: '669px',
+          fontSize: '34px',
+          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+          fontWeight: 400,
+          lineHeight: '42px',
+          letterSpacing: '-0.025em',
+          color: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'flex-start',
+        }}
+      >
+        years of award winning expertise
+      </Typography>
+
+      {/* CTA Button */}
+      <Box
+        sx={{
+          position: 'absolute',
+          left: '1084px',
+          top: '529px',
+          width: '316px',
+          height: '48px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            width: '100%',
+            height: '100%',
+            px: '20px',
+            py: '8px',
+            backgroundColor: '#656CAF',
+            borderRadius: '8px',
+            boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+            textTransform: 'none',
+            
+            '&:hover': {
+              backgroundColor: '#4C53A2',
+            },
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '24px',
+              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+              fontWeight: 400,
+              lineHeight: '28px',
+              letterSpacing: '-0.025em',
+              color: '#FFFFFF',
+              textAlign: 'right',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             Request a proposal
-          </Button>
-        </Stack>
-      </Container>
+          </Typography>
+        </Button>
+      </Box>
     </Box>
   );
 };
