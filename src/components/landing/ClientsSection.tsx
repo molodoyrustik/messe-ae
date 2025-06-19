@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
   Box,
   Container,
@@ -77,45 +77,7 @@ const LogoItem = styled(Box)({
 });
 
 const ClientsSection = () => {
-  const carousel1Ref = useRef<HTMLDivElement>(null);
-  const carousel2Ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const setupLogging = (element: HTMLDivElement, id: string) => {
-      const logPosition = () => {
-        const style = window.getComputedStyle(element);
-        const transform = style.transform;
-        const rect = element.getBoundingClientRect();
-        console.log(`📍 [${id}] Transform: ${transform}, Left: ${rect.left.toFixed(2)}px, Time: ${new Date().toLocaleTimeString()}.${new Date().getMilliseconds()}`);
-      };
-
-      const handleAnimationIteration = () => {
-        console.log(`🔄 [${id}] ITERATION - JUMP DETECTED! Time: ${new Date().toLocaleTimeString()}`);
-        logPosition();
-      };
-
-      element.addEventListener('animationiteration', handleAnimationIteration);
-      
-      // Log position every 1 second
-      const interval = setInterval(logPosition, 1000);
-      
-      // Initial position
-      setTimeout(logPosition, 100);
-
-      return () => {
-        element.removeEventListener('animationiteration', handleAnimationIteration);
-        clearInterval(interval);
-      };
-    };
-
-    const cleanup1 = carousel1Ref.current ? setupLogging(carousel1Ref.current, 'Carousel-1') : undefined;
-    const cleanup2 = carousel2Ref.current ? setupLogging(carousel2Ref.current, 'Carousel-2') : undefined;
-
-    return () => {
-      cleanup1?.();
-      cleanup2?.();
-    };
-  }, []);
 
   // Real client logos with their actual filenames from the downloaded logos
   const clientLogos = [
@@ -223,7 +185,7 @@ const ClientsSection = () => {
 
         {/* First Carousel - Left to Right */}
         <CarouselContainer>
-          <CarouselTrack direction="left" ref={carousel1Ref}>
+          <CarouselTrack direction="left">
             {extendedLogos1.map((logo, index) => (
               <LogoItem key={`carousel1-${logo.filename}-${index}`}>
                 <Box
@@ -256,7 +218,7 @@ const ClientsSection = () => {
         {/* Second Carousel - Right to Left */}
         <Box sx={{ mt: 2 }}> {/* 16px margin top */}
           <CarouselContainer>
-            <CarouselTrack direction="right" ref={carousel2Ref}>
+            <CarouselTrack direction="right">
               {extendedLogos2.map((logo, index) => (
                 <LogoItem key={`carousel2-${logo.filename}-${index}`}>
                   <Box

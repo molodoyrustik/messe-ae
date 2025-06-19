@@ -21,11 +21,11 @@ export default function HomePage() {
       <Box component="main">
         <HeroSection />
         <ClientsSection />
+        <ProjectsSection />
         <WhyMesseaeSection />
         <AdvantagesSection />
         <AwardsSection />
         <ExpoglobalSection />
-        <ProjectsSection />
         <FooterSection />
       </Box>
     </Box>
