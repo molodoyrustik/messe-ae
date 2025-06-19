@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Box,
   Container,
@@ -33,36 +33,39 @@ const CarouselContainer = styled(Box)({
   },
 });
 
-// Track that moves continuously
+// Track that moves continuously with logging - ULTRA LONG ANIMATION
 const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right' }>(({ direction = 'left' }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: '112px', // Space between logos
   height: '100%',
+  width: 'max-content', // Auto width to fit content
   animation: direction === 'left' 
-    ? 'scrollLeft 20s linear infinite' 
-    : 'scrollRight 20s linear infinite',
+    ? 'scrollLeftUltra 160s linear infinite' // 8 copies * 20s each
+    : 'scrollRightUltra 160s linear infinite',
   '&:hover': {
     animationPlayState: 'paused', // Pause on hover
   },
-  // Define keyframes inline
-  '@keyframes scrollLeft': {
+  // Ultra smooth animation with 8 copies
+  '@keyframes scrollLeftUltra': {
     '0%': {
       transform: 'translateX(0)',
     },
     '100%': {
-      transform: 'translateX(-50%)', // Move by half (since we duplicate logos twice)
+      transform: 'translateX(-12.5%)', // Move 1/8th of total width (one copy out of 8)
     },
   },
-  '@keyframes scrollRight': {
+  '@keyframes scrollRightUltra': {
     '0%': {
-      transform: 'translateX(-50%)', // Start from half position
+      transform: 'translateX(-12.5%)', // Start from 1/8th position
     },
     '100%': {
       transform: 'translateX(0)', // Move to start
     },
   },
 }));
+
+
 
 // Logo item container
 const LogoItem = styled(Box)({
@@ -74,6 +77,46 @@ const LogoItem = styled(Box)({
 });
 
 const ClientsSection = () => {
+  const carousel1Ref = useRef<HTMLDivElement>(null);
+  const carousel2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const setupLogging = (element: HTMLDivElement, id: string) => {
+      const logPosition = () => {
+        const style = window.getComputedStyle(element);
+        const transform = style.transform;
+        const rect = element.getBoundingClientRect();
+        console.log(`📍 [${id}] Transform: ${transform}, Left: ${rect.left.toFixed(2)}px, Time: ${new Date().toLocaleTimeString()}.${new Date().getMilliseconds()}`);
+      };
+
+      const handleAnimationIteration = () => {
+        console.log(`🔄 [${id}] ITERATION - JUMP DETECTED! Time: ${new Date().toLocaleTimeString()}`);
+        logPosition();
+      };
+
+      element.addEventListener('animationiteration', handleAnimationIteration);
+      
+      // Log position every 1 second
+      const interval = setInterval(logPosition, 1000);
+      
+      // Initial position
+      setTimeout(logPosition, 100);
+
+      return () => {
+        element.removeEventListener('animationiteration', handleAnimationIteration);
+        clearInterval(interval);
+      };
+    };
+
+    const cleanup1 = carousel1Ref.current ? setupLogging(carousel1Ref.current, 'Carousel-1') : undefined;
+    const cleanup2 = carousel2Ref.current ? setupLogging(carousel2Ref.current, 'Carousel-2') : undefined;
+
+    return () => {
+      cleanup1?.();
+      cleanup2?.();
+    };
+  }, []);
+
   // Real client logos with their actual filenames from the downloaded logos
   const clientLogos = [
     { name: 'Amazon Web Services', filename: 'amazon-web-services.svg', width: 128, height: 64 },
@@ -117,9 +160,15 @@ const ClientsSection = () => {
     { name: 'Getinge', filename: 'getinge.svg', width: 351, height: 52 },
   ];
 
-  // Create extended arrays for seamless looping (double for perfect seamless effect)
-  const extendedLogos1 = [...clientLogos, ...clientLogos];
-  const extendedLogos2 = [...clientLogos, ...clientLogos];
+  // Create extended arrays with many copies for ultra-smooth looping
+  const extendedLogos1 = [
+    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos, 
+    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos
+  ]; // 8 copies
+  const extendedLogos2 = [
+    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos,
+    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos
+  ]; // 8 copies
 
   return (
     <Box
@@ -147,7 +196,7 @@ const ClientsSection = () => {
 
         {/* First Carousel - Left to Right */}
         <CarouselContainer>
-          <CarouselTrack direction="left">
+          <CarouselTrack direction="left" ref={carousel1Ref}>
             {extendedLogos1.map((logo, index) => (
               <LogoItem key={`carousel1-${logo.filename}-${index}`}>
                 <Box
@@ -180,7 +229,7 @@ const ClientsSection = () => {
         {/* Second Carousel - Right to Left */}
         <Box sx={{ mt: 2 }}> {/* 16px margin top */}
           <CarouselContainer>
-            <CarouselTrack direction="right">
+            <CarouselTrack direction="right" ref={carousel2Ref}>
               {extendedLogos2.map((logo, index) => (
                 <LogoItem key={`carousel2-${logo.filename}-${index}`}>
                   <Box
