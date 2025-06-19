@@ -4,11 +4,11 @@ import { Box } from '@mui/material';
 import Header from '@/components/Header';
 import HeroSection from '@/components/landing/HeroSection';
 import ClientsSection from '@/components/landing/ClientsSection';
-import WhyMesseaeSection from '@/components/landing/WhyMesseaeSection';
 import AdvantagesSection from '@/components/landing/AdvantagesSection';
 import AwardsSection from '@/components/landing/AwardsSection';
 import ExpoglobalSection from '@/components/landing/ExpoglobalSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
+import ParallaxSection from '@/components/landing/ParallaxSection';
 import FooterSection from '@/components/landing/FooterSection';
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
         <HeroSection />
         <ClientsSection />
         <ProjectsSection />
-        <WhyMesseaeSection />
+        <ParallaxSection />
         <AdvantagesSection />
         <AwardsSection />
         <ExpoglobalSection />
