@@ -179,20 +179,47 @@ const ClientsSection = () => {
     >
       <Container maxWidth="xl">
         {/* Section Title */}
-        <Typography
-          variant="h4"
+        <Box
           sx={{
-            fontSize: { xs: 24, md: 34 },
-            fontWeight: 400,
-            lineHeight: 1.24,
-            letterSpacing: '0.01em',
-            color: 'text.primary',
-            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'flex-start',
+            textAlign: 'left',
+            width: '100%',
+            ml: '20px',
             mb: { xs: 4, md: 6 },
           }}
         >
-          We build partnerships that always come back
-        </Typography>
+          <Typography
+            variant="h4"
+            component="div"
+            sx={{
+              fontSize: { xs: 24, md: 36 },
+              fontFamily: 'Roboto, sans-serif',
+              fontWeight: 400,
+              lineHeight: 1.11,
+              letterSpacing: '-0.02em',
+              color: 'grey.800',
+              textAlign: 'left',
+              width: '100%',
+            }}
+          >
+            <Box component="span" sx={{ color: 'grey.800' }}>
+              We build{' '}
+            </Box>
+            <Box 
+              component="span" 
+              sx={{ 
+                color: 'primary.main',
+                fontWeight: 700,
+              }}
+            >
+              partnerships
+            </Box>
+            <Box component="span" sx={{ color: 'grey.800' }}>
+              {' '}that always come back
+            </Box>
+          </Typography>
+        </Box>
 
         {/* First Carousel - Left to Right */}
         <CarouselContainer>
