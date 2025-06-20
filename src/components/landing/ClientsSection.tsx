@@ -139,7 +139,7 @@ const ClientsSection = () => {
         backgroundColor: 'background.default',
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         {/* Section Title */}
         <Box
           sx={{
@@ -147,7 +147,6 @@ const ClientsSection = () => {
             justifyContent: 'flex-start',
             textAlign: 'left',
             width: '100%',
-            ml: '20px',
             mb: { xs: 4, md: 6 },
           }}
         >

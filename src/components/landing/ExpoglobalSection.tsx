@@ -16,7 +16,7 @@ const ExpoglobalSection = () => {
         backgroundColor: 'background.default',
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box
           sx={{
             display: 'flex',

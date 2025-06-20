@@ -97,7 +97,7 @@ const ProjectsSection = () => {
         backgroundColor: 'background.default',
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         {/* Section Title */}
         <Typography
           variant="h3"

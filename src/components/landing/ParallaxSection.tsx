@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, useTheme, useMediaQuery, Container } from '@mui/material';
 
 type ParallaxSectionProps = {
   className?: string;
@@ -69,27 +69,36 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
       />
 
       {/* Content */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '3.75rem', // 60px
-          left: '2.5rem', // 40px
-          zIndex: 10,
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          px: { xs: '1rem', md: '2.5rem' },
+          height: '100%',
+          position: 'relative',
         }}
       >
-        <Typography
-          variant="h3"
+        <Box
           sx={{
-            fontSize: '3.375rem', // 54px
-            fontStyle: 'normal',
-            fontWeight: 700,
-            lineHeight: '3.75rem', // 60px
-            color: 'rgba(255, 255, 255, 0.80)',
+            position: 'absolute',
+            bottom: '3.75rem', // 60px
+            left: 0,
+            zIndex: 10,
           }}
         >
-          Why messe.ae only?
-        </Typography>
-      </Box>
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: '3.375rem', // 54px
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: '3.75rem', // 60px
+              color: 'rgba(255, 255, 255, 0.80)',
+            }}
+          >
+            Why messe.ae only?
+          </Typography>
+        </Box>
+      </Container>
 
       {/* Overlay for better text readability */}
       <Box

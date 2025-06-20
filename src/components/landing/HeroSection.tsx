@@ -4,6 +4,7 @@ import {
   Box,
   Typography,
   Button,
+  Container,
 } from '@mui/material';
 
 const HeroSection = () => {
@@ -18,13 +19,20 @@ const HeroSection = () => {
         overflow: 'hidden',
       }}
     >
-             {/* Main Title */}
-       <Typography
-         sx={{
-           position: 'absolute',
-           left: '40px',
-           top: '367px',
-          width: '1084px',
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          height: '100%',
+          position: 'relative',
+        }}
+      >
+        {/* Main Title */}
+        <Typography
+          sx={{
+            position: 'absolute',
+            left: { xs: '1rem', md: '2.5rem' },
+            top: '367px',
+            maxWidth: '1084px',
           fontSize: '54px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 700,
@@ -37,12 +45,12 @@ const HeroSection = () => {
         Exhibition Stand Builder & Designer in UAE and around the world
       </Typography>
 
-             {/* Subtitle with mixed styling */}
-       <Box
-         sx={{
-           position: 'absolute',
-           left: '40px',
-           top: '511px',
+        {/* Subtitle with mixed styling */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: { xs: '1rem', md: '2.5rem' },
+            top: '511px',
           display: 'flex',
           justifyContent: 'flex-start',
           flexDirection: 'column',
@@ -118,12 +126,12 @@ const HeroSection = () => {
         </Typography>
       </Box>
 
-             {/* "20" Large Number */}
-       <Typography
-         sx={{
-           position: 'absolute',
-           left: '40px',
-           top: '619px',
+        {/* "20" Large Number */}
+        <Typography
+          sx={{
+            position: 'absolute',
+            left: { xs: '1rem', md: '2.5rem' },
+            top: '619px',
           fontSize: '120px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 700,
@@ -136,12 +144,12 @@ const HeroSection = () => {
         20
       </Typography>
 
-             {/* "years of award winning expertise" */}
-       <Typography
-         sx={{
-           position: 'absolute',
-           left: '202px', // 190px + 12px дополнительный отступ
-           top: '669px',
+        {/* "years of award winning expertise" */}
+        <Typography
+          sx={{
+            position: 'absolute',
+            left: { xs: 'calc(1rem + 150px)', md: 'calc(2.5rem + 150px)' },
+            top: '669px',
           fontSize: '34px',
           fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 400,
@@ -155,12 +163,12 @@ const HeroSection = () => {
         years of award winning expertise
       </Typography>
 
-             {/* CTA Button */}
-       <Box
-         sx={{
-           position: 'absolute',
-           right: '40px', // 40px from right edge
-           top: '529px',
+        {/* CTA Button */}
+        <Box
+          sx={{
+            position: 'absolute',
+            right: { xs: '1rem', md: '2.5rem' },
+            top: '529px',
            width: '316px',
            height: '48px',
            display: 'flex',
@@ -204,7 +212,8 @@ const HeroSection = () => {
             Request a proposal
           </Typography>
         </Button>
-      </Box>
+        </Box>
+      </Container>
     </Box>
   );
 };

@@ -227,7 +227,7 @@ const AwardsSection = () => {
         backgroundColor: 'background.default',
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Stack spacing={6} alignItems="center">
           {/* Awards Grid */}
           <Box

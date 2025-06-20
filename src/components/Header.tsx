@@ -136,16 +136,14 @@ const TopInfoBar = () => {
         display: { xs: 'none', md: 'block' }, // Hide on mobile
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box
           sx={{
             display: 'flex',
-            width: '90rem', // 1440px
-            padding: '0.375rem 24.25rem', // 6px 388px
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
-            mx: 'auto',
+            width: '100%',
           }}
         >
           <Box
@@ -234,17 +232,15 @@ const Header = () => {
         {/* Top Info Bar - Desktop only */}
         <TopInfoBar />
 
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
           <Box
             sx={{
               display: 'flex',
-              width: '90rem', // 1440px
-              padding: '0.375rem 24.25rem', // 6px 388px
               justifyContent: 'center',
               alignItems: 'center',
               height: { xs: 80, md: 92 }, // Height excluding top bar
               position: 'relative',
-              mx: 'auto',
+              width: '100%',
             }}
           >
             {/* Logo Section */}
@@ -252,7 +248,7 @@ const Header = () => {
               <Box
                 sx={{
                   position: 'absolute',
-                  left: { xs: 16, md: 40 },
+                  left: 0,
                   top: '50%',
                   transform: 'translateY(-50%)',
                   width: '7.625rem', // 122px
@@ -413,7 +409,7 @@ const Header = () => {
             <Box
               sx={{
                 position: 'absolute',
-                right: { xs: 16, md: 40 },
+                right: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
                 width: { xs: 140, md: 200 },
