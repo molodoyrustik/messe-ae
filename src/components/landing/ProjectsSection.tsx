@@ -1,94 +1,213 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Button,
-  styled,
+  IconButton,
 } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 
+// Project categories data
+const projectCategories = [
+  {
+    id: 'small',
+    title: '< 100 m',
+    subtitle: '²',
+    slug: 'under-100',
+    projects: [
+      { id: 1, image: '/projects/project-small.jpg' },
+      { id: 2, image: '/projects/project-small.jpg' },
+      { id: 3, image: '/projects/project-small.jpg' },
+    ],
+  },
+  {
+    id: 'medium',
+    title: '100 m - 300 m',
+    subtitle: '²',
+    slug: '100-300',
+    projects: [
+      { id: 4, image: '/projects/project-medium.jpg' },
+      { id: 5, image: '/projects/project-medium.jpg' },
+      { id: 6, image: '/projects/project-medium.jpg' },
+    ],
+  },
+  {
+    id: 'large',
+    title: '> 300 m',
+    subtitle: '²',
+    slug: 'over-300',
+    projects: [
+      { id: 7, image: '/projects/project-large.jpg' },
+      { id: 8, image: '/projects/project-large.jpg' },
+      { id: 9, image: '/projects/project-large.jpg' },
+    ],
+  },
+  {
+    id: 'double',
+    title: 'Double-deckers',
+    subtitle: '',
+    slug: 'double-deckers',
+    projects: [
+      { id: 10, image: '/projects/project-double.jpg' },
+      { id: 11, image: '/projects/project-double.jpg' },
+      { id: 12, image: '/projects/project-double.jpg' },
+    ],
+  },
+];
 
-// Project card with hover effects
-const ProjectCard = styled(Box)(() => ({
-  width: '100%',
-  height: '480px',
-  borderRadius: '8px',
-  overflow: 'hidden',
-  position: 'relative',
-  filter: 'grayscale(100%)',
-  transition: 'all 0.3s ease',
-  cursor: 'pointer',
-  
-  '&:hover': {
-    filter: 'grayscale(0%)',
-    transform: 'translateY(-4px)',
-    boxShadow: '0px 8px 24px rgba(0,0,0,0.15)',
-  },
-}));
+// Project Card Component
+const ProjectCard = ({ category, currentIndex, onNavigate }: {
+  category: typeof projectCategories[0];
+  currentIndex: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const currentProject = category.projects[currentIndex];
 
-// Navigation arrow button
-const NavButton = styled(Box)(() => ({
-  width: '48px',
-  height: '48px',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  zIndex: 2,
-  
-  '& .arrow': {
-    width: '12px',
-    height: '24px',
-    border: '4px solid white',
-    borderLeft: 'none',
-    borderBottom: 'none',
-    borderRadius: '2px',
-  },
-  
-  '&.left': {
-    left: 0,
-    '& .arrow': {
-      transform: 'rotate(-135deg)',
-    },
-  },
-  
-  '&.right': {
-    right: 0,
-    '& .arrow': {
-      transform: 'rotate(45deg)',
-    },
-  },
-}));
+  return (
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: { xs: '400px', md: '480px' },
+        transition: 'all 0.3s ease',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          borderRadius: '4px',
+          overflow: 'hidden',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
+          transform: isHovered ? 'scale(1, 1.1)' : 'scale(1)',
+          transformOrigin: 'center center',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)',
+            zIndex: 1,
+          },
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+      {/* Background Image */}
+      <Link href={`/projects/${category.slug}`} style={{ position: 'absolute', inset: 0 }}>
+        <Image
+          src={currentProject.image}
+          alt={category.title}
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
+      </Link>
+
+      {/* Title */}
+      <Typography
+        sx={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          fontSize: { xs: '28px', md: '36px' },
+          fontWeight: 700,
+          lineHeight: '40px',
+          letterSpacing: '-0.02em',
+          color: '#FFFFFF',
+          zIndex: 2,
+        }}
+      >
+        {category.title}
+        {category.subtitle && <sup>{category.subtitle}</sup>}
+      </Typography>
+
+      </Box>
+      
+      {/* Navigation Buttons - Outside the scaling container */}
+      <Box
+        onClick={(e) => {
+          e.stopPropagation();
+          onNavigate('prev');
+        }}
+        sx={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: '48px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 3,
+        }}
+      >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M30 36L18 24L30 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </Box>
+
+      <Box
+        onClick={(e) => {
+          e.stopPropagation();
+          onNavigate('next');
+        }}
+        sx={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '48px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 3,
+        }}
+      >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M18 36L30 24L18 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </Box>
+    </Box>
+  );
+};
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      id: 1,
-      title: '< 100 m²',
-      image: '/projects/small-stands.svg',
-    },
-    {
-      id: 2,
-      title: '100 m - 300 m²',
-      image: '/projects/medium-stands.svg',
-    },
-    {
-      id: 3,
-      title: '> 300 m²',
-      image: '/projects/large-stands.svg',
-    },
-    {
-      id: 4,
-      title: 'Double-deckers',
-      image: '/projects/double-deck.svg',
-    },
-  ];
+  // Track current project index for each category
+  const [currentIndices, setCurrentIndices] = useState<Record<string, number>>(
+    projectCategories.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
+  );
+
+  const handleNavigate = (categoryId: string, direction: 'prev' | 'next') => {
+    const category = projectCategories.find(cat => cat.id === categoryId);
+    if (!category) return;
+
+    const currentIndex = currentIndices[categoryId];
+    const projectCount = category.projects.length;
+    let newIndex = currentIndex;
+
+    if (direction === 'next') {
+      newIndex = (currentIndex + 1) % projectCount;
+    } else {
+      newIndex = currentIndex === 0 ? projectCount - 1 : currentIndex - 1;
+    }
+
+    setCurrentIndices(prev => ({ ...prev, [categoryId]: newIndex }));
+  };
 
   return (
     <Box
@@ -113,80 +232,55 @@ const ProjectsSection = () => {
           Our Projects
         </Typography>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - Desktop */}
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(4, 1fr)',
-            },
-            gap: { xs: 3, md: 4 },
-            mb: { xs: 6, md: 8 },
+            display: { xs: 'none', md: 'grid' },
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 4,
+            mb: 8,
           }}
         >
-          {projects.map((project) => (
-            <ProjectCard key={project.id}>
-              {/* Background Image with gradient overlay */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)',
-                    zIndex: 1,
-                  },
-                }}
-              >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                  }}
-                />
-              </Box>
+          {projectCategories.map((category) => (
+            <ProjectCard
+              key={category.id}
+              category={category}
+              currentIndex={currentIndices[category.id] || 0}
+              onNavigate={(direction) => handleNavigate(category.id, direction)}
+            />
+          ))}
+        </Box>
 
-              {/* Project Title */}
-              <Typography
-                variant="h4"
-                sx={{
-                  position: 'absolute',
-                  top: '20px',
-                  left: '20px',
-                  fontSize: { xs: 28, md: 36 },
-                  fontWeight: 700,
-                  lineHeight: '40px',
-                  letterSpacing: '-0.02em',
-                  color: 'white',
-                  textShadow: '0px 2px 8px rgba(0,0,0,0.3)',
-                  zIndex: 2,
-                }}
-              >
-                {project.title}
-              </Typography>
-
-              {/* Navigation Arrows */}
-              <NavButton className="left">
-                <div className="arrow" />
-              </NavButton>
-              
-              <NavButton className="right">
-                <div className="arrow" />
-              </NavButton>
-            </ProjectCard>
+        {/* Projects Carousel - Mobile */}
+        <Box
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+            gap: 2,
+            overflowX: 'auto',
+            pb: 2,
+            mb: 4,
+            mx: { xs: -2, sm: 0 },
+            px: { xs: 2, sm: 0 },
+            scrollSnapType: 'x mandatory',
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
+          {projectCategories.map((category) => (
+            <Box
+              key={category.id}
+              sx={{
+                minWidth: { xs: '280px', sm: '320px' },
+                scrollSnapAlign: 'start',
+              }}
+            >
+              <ProjectCard
+                category={category}
+                currentIndex={currentIndices[category.id] || 0}
+                onNavigate={(direction) => handleNavigate(category.id, direction)}
+              />
+            </Box>
           ))}
         </Box>
 
@@ -202,26 +296,23 @@ const ProjectsSection = () => {
         >
           {/* CTA Text */}
           <Typography
-            variant="h4"
             sx={{
-              fontSize: { xs: 24, md: 36 },
+              fontSize: { xs: '24px', md: '36px' },
               fontWeight: 400,
-              lineHeight: '40px',
-              letterSpacing: '-0.02em',
-              color: 'grey.800',
+              lineHeight: { xs: '32px', md: '42px' },
+              letterSpacing: '-0.025em',
+              color: '#424242',
               maxWidth: { md: '800px', lg: '1000px' },
             }}
           >
-            Take the first step towards exhibition success.
-            <br />
-            Let&apos;s start planning your{' '}
-            <Box component="span" sx={{ color: 'primary.main' }}>
-              standout
-            </Box>{' '}
-            exhibition{' '}
-            <Box component="span" sx={{ color: 'primary.main' }}>
-              experience
-            </Box>
+            <Box component="span">Take the first step towards </Box>
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition success</Box>
+            <Box component="span">.</Box>
+            <Box component="br" />
+            <Box component="span">Let's start planning your </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>standout</Box>
+            <Box component="span"> exhibition </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>experience</Box>
           </Typography>
 
           {/* CTA Button */}
