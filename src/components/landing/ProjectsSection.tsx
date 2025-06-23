@@ -73,7 +73,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
       sx={{
         position: 'relative',
         width: '100%',
-        height: { xs: '400px', md: '480px' },
+        height: { xs: '280px', md: '480px' },
         transition: 'all 0.3s ease',
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -133,18 +133,28 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
       <Typography
         sx={{
           position: 'absolute',
-          top: '20px',
-          left: '20px',
-          fontSize: { xs: '28px', md: '36px' },
+          top: { xs: '12px', md: '20px' },
+          left: { xs: '12px', md: '20px' },
+          fontSize: { xs: '16px', md: '36px' },
           fontWeight: 700,
-          lineHeight: '40px',
-          letterSpacing: '-0.02em',
+          lineHeight: { xs: '24px', md: '40px' },
+          letterSpacing: { xs: '0.02em', md: '-0.02em' },
           color: '#FFFFFF',
           zIndex: 2,
         }}
       >
         {category.title}
-        {category.subtitle && <sup>{category.subtitle}</sup>}
+        {category.subtitle && (
+          <Typography
+            component="sup"
+            sx={{
+              fontSize: { xs: '10px', md: '20px' },
+              verticalAlign: 'super',
+            }}
+          >
+            {category.subtitle}
+          </Typography>
+        )}
       </Typography>
 
       {/* Progress Indicators */}
@@ -196,7 +206,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
         }}
       >
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <path d="M30 36L18 24L30 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M30 36L18 24L30 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </Box>
 
@@ -219,7 +229,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
         }}
       >
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <path d="M18 36L30 24L18 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M18 36L30 24L18 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </Box>
     </Box>
@@ -252,8 +262,8 @@ const ProjectsSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
-        backgroundColor: 'background.default',
+        py: { xs: 4, md: 8 },
+        backgroundColor: { xs: '#F5F5F5', md: '#FFFFFF' },
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
@@ -261,12 +271,13 @@ const ProjectsSection = () => {
         <Typography
           variant="h3"
           sx={{
-            fontSize: { xs: 32, md: 48 },
+            fontSize: { xs: '24px', md: '48px' },
             fontWeight: 700,
-            lineHeight: { xs: '40px', md: '60px' },
-            color: 'grey.800',
+            lineHeight: { xs: '28px', md: '60px' },
+            letterSpacing: { xs: '0.01em', md: 'normal' },
+            color: '#262626',
             textAlign: 'left',
-            mb: { xs: 4, md: 6 },
+            mb: { xs: 3, md: 6 },
           }}
         >
           Our Projects
@@ -295,12 +306,12 @@ const ProjectsSection = () => {
         <Box
           sx={{
             display: { xs: 'flex', md: 'none' },
-            gap: 2,
+            gap: '8px',
             overflowX: 'auto',
             pb: 2,
-            mb: 4,
-            mx: { xs: -2, sm: 0 },
-            px: { xs: 2, sm: 0 },
+            mb: 3,
+            mx: -2,
+            px: 2,
             scrollSnapType: 'x mandatory',
             '&::-webkit-scrollbar': {
               display: 'none',
@@ -311,7 +322,7 @@ const ProjectsSection = () => {
             <Box
               key={category.id}
               sx={{
-                minWidth: { xs: '280px', sm: '320px' },
+                minWidth: '280px',
                 scrollSnapAlign: 'start',
               }}
             >
@@ -337,12 +348,12 @@ const ProjectsSection = () => {
           {/* CTA Text */}
           <Typography
             sx={{
-              fontSize: { xs: '24px', md: '36px' },
+              fontSize: { xs: '12px', md: '34px' },
               fontWeight: 400,
-              lineHeight: { xs: '32px', md: '42px' },
-              letterSpacing: '-0.025em',
-              color: '#424242',
-              maxWidth: { md: '800px', lg: '1000px' },
+              lineHeight: { xs: '16px', md: '42px' },
+              letterSpacing: { xs: '0.04em', md: '-0.025em' },
+              color: '#262626',
+              maxWidth: { xs: '100%', md: '800px', lg: '1000px' },
             }}
           >
             <Box component="span">Take the first step towards </Box>
@@ -360,22 +371,22 @@ const ProjectsSection = () => {
             variant="contained"
             size="large"
             sx={{
-              width: { xs: '100%', md: '320px' },
-              height: '48px',
-              px: 5,
-              py: 2,
-              backgroundColor: 'primary.main',
+              width: { xs: '100%', md: '316px' },
+              height: { xs: '36px', md: '48px' },
+              px: { xs: 2, md: '22px' },
+              py: { xs: '6px', md: '8px' },
+              backgroundColor: { xs: '#A64B66', md: '#656CAF' },
               borderRadius: '8px',
               boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-              fontSize: { xs: 18, md: 24 },
+              fontSize: { xs: '16px', md: '24px' },
               fontWeight: 400,
-              lineHeight: '28px',
-              letterSpacing: '-0.02em',
+              lineHeight: { xs: '24px', md: '28px' },
+              letterSpacing: { xs: '0.02em', md: '-0.025em' },
               textTransform: 'none',
-              color: 'white',
+              color: '#FFFFFF',
               
               '&:hover': {
-                backgroundColor: 'primary.dark',
+                backgroundColor: { xs: '#8F3F56', md: '#4C53A2' },
                 transform: 'translateY(-2px)',
                 boxShadow: '0px 6px 12px rgba(0,0,0,0.25)',
               },
