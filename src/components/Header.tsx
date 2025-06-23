@@ -132,10 +132,11 @@ const TopInfoBar = () => {
         height: 36,
         backgroundColor: '#E9EAF4', // Direct color from Figma
         overflow: 'hidden',
-        display: { xs: 'none', md: 'block' }, // Hide on mobile
+        display: { xs: 'none', md: 'flex' }, // Hide on mobile
+        alignItems: 'center',
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, height: '100%' }}>
         <Box
           sx={{
             display: 'flex',
@@ -152,37 +153,42 @@ const TopInfoBar = () => {
               justifyContent: 'space-between',
               alignItems: 'center',
               px: { xs: 2, md: 0 },
+              height: '100%',
             }}
           >
             {/* Company Info */}
             <Typography
               sx={{
-                            fontSize: 12,
-            fontWeight: 400,
-                lineHeight: '16px',
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: 1,
                 letterSpacing: '0.04em',
                 color: 'grey.900',
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
               the part of{' '}
-              <Box component="span" sx={{ fontWeight: 700 }}>
+              <Box component="span" sx={{ fontWeight: 700, ml: 0.5 }}>
                 Expoglobal Group
               </Box>
             </Typography>
 
             {/* Social Icons */}
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', height: '100%' }}>
               <SocialIcons />
             </Box>
 
             {/* Phone Number */}
             <Typography
               sx={{
-                            fontSize: 12,
-            fontWeight: 700,
-                lineHeight: '16px',
+                fontSize: 12,
+                fontWeight: 700,
+                lineHeight: 1,
                 letterSpacing: '0.04em',
                 color: 'grey.900',
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
               +971 4 548 5887
@@ -275,9 +281,10 @@ const Header = () => {
                   width={244} // 122px * 2 для компенсации внутренних отступов
                   height={120} // 60px * 2 для компенсации внутренних отступов
                   style={{
+                    color: 'transparent',
                     position: 'absolute',
-                    left: isMobile ? -34 : -68,
-                    top: isMobile ? -17 : -34,
+                    left: isMobile ? -93 : -68,
+                    top: isMobile ? -47 : -34,
                     objectFit: 'contain',
                     transform: isMobile ? 'scale(0.5)' : 'scale(1)',
                   }}
