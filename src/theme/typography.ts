@@ -1,10 +1,10 @@
-import { TypographyOptions } from '@mui/material/styles/createTypography';
+import { ThemeOptions } from '@mui/material/styles';
 import { typography, colors } from './tokens';
 
 /**
  * Material-UI typography configuration based on Messe AI design tokens
  */
-export const createTypography = (): TypographyOptions => ({
+export const createTypography = (): ThemeOptions['typography'] => ({
   fontFamily: typography.fontFamily.primary,
   
   // Heading styles
