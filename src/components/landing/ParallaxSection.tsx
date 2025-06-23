@@ -41,7 +41,7 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Fixed attachment for parallax effect
+          backgroundAttachment: 'fixed', // Fixed attachment for parallax effect on all devices
         }}
       />
 
