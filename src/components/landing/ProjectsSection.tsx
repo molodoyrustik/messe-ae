@@ -6,7 +6,6 @@ import {
   Container,
   Typography,
   Button,
-  IconButton,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -120,6 +119,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
               src={project.image}
               alt={project.name}
               fill
+              sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
               style={{
                 objectFit: 'cover',
                 objectPosition: 'center',
@@ -158,7 +158,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
       </Typography>
 
       {/* Progress Indicators */}
-      <Box
+       {/* <Box
         sx={{
           position: 'absolute',
           bottom: '20px',
@@ -182,7 +182,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
             }}
           />
         ))}
-      </Box>
+      </Box>  */}
 
       </Box>
       

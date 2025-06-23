@@ -11,20 +11,18 @@ export const EUIcon = () => (
   <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="30" cy="30" r="30" className="icon-secondary" fill="#9D9D9D"/>
     <g transform="translate(15, 15)">
-      {/* EU stars in circle formation */}
-      {[...Array(12)].map((_, i) => {
-        const angle = (i * 30 - 90) * (Math.PI / 180);
-        const x = 15 + 10 * Math.cos(angle);
-        const y = 15 + 10 * Math.sin(angle);
-        return (
-          <path
-            key={i}
-            className="icon-tertiary"
-            d={`M${x},${y} l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z`}
-            fill="#D9D9D9"
-          />
-        );
-      })}
+      <path className="icon-tertiary" d="M15,5 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M20,6.3397459621556145 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M23.66025403784439,10 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M25,15 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M23.66025403784439,20 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M20,23.660254037844386 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M15,25 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M10.000000000000002,23.66025403784439 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M6.339745962155613,20 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M5,15.000000000000002 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M6.3397459621556145,10 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
+      <path className="icon-tertiary" d="M9.999999999999996,6.3397459621556145 l0.5,1.5 l1.5,0 l-1.2,1 l0.5,1.5 l-1.3,-1 l-1.3,1 l0.5,-1.5 l-1.2,-1 l1.5,0 z" fill="#D9D9D9"/>
     </g>
     <text x="30" y="35" textAnchor="middle" className="icon-primary" fill="#FFFFFF" fontSize="10" fontWeight="500">EU</text>
   </svg>

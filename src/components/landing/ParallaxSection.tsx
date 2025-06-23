@@ -1,39 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { Box, Typography, useTheme, useMediaQuery, Container } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Container } from '@mui/material';
 
 type ParallaxSectionProps = {
   className?: string;
 };
 
 export default function ParallaxSection({ className = '' }: ParallaxSectionProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const parallaxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!parallaxRef.current) return;
-      
-      const scrolled = window.pageYOffset;
-      const section = parallaxRef.current;
-      const rect = section.getBoundingClientRect();
-      const isVisible = rect.bottom >= 0 && rect.top <= window.innerHeight;
-      
-      if (isVisible) {
-        const speed = 0.5;
-        const yPos = -(scrolled * speed);
-        section.style.transform = `translateY(${yPos}px)`;
-      }
-    };
-
-    // Only add parallax effect on desktop
-    if (!isMobile) {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, [isMobile]);
 
   return (
     <Box
@@ -50,21 +24,24 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
     >
       {/* Background Image with Parallax Effect */}
       <Box
-        ref={parallaxRef}
         sx={{
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          background: `
-            linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 82.25%),
-            url('/parallax-bg.png')
-          `,
+          backgroundImage: {
+            xs: `
+              linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 82.25%),
+              url('/parallax-bg-mobile.webp')
+            `,
+            md: `
+              linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 82.25%),
+              url('/parallax-bg-1920.webp')
+            `
+          },
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          // Remove fixed attachment for better mobile performance
-          backgroundAttachment: isMobile ? 'scroll' : 'fixed',
-          transition: 'transform 0.1s ease-out',
+          backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Fixed attachment for parallax effect
         }}
       />
 
@@ -75,23 +52,23 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
           px: { xs: '1rem', md: '2.5rem' },
           height: '100%',
           position: 'relative',
+          zIndex: 10,
         }}
       >
         <Box
           sx={{
             position: 'absolute',
-            bottom: '3.75rem', // 60px
+            bottom: '3.75rem',
             left: 0,
-            zIndex: 10,
           }}
         >
           <Typography
             variant="h3"
             sx={{
-              fontSize: '3.375rem', // 54px
+              fontSize: { xs: '2rem', md: '3.375rem' },
               fontStyle: 'normal',
               fontWeight: 700,
-              lineHeight: '3.75rem', // 60px
+              lineHeight: { xs: '2.25rem', md: '3.75rem' },
               color: 'rgba(255, 255, 255, 0.80)',
             }}
           >
@@ -112,4 +89,4 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
       />
     </Box>
   );
-} 
+}

@@ -23,58 +23,6 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 
-interface MenuItemProps {
-  label: string;
-  href: string;
-  isActive?: boolean;
-}
-
-const MenuItem = ({ label, href, isActive = false }: MenuItemProps) => {
-  return (
-    <Link
-      href={href}
-      sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '10px',
-        position: 'relative',
-        textDecoration: 'none',
-        '&:hover .underline': {
-          opacity: 1,
-        },
-      }}
-    >
-      <Typography
-        sx={{
-          fontSize: { xs: '14px', md: '16px' },
-          fontWeight: 700,
-          lineHeight: { xs: '18px', md: '24px' },
-          letterSpacing: { xs: '0.28px', md: '0.32px' },
-          color: isActive ? '#4C53A2' : '#656CAF',
-          cursor: 'pointer',
-          '&:hover': {
-            color: '#4C53A2',
-          },
-        }}
-      >
-        {label}
-      </Typography>
-      <Box
-        className="underline"
-        sx={{
-          position: 'absolute',
-          left: 0,
-          top: '19px',
-          width: '100%',
-          height: '2px',
-          backgroundColor: '#C7CAE3',
-          opacity: 0,
-          transition: 'opacity 0.3s ease',
-        }}
-      />
-    </Link>
-  );
-};
 
 const FooterSection = () => {
   const [formData, setFormData] = useState({
@@ -132,12 +80,12 @@ const FooterSection = () => {
                 <Image
                   src="/messe-logo.png"
                   alt="Messe.ae"
-                  width={324}
-                  height={160}
+                  fill
+                  sizes="(max-width: 768px) 60px, 162px"
                   style={{
-                    objectFit: 'contain',
-                    width: '100%',
-                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    transform: 'scale(1.75)',
                   }}
                 />
               </Box>
@@ -246,15 +194,30 @@ const FooterSection = () => {
               gridColumn: { lg: '2' },
               ml: { lg: 20 },
               mr: { lg: 8 },
+              alignSelf: 'end',
+              pb: 5,
             }}
           >
             {menuItems.map((item) => (
-              <MenuItem
+              <Link
                 key={item.href}
-                label={item.label}
                 href={item.href}
-                isActive={item.isActive}
-              />
+                sx={{
+                  textDecoration: 'none',
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  lineHeight: '24px',
+                  letterSpacing: '0.32px',
+                  color: item.isActive ? '#4C53A2' : '#656CAF',
+                  fontFamily: 'Roboto',
+                  transition: 'color 0.3s ease',
+                  '&:hover': {
+                    color: '#4C53A2',
+                  },
+                }}
+              >
+                {item.label}
+              </Link>
             ))}
           </Box>
 
