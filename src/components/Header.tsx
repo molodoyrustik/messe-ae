@@ -548,8 +548,8 @@ const Header = () => {
                 right: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: 24,
-                height: 24,
+                width: 48,
+                height: 48,
                 p: 0,
                 display: { xs: 'flex', md: 'none' },
                 alignItems: 'center',
@@ -557,19 +557,11 @@ const Header = () => {
                 color: '#262626',
               }}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '3px',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
-                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
-                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
-              </Box>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="36" y="12" width="12" height="5" rx="1" fill="#262626"/>
+                <rect x="22" y="22" width="26" height="5" rx="1" fill="#262626"/>
+                <rect x="28" y="32" width="20" height="5" rx="1" fill="#262626"/>
+              </svg>
             </IconButton>
 
           </Box>

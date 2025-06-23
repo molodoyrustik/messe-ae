@@ -50,7 +50,7 @@ const HeroSection = () => {
           sx={{
             position: 'absolute',
             left: { xs: '1rem', md: '2.5rem' },
-            top: { xs: '352px', md: '511px' },
+            top: { xs: '300px', md: '511px' }, // Adjusted for mobile layout
             maxWidth: { xs: '288px', md: '100%' },
             display: 'flex',
             justifyContent: 'flex-start',
@@ -133,11 +133,12 @@ const HeroSection = () => {
           </Typography>
         </Box>
 
+
         {/* "20" Large Number - Desktop Only */}
         <Typography
           sx={{
             position: 'absolute',
-            left: { xs: '1rem', md: '2.5rem' },
+            left: '2.5rem',
             top: '619px',
             fontSize: '120px',
             fontWeight: 700,
@@ -154,7 +155,7 @@ const HeroSection = () => {
         <Typography
           sx={{
             position: 'absolute',
-            left: { xs: 'calc(1rem + 150px)', md: 'calc(2.5rem + 150px)' },
+            left: 'calc(2.5rem + 150px)',
             top: '669px',
             fontSize: '34px',
             fontWeight: 400,
@@ -168,7 +169,7 @@ const HeroSection = () => {
           years of award winning expertise
         </Typography>
 
-        {/* CTA Button - Desktop Only */}
+        {/* CTA Button - Desktop */}
         <Box
           sx={{
             position: 'absolute',
@@ -216,6 +217,80 @@ const HeroSection = () => {
               Request a proposal
             </Typography>
           </Button>
+        </Box>
+        
+        {/* Mobile Layout Container */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: '1rem',
+            right: '1rem',
+            bottom: '16px',
+            display: { xs: 'flex', md: 'none' },
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            gap: 0,
+          }}
+        >
+          {/* CTA Button - Mobile */}
+          <Box sx={{ mb: '16px' }}>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                height: '36px',
+                px: '16px',
+                py: '6px',
+                backgroundColor: '#656CAF',
+                borderRadius: '4px',
+                boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+                textTransform: 'none',
+                
+                '&:hover': {
+                  backgroundColor: '#4C53A2',
+                },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: '16px',
+                  fontWeight: 400,
+                  lineHeight: '24px',
+                  letterSpacing: '0.02em',
+                  color: '#FFFFFF',
+                  textAlign: 'center',
+                }}
+              >
+                Connect with us
+              </Typography>
+            </Button>
+          </Box>
+          
+          {/* "20 years" text for mobile */}
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+            <Typography
+              sx={{
+                fontSize: '60px',
+                fontWeight: 700,
+                lineHeight: '72px',
+                color: '#FFFFFF',
+              }}
+            >
+              20
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 400,
+                lineHeight: '16px',
+                letterSpacing: '0.04em',
+                color: '#FFFFFF',
+                alignSelf: 'center',
+              }}
+            >
+              years of award winning expertise
+            </Typography>
+          </Box>
         </Box>
       </Container>
     </Box>
