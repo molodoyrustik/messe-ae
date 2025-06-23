@@ -46,10 +46,10 @@ const MenuItem = ({ label, href, isActive = false }: MenuItemProps) => {
     >
       <Typography
         sx={{
-          fontSize: '16px',
+          fontSize: { xs: '14px', md: '16px' },
           fontWeight: 700,
-          lineHeight: '24px',
-          letterSpacing: '0.32px',
+          lineHeight: { xs: '18px', md: '24px' },
+          letterSpacing: { xs: '0.28px', md: '0.32px' },
           color: isActive ? '#4C53A2' : '#656CAF',
           cursor: 'pointer',
           '&:hover': {
@@ -128,7 +128,7 @@ const FooterSection = () => {
           >
             {/* Logo */}
             <Box>
-              <Box sx={{ width: '162px', height: '80px', position: 'relative', mb: 1 }}>
+              <Box sx={{ width: { xs: '60px', md: '162px' }, height: { xs: '29px', md: '80px' }, position: 'relative', mb: 1 }}>
                 <Image
                   src="/messe-logo.png"
                   alt="Messe.ae"
@@ -143,8 +143,8 @@ const FooterSection = () => {
               </Box>
               <Typography
                 sx={{
-                  fontSize: '10.5px',
-                  lineHeight: '12px',
+                  fontSize: { xs: '3.87px', md: '10.5px' },
+                  lineHeight: { xs: '4.43px', md: '12px' },
                   color: '#000000',
                 }}
               >
@@ -161,9 +161,9 @@ const FooterSection = () => {
             <Stack spacing={3}>
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  lineHeight: '18px',
-                  letterSpacing: '0.28px',
+                  fontSize: { xs: '10px', md: '14px' },
+                  lineHeight: { xs: '13px', md: '18px' },
+                  letterSpacing: { xs: '0.2px', md: '0.28px' },
                   color: '#262626',
                 }}
               >
@@ -176,28 +176,28 @@ const FooterSection = () => {
               {/* Social Icons */}
               <Stack direction="row" spacing={1}>
                 <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
-                  <Instagram sx={{ fontSize: 20 }} />
+                  <Instagram sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
                 <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
-                  <Facebook sx={{ fontSize: 20 }} />
+                  <Facebook sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
                 <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
-                  <LinkedIn sx={{ fontSize: 20 }} />
+                  <LinkedIn sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
                 <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
-                  <WhatsApp sx={{ fontSize: 20 }} />
+                  <WhatsApp sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
               </Stack>
 
               {/* Contact Details */}
               <Stack spacing={1.5}>
                 <Stack direction="row" spacing={0.5} alignItems="center">
-                  <Phone sx={{ fontSize: 20, color: '#262626' }} />
+                  <Phone sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626' }} />
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      lineHeight: '18px',
-                      letterSpacing: '0.28px',
+                      fontSize: { xs: '10px', md: '14px' },
+                      lineHeight: { xs: '13px', md: '18px' },
+                      letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
                     }}
                   >
@@ -206,12 +206,12 @@ const FooterSection = () => {
                 </Stack>
 
                 <Stack direction="row" spacing={0.5} alignItems="center">
-                  <Email sx={{ fontSize: 20, color: '#262626' }} />
+                  <Email sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626' }} />
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      lineHeight: '18px',
-                      letterSpacing: '0.28px',
+                      fontSize: { xs: '10px', md: '14px' },
+                      lineHeight: { xs: '13px', md: '18px' },
+                      letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
                     }}
                   >
@@ -220,12 +220,12 @@ const FooterSection = () => {
                 </Stack>
 
                 <Stack direction="row" spacing={0.5} alignItems="flex-start">
-                  <LocationOn sx={{ fontSize: 20, color: '#262626', mt: 0.25 }} />
+                  <LocationOn sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626', mt: 0.25 }} />
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      lineHeight: '18px',
-                      letterSpacing: '0.28px',
+                      fontSize: { xs: '10px', md: '14px' },
+                      lineHeight: { xs: '13px', md: '18px' },
+                      letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
                       flex: 1,
                     }}
@@ -258,6 +258,26 @@ const FooterSection = () => {
             ))}
           </Box>
 
+          {/* Mobile Navigation Menu */}
+          <Box
+            sx={{
+              display: { xs: 'flex', lg: 'none' },
+              flexWrap: 'wrap',
+              gap: '8px',
+              gridColumn: '1',
+              order: { xs: 3 },
+            }}
+          >
+            {menuItems.map((item) => (
+              <MenuItem
+                key={item.href}
+                label={item.label}
+                href={item.href}
+                isActive={item.isActive}
+              />
+            ))}
+          </Box>
+
           {/* Right Column - Title and Form */}
           <Box
             sx={{
@@ -272,10 +292,10 @@ const FooterSection = () => {
             <Typography
               variant="h4"
               sx={{
-                fontSize: { xs: '28px', md: '34px' },
+                fontSize: { xs: '20px', md: '34px' },
                 fontWeight: 400,
-                lineHeight: '42px',
-                letterSpacing: '0.34px',
+                lineHeight: { xs: '28px', md: '42px' },
+                letterSpacing: { xs: '0.02em', md: '0.34px' },
                 color: '#262626',
                 mb: { xs: 0, md: 2 },
               }}
@@ -300,10 +320,10 @@ const FooterSection = () => {
             >
               <Typography
                 sx={{
-                  fontSize: '16px',
+                  fontSize: { xs: '12px', md: '16px' },
                   fontWeight: 700,
-                  lineHeight: '24px',
-                  letterSpacing: '0.32px',
+                  lineHeight: { xs: '16px', md: '24px' },
+                  letterSpacing: { xs: '0.04em', md: '0.32px' },
                   color: '#262626',
                 }}
               >
@@ -332,9 +352,9 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                      letterSpacing: '0.32px',
+                      fontSize: { xs: '12px', md: '16px' },
+                      lineHeight: { xs: '16px', md: '24px' },
+                      letterSpacing: { xs: '0.04em', md: '0.32px' },
                       padding: '8px 12px',
                       '&::placeholder': {
                         color: '#7B7B7B',
@@ -365,9 +385,9 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                      letterSpacing: '0.32px',
+                      fontSize: { xs: '12px', md: '16px' },
+                      lineHeight: { xs: '16px', md: '24px' },
+                      letterSpacing: { xs: '0.04em', md: '0.32px' },
                       padding: '8px 12px',
                       '&::placeholder': {
                         color: '#7B7B7B',
@@ -399,9 +419,9 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                      letterSpacing: '0.32px',
+                      fontSize: { xs: '12px', md: '16px' },
+                      lineHeight: { xs: '16px', md: '24px' },
+                      letterSpacing: { xs: '0.04em', md: '0.32px' },
                       padding: '8px 12px',
                       '&::placeholder': {
                         color: '#7B7B7B',
@@ -417,13 +437,13 @@ const FooterSection = () => {
                 variant="contained"
                 fullWidth
                 sx={{
-                  height: '48px',
+                  height: { xs: '36px', md: '48px' },
                   backgroundColor: '#656CAF',
                   borderRadius: '8px',
-                  fontSize: '24px',
+                  fontSize: { xs: '16px', md: '24px' },
                   fontWeight: 400,
-                  lineHeight: '28px',
-                  letterSpacing: '0.24px',
+                  lineHeight: { xs: '24px', md: '28px' },
+                  letterSpacing: { xs: '0.02em', md: '0.24px' },
                   textTransform: 'none',
                   boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
                   

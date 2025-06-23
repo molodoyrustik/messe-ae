@@ -60,10 +60,10 @@ const ExpoglobalSection = () => {
             <Typography
               variant="body1"
               sx={{
-                fontSize: 16,
+                fontSize: { xs: '12px', md: 16 },
                 fontWeight: 400,
-                lineHeight: 1.5,
-                letterSpacing: '0.02em',
+                lineHeight: { xs: '16px', md: 1.5 },
+                letterSpacing: { xs: '0.04em', md: '0.02em' },
                 color: '#000000',
                 textAlign: 'justify',
               }}
@@ -173,18 +173,19 @@ const ExpoglobalSection = () => {
 
             <Button
               variant="text"
-              endIcon={<ArrowForwardIcon sx={{ fontSize: 16 }} />}
+              endIcon={<ArrowForwardIcon sx={{ fontSize: { xs: '12px', md: 16 } }} />}
               sx={{
                 justifyContent: 'flex-start',
-                px: 0.625,
-                py: 0.5,
-                height: 32,
-                fontSize: 16,
+                px: { xs: 0.5, md: 0.625 },
+                py: { xs: 0.25, md: 0.5 },
+                height: { xs: '20px', md: 32 },
+                fontSize: { xs: '12px', md: 16 },
                 fontWeight: 400,
-                letterSpacing: '0.02em',
+                letterSpacing: { xs: '0.04em', md: '0.02em' },
                 color: '#656CAF',
                 textTransform: 'none',
                 alignSelf: 'flex-start',
+                minWidth: 'auto',
                 
                 '&:hover': {
                   backgroundColor: 'transparent',
@@ -195,7 +196,7 @@ const ExpoglobalSection = () => {
                 },
                 
                 '& .MuiButton-endIcon': {
-                  ml: 1,
+                  ml: { xs: 0.5, md: 1 },
                 },
               }}
             >

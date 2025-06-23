@@ -21,12 +21,12 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       sx={{
         backgroundColor: '#F5F5F5',
         borderRadius: '8px',
-        padding: { xs: '16px', md: '12px 16px' },
+        padding: { xs: '12px', md: '12px 16px' },
         width: '100%',
-        height: '100%',
+        height: { xs: '228px', md: '100%' },
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
+        gap: { xs: '8px', md: '12px' },
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -54,11 +54,11 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       <Box 
         className="advantage-icon"
         sx={{ 
-          width: 60, 
-          height: 60,
+          width: { xs: '112px', md: '60px' },
+          height: { xs: '40px', md: '60px' },
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: { xs: 'flex-start', md: 'center' },
         }}
       >
         {icon}
@@ -68,16 +68,16 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         display: 'flex', 
         flexDirection: 'column', 
         gap: '8px',
-        minHeight: '136px',
+        flex: 1,
       }}>
         <Typography
           variant="h5"
           sx={{
             fontWeight: 700,
-            fontSize: { xs: '20px', md: '24px' },
-            lineHeight: 1.17,
+            fontSize: { xs: '14px', md: '24px' },
+            lineHeight: { xs: '16px', md: '28px' },
             letterSpacing: '0.01em',
-            color: '#262626',
+            color: '#424242',
           }}
         >
           {title}
@@ -86,11 +86,12 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         <Typography
           variant="body1"
           sx={{
-            fontSize: { xs: '14px', md: '16px' },
-            lineHeight: 1.5,
-            letterSpacing: '0.02em',
+            fontSize: { xs: '12px', md: '16px' },
+            lineHeight: { xs: '16px', md: '24px' },
+            letterSpacing: { xs: '0.04em', md: '0.02em' },
             color: '#000000',
-            flexGrow: 1,
+            maxHeight: { xs: '96px', md: 'none' },
+            overflow: { xs: 'hidden', md: 'visible' },
           }}
         >
           {description}
@@ -102,18 +103,17 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          padding: '4px 5px',
-          opacity: 0,
-          transform: 'translateY(10px)',
+          gap: '4px',
+          opacity: { xs: 1, md: 0 },
+          transform: { xs: 'none', md: 'translateY(10px)' },
           transition: 'all 0.3s ease',
         }}
       >
         <Typography
           sx={{
-            fontSize: '16px',
-            lineHeight: 1.5,
-            letterSpacing: '0.02em',
+            fontSize: { xs: '12px', md: '16px' },
+            lineHeight: { xs: '16px', md: '24px' },
+            letterSpacing: { xs: '0.04em', md: '0.02em' },
             color: theme.palette.primary.main,
           }}
         >
@@ -121,7 +121,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         </Typography>
         <ArrowForwardIcon 
           sx={{ 
-            fontSize: '18px',
+            fontSize: { xs: '16px', md: '18px' },
             color: theme.palette.primary.main,
           }} 
         />
@@ -166,7 +166,7 @@ const AdvantagesSection = () => {
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 4, md: 8 }, alignItems: 'center' }}>
-          {/* Section Title */}
+          {/* Section Title - Hidden on mobile */}
           <Typography
             component={motion.h2}
             initial={{ opacity: 0, y: 20 }}
@@ -174,8 +174,9 @@ const AdvantagesSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             sx={{
-              fontSize: { xs: '24px', md: '34px' },
-              lineHeight: 1.24,
+              display: { xs: 'none', md: 'block' },
+              fontSize: '34px',
+              lineHeight: '42px',
               fontWeight: 400,
               letterSpacing: '0.01em',
               color: '#262626',
@@ -183,39 +184,31 @@ const AdvantagesSection = () => {
               width: '100%',
             }}
           >
-            We proved our expertise by achieving significant awards for outstanding exhibition display stands as one of the leading exhibition stand contractor in Dubai and UAE
+            <Box component="span">We proved our expertise by achieving significant awards for outstanding </Box>
+            <Box component="span" sx={{ fontWeight: 400 }}>exhibition display stands</Box>
+            <Box component="span"> as one of the leading </Box>
+            <Box component="span" sx={{ fontWeight: 400 }}>exhibition stand contractor in Dubai and UAE</Box>
           </Typography>
 
           {/* Advantages Cards */}
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-              gap: { xs: 3, md: 4 },
-              justifyContent: 'center',
-              alignItems: 'stretch',
-              flexWrap: 'wrap',
+              display: 'grid',
+              gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+              gap: { xs: '8px', md: 4 },
               width: '100%',
             }}
           >
             {advantages.map((advantage, index) => (
-              <Box
+              <motion.div
                 key={advantage.title}
-                sx={{
-                  flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 24px)' },
-                  maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 24px)' },
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  style={{ height: '100%' }}
-                >
-                  <AdvantageCard {...advantage} />
-                </motion.div>
-              </Box>
+                <AdvantageCard {...advantage} />
+              </motion.div>
             ))}
           </Box>
         </Box>

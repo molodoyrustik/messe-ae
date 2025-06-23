@@ -18,75 +18,89 @@ interface AwardCardProps {
 }
 
 const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCardProps) => {
+  const isHighCard = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
+  
   return (
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
+        justifyContent: 'center',
+        alignItems: { xs: 'center', md: 'flex-start' },
         width: '100%',
-        maxWidth: { xs: '100%', sm: '320px', md: '320px' },
+        height: { xs: isHighCard ? 'auto' : '176px', md: 'auto' },
         overflow: 'hidden',
       }}
     >
-      {/* Award Image */}
+      {/* Inner Container */}
       <Box
         sx={{
-          position: 'relative',
-          width: '100%',
-          aspectRatio: '239 / 450', // Maintain the ratio from design
-          backgroundColor: 'transparent',
-          borderRadius: '4px',
-          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: { xs: '8px', md: '20px' },
+          width: { xs: '144px', md: '100%' },
         }}
       >
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={`${category} - ${client}`}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
-            }}
-          />
-        ) : (
-          <Box
-            sx={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#9E9E9E',
-            }}
-          >
-            <Typography variant="body2">Award Image</Typography>
-          </Box>
-        )}
-      </Box>
+        {/* Award Image */}
+        <Box
+          sx={{
+            position: 'relative',
+            width: { xs: '80px', md: '100%' },
+            height: { xs: isHighCard ? '148px' : '112px', md: 'auto' },
+            aspectRatio: { xs: 'unset', md: '239 / 450' },
+            backgroundColor: 'transparent',
+            borderRadius: '4px',
+            overflow: 'hidden',
+            flexShrink: 0,
+          }}
+        >
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={`${category} - ${client}`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+          ) : (
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#9E9E9E',
+              }}
+            >
+              <Typography variant="body2">Award Image</Typography>
+            </Box>
+          )}
+        </Box>
 
-      {/* Award Details */}
-      <Stack spacing="4px">
-        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        {/* Award Details */}
+        <Stack spacing={{ xs: '2px', md: '4px' }} sx={{ flex: 1, width: '100%' }}>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'baseline', flexWrap: 'wrap' }}>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 700,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
+              flexShrink: 0,
             }}
           >
             Category:
           </Typography>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 400,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
             }}
           >
@@ -94,13 +108,13 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'baseline', flexWrap: 'wrap' }}>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 700,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
             }}
           >
@@ -108,10 +122,10 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 400,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
             }}
           >
@@ -119,13 +133,13 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'baseline', flexWrap: 'wrap' }}>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 700,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
             }}
           >
@@ -133,10 +147,10 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 400,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#000000',
             }}
           >
@@ -144,14 +158,14 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'baseline', flexWrap: 'wrap' }}>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 700,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
-              color: '#262626',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
+              color: '#000000',
               flexShrink: 0,
             }}
           >
@@ -159,11 +173,11 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
           <Typography
             sx={{
-              fontSize: '14px',
+              fontSize: { xs: '10px', md: '14px' },
               fontWeight: 400,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
-              color: '#262626',
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
+              color: { xs: '#424242', md: '#262626' },
               flexShrink: 0,
             }}
           >
@@ -175,17 +189,17 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
             target="_blank"
             rel="noopener noreferrer"
             sx={{
-              fontSize: '14px',
-              fontWeight: 700,
-              lineHeight: '18px',
-              letterSpacing: '0.28px',
+              fontSize: { xs: '10px', md: '14px' },
+              fontWeight: 400,
+              lineHeight: { xs: '12px', md: '18px' },
+              letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#656CAF',
               textDecoration: 'underline',
               textDecorationColor: '#656CAF',
               cursor: 'pointer',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
+              whiteSpace: { xs: 'normal', md: 'nowrap' },
               flex: 1,
               minWidth: 0,
               
@@ -199,6 +213,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           </Typography>
         </Box>
       </Stack>
+      </Box>
     </Box>
   );
 };
@@ -214,19 +229,19 @@ const AwardsSection = () => {
       link: '#',
     },
     {
-      imageUrl: '/awards/award-02.png',
-      category: 'Double-Deck Exhibit',
-      show: 'Interplastica',
-      client: 'Sibur Holding PJSC',
-      article: 'Exhibitor Magazine',
-      link: '#',
-    },
-    {
       imageUrl: '/awards/award-03.png',
       category: 'Best Sustainable Stand',
       show: 'ADIPEC',
       client: 'Siemens Energy',
       article: 'World Exhibition Stand Awards – The Winners Supplement',
+      link: '#',
+    },
+    {
+      imageUrl: '/awards/award-02.png',
+      category: 'Double-Deck Exhibit',
+      show: 'Interplastica',
+      client: 'Sibur Holding PJSC',
+      article: 'Exhibitor Magazine',
       link: '#',
     },
     {
@@ -242,40 +257,55 @@ const AwardsSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
-        backgroundColor: 'background.default',
+        py: { xs: 4, md: 8 },
+        backgroundColor: { xs: '#F5F5F5', md: '#FFFFFF' },
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+        {/* Mobile Title */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: { xs: 3, md: 4 },
-            flexWrap: 'wrap',
+            display: { xs: 'block', md: 'none' },
+            mb: 3,
+            px: 0,
             width: '100%',
           }}
         >
+          <Typography
+            sx={{
+              fontSize: '12px',
+              lineHeight: '16px',
+              letterSpacing: '0.04em',
+              textAlign: 'justify',
+              color: '#424242',
+            }}
+          >
+            We proved our expertise by achieving significant awards for outstanding{' '}
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition display stands</Box>
+            {' '}as one of the leading{' '}
+            <Box component="span" sx={{ color: '#656CAF', fontWeight: 700 }}>exhibition stand contractor in Dubai and UAE</Box>
+          </Typography>
+        </Box>
+        
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gap: { xs: '8px', md: 4 },
+            width: '100%',
+            maxWidth: { xs: '100%', md: 'none' },
+          }}
+        >
           {awards.map((award, index) => (
-            <Box
+            <AwardCard
               key={index}
-              sx={{
-                flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', lg: '0 0 320px' },
-                maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', lg: '320px' },
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <AwardCard
-                imageUrl={award.imageUrl}
-                category={award.category}
-                show={award.show}
-                client={award.client}
-                article={award.article}
-                link={award.link}
-              />
-            </Box>
+              imageUrl={award.imageUrl}
+              category={award.category}
+              show={award.show}
+              client={award.client}
+              article={award.article}
+              link={award.link}
+            />
           ))}
         </Box>
       </Container>
