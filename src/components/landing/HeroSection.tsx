@@ -13,10 +13,12 @@ const HeroSection = () => {
     <Box
       sx={{
         width: '100vw',
-        height: { xs: '456px', md: '800px' },
+        height: { xs: '580px', md: '800px' },
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84.13%)',
         overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <Container 
@@ -164,52 +166,43 @@ const HeroSection = () => {
           </Button>
         </Box>
         
-        {/* Mobile Layout Container */}
+        {/* Mobile Layout - Fixed at bottom */}
         <Box
           sx={{
             position: 'absolute',
-            left: '16px',
-            right: '16px',
-            top: '384px', // 352px (subtitle position) + 32px (subtitle height) + 20px (gap)
+            bottom: 0,
+            left: 0,
+            right: 0,
             display: { xs: 'flex', md: 'none' },
             flexDirection: 'column',
             alignItems: 'stretch',
-            gap: 0,
+            px: '16px',
+            pb: '16px',
           }}
         >
           {/* CTA Button - Mobile */}
-          <Box sx={{ mb: '16px' }}>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                height: '36px',
-                px: '16px',
-                py: '6px',
-                backgroundColor: '#656CAF',
-                borderRadius: '4px',
-                boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-                textTransform: 'none',
-                
-                '&:hover': {
-                  backgroundColor: '#4C53A2',
-                },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: '16px',
-                  fontWeight: 400,
-                  lineHeight: '24px',
-                  letterSpacing: '0.02em',
-                  color: '#FFFFFF',
-                  textAlign: 'center',
-                }}
-              >
-                Connect with us
-              </Typography>
-            </Button>
-          </Box>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              height: '36px',
+              mb: '16px',
+              backgroundColor: '#656CAF',
+              borderRadius: '4px',
+              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '24px',
+              letterSpacing: '0.02em',
+              
+              '&:hover': {
+                backgroundColor: '#4C53A2',
+              },
+            }}
+          >
+            Connect with us
+          </Button>
           
           {/* "20 years" text for mobile */}
           <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
