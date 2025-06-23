@@ -119,7 +119,7 @@ const FooterSection = () => {
           {/* Left Column - Logo and Contact Info */}
           <Box
             sx={{
-              display: 'flex',
+              display: { xs: 'none', md: 'flex' },
               flexDirection: 'column',
               gap: { xs: 3, md: 6 },
               maxWidth: '320px',
@@ -258,24 +258,33 @@ const FooterSection = () => {
             ))}
           </Box>
 
-          {/* Mobile Navigation Menu */}
+          {/* Mobile Social Icons */}
           <Box
             sx={{
-              display: { xs: 'flex', lg: 'none' },
-              flexWrap: 'wrap',
-              gap: '8px',
-              gridColumn: '1',
-              order: { xs: 3 },
+              display: { xs: 'flex', md: 'none' },
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '256px',
+              mb: 3,
+              order: { xs: -1 },
             }}
           >
-            {menuItems.map((item) => (
-              <MenuItem
-                key={item.href}
-                label={item.label}
-                href={item.href}
-                isActive={item.isActive}
-              />
-            ))}
+            <IconButton size="small" sx={{ p: 0.5, color: '#656CAF' }}>
+              <Instagram sx={{ fontSize: 20 }} />
+            </IconButton>
+            <IconButton size="small" sx={{ p: 0.5, color: '#656CAF' }}>
+              <Facebook sx={{ fontSize: 20 }} />
+            </IconButton>
+            <IconButton size="small" sx={{ p: 0.5, color: '#656CAF' }}>
+              <LinkedIn sx={{ fontSize: 20 }} />
+            </IconButton>
+            <IconButton size="small" sx={{ p: 0.5, color: '#656CAF' }}>
+              <WhatsApp sx={{ fontSize: 20 }} />
+            </IconButton>
+            {/* Empty placeholders for alignment */}
+            <Box sx={{ width: 24, height: 24 }} />
+            <Box sx={{ width: 24, height: 24 }} />
+            <Box sx={{ width: 24, height: 24 }} />
           </Box>
 
           {/* Right Column - Title and Form */}
@@ -288,16 +297,17 @@ const FooterSection = () => {
               justifySelf: { lg: 'end' },
             }}
           >
-            {/* Title */}
+            {/* Title - Hidden on mobile */}
             <Typography
               variant="h4"
               sx={{
-                fontSize: { xs: '20px', md: '34px' },
+                display: { xs: 'none', md: 'block' },
+                fontSize: '34px',
                 fontWeight: 400,
-                lineHeight: { xs: '28px', md: '42px' },
-                letterSpacing: { xs: '0.02em', md: '0.34px' },
+                lineHeight: '42px',
+                letterSpacing: '0.34px',
                 color: '#262626',
-                mb: { xs: 0, md: 2 },
+                mb: 2,
               }}
             >
               We're always happy to help
@@ -310,12 +320,12 @@ const FooterSection = () => {
               onSubmit={handleSubmit}
               sx={{
                 width: { xs: '100%', lg: '664px' },
-                p: { xs: 3, md: 4 },
+                p: { xs: '12px', md: 4 },
                 backgroundColor: '#FFFFFF',
                 borderRadius: '8px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2.5,
+                gap: { xs: '20px', md: 2.5 },
               }}
             >
               <Typography
@@ -330,7 +340,7 @@ const FooterSection = () => {
                 Have a project to discuss? Fill the form below and our experts will contact you within 24 hours.
               </Typography>
 
-              <Stack spacing={1.5}>
+              <Stack spacing={{ xs: '12px', md: 1.5 }}>
                 <TextField
                   required
                   fullWidth
@@ -339,7 +349,7 @@ const FooterSection = () => {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      height: '40px',
+                      height: { xs: '32px', md: '40px' },
                       '& fieldset': {
                         borderColor: '#C4C4C4',
                         borderRadius: '4px',
@@ -352,10 +362,10 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: { xs: '12px', md: '16px' },
+                      fontSize: { xs: '14px', md: '16px' },
                       lineHeight: { xs: '16px', md: '24px' },
-                      letterSpacing: { xs: '0.04em', md: '0.32px' },
-                      padding: '8px 12px',
+                      letterSpacing: { xs: '0.02em', md: '0.32px' },
+                      padding: { xs: '8px 12px', md: '8px 12px' },
                       '&::placeholder': {
                         color: '#7B7B7B',
                         opacity: 1,
@@ -372,7 +382,7 @@ const FooterSection = () => {
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      height: '40px',
+                      height: { xs: '32px', md: '40px' },
                       '& fieldset': {
                         borderColor: '#C4C4C4',
                         borderRadius: '4px',
@@ -385,10 +395,10 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: { xs: '12px', md: '16px' },
+                      fontSize: { xs: '14px', md: '16px' },
                       lineHeight: { xs: '16px', md: '24px' },
-                      letterSpacing: { xs: '0.04em', md: '0.32px' },
-                      padding: '8px 12px',
+                      letterSpacing: { xs: '0.02em', md: '0.32px' },
+                      padding: { xs: '8px 12px', md: '8px 12px' },
                       '&::placeholder': {
                         color: '#7B7B7B',
                         opacity: 1,
@@ -406,7 +416,7 @@ const FooterSection = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      height: '40px',
+                      height: { xs: '32px', md: '40px' },
                       '& fieldset': {
                         borderColor: '#C4C4C4',
                         borderRadius: '4px',
@@ -419,10 +429,10 @@ const FooterSection = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: { xs: '12px', md: '16px' },
+                      fontSize: { xs: '14px', md: '16px' },
                       lineHeight: { xs: '16px', md: '24px' },
-                      letterSpacing: { xs: '0.04em', md: '0.32px' },
-                      padding: '8px 12px',
+                      letterSpacing: { xs: '0.02em', md: '0.32px' },
+                      padding: { xs: '8px 12px', md: '8px 12px' },
                       '&::placeholder': {
                         color: '#7B7B7B',
                         opacity: 1,
@@ -437,18 +447,18 @@ const FooterSection = () => {
                 variant="contained"
                 fullWidth
                 sx={{
-                  height: { xs: '36px', md: '48px' },
-                  backgroundColor: '#656CAF',
+                  height: { xs: '32px', md: '48px' },
+                  backgroundColor: { xs: '#A64B66', md: '#656CAF' },
                   borderRadius: '8px',
                   fontSize: { xs: '16px', md: '24px' },
                   fontWeight: 400,
                   lineHeight: { xs: '24px', md: '28px' },
                   letterSpacing: { xs: '0.02em', md: '0.24px' },
                   textTransform: 'none',
-                  boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+                  boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.20)',
                   
                   '&:hover': {
-                    backgroundColor: '#4C53A2',
+                    backgroundColor: { xs: '#8F3F56', md: '#4C53A2' },
                   },
                 }}
               >
