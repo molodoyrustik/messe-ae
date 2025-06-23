@@ -102,7 +102,7 @@ export default function AboutPage() {
 
           {/* Mission & Vision */}
           <Grid container spacing={6} sx={{ mb: 8 }}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Card
                 sx={{
                   height: '100%',
@@ -143,7 +143,7 @@ export default function AboutPage() {
               </Card>
             </Grid>
             
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Card
                 sx={{
                   height: '100%',
@@ -203,7 +203,7 @@ export default function AboutPage() {
             </Typography>
             <Grid container spacing={4}>
               {values.map((value, index) => (
-                <Grid item xs={12} sm={6} md={3} key={index}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
                   <Card
                     sx={{
                       height: '100%',
@@ -268,7 +268,7 @@ export default function AboutPage() {
             </Typography>
             <Grid container spacing={4} justifyContent="center">
               {teamMembers.map((member) => (
-                <Grid item xs={12} sm={6} md={4} key={member.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={member.id}>
                   <Card
                     sx={{
                       textAlign: 'center',

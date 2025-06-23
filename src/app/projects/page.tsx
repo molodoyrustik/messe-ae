@@ -222,7 +222,7 @@ export default function ProjectsPage() {
           {/* Projects Grid */}
           <Grid container spacing={4}>
             {projects.map((project) => (
-              <Grid item xs={12} sm={6} lg={4} key={project.id}>
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.id}>
                 <ProjectCard project={project} />
               </Grid>
             ))}

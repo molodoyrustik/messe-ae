@@ -72,7 +72,7 @@ export default function ChipShowcase() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <FormControlLabel
             control={
               <Switch
@@ -194,7 +194,7 @@ export default function ChipShowcase() {
           </ChipGroup>
         </Grid>
 
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Typography variant="h5" gutterBottom>
             Design Specifications
           </Typography>

@@ -510,44 +510,6 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
         },
       },
     },
-
-    variants: [
-      // Medium size variant (Tailwind: text-2xl, leading-7, tracking-tight)
-      {
-        props: { size: 'medium' },
-        style: {
-          fontSize: 24, // text-2xl
-          lineHeight: '28px', // leading-7
-          letterSpacing: '-0.025em', // tracking-tight
-          minHeight: 32, // h-8
-          padding: '4px 0', // py-1
-
-          '&::after': {
-            top: 26, // top-[26px]
-            width: 1, // w-px
-            height: 3, // h-[3px]
-          },
-        },
-      },
-
-      // Small size variant (responsive)
-      {
-        props: { size: 'small' },
-        style: {
-          fontSize: 16,
-          lineHeight: '24px',
-          letterSpacing: '-0.025em', // Same tracking-tight
-          minHeight: 'auto',
-          padding: 0,
-
-          '&::after': {
-            top: 19, // Adjusted for small size
-            width: 1, // w-px
-            height: 2, // Adjusted height
-          },
-        },
-      },
-    ],
   },
 
   // Menu list component

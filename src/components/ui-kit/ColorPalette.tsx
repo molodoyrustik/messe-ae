@@ -58,7 +58,7 @@ const ColorGroup = ({ title, colors: colorGroup, description }: ColorGroupProps)
     )}
     <Grid container spacing={2}>
       {Object.entries(colorGroup).map(([key, value]) => (
-        <Grid item xs={6} sm={4} md={3} lg={2} key={key}>
+        <Grid size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={key}>
           <ColorSwatch
             color={value}
             name={key}
@@ -102,7 +102,7 @@ export default function ColorPalette() {
           Семантические цвета для ошибок, предупреждений и успешных действий
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={4} md={3}>
+          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <ColorSwatch
               color={colors.error.main}
               name="Error"
@@ -110,7 +110,7 @@ export default function ColorPalette() {
               textColor="#fff"
             />
           </Grid>
-          <Grid item xs={6} sm={4} md={3}>
+          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <ColorSwatch
               color={colors.secondary.main}
               name="Secondary"
@@ -118,7 +118,7 @@ export default function ColorPalette() {
               textColor="#fff"
             />
           </Grid>
-          <Grid item xs={6} sm={4} md={3}>
+          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <ColorSwatch
               color={colors.success.main}
               name="Success"

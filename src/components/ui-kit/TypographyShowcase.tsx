@@ -1,10 +1,11 @@
 'use client';
 
 import { Box, Typography, Paper, Grid } from '@mui/material';
+import type { TypographyProps } from '@mui/material/Typography';
 import { typography } from '../../theme/tokens';
 
 type TypographyExampleProps = {
-  variant: string;
+  variant: TypographyProps['variant'];
   label: string;
   description: string;
   sampleText?: string;
@@ -40,7 +41,12 @@ const TypographyExample = ({
 );
 
 export default function TypographyShowcase() {
-  const typographyExamples = [
+  const typographyExamples: Array<{
+    variant: TypographyProps['variant'];
+    label: string;
+    description: string;
+    sampleText?: string;
+  }> = [
     {
       variant: 'h1',
       label: 'Heading 1',
@@ -128,7 +134,7 @@ export default function TypographyShowcase() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Typography variant="h5" gutterBottom>
             Typography Variants
           </Typography>
@@ -143,7 +149,7 @@ export default function TypographyShowcase() {
           ))}
         </Grid>
 
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Typography variant="h5" gutterBottom>
             Font Information
           </Typography>

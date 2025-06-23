@@ -41,7 +41,7 @@ export default function ButtonShowcase() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <ButtonGroup
             title="Button Variants"
             description="Три основных варианта кнопок с разными уровнями приоритета"
@@ -152,7 +152,7 @@ export default function ButtonShowcase() {
           </ButtonGroup>
         </Grid>
 
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Typography variant="h5" gutterBottom>
             Usage Guidelines
           </Typography>

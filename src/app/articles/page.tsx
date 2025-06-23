@@ -273,7 +273,7 @@ export default function ArticlesPage() {
                 Featured Article
               </Typography>
               <Grid container spacing={4}>
-                <Grid item xs={12} md={8}>
+                <Grid size={{ xs: 12, md: 8 }}>
                   <ArticleCard article={featuredArticle} featured={true} />
                 </Grid>
               </Grid>
@@ -297,7 +297,7 @@ export default function ArticlesPage() {
             </Typography>
             <Grid container spacing={4}>
               {regularArticles.map((article) => (
-                <Grid item xs={12} sm={6} lg={4} key={article.id}>
+                <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.id}>
                   <ArticleCard article={article} />
                 </Grid>
               ))}

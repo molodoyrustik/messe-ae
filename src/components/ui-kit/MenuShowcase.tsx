@@ -133,7 +133,7 @@ export default function MenuShowcase() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <MenuGroup
             title="Navigation Menu Items"
             description="Элементы навигационного меню с подчеркиванием при выборе и наведении"
@@ -202,7 +202,6 @@ export default function MenuShowcase() {
                       handleMenuClose();
                     }}
                     selected={selectedItem === item.id}
-                    size="medium" as any
                   >
                     {item.label}
                   </MenuItem>
@@ -286,7 +285,7 @@ export default function MenuShowcase() {
           </MenuGroup>
         </Grid>
 
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Typography variant="h5" gutterBottom>
             Design Specifications
           </Typography>
