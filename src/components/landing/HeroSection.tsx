@@ -30,7 +30,7 @@ const HeroSection = () => {
         <Typography
           sx={{
             position: 'absolute',
-            left: { xs: '1rem', md: '2.5rem' },
+            left: { xs: '16px', md: '2.5rem' },
             top: { xs: '256px', md: '367px' },
             maxWidth: { xs: '288px', md: '1084px' },
             fontSize: { xs: '24px', md: '54px' },
@@ -49,8 +49,8 @@ const HeroSection = () => {
         <Box
           sx={{
             position: 'absolute',
-            left: { xs: '1rem', md: '2.5rem' },
-            top: { xs: '300px', md: '511px' }, // Adjusted for mobile layout
+            left: { xs: '16px', md: '2.5rem' },
+            top: { xs: '352px', md: '511px' },
             maxWidth: { xs: '288px', md: '100%' },
             display: 'flex',
             justifyContent: 'flex-start',
@@ -67,69 +67,14 @@ const HeroSection = () => {
               color: '#FFFFFF',
             }}
           >
-            Your great{' '}
-            <Typography
-              component="span"
-              sx={{
-                fontSize: { xs: '12px', md: '34px' },
-                fontWeight: 700,
-                lineHeight: { xs: '16px', md: '42px' },
-                letterSpacing: { xs: '0.04em', md: '-0.025em' },
-                color: '#FFFFFF',
-              }}
-            >
-              exhibition stand design
-            </Typography>
-            {' '}starts here.
-            <br />
-            <Typography
-              component="span"
-              sx={{
-                fontSize: { xs: '12px', md: '34px' },
-                fontWeight: 700,
-                lineHeight: { xs: '16px', md: '42px' },
-                letterSpacing: { xs: '0.04em', md: '-0.025em' },
-                color: '#656CAF',
-              }}
-            >
-              Fill in
-            </Typography>
-            <Typography
-              component="span"
-              sx={{
-                fontSize: { xs: '12px', md: '34px' },
-                fontWeight: 400,
-                lineHeight: { xs: '16px', md: '42px' },
-                letterSpacing: { xs: '0.04em', md: '-0.025em' },
-                color: '#FFFFFF',
-              }}
-            >
-              {' '}the{' '}
-            </Typography>
-            <Typography
-              component="span"
-              sx={{
-                fontSize: { xs: '12px', md: '34px' },
-                fontWeight: 700,
-                lineHeight: { xs: '16px', md: '42px' },
-                letterSpacing: { xs: '0.04em', md: '-0.025em' },
-                color: '#656CAF',
-              }}
-            >
-              form
-            </Typography>
-            <Typography
-              component="span"
-              sx={{
-                fontSize: { xs: '12px', md: '34px' },
-                fontWeight: 400,
-                lineHeight: { xs: '16px', md: '42px' },
-                letterSpacing: { xs: '0.04em', md: '-0.025em' },
-                color: '#FFFFFF',
-              }}
-            >
-              , and we will handle the rest.
-            </Typography>
+            <Box component="span">Your great </Box>
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
+            <Box component="span"> starts here.</Box>
+            <Box component="span" sx={{ display: { xs: 'inline', md: 'block' } }}> </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
+            <Box component="span"> the </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
+            <Box component="span">, and we will handle the rest.</Box>
           </Typography>
         </Box>
 
@@ -223,9 +168,9 @@ const HeroSection = () => {
         <Box
           sx={{
             position: 'absolute',
-            left: '1rem',
-            right: '1rem',
-            bottom: '16px',
+            left: '16px',
+            right: '16px',
+            top: '384px', // 352px (subtitle position) + 32px (subtitle height) + 20px (gap)
             display: { xs: 'flex', md: 'none' },
             flexDirection: 'column',
             alignItems: 'stretch',
