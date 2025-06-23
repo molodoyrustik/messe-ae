@@ -19,9 +19,9 @@ const projectCategories = [
     subtitle: '²',
     slug: 'under-100',
     projects: [
-      { id: 1, image: '/projects/project-small.jpg' },
-      { id: 2, image: '/projects/project-small.jpg' },
-      { id: 3, image: '/projects/project-small.jpg' },
+      { id: 1, image: '/projects/project-small.jpg', name: 'Belgium Pavilion' },
+      { id: 2, image: '/projects/project-medium.jpg', name: 'Tech Expo Stand' },
+      { id: 3, image: '/projects/project-large.jpg', name: 'Innovation Hub' },
     ],
   },
   {
@@ -30,9 +30,9 @@ const projectCategories = [
     subtitle: '²',
     slug: '100-300',
     projects: [
-      { id: 4, image: '/projects/project-medium.jpg' },
-      { id: 5, image: '/projects/project-medium.jpg' },
-      { id: 6, image: '/projects/project-medium.jpg' },
+      { id: 4, image: '/projects/project-medium.jpg', name: 'Energy Summit' },
+      { id: 5, image: '/projects/project-large.jpg', name: 'Auto Show 2023' },
+      { id: 6, image: '/projects/project-small.jpg', name: 'Digital Forum' },
     ],
   },
   {
@@ -41,9 +41,9 @@ const projectCategories = [
     subtitle: '²',
     slug: 'over-300',
     projects: [
-      { id: 7, image: '/projects/project-large.jpg' },
-      { id: 8, image: '/projects/project-large.jpg' },
-      { id: 9, image: '/projects/project-large.jpg' },
+      { id: 7, image: '/projects/project-large.jpg', name: 'World Expo Pavilion' },
+      { id: 8, image: '/projects/project-double.jpg', name: 'Corporate Showcase' },
+      { id: 9, image: '/projects/project-medium.jpg', name: 'Industry 4.0' },
     ],
   },
   {
@@ -52,9 +52,9 @@ const projectCategories = [
     subtitle: '',
     slug: 'double-deckers',
     projects: [
-      { id: 10, image: '/projects/project-double.jpg' },
-      { id: 11, image: '/projects/project-double.jpg' },
-      { id: 12, image: '/projects/project-double.jpg' },
+      { id: 10, image: '/projects/project-double.jpg', name: 'Two-Story Pavilion' },
+      { id: 11, image: '/projects/project-small.jpg', name: 'Executive Lounge' },
+      { id: 12, image: '/projects/project-large.jpg', name: 'VIP Experience' },
     ],
   },
 ];
@@ -76,6 +76,8 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
         height: { xs: '400px', md: '480px' },
         transition: 'all 0.3s ease',
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Box
         sx={{
@@ -85,7 +87,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
           borderRadius: '4px',
           overflow: 'hidden',
           cursor: 'pointer',
-          transition: 'all 0.3s ease',
+          transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
           filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
           transform: isHovered ? 'scale(1, 1.1)' : 'scale(1)',
           transformOrigin: 'center center',
@@ -100,20 +102,31 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
             zIndex: 1,
           },
         }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
-      {/* Background Image */}
+      {/* Background Images with Slide Animation */}
       <Link href={`/projects/${category.slug}`} style={{ position: 'absolute', inset: 0 }}>
-        <Image
-          src={currentProject.image}
-          alt={category.title}
-          fill
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
-        />
+        {category.projects.map((project, index) => (
+          <Box
+            key={project.id}
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              opacity: index === currentIndex ? 1 : 0,
+              transform: `translateX(${(index - currentIndex) * 100}%)`,
+              transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
+            }}
+          >
+            <Image
+              src={project.image}
+              alt={project.name}
+              fill
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+          </Box>
+        ))}
       </Link>
 
       {/* Title */}
@@ -133,6 +146,33 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
         {category.title}
         {category.subtitle && <sup>{category.subtitle}</sup>}
       </Typography>
+
+      {/* Progress Indicators */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '8px',
+          zIndex: 2,
+        }}
+      >
+        {category.projects.map((_, index) => (
+          <Box
+            key={index}
+            sx={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#FFFFFF',
+              opacity: index === currentIndex ? 1 : 0.4,
+              transition: 'opacity 0.3s ease',
+            }}
+          />
+        ))}
+      </Box>
 
       </Box>
       
