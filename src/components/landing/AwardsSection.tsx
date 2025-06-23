@@ -35,7 +35,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           position: 'relative',
           width: '100%',
           aspectRatio: '239 / 450', // Maintain the ratio from design
-          backgroundColor: '#F5F5F5',
+          backgroundColor: 'transparent',
           borderRadius: '4px',
           overflow: 'hidden',
         }}

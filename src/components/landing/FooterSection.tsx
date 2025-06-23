@@ -9,298 +9,437 @@ import {
   TextField,
   Paper,
   IconButton,
+  Link,
 } from '@mui/material';
 import {
   Instagram,
   Facebook,
   LinkedIn,
   WhatsApp,
-  Email,
   Phone,
+  Email,
   LocationOn,
 } from '@mui/icons-material';
+import Image from 'next/image';
+import { useState } from 'react';
+
+interface MenuItemProps {
+  label: string;
+  href: string;
+  isActive?: boolean;
+}
+
+const MenuItem = ({ label, href, isActive = false }: MenuItemProps) => {
+  return (
+    <Link
+      href={href}
+      sx={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '10px',
+        position: 'relative',
+        textDecoration: 'none',
+        '&:hover .underline': {
+          opacity: 1,
+        },
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: '16px',
+          fontWeight: 700,
+          lineHeight: '24px',
+          letterSpacing: '0.32px',
+          color: isActive ? '#4C53A2' : '#656CAF',
+          cursor: 'pointer',
+          '&:hover': {
+            color: '#4C53A2',
+          },
+        }}
+      >
+        {label}
+      </Typography>
+      <Box
+        className="underline"
+        sx={{
+          position: 'absolute',
+          left: 0,
+          top: '19px',
+          width: '100%',
+          height: '2px',
+          backgroundColor: '#C7CAE3',
+          opacity: 0,
+          transition: 'opacity 0.3s ease',
+        }}
+      />
+    </Link>
+  );
+};
 
 const FooterSection = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log('Form submitted:', formData);
+  };
+
+  const menuItems = [
+    { label: 'Projects', href: '/projects' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Articles', href: '/articles' },
+    { label: 'Manifestos', href: '/manifestos', isActive: true },
+    { label: 'Career', href: '/career' },
+    { label: 'Privacy policy', href: '/privacy-policy' },
+    { label: 'Cookie policy', href: '/cookie-policy' },
+  ];
+
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
-        backgroundColor: 'grey.50',
+        backgroundColor: '#F5F5F5',
+        overflow: 'hidden',
+        py: { xs: 4, md: 5 },
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            gap: 6,
-            alignItems: 'flex-start',
-            flexDirection: { xs: 'column', lg: 'row' },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', lg: 'auto auto 1fr' },
+            gap: { xs: 4, lg: 0 },
+            position: 'relative',
           }}
         >
-          {/* Left Side - Company Info */}
-          <Stack spacing={3} sx={{ flex: 1, maxWidth: { xs: '100%', lg: '60%' } }}>
+          {/* Left Column - Logo and Contact Info */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: { xs: 3, md: 6 },
+              maxWidth: '320px',
+              gridColumn: { xs: '1', lg: '1' },
+            }}
+          >
             {/* Logo */}
-            <Stack spacing={1}>
-              <Box
-                sx={{
-                  width: 128,
-                  height: 32,
-                  backgroundColor: 'grey.200',
-                  borderRadius: 0.5,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography variant="body2" color="grey.600">
-                  Logo
-                </Typography>
+            <Box>
+              <Box sx={{ width: '162px', height: '80px', position: 'relative', mb: 1 }}>
+                <Image
+                  src="/messe-logo.png"
+                  alt="Messe.ae"
+                  width={324}
+                  height={160}
+                  style={{
+                    objectFit: 'contain',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
               </Box>
               <Typography
                 sx={{
-                  fontSize: 8,
-                  fontWeight: 700,
-                  lineHeight: 1.5,
-                  color: 'grey.800',
+                  fontSize: '10.5px',
+                  lineHeight: '12px',
+                  color: '#000000',
                 }}
               >
-                Marketing and Exhibition Services
+                <Box component="span" sx={{ color: '#656CAF', fontWeight: 700 }}>M</Box>
+                <Box component="span" sx={{ fontWeight: 500 }}>arketing and </Box>
+                <Box component="span" sx={{ color: '#656CAF', fontWeight: 700 }}>E</Box>
+                <Box component="span" sx={{ fontWeight: 500 }}>xhibition </Box>
+                <Box component="span" sx={{ color: '#656CAF', fontWeight: 700 }}>S</Box>
+                <Box component="span" sx={{ fontWeight: 500 }}>ervices</Box>
               </Typography>
-            </Stack>
-
-            {/* Title */}
-            <Typography
-              variant="h4"
-              sx={{
-                fontSize: { xs: 24, md: 34 },
-                fontWeight: 400,
-                lineHeight: 1.24,
-                letterSpacing: '0.01em',
-                color: 'text.primary',
-              }}
-            >
-              We&apos;re always happy to help
-            </Typography>
-
-            {/* Navigation Links */}
-            <Box
-              sx={{
-                display: 'flex',
-                gap: 1.5,
-                flexWrap: 'wrap',
-                alignItems: 'center',
-              }}
-            >
-              {['Projects', 'About Us', 'Articles', 'Manifestos', 'Career', 'Privacy policy', 'Cookie policy'].map((link, index) => (
-                <Button
-                  key={index}
-                  variant="text"
-                  sx={{
-                    fontSize: 16,
-                    fontWeight: 700,
-                    letterSpacing: '0.02em',
-                    color: index === 3 ? 'primary.500' : 'primary.400',
-                    textTransform: 'none',
-                    px: 0,
-                    py: 0.5,
-                    minWidth: 'auto',
-                    
-                    '&:hover': {
-                      backgroundColor: 'transparent',
-                      color: 'primary.600',
-                    },
-                  }}
-                >
-                  {link}
-                </Button>
-              ))}
             </Box>
 
-            {/* Contact Info */}
+            {/* Company Info */}
             <Stack spacing={3}>
               <Typography
                 sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.02em',
-                  color: 'text.primary',
+                  fontSize: '14px',
+                  lineHeight: '18px',
+                  letterSpacing: '0.28px',
+                  color: '#262626',
                 }}
               >
-                the part of Expoglobal Group
+                the part of{' '}
+                <Box component="span" sx={{ fontWeight: 700, color: '#000000' }}>
+                  Expoglobal Group
+                </Box>
               </Typography>
 
               {/* Social Icons */}
-              <Stack direction="row" spacing={1.5}>
-                <IconButton size="small" sx={{ color: 'text.primary' }}>
-                  <Instagram />
+              <Stack direction="row" spacing={1}>
+                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                  <Instagram sx={{ fontSize: 20 }} />
                 </IconButton>
-                <IconButton size="small" sx={{ color: 'text.primary' }}>
-                  <Facebook />
+                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                  <Facebook sx={{ fontSize: 20 }} />
                 </IconButton>
-                <IconButton size="small" sx={{ color: 'text.primary' }}>
-                  <LinkedIn />
+                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                  <LinkedIn sx={{ fontSize: 20 }} />
                 </IconButton>
-                <IconButton size="small" sx={{ color: 'text.primary' }}>
-                  <WhatsApp />
-                </IconButton>
-                <IconButton size="small" sx={{ color: 'text.primary' }}>
-                  <Email />
+                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                  <WhatsApp sx={{ fontSize: 20 }} />
                 </IconButton>
               </Stack>
 
               {/* Contact Details */}
               <Stack spacing={1.5}>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Phone sx={{ fontSize: 16, color: 'text.primary' }} />
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                  <Phone sx={{ fontSize: 20, color: '#262626' }} />
                   <Typography
                     sx={{
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: '0.02em',
-                      color: 'text.primary',
+                      fontSize: '14px',
+                      lineHeight: '18px',
+                      letterSpacing: '0.28px',
+                      color: '#262626',
                     }}
                   >
                     +971 4 548 5887
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Email sx={{ fontSize: 16, color: 'text.primary' }} />
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                  <Email sx={{ fontSize: 20, color: '#262626' }} />
                   <Typography
                     sx={{
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: '0.02em',
-                      color: 'text.primary',
+                      fontSize: '14px',
+                      lineHeight: '18px',
+                      letterSpacing: '0.28px',
+                      color: '#262626',
                     }}
                   >
                     hello@messe.ae
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={1} alignItems="flex-start">
-                  <LocationOn sx={{ fontSize: 16, color: 'text.primary', mt: 0.25 }} />
+                <Stack direction="row" spacing={0.5} alignItems="flex-start">
+                  <LocationOn sx={{ fontSize: 20, color: '#262626', mt: 0.25 }} />
                   <Typography
                     sx={{
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: '0.02em',
-                      color: 'text.primary',
+                      fontSize: '14px',
+                      lineHeight: '18px',
+                      letterSpacing: '0.28px',
+                      color: '#262626',
                       flex: 1,
                     }}
                   >
-                    UAE, Dubai, Dubai Industrial City, KJ Autopart complex,
-                    Office building, ground floor, left wing. PO box 118995
+                    UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
                   </Typography>
                 </Stack>
               </Stack>
             </Stack>
-          </Stack>
+          </Box>
 
-          {/* Right Side - Contact Form */}
-          <Paper
-            elevation={0}
+          {/* Middle Column - Navigation Menu */}
+          <Box
             sx={{
-              width: { xs: '100%', lg: 664 },
-              p: 4,
-              backgroundColor: 'background.paper',
-              borderRadius: 1,
+              display: { xs: 'none', lg: 'flex' },
+              flexDirection: 'column',
+              gap: 1.5,
+              gridColumn: { lg: '2' },
+              ml: { lg: 20 },
+              mr: { lg: 8 },
             }}
           >
-            <Stack spacing={2.5}>
+            {menuItems.map((item) => (
+              <MenuItem
+                key={item.href}
+                label={item.label}
+                href={item.href}
+                isActive={item.isActive}
+              />
+            ))}
+          </Box>
+
+          {/* Right Column - Title and Form */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: { xs: 3, md: 2.5 },
+              gridColumn: { xs: '1', lg: '3' },
+              justifySelf: { lg: 'end' },
+            }}
+          >
+            {/* Title */}
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: { xs: '28px', md: '34px' },
+                fontWeight: 400,
+                lineHeight: '42px',
+                letterSpacing: '0.34px',
+                color: '#262626',
+                mb: { xs: 0, md: 2 },
+              }}
+            >
+              We're always happy to help
+            </Typography>
+
+            {/* Contact Form */}
+            <Paper
+              elevation={0}
+              component="form"
+              onSubmit={handleSubmit}
+              sx={{
+                width: { xs: '100%', lg: '664px' },
+                p: { xs: 3, md: 4 },
+                backgroundColor: '#FFFFFF',
+                borderRadius: '8px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2.5,
+              }}
+            >
               <Typography
-                variant="h6"
                 sx={{
-                  fontSize: 16,
+                  fontSize: '16px',
                   fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'text.primary',
+                  lineHeight: '24px',
+                  letterSpacing: '0.32px',
+                  color: '#262626',
                 }}
               >
-                Have a project to discuss? Fill the form below and our
-                experts will contact you within 24 hours.
+                Have a project to discuss? Fill the form below and our experts will contact you within 24 hours.
               </Typography>
 
               <Stack spacing={1.5}>
                 <TextField
-                  label="Name*"
-                  variant="outlined"
+                  required
                   fullWidth
+                  placeholder="Name*"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      height: '40px',
                       '& fieldset': {
-                        borderColor: 'grey.400',
+                        borderColor: '#C4C4C4',
+                        borderRadius: '4px',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#656CAF',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#656CAF',
                       },
                     },
-                    '& .MuiInputLabel-root': {
-                      fontSize: 16,
-                      color: 'grey.600',
+                    '& .MuiInputBase-input': {
+                      fontSize: '16px',
+                      lineHeight: '24px',
+                      letterSpacing: '0.32px',
+                      padding: '8px 12px',
+                      '&::placeholder': {
+                        color: '#7B7B7B',
+                        opacity: 1,
+                      },
                     },
                   }}
                 />
                 
                 <TextField
-                  label="Phone*"
-                  variant="outlined"
+                  required
                   fullWidth
+                  placeholder="Phone*"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      height: '40px',
                       '& fieldset': {
-                        borderColor: 'grey.400',
+                        borderColor: '#C4C4C4',
+                        borderRadius: '4px',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#656CAF',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#656CAF',
                       },
                     },
-                    '& .MuiInputLabel-root': {
-                      fontSize: 16,
-                      color: 'grey.600',
+                    '& .MuiInputBase-input': {
+                      fontSize: '16px',
+                      lineHeight: '24px',
+                      letterSpacing: '0.32px',
+                      padding: '8px 12px',
+                      '&::placeholder': {
+                        color: '#7B7B7B',
+                        opacity: 1,
+                      },
                     },
                   }}
                 />
                 
                 <TextField
-                  label="Email*"
-                  variant="outlined"
+                  required
                   fullWidth
+                  type="email"
+                  placeholder="Email*"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      height: '40px',
                       '& fieldset': {
-                        borderColor: 'grey.400',
+                        borderColor: '#C4C4C4',
+                        borderRadius: '4px',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#656CAF',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#656CAF',
                       },
                     },
-                    '& .MuiInputLabel-root': {
-                      fontSize: 16,
-                      color: 'grey.600',
+                    '& .MuiInputBase-input': {
+                      fontSize: '16px',
+                      lineHeight: '24px',
+                      letterSpacing: '0.32px',
+                      padding: '8px 12px',
+                      '&::placeholder': {
+                        color: '#7B7B7B',
+                        opacity: 1,
+                      },
                     },
                   }}
                 />
               </Stack>
 
               <Button
+                type="submit"
                 variant="contained"
                 fullWidth
                 sx={{
-                  height: 48,
-                  backgroundColor: 'primary.400',
-                  borderRadius: 1,
-                  fontSize: 24,
+                  height: '48px',
+                  backgroundColor: '#656CAF',
+                  borderRadius: '8px',
+                  fontSize: '24px',
                   fontWeight: 400,
-                  letterSpacing: '0.01em',
+                  lineHeight: '28px',
+                  letterSpacing: '0.24px',
                   textTransform: 'none',
                   boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
                   
                   '&:hover': {
-                    backgroundColor: 'primary.500',
+                    backgroundColor: '#4C53A2',
                   },
                 }}
               >
                 Send
               </Button>
-            </Stack>
-          </Paper>
+            </Paper>
+          </Box>
         </Box>
       </Container>
     </Box>
   );
 };
 
-export default FooterSection; 
+export default FooterSection;
