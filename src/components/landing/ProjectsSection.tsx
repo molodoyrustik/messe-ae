@@ -103,7 +103,6 @@ const ProjectsSection = () => {
           variant="h3"
           sx={{
             fontSize: { xs: 32, md: 48 },
-            fontFamily: 'Roboto, sans-serif',
             fontWeight: 700,
             lineHeight: { xs: '40px', md: '60px' },
             color: 'grey.800',
@@ -168,7 +167,6 @@ const ProjectsSection = () => {
                   top: '20px',
                   left: '20px',
                   fontSize: { xs: 28, md: 36 },
-                  fontFamily: 'Roboto, sans-serif',
                   fontWeight: 700,
                   lineHeight: '40px',
                   letterSpacing: '-0.02em',
@@ -207,7 +205,6 @@ const ProjectsSection = () => {
             variant="h4"
             sx={{
               fontSize: { xs: 24, md: 36 },
-              fontFamily: 'Roboto, sans-serif',
               fontWeight: 400,
               lineHeight: '40px',
               letterSpacing: '-0.02em',
@@ -240,7 +237,6 @@ const ProjectsSection = () => {
               borderRadius: '8px',
               boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
               fontSize: { xs: 18, md: 24 },
-              fontFamily: 'Roboto, sans-serif',
               fontWeight: 400,
               lineHeight: '28px',
               letterSpacing: '-0.02em',

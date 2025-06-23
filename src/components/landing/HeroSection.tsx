@@ -34,7 +34,6 @@ const HeroSection = () => {
             top: '367px',
             maxWidth: '1084px',
           fontSize: '54px',
-          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 700,
           lineHeight: '60px',
           color: '#FFFFFF',
@@ -60,7 +59,6 @@ const HeroSection = () => {
           component="span"
           sx={{
             fontSize: '34px',
-            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
             fontWeight: 400,
             lineHeight: '42px',
             letterSpacing: '-0.025em',
@@ -72,7 +70,6 @@ const HeroSection = () => {
             component="span"
             sx={{
               fontSize: '34px',
-              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 700,
               lineHeight: '42px',
               letterSpacing: '-0.025em',
@@ -87,7 +84,6 @@ const HeroSection = () => {
           component="span"
           sx={{
             fontSize: '34px',
-            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
             fontWeight: 700,
             lineHeight: '42px',
             letterSpacing: '-0.025em',
@@ -100,7 +96,6 @@ const HeroSection = () => {
             component="span"
             sx={{
               fontSize: '34px',
-              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 400,
               lineHeight: '42px',
               letterSpacing: '-0.025em',
@@ -114,7 +109,6 @@ const HeroSection = () => {
             component="span"
             sx={{
               fontSize: '34px',
-              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 400,
               lineHeight: '42px',
               letterSpacing: '-0.025em',
@@ -133,7 +127,6 @@ const HeroSection = () => {
             left: { xs: '1rem', md: '2.5rem' },
             top: '619px',
           fontSize: '120px',
-          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 700,
           lineHeight: '140px',
           color: '#FFFFFF',
@@ -151,7 +144,6 @@ const HeroSection = () => {
             left: { xs: 'calc(1rem + 150px)', md: 'calc(2.5rem + 150px)' },
             top: '669px',
           fontSize: '34px',
-          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
           fontWeight: 400,
           lineHeight: '42px',
           letterSpacing: '-0.025em',
@@ -198,7 +190,6 @@ const HeroSection = () => {
           <Typography
             sx={{
               fontSize: '24px',
-              fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
               fontWeight: 400,
               lineHeight: '28px',
               letterSpacing: '-0.025em',

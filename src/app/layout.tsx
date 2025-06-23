@@ -1,8 +1,12 @@
 import ThemeProvider from '@/components/ThemeProvider';
 import EmotionRegistry from '@/lib/emotion-registry';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ 
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Messe AI',
@@ -19,7 +23,7 @@ export default function RootLayout({
       <head>
         <meta name="emotion-insertion-point" content="" />
       </head>
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <EmotionRegistry>
           <ThemeProvider>{children}</ThemeProvider>
         </EmotionRegistry>

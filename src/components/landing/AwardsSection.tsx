@@ -5,9 +5,8 @@ import {
   Container,
   Typography,
   Stack,
-  Card,
-  CardContent,
 } from '@mui/material';
+import Image from 'next/image';
 
 interface AwardCardProps {
   imageUrl: string;
@@ -20,174 +19,194 @@ interface AwardCardProps {
 
 const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCardProps) => {
   return (
-    <Card
+    <Box
       sx={{
-        width: 316,
-        backgroundColor: 'background.paper',
-        borderRadius: 1,
-        boxShadow: 'none',
-        border: '1px solid',
-        borderColor: 'grey.200',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: '100%',
+        maxWidth: { xs: '100%', sm: '320px', md: '320px' },
+        overflow: 'hidden',
       }}
     >
-      <CardContent sx={{ p: 2.5 }}>
-        <Stack spacing={2.5}>
-          {/* Award Image */}
+      {/* Award Image */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '239 / 450', // Maintain the ratio from design
+          backgroundColor: '#F5F5F5',
+          borderRadius: '4px',
+          overflow: 'hidden',
+        }}
+      >
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={`${category} - ${client}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+          />
+        ) : (
           <Box
             sx={{
               width: '100%',
-              height: 200,
-              backgroundColor: 'grey.100',
-              borderRadius: 1,
+              height: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundImage: `url(${imageUrl})`,
-              backgroundSize: 'contain',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
+              color: '#9E9E9E',
             }}
           >
-            {!imageUrl && (
-              <Typography variant="body2" color="grey.500">
-                Award Image
-              </Typography>
-            )}
+            <Typography variant="body2">Award Image</Typography>
           </Box>
+        )}
+      </Box>
 
-          {/* Award Details */}
-          <Stack spacing={0.5}>
-            <Stack direction="row" spacing={0.5} alignItems="baseline">
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                Category:
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                {category}
-              </Typography>
-            </Stack>
+      {/* Award Details */}
+      <Stack spacing="4px">
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            Category:
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            {category}
+          </Typography>
+        </Box>
 
-            <Stack direction="row" spacing={0.5} alignItems="baseline">
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                Show:
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                {show}
-              </Typography>
-            </Stack>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            Show:
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            {show}
+          </Typography>
+        </Box>
 
-            <Stack direction="row" spacing={0.5} alignItems="baseline">
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                Client:
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.02em',
-                  color: 'grey.800',
-                }}
-              >
-                {client}
-              </Typography>
-            </Stack>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            Client:
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#000000',
+            }}
+          >
+            {client}
+          </Typography>
+        </Box>
 
-            <Stack direction="row" spacing={0.5} alignItems="baseline" sx={{ mt: 1 }}>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'text.primary',
-                }}
-              >
-                Article
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  letterSpacing: '0.02em',
-                  color: 'text.primary',
-                }}
-              >
-                at
-              </Typography>
-              <Typography
-                component="a"
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body2"
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
-                  color: 'primary.400',
-                  textDecoration: 'underline',
-                  cursor: 'pointer',
-                  
-                  '&:hover': {
-                    color: 'primary.600',
-                  },
-                }}
-              >
-                {article}
-              </Typography>
-            </Stack>
-          </Stack>
-        </Stack>
-      </CardContent>
-    </Card>
+        <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#262626',
+              flexShrink: 0,
+            }}
+          >
+            Article
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#262626',
+              flexShrink: 0,
+            }}
+          >
+            at
+          </Typography>
+          <Typography
+            component="a"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              lineHeight: '18px',
+              letterSpacing: '0.28px',
+              color: '#656CAF',
+              textDecoration: 'underline',
+              textDecorationColor: '#656CAF',
+              cursor: 'pointer',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              flex: 1,
+              minWidth: 0,
+              
+              '&:hover': {
+                color: '#4C53A2',
+                textDecorationColor: '#4C53A2',
+              },
+            }}
+          >
+            {article}
+          </Typography>
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 
 const AwardsSection = () => {
   const awards = [
     {
-      imageUrl: '/awards/award-1.jpg',
+      imageUrl: '/awards/award-01.png',
       category: 'Best Pavilion',
       show: 'Big 5',
       client: 'Belgium Pavilion',
@@ -195,7 +214,7 @@ const AwardsSection = () => {
       link: '#',
     },
     {
-      imageUrl: '/awards/award-2.jpg',
+      imageUrl: '/awards/award-02.png',
       category: 'Double-Deck Exhibit',
       show: 'Interplastica',
       client: 'Sibur Holding PJSC',
@@ -203,7 +222,7 @@ const AwardsSection = () => {
       link: '#',
     },
     {
-      imageUrl: '/awards/award-3.jpg',
+      imageUrl: '/awards/award-03.png',
       category: 'Best Sustainable Stand',
       show: 'ADIPEC',
       client: 'Siemens Energy',
@@ -211,7 +230,7 @@ const AwardsSection = () => {
       link: '#',
     },
     {
-      imageUrl: '/awards/award-4.jpg',
+      imageUrl: '/awards/award-04.png',
       category: 'International Exhibit',
       show: 'Dubai International Boat show',
       client: 'Amels',
@@ -228,20 +247,27 @@ const AwardsSection = () => {
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
-        <Stack spacing={6} alignItems="center">
-          {/* Awards Grid */}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              gap: 4,
-              flexWrap: { xs: 'wrap', lg: 'nowrap' },
-            }}
-          >
-            {awards.map((award, index) => (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: { xs: 3, md: 4 },
+            flexWrap: 'wrap',
+            width: '100%',
+          }}
+        >
+          {awards.map((award, index) => (
+            <Box
+              key={index}
+              sx={{
+                flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', lg: '0 0 320px' },
+                maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', lg: '320px' },
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
               <AwardCard
-                key={index}
                 imageUrl={award.imageUrl}
                 category={award.category}
                 show={award.show}
@@ -249,12 +275,12 @@ const AwardsSection = () => {
                 article={award.article}
                 link={award.link}
               />
-            ))}
-          </Box>
-        </Stack>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
 };
 
-export default AwardsSection; 
+export default AwardsSection;

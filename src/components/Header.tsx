@@ -57,7 +57,6 @@ const CustomMenuItem = ({
           sx={{
                     fontSize: size === 'medium' ? 24 : 16,
           fontWeight: 700,
-          fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
             lineHeight: size === 'medium' ? '28px' : '24px',
             letterSpacing: size === 'medium' ? '0.01em' : '0.02em',
             color: '#4C53A2', // Direct color from Figma
@@ -159,7 +158,6 @@ const TopInfoBar = () => {
             <Typography
               sx={{
                             fontSize: 12,
-            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
             fontWeight: 400,
                 lineHeight: '16px',
                 letterSpacing: '0.04em',
@@ -181,7 +179,6 @@ const TopInfoBar = () => {
             <Typography
               sx={{
                             fontSize: 12,
-            fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
             fontWeight: 700,
                 lineHeight: '16px',
                 letterSpacing: '0.04em',
@@ -300,7 +297,6 @@ const Header = () => {
               >
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 700,
@@ -313,7 +309,6 @@ const Header = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 500,
@@ -326,7 +321,6 @@ const Header = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 700,
@@ -339,7 +333,6 @@ const Header = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 500,
@@ -352,7 +345,6 @@ const Header = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 700,
@@ -365,7 +357,6 @@ const Header = () => {
                 </Typography>
                 <Typography
                   sx={{
-                    fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                     fontSize: '0.5rem', // 8px
                     fontStyle: 'normal',
                     fontWeight: 500,
@@ -432,7 +423,6 @@ const Header = () => {
               <Typography
                 sx={{
                   fontSize: { xs: 14, md: 16 },
-                  fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
                   fontWeight: 400,
                   lineHeight: '24px',
                   letterSpacing: '0.02em',

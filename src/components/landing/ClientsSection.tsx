@@ -155,7 +155,6 @@ const ClientsSection = () => {
             component="div"
             sx={{
               fontSize: { xs: 24, md: 36 },
-              fontFamily: 'Roboto, sans-serif',
               fontWeight: 400,
               lineHeight: 1.11,
               letterSpacing: '-0.02em',

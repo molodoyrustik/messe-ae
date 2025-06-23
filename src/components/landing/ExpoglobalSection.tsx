@@ -7,6 +7,9 @@ import {
   Stack,
   Button,
 } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const ExpoglobalSection = () => {
   return (
@@ -26,29 +29,34 @@ const ExpoglobalSection = () => {
             flexDirection: { xs: 'column', lg: 'row' },
           }}
         >
-          {/* Expoglobal Logos */}
+          {/* Expoglobal Logo */}
           <Box
             sx={{
-              width: { xs: '100%', lg: 346 },
-              height: { xs: 200, lg: 300 },
-              backgroundColor: 'grey.100',
-              borderRadius: 1,
+              width: { xs: '100%', sm: '320px', lg: '320px' },
+              height: { xs: '200px', sm: '144px' },
+              position: 'relative',
+              overflow: 'hidden',
+              flexShrink: 0,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundImage: 'url(/expoglobal-branding.jpg)',
-              backgroundSize: 'contain',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
             }}
           >
-            <Typography variant="body2" color="grey.500">
-              Expoglobal Branding
-            </Typography>
+            <Image
+              src="/expoglobal-branding.svg"
+              alt="Expoglobal Group"
+              width={320}
+              height={144}
+              style={{
+                objectFit: 'contain',
+                width: '100%',
+                height: '100%',
+              }}
+            />
           </Box>
 
           {/* Content */}
-          <Stack spacing={1.25} sx={{ flex: 1, maxWidth: { xs: '100%', lg: 1012 } }}>
+          <Stack spacing={1.25} sx={{ flex: 1, maxWidth: { xs: '100%', lg: '1012px' } }}>
             <Typography
               variant="body1"
               sx={{
@@ -56,34 +64,116 @@ const ExpoglobalSection = () => {
                 fontWeight: 400,
                 lineHeight: 1.5,
                 letterSpacing: '0.02em',
-                color: 'grey.800',
+                color: '#000000',
                 textAlign: 'justify',
               }}
             >
-              Messe.ae is part of Expoglobal Group, an international holding based in Belgium, 
-              specializing in B2B and B2C markets with customized solutions in the event industry, 
-              personalized furniture, and mobile homes. The group includes Nook (customized furniture), 
-              5D (exhibition stands in Europe), messe.ae (exhibition stands in the Middle East), 
-              and Hütt (mobile homes). Messe.ae offers European-quality exhibition stand design in Dubai, 
-              acting as one of the leading exhibition stand contractors in UAE. We create innovative expo 
-              stand designs, exhibit display stands, and deliver seamless execution for every stand in exhibition.
+              Messe.ae is part of{' '}
+              <Box 
+                component={Link}
+                href="#"
+                sx={{
+                  color: '#656CAF',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  textDecorationColor: '#656CAF',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                    textDecorationColor: '#4C53A2',
+                  },
+                }}
+              >
+                Expoglobal Group
+              </Box>
+              , an international holding based in Belgium, specializing in B2B and B2C markets with customized solutions in the event industry, personalized furniture, and mobile homes. The group includes{' '}
+              <Box 
+                component={Link}
+                href="#"
+                sx={{
+                  color: '#656CAF',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  textDecorationColor: '#656CAF',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                    textDecorationColor: '#4C53A2',
+                  },
+                }}
+              >
+                Nook
+              </Box>
+              {' '}(customized furniture),{' '}
+              <Box 
+                component={Link}
+                href="#"
+                sx={{
+                  color: '#656CAF',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  textDecorationColor: '#656CAF',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                    textDecorationColor: '#4C53A2',
+                  },
+                }}
+              >
+                5D
+              </Box>
+              {' '}(exhibition stands in Europe), messe.ae (exhibition stands in the Middle East), and{' '}
+              <Box 
+                component={Link}
+                href="#"
+                sx={{
+                  color: '#656CAF',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  textDecorationColor: '#656CAF',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                    textDecorationColor: '#4C53A2',
+                  },
+                }}
+              >
+                Hütt
+              </Box>
+              {' '}(mobile homes).{' '}
+              <Box 
+                component="span"
+                sx={{
+                  color: '#656CAF',
+                  fontWeight: 700,
+                }}
+              >
+                Messe.ae
+              </Box>
+              {' '}offers European-quality{' '}
+              <Box 
+                component="span"
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                exhibition stand design in Dubai
+              </Box>
+              , acting as one of the leading{' '}
+              <Box 
+                component="span"
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                exhibition stand contractors in UAE
+              </Box>
+              . We create innovative expo stand designs, exhibit display stands, and deliver seamless execution for every stand in exhibition.
             </Typography>
 
             <Button
               variant="text"
-              endIcon={
-                <Box
-                  sx={{
-                    width: 20,
-                    height: 20,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  →
-                </Box>
-              }
+              endIcon={<ArrowForwardIcon sx={{ fontSize: 16 }} />}
               sx={{
                 justifyContent: 'flex-start',
                 px: 0.625,
@@ -92,12 +182,20 @@ const ExpoglobalSection = () => {
                 fontSize: 16,
                 fontWeight: 400,
                 letterSpacing: '0.02em',
-                color: 'primary.400',
+                color: '#656CAF',
                 textTransform: 'none',
+                alignSelf: 'flex-start',
                 
                 '&:hover': {
                   backgroundColor: 'transparent',
-                  color: 'primary.600',
+                  color: '#4C53A2',
+                  '& .MuiSvgIcon-root': {
+                    color: '#4C53A2',
+                  },
+                },
+                
+                '& .MuiButton-endIcon': {
+                  ml: 1,
                 },
               }}
             >
@@ -110,4 +208,4 @@ const ExpoglobalSection = () => {
   );
 };
 
-export default ExpoglobalSection; 
+export default ExpoglobalSection;
