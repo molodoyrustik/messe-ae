@@ -9,8 +9,8 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: 'Messe AI',
-  description: 'Messe AI Application',
+  title: 'Messe.ae',
+  description: 'Exhibition Stand Builder & Designer in UAE',
 };
 
 export default function RootLayout({

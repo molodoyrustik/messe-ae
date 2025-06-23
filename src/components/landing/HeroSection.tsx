@@ -15,17 +15,62 @@ const HeroSection = () => {
         width: '100vw',
         height: { xs: '580px', md: '800px' },
         position: 'relative',
-        background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84.13%)',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
       }}
     >
+      {/* Video Background */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          component="iframe"
+          src="https://player.vimeo.com/video/1066300060?h=1066300060&background=1&controls=0&muted=1&loop=1&autopause=0&dnt=1"
+          title="Video background"
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translateX(-50%) translateY(-50%)',
+            width: '100vw',
+            height: '56.25vw', // 16:9 aspect ratio
+            minHeight: '100%',
+            minWidth: '177.78vh', // 16:9 aspect ratio
+            border: 'none',
+            opacity: 1,
+          }}
+        />
+      </Box>
+
+      {/* Gradient Overlay */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 84.13%)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
       <Container 
         maxWidth="xl" 
         sx={{ 
           height: '100%',
           position: 'relative',
+          zIndex: 2,
         }}
       >
         {/* Main Title */}

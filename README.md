@@ -1,6 +1,6 @@
-# Messe AI
+# Messe.ae
 
-Интеллектуальный помощник для выставок с кастомной дизайн-системой Material-UI.
+Exhibition Stand Builder & Designer in UAE with custom Material-UI design system.
 
 ## 🎨 Дизайн-система
 
