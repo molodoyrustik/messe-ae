@@ -166,7 +166,7 @@ export default function ButtonShowcase() {
                 Используйте активные глаголы в тексте кнопок
               </Typography>
               <Typography component="li" variant="body2" sx={{ mb: 1 }}>
-                Уточняйте объект действия ("Go to the chat" вместо "Go")
+                Уточняйте объект действия (&quot;Go to the chat&quot; вместо &quot;Go&quot;)
               </Typography>
               <Typography component="li" variant="body2" sx={{ mb: 1 }}>
                 Используйте текст в одну строку
@@ -182,7 +182,7 @@ export default function ButtonShowcase() {
 
           <Paper sx={{ p: 3, mb: 3 }}>
             <Typography variant="h6" gutterBottom color="error.main">
-              ✗ Don't
+              ✗ Don&apos;t
             </Typography>
             <Box component="ul" sx={{ pl: 2, m: 0 }}>
               <Typography component="li" variant="body2" sx={{ mb: 1 }}>

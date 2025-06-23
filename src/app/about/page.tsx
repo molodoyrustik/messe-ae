@@ -5,11 +5,8 @@ import {
   Container,
   Typography,
   Grid,
-  Stack,
   Card,
   CardContent,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
@@ -60,8 +57,6 @@ const values = [
 ];
 
 export default function AboutPage() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>

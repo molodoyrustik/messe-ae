@@ -4,7 +4,7 @@ import { Box, Typography, Paper, Grid } from '@mui/material';
 import { typography } from '../../theme/tokens';
 
 type TypographyExampleProps = {
-  variant: any;
+  variant: string;
   label: string;
   description: string;
   sampleText?: string;

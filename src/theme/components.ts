@@ -124,7 +124,7 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
       
       // Mobile button variant
       {
-        props: { size: 'small' as any },
+        props: { size: 'small' },
         style: {
           height: 'auto',
           padding: '4px 8px',
@@ -140,7 +140,7 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
   MuiTypography: {
     variants: [
       {
-        props: { variant: 'captionMobile' as any },
+        props: { variant: 'captionMobile' },
         style: {
           fontFamily: theme.typography.fontFamily,
           fontWeight: 400,
@@ -151,7 +151,7 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
         },
       },
       {
-        props: { variant: 'link' as any },
+        props: { variant: 'link' },
         style: {
           fontFamily: theme.typography.fontFamily,
           fontWeight: 400,
@@ -514,7 +514,7 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
     variants: [
       // Medium size variant (Tailwind: text-2xl, leading-7, tracking-tight)
       {
-        props: { size: 'medium' as any },
+        props: { size: 'medium' },
         style: {
           fontSize: 24, // text-2xl
           lineHeight: '28px', // leading-7
@@ -532,7 +532,7 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
 
       // Small size variant (responsive)
       {
-        props: { size: 'small' as any },
+        props: { size: 'small' },
         style: {
           fontSize: 16,
           lineHeight: '24px',

@@ -131,7 +131,6 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
 };
 
 const AdvantagesSection = () => {
-  const theme = useTheme();
 
   const advantages = [
     {

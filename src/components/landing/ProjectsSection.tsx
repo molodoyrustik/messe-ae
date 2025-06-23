@@ -65,7 +65,6 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
   onNavigate: (direction: 'prev' | 'next') => void;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const currentProject = category.projects[currentIndex];
 
   return (
     <Box
@@ -360,7 +359,7 @@ const ProjectsSection = () => {
             <Box component="span" sx={{ fontWeight: 700 }}>exhibition success</Box>
             <Box component="span">.</Box>
             <Box component="br" />
-            <Box component="span">Let's start planning your </Box>
+            <Box component="span">Let&apos;s start planning your </Box>
             <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>standout</Box>
             <Box component="span"> exhibition </Box>
             <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>experience</Box>
