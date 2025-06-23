@@ -219,7 +219,7 @@ const Header = () => {
       <Box
         sx={{
           width: '100%',
-          height: { xs: 80, md: 128 }, // Reduced height on mobile
+          height: { xs: 56, md: 128 }, // Mobile header height: 56px
           position: 'relative',
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(10px)',
@@ -235,7 +235,7 @@ const Header = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: { xs: 80, md: 92 }, // Height excluding top bar
+              height: { xs: 56, md: 92 }, // Mobile: 56px, Desktop: 92px
               position: 'relative',
               width: '100%',
             }}
@@ -248,8 +248,8 @@ const Header = () => {
                   left: 0,
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  width: '7.625rem', // 122px
-                  height: '5.25rem', // 84px
+                  width: { xs: '61px', md: '7.625rem' }, // Mobile: 61px, Desktop: 122px
+                  height: { xs: '30px', md: '5.25rem' }, // Mobile: 30px, Desktop: 84px
                   flexShrink: 0,
                   display: 'flex',
                   flexDirection: 'column',
@@ -260,8 +260,8 @@ const Header = () => {
               {/* Logo Image Container */}
               <Box
                 sx={{
-                  width: '7.625rem', // 122px
-                  height: '3.75rem', // 60px
+                  width: { xs: '61px', md: '7.625rem' }, // Mobile: 61px, Desktop: 122px
+                  height: { xs: '30px', md: '3.75rem' }, // Mobile: 30px, Desktop: 60px
                   flexShrink: 0,
                   position: 'absolute',
                   left: 0,
@@ -276,15 +276,102 @@ const Header = () => {
                   height={120} // 60px * 2 для компенсации внутренних отступов
                   style={{
                     position: 'absolute',
-                    left: -68,
-                    top: -34,
+                    left: isMobile ? -34 : -68,
+                    top: isMobile ? -17 : -34,
                     objectFit: 'contain',
+                    transform: isMobile ? 'scale(0.5)' : 'scale(1)',
                   }}
                   priority
                 />
               </Box>
               
-              {/* Company Tagline - Desktop only */}
+              {/* Company Tagline - Mobile version */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: { xs: 0, md: 0 },
+                  top: { xs: 28, md: 72 }, // Mobile: 28px, Desktop: 72px
+                  justifyContent: 'flex-start',
+                  display: { xs: 'flex', md: 'none' },
+                  flexWrap: 'wrap',
+                  width: { xs: '80px', md: '7.625rem' },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '6px', // 150%
+                    color: '#656CAF',
+                  }}
+                  component="span"
+                >
+                  M
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '6px',
+                    color: '#000',
+                  }}
+                  component="span"
+                >
+                  arketing and{' '}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '6px',
+                    color: '#656CAF',
+                  }}
+                  component="span"
+                >
+                  E
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '6px',
+                    color: '#000',
+                  }}
+                  component="span"
+                >
+                  xhibition{' '}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '6px',
+                    color: '#656CAF',
+                  }}
+                  component="span"
+                >
+                  S
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '4px',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    lineHeight: '6px',
+                    color: '#000',
+                  }}
+                  component="span"
+                >
+                  ervices
+                </Typography>
+              </Box>
+              
+              {/* Company Tagline - Desktop version */}
               <Box
                 sx={{
                   width: '7.625rem', // 122px
@@ -370,6 +457,26 @@ const Header = () => {
               </Box>
               </Box>
             </Link>
+            
+            {/* "the part of Expoglobal Group" - Mobile only */}
+            <Typography
+              sx={{
+                position: 'absolute',
+                left: '105px',
+                top: '19px',
+                fontSize: '12px',
+                fontWeight: 400,
+                lineHeight: '16px',
+                letterSpacing: '0.04em',
+                color: '#000',
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              the part of{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                Expoglobal Group
+              </Box>
+            </Typography>
 
             {/* Navigation Menu - Center on desktop, hidden on mobile */}
             <Box
@@ -396,33 +503,33 @@ const Header = () => {
               ))}
             </Box>
 
-            {/* CTA Button */}
+            {/* CTA Button - Desktop only */}
             <Box
               sx={{
                 position: 'absolute',
                 right: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: { xs: 140, md: 200 },
+                width: 200,
                 height: 36,
-                backgroundColor: '#656CAF', // Direct color from Figma
+                backgroundColor: '#656CAF',
                 borderRadius: 1,
                 boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-                display: 'flex',
+                display: { xs: 'none', md: 'flex' },
                 justifyContent: 'center',
                 alignItems: 'center',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 
                 '&:hover': {
-                  backgroundColor: '#4C53A2', // Direct primary.500 color
+                  backgroundColor: '#4C53A2',
                   transform: 'translateY(-50%) scale(1.02)',
                 },
               }}
             >
               <Typography
                 sx={{
-                  fontSize: { xs: 14, md: 16 },
+                  fontSize: 16,
                   fontWeight: 400,
                   lineHeight: '24px',
                   letterSpacing: '0.02em',
@@ -430,22 +537,41 @@ const Header = () => {
                   textAlign: 'center',
                 }}
               >
-                {isMobile ? 'Discuss' : 'Discuss your project'}
+                Discuss your project
               </Typography>
             </Box>
-
-            {/* Mobile Menu - Show social icons on mobile */}
-            <Box
+            
+            {/* Hamburger Menu - Mobile only */}
+            <IconButton
               sx={{
                 position: 'absolute',
-                left: '50%',
+                right: 0,
                 top: '50%',
-                transform: 'translate(-50%, -50%)',
+                transform: 'translateY(-50%)',
+                width: 24,
+                height: 24,
+                p: 0,
                 display: { xs: 'flex', md: 'none' },
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#262626',
               }}
             >
-              <SocialIcons />
-            </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '3px',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
+                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
+                <Box sx={{ width: 16, height: 2, backgroundColor: '#262626', borderRadius: '1px' }} />
+              </Box>
+            </IconButton>
+
           </Box>
         </Container>
       </Box>
