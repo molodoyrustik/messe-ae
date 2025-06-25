@@ -309,8 +309,6 @@ const ProjectsSection = () => {
             overflowX: 'auto',
             pb: 2,
             mb: 3,
-            mx: -2,
-            px: 2,
             scrollSnapType: 'x mandatory',
             '&::-webkit-scrollbar': {
               display: 'none',

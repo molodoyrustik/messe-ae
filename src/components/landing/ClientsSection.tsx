@@ -306,7 +306,8 @@ const ClientsSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
+        pt: { xs: '2.5rem', md: 8 }, // Mobile: 2.5rem, Desktop: 8 (64px)
+        pb: { xs: 0, md: 8 }, // Mobile: 0, Desktop: 8 (64px)
         backgroundColor: 'background.default',
       }}
     >
