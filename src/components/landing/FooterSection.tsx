@@ -49,6 +49,7 @@ const FooterSection = () => {
 
   return (
     <Box
+      id="footer-section"
       sx={{
         backgroundColor: '#F5F5F5',
         overflow: 'hidden',
@@ -278,6 +279,7 @@ const FooterSection = () => {
 
             {/* Contact Form */}
             <Paper
+              id="contact-form"
               elevation={0}
               component="form"
               onSubmit={handleSubmit}

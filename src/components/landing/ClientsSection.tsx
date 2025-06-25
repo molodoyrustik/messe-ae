@@ -14,6 +14,10 @@ const CarouselContainer = styled(Box)({
   position: 'relative',
   height: '64px', // Fixed height
   width: '100%',
+  isolation: 'isolate', // Создает новый stacking context
+  backfaceVisibility: 'hidden', // Предотвращаем проблемы рендеринга
+  WebkitBackfaceVisibility: 'hidden',
+  transform: 'translateZ(0)', // Принудительное GPU ускорение
   '&::before, &::after': {
     content: '""',
     position: 'absolute',
@@ -22,6 +26,8 @@ const CarouselContainer = styled(Box)({
     height: '100%',
     zIndex: 2,
     pointerEvents: 'none',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
   },
   '&::before': {
     left: 0,
@@ -43,6 +49,9 @@ const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right' }>(({ direction
   animation: direction === 'left' 
     ? 'scrollLeftUltra 160s linear infinite' // 8 copies * 20s each
     : 'scrollRightUltra 160s linear infinite',
+  willChange: 'transform', // Оптимизация анимации
+  backfaceVisibility: 'hidden', // Предотвращаем проблемы рендеринга
+  WebkitBackfaceVisibility: 'hidden',
   '&:hover': {
     animationPlayState: 'paused', // Pause on hover
   },
