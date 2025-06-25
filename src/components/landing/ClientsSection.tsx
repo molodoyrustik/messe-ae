@@ -9,20 +9,20 @@ import {
 } from '@mui/material';
 
 // Container for the carousel
-const CarouselContainer = styled(Box)({
+const CarouselContainer = styled(Box)<{ isMobile?: boolean }>(({ isMobile = false }) => ({
   overflow: 'hidden',
   position: 'relative',
-  height: '64px', // Fixed height
+  height: isMobile ? '1.75rem' : '64px', // Mobile: 1.75rem (28px), Desktop: 64px
   width: '100%',
-  isolation: 'isolate', // Создает новый stacking context
-  backfaceVisibility: 'hidden', // Предотвращаем проблемы рендеринга
+  isolation: 'isolate',
+  backfaceVisibility: 'hidden',
   WebkitBackfaceVisibility: 'hidden',
-  transform: 'translateZ(0)', // Принудительное GPU ускорение
+  transform: 'translateZ(0)',
   '&::before, &::after': {
     content: '""',
     position: 'absolute',
     top: 0,
-    width: '100px',
+    width: isMobile ? '1rem' : '100px', // Mobile uses 1rem (equal to screen padding)
     height: '100%',
     zIndex: 2,
     pointerEvents: 'none',
@@ -37,109 +37,271 @@ const CarouselContainer = styled(Box)({
     right: 0,
     background: 'linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0))',
   },
-});
-
-// Track that moves continuously with logging - ULTRA LONG ANIMATION
-const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right' }>(({ direction = 'left' }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '112px', // Space between logos
-  height: '100%',
-  width: 'max-content', // Auto width to fit content
-  animation: direction === 'left' 
-    ? 'scrollLeftUltra 160s linear infinite' // 8 copies * 20s each
-    : 'scrollRightUltra 160s linear infinite',
-  willChange: 'transform', // Оптимизация анимации
-  backfaceVisibility: 'hidden', // Предотвращаем проблемы рендеринга
-  WebkitBackfaceVisibility: 'hidden',
-  '&:hover': {
-    animationPlayState: 'paused', // Pause on hover
-  },
-  // Ultra smooth animation with 8 copies
-  '@keyframes scrollLeftUltra': {
-    '0%': {
-      transform: 'translateX(0)',
-    },
-    '100%': {
-      transform: 'translateX(-12.5%)', // Move 1/8th of total width (one copy out of 8)
-    },
-  },
-  '@keyframes scrollRightUltra': {
-    '0%': {
-      transform: 'translateX(-12.5%)', // Start from 1/8th position
-    },
-    '100%': {
-      transform: 'translateX(0)', // Move to start
-    },
-  },
 }));
+
+// Track that moves continuously
+const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: number; isMobile?: boolean }>(
+  ({ direction = 'left', duration = 120, isMobile = false }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    gap: isMobile ? '2rem' : '120px', // Mobile: 2rem, Desktop: 120px
+    height: '100%',
+    width: 'max-content',
+    animation: direction === 'left' 
+      ? `scrollLeft ${duration}s linear infinite`
+      : `scrollRight ${duration}s linear infinite`,
+    willChange: 'transform',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    '&:hover': {
+      animationPlayState: 'paused',
+    },
+    '@keyframes scrollLeft': {
+      '0%': {
+        transform: 'translateX(0)',
+      },
+      '100%': {
+        transform: 'translateX(-50%)', // Move half the width (duplicate content)
+      },
+    },
+    '@keyframes scrollRight': {
+      '0%': {
+        transform: 'translateX(-50%)',
+      },
+      '100%': {
+        transform: 'translateX(0)',
+      },
+    },
+  })
+);
 
 
 
 // Logo item container
-const LogoItem = styled(Box)({
+const LogoItem = styled(Box)<{ isMobile?: boolean }>(({ isMobile = false }) => ({
   flexShrink: 0,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: '200px', // Ensure consistent spacing
-});
+  minWidth: isMobile ? 'auto' : '200px', // Mobile: auto, Desktop: 200px
+}));
 
 const ClientsSection = () => {
-
-
-  // Real client logos with their actual filenames from the downloaded logos
-  const clientLogos = [
-    { name: 'Amazon Web Services', filename: 'amazon-web-services.svg', width: 128, height: 64 },
-    { name: 'Genesis', filename: 'genesis.svg', width: 242, height: 48 },
-    { name: 'Canon', filename: 'canon.svg', width: 228, height: 48 },
-    { name: 'Porsche', filename: 'porsche.svg', width: 360, height: 52 },
-    { name: 'Hapag Lloyd', filename: 'hapag-lloyd.svg', width: 337, height: 52 },
-    { name: 'Infiniti', filename: 'infiniti.svg', width: 360, height: 52 },
-    { name: 'Siemens', filename: 'siemens.svg', width: 298, height: 48 },
-    { name: 'AO Trauma', filename: 'ao-trauma.svg', width: 115, height: 72 },
-    { name: 'Tomra', filename: 'tomra.svg', width: 291, height: 52 },
-    { name: 'Anduril', filename: 'anduril.svg', width: 284, height: 52 },
-    { name: 'Canadian Solar', filename: 'canadian-solar.svg', width: 168, height: 64 },
-    { name: 'Alvo', filename: 'alvo.svg', width: 169, height: 72 },
-    { name: 'Diehl', filename: 'diehl.svg', width: 293, height: 48 },
-    { name: 'Medela', filename: 'medela.svg', width: 272, height: 52 },
-    { name: 'Arjo', filename: 'arjo.svg', width: 223, height: 52 },
-    { name: 'Abbott', filename: 'abbott.svg', width: 202, height: 52 },
-    { name: 'Soltec', filename: 'soltec.svg', width: 181, height: 64 },
-    { name: 'Pattyn', filename: 'pattyn.svg', width: 329, height: 52 },
-    { name: 'Mindray', filename: 'mindray.svg', width: 224, height: 52 },
-    { name: 'Biosystems', filename: 'biosystems.svg', width: 284, height: 52 },
-    { name: 'Hensoldt', filename: 'hensoldt.svg', width: 215, height: 52 },
-    { name: 'Brady', filename: 'brady.svg', width: 274, height: 52 },
-    { name: 'Mizuho', filename: 'mizuho.svg', width: 227, height: 52 },
-    { name: 'OMV', filename: 'omv.svg', width: 226, height: 64 },
-    { name: 'Siemens Energy', filename: 'siemens-energy.svg', width: 152, height: 52 },
-    { name: 'HT Group', filename: 'ht-group.svg', width: 309, height: 52 },
-    { name: 'WABCO', filename: 'wabco.svg', width: 208, height: 64 },
-    { name: 'Linde', filename: 'linde.svg', width: 127, height: 64 },
-    { name: 'Nook', filename: 'nook.svg', width: 208, height: 64 },
-    { name: 'John Deere', filename: 'john-deere.svg', width: 334, height: 64 },
-    { name: 'WEIR', filename: 'weir.svg', width: 167, height: 52 },
-    { name: 'Halliburton', filename: 'halliburton.svg', width: 360, height: 52 },
-    { name: 'Krones', filename: 'krones.svg', width: 232, height: 72 },
-    { name: 'Esko', filename: 'esko.svg', width: 238, height: 48 },
-    { name: 'KNDS', filename: 'knds.svg', width: 163, height: 48 },
-    { name: 'Teleste', filename: 'teleste.svg', width: 332, height: 48 },
-    { name: 'Wabtec', filename: 'wabtec.svg', width: 188, height: 64 },
-    { name: 'Konica Minolta', filename: 'konica-minolta.svg', width: 360, height: 52 },
-    { name: 'Getinge', filename: 'getinge.svg', width: 351, height: 52 },
+  // Based on Figma design - Line 1 (Customer_1_web) - 40 logos
+  const desktopLine1 = [
+    { name: 'Amazon Web Services', filename: 'amazon-web-services.svg' },
+    { name: 'Genesis', filename: 'genesis.svg' },
+    { name: 'Canon', filename: 'canon.svg' },
+    { name: 'Porsche', filename: 'porsche.svg' },
+    { name: 'Hapag Lloyd', filename: 'hapag-lloyd.svg' },
+    { name: 'Infiniti', filename: 'infiniti.svg' },
+    { name: 'Siemens', filename: 'siemens.svg' },
+    { name: 'AO Trauma', filename: 'ao-trauma.svg' },
+    { name: 'Tomra', filename: 'tomra.svg' },
+    { name: 'Anduril', filename: 'anduril.svg' },
+    { name: 'REC Solar', filename: 'rec-solar.svg' },
+    { name: 'Alvo', filename: 'alvo.svg' },
+    { name: 'Diehl', filename: 'diehl.svg' },
+    { name: 'Medela', filename: 'medela.svg' },
+    { name: 'Arjo', filename: 'arjo.svg' },
+    { name: 'Abbott', filename: 'abbott.svg' },
+    { name: 'Soltec', filename: 'soltec.svg' },
+    { name: 'Pattyn', filename: 'pattyn.svg' },
+    { name: 'Mindray', filename: 'mindray.svg' },
+    { name: 'Biosystems', filename: 'biosystems.svg' },
+    { name: 'Hensoldt', filename: 'hensoldt.svg' },
+    { name: 'Brady', filename: 'brady.svg' },
+    { name: 'Mizuho', filename: 'mizuho.svg' },
+    { name: 'OMV', filename: 'omv.svg' },
+    { name: 'Siemens Energy', filename: 'siemens-energy.svg' },
+    { name: 'HT Group', filename: 'ht-group.svg' },
+    { name: 'WABCO', filename: 'wabco.svg' },
+    { name: 'Linde', filename: 'linde.svg' },
+    { name: 'Nook', filename: 'nook.svg' },
+    { name: 'John Deere', filename: 'john-deere.svg' },
+    { name: 'WEIR', filename: 'weir.svg' },
+    { name: 'Halliburton', filename: 'halliburton.svg' },
+    { name: 'Krones', filename: 'krones.svg' },
+    { name: 'Esko', filename: 'esko.svg' },
+    { name: 'KNDS', filename: 'knds.svg' },
+    { name: 'Teleste', filename: 'teleste.svg' },
+    { name: 'Exxon Mobil', filename: 'exxon-mobil.svg' },
+    { name: 'Wabtec', filename: 'wabtec.svg' },
+    { name: 'Konica Minolta', filename: 'konica-minolta.svg' },
+    { name: 'Getinge', filename: 'getinge.svg' },
   ];
 
-  // Create extended arrays with many copies for ultra-smooth looping
-  const extendedLogos1 = [
-    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos, 
-    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos
-  ]; // 8 copies
-  const extendedLogos2 = [
-    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos,
-    ...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos
-  ]; // 8 copies
+  // Based on Figma design - Line 2 (Customer_2_web) - 40 logos  
+  const desktopLine2 = [
+    { name: 'Sudpack', filename: 'sudpack.svg' },
+    { name: 'Diamond Aircraft', filename: 'diamond-aircraft.svg' },
+    { name: 'Zimmer', filename: 'zimmer.svg' },
+    { name: 'Sessa', filename: 'sessa.svg' },
+    { name: 'THK', filename: 'thk.svg' },
+    { name: 'Sanlorenzo', filename: 'sanlorenzo.svg' },
+    { name: 'Damen', filename: 'damen.svg' },
+    { name: 'Smiths Detection', filename: 'smiths-detection.svg' },
+    { name: 'Rational', filename: 'rational.svg' },
+    { name: 'Admartime', filename: 'admartime.svg' },
+    { name: 'Aramco', filename: 'aramco.svg' },
+    { name: 'Rowe', filename: 'rowe.svg' },
+    { name: 'Lyondellbasell', filename: 'lyondellbasell.svg' },
+    { name: 'Jeppesen', filename: 'jeppesen.svg' },
+    { name: 'Tosoh', filename: 'tosoh.svg' },
+    { name: 'Ansell', filename: 'ansell.svg' },
+    { name: 'Wolf Oil', filename: 'wolf-oil.svg' },
+    { name: 'Canadian Solar', filename: 'canadian-solar.svg' },
+    { name: 'Drager', filename: 'drager.svg' },
+    { name: 'Welltec', filename: 'welltec.svg' },
+    { name: 'Schneider Electric', filename: 'schneider-electric.svg' },
+    { name: 'Linet', filename: 'linet.svg' },
+    { name: 'Tikkurila', filename: 'tikkurila.svg' },
+    { name: 'Penumbra', filename: 'penumbra.svg' },
+    { name: 'Simonswerk', filename: 'simonswerk.svg' },
+    { name: 'Envision', filename: 'envision.svg' },
+    { name: 'Alstom', filename: 'alstom.svg' },
+    { name: 'Siemens Healthineers', filename: 'siemens-healthineers.svg' },
+    { name: 'Smart', filename: 'smart.svg' },
+    { name: 'Nobel Biocare', filename: 'nobel-biocare.svg' },
+    { name: 'Flonq', filename: 'flonq.svg' },
+    { name: 'ATI', filename: 'ati.svg' },
+    { name: 'Jaguar', filename: 'jaguar.svg' },
+    { name: 'Kaspersky', filename: 'kaspersky.svg' },
+    { name: 'Nissan', filename: 'nissan.svg' },
+    { name: 'Red Hat', filename: 'red-hat.svg' },
+    { name: 'Caterpillar', filename: 'caterpillar.svg' },
+    { name: 'Samsung Medison', filename: 'samsung-medison.svg' },
+    { name: 'Visa', filename: 'visa.svg' },
+  ];
+
+  // Mobile version - 3 lines as per Figma design
+  const mobileLine1 = [
+    { name: 'Amazon Web Services', filename: 'amazon-web-services.svg' },
+    { name: 'Genesis', filename: 'genesis.svg' },
+    { name: 'Canon', filename: 'canon.svg' },
+    { name: 'Porsche', filename: 'porsche.svg' },
+    { name: 'Hapag Lloyd', filename: 'hapag-lloyd.svg' },
+    { name: 'Infiniti', filename: 'infiniti.svg' },
+    { name: 'Siemens', filename: 'siemens.svg' },
+    { name: 'AO Trauma', filename: 'ao-trauma.svg' },
+    { name: 'Tomra', filename: 'tomra.svg' },
+    { name: 'Anduril', filename: 'anduril.svg' },
+    { name: 'REC Solar', filename: 'rec-solar.svg' },
+    { name: 'Alvo', filename: 'alvo.svg' },
+    { name: 'Diehl', filename: 'diehl.svg' },
+    { name: 'Medela', filename: 'medela.svg' },
+    { name: 'Arjo', filename: 'arjo.svg' },
+    { name: 'Abbott', filename: 'abbott.svg' },
+    { name: 'Soltec', filename: 'soltec.svg' },
+    { name: 'Pattyn', filename: 'pattyn.svg' },
+    { name: 'Mindray', filename: 'mindray.svg' },
+    { name: 'Biosystems', filename: 'biosystems.svg' },
+    { name: 'Hensoldt', filename: 'hensoldt.svg' },
+    { name: 'Brady', filename: 'brady.svg' },
+    { name: 'Mizuho', filename: 'mizuho.svg' },
+    { name: 'OMV', filename: 'omv.svg' },
+    { name: 'Siemens Energy', filename: 'siemens-energy.svg' },
+    { name: 'HT Group', filename: 'ht-group.svg' },
+    { name: 'WABCO', filename: 'wabco.svg' },
+  ];
+
+  const mobileLine2 = [
+    { name: 'Lyondellbasell', filename: 'lyondellbasell.svg' },
+    { name: 'Rowe', filename: 'rowe.svg' },
+    { name: 'Aramco', filename: 'aramco.svg' },
+    { name: 'Admartime', filename: 'admartime.svg' },
+    { name: 'Rational', filename: 'rational.svg' },
+    { name: 'Smiths Detection', filename: 'smiths-detection.svg' },
+    { name: 'Damen', filename: 'damen.svg' },
+    { name: 'Sanlorenzo', filename: 'sanlorenzo.svg' },
+    { name: 'THK', filename: 'thk.svg' },
+    { name: 'Sessa', filename: 'sessa.svg' },
+    { name: 'Zimmer', filename: 'zimmer.svg' },
+    { name: 'Diamond Aircraft', filename: 'diamond-aircraft.svg' },
+    { name: 'Sudpack', filename: 'sudpack.svg' },
+    { name: 'Getinge', filename: 'getinge.svg' },
+    { name: 'Konica Minolta', filename: 'konica-minolta.svg' },
+    { name: 'Wabtec', filename: 'wabtec.svg' },
+    { name: 'Exxon Mobil', filename: 'exxon-mobil.svg' },
+    { name: 'Teleste', filename: 'teleste.svg' },
+    { name: 'KNDS', filename: 'knds.svg' },
+    { name: 'Esko', filename: 'esko.svg' },
+    { name: 'Krones', filename: 'krones.svg' },
+    { name: 'Halliburton', filename: 'halliburton.svg' },
+    { name: 'WEIR', filename: 'weir.svg' },
+    { name: 'John Deere', filename: 'john-deere.svg' },
+    { name: 'Nook', filename: 'nook.svg' },
+    { name: 'Linde', filename: 'linde.svg' },
+  ];
+
+  const mobileLine3 = [
+    { name: 'Visa', filename: 'visa.svg' },
+    { name: 'Samsung Medison', filename: 'samsung-medison.svg' },
+    { name: 'Caterpillar', filename: 'caterpillar.svg' },
+    { name: 'Red Hat', filename: 'red-hat.svg' },
+    { name: 'Nissan', filename: 'nissan.svg' },
+    { name: 'Kaspersky', filename: 'kaspersky.svg' },
+    { name: 'Jaguar', filename: 'jaguar.svg' },
+    { name: 'ATI', filename: 'ati.svg' },
+    { name: 'Flonq', filename: 'flonq.svg' },
+    { name: 'Nobel Biocare', filename: 'nobel-biocare.svg' },
+    { name: 'Smart', filename: 'smart.svg' },
+    { name: 'Siemens Healthineers', filename: 'siemens-healthineers.svg' },
+    { name: 'Alstom', filename: 'alstom.svg' },
+    { name: 'Envision', filename: 'envision.svg' },
+    { name: 'Simonswerk', filename: 'simonswerk.svg' },
+    { name: 'Penumbra', filename: 'penumbra.svg' },
+    { name: 'Tikkurila', filename: 'tikkurila.svg' },
+    { name: 'Linet', filename: 'linet.svg' },
+    { name: 'Schneider Electric', filename: 'schneider-electric.svg' },
+    { name: 'Welltec', filename: 'welltec.svg' },
+    { name: 'Drager', filename: 'drager.svg' },
+    { name: 'Canadian Solar', filename: 'canadian-solar.svg' },
+    { name: 'Wolf Oil', filename: 'wolf-oil.svg' },
+    { name: 'Ansell', filename: 'ansell.svg' },
+    { name: 'Tosoh', filename: 'tosoh.svg' },
+    { name: 'Jeppesen', filename: 'jeppesen.svg' },
+  ];
+
+  // Create extended arrays for smooth looping
+  const extendedDesktopLine1 = [...desktopLine1, ...desktopLine1];
+  const extendedDesktopLine2 = [...desktopLine2, ...desktopLine2];
+  const extendedMobileLine1 = [...mobileLine1, ...mobileLine1];
+  const extendedMobileLine2 = [...mobileLine2, ...mobileLine2];
+  const extendedMobileLine3 = [...mobileLine3, ...mobileLine3];
+
+  const renderLogoLine = (logos: { name: string; filename: string }[], lineKey: string, direction: 'left' | 'right', duration: number = 120, isMobile: boolean = false) => (
+    <CarouselContainer isMobile={isMobile}>
+      <CarouselTrack direction={direction} duration={duration} isMobile={isMobile}>
+        {logos.map((logo, index) => (
+          <LogoItem key={`${lineKey}-${logo.filename}-${index}`} isMobile={isMobile}>
+            <Box
+              component="img"
+              src={`/client-logos/${logo.filename}`}
+              alt={logo.name}
+              sx={{
+                maxWidth: isMobile ? '160px' : '200px', // Mobile: smaller logos
+                maxHeight: isMobile ? '20px' : '48px', // Mobile: 20px height
+                objectFit: 'contain',
+                filter: isMobile ? 'grayscale(100%)' : 'none', // Mobile: grayscale by default
+                opacity: isMobile ? 0.7 : 1, // Mobile: reduced opacity
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  filter: 'grayscale(0%)', // Color on hover for both mobile and desktop
+                  opacity: 1,
+                },
+              }}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+              }}
+            />
+          </LogoItem>
+        ))}
+      </CarouselTrack>
+    </CarouselContainer>
+  );
 
   return (
     <Box
@@ -153,22 +315,23 @@ const ClientsSection = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'flex-start',
-            textAlign: 'left',
+            justifyContent: { xs: 'center', md: 'flex-start' }, // Mobile: center, Desktop: left
+            textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
             width: '100%',
-            mb: { xs: 4, md: 6 },
+            mb: { xs: '1rem', md: 6 }, // Mobile: 1rem, Desktop: 6 (48px)
           }}
         >
           <Typography
             variant="h4"
             component="div"
             sx={{
-              fontSize: { xs: 24, md: 36 },
+              fontSize: { xs: '0.75rem', md: 36 }, // Mobile: 0.75rem (12px), Desktop: 36px
+              fontStyle: 'normal',
               fontWeight: 400,
-              lineHeight: 1.11,
-              letterSpacing: '-0.02em',
+              lineHeight: { xs: '1rem', md: 1.11 }, // Mobile: 1rem (16px), Desktop: 1.11
+              letterSpacing: { xs: '0.03rem', md: '-0.02em' }, // Mobile: 0.03rem, Desktop: -0.02em
               color: 'grey.800',
-              textAlign: 'left',
+              textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
               width: '100%',
             }}
           >
@@ -190,70 +353,31 @@ const ClientsSection = () => {
           </Typography>
         </Box>
 
-        {/* First Carousel - Left to Right */}
-        <CarouselContainer>
-          <CarouselTrack direction="left">
-            {extendedLogos1.map((logo, index) => (
-              <LogoItem key={`carousel1-${logo.filename}-${index}`}>
-                <Box
-                  component="img"
-                  src={`/client-logos/${logo.filename}`}
-                  alt={logo.name}
-                  sx={{
-                    width: `${logo.width * 0.75}px`, // Scale down by 25% for better fit
-                    height: `${logo.height * 0.75}px`,
-                    objectFit: 'contain',
-                    filter: 'grayscale(100%)', // Make logos grayscale
-                    opacity: 0.7,
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      filter: 'grayscale(0%)',
-                      opacity: 1,
-                    },
-                  }}
-                  onError={(e) => {
-                    // Fallback if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              </LogoItem>
-            ))}
-          </CarouselTrack>
-        </CarouselContainer>
+        {/* Desktop Layout - 2 Lines */}
+        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+          {/* Desktop Line 1 - Left to Right */}
+          {renderLogoLine(extendedDesktopLine1, 'desktop-line1', 'left', 180, false)}
+          
+          {/* Desktop Line 2 - Right to Left */}
+          <Box sx={{ mt: '32px' }}>
+            {renderLogoLine(extendedDesktopLine2, 'desktop-line2', 'right', 200, false)}
+          </Box>
+        </Box>
 
-        {/* Second Carousel - Right to Left */}
-        <Box sx={{ mt: 2 }}> {/* 16px margin top */}
-          <CarouselContainer>
-            <CarouselTrack direction="right">
-              {extendedLogos2.map((logo, index) => (
-                <LogoItem key={`carousel2-${logo.filename}-${index}`}>
-                  <Box
-                    component="img"
-                    src={`/client-logos/${logo.filename}`}
-                    alt={logo.name}
-                    sx={{
-                      width: `${logo.width * 0.75}px`, // Scale down by 25% for better fit
-                      height: `${logo.height * 0.75}px`,
-                      objectFit: 'contain',
-                      filter: 'grayscale(100%)', // Make logos grayscale
-                      opacity: 0.7,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        filter: 'grayscale(0%)',
-                        opacity: 1,
-                      },
-                    }}
-                    onError={(e) => {
-                      // Fallback if image fails to load
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                    }}
-                  />
-                </LogoItem>
-              ))}
-            </CarouselTrack>
-          </CarouselContainer>
+        {/* Mobile Layout - 3 Lines */}
+        <Box sx={{ display: { xs: 'block', md: 'none' }, mb: { xs: '2.75rem', md: 0 } }}>
+          {/* Mobile Line 1 - Left to Right */}
+          {renderLogoLine(extendedMobileLine1, 'mobile-line1', 'left', 100, true)}
+          
+          {/* Mobile Line 2 - Right to Left */}
+          <Box sx={{ mt: '0.25rem' }}>
+            {renderLogoLine(extendedMobileLine2, 'mobile-line2', 'right', 120, true)}
+          </Box>
+          
+          {/* Mobile Line 3 - Left to Right */}
+          <Box sx={{ mt: '0.25rem' }}>
+            {renderLogoLine(extendedMobileLine3, 'mobile-line3', 'left', 110, true)}
+          </Box>
         </Box>
       </Container>
     </Box>
