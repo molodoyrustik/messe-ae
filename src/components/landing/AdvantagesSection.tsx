@@ -170,7 +170,7 @@ const AdvantagesSection = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: '1.25rem', md: '1.25rem' },
+        py: { xs: '1.25rem', md: 10 },
         backgroundColor: '#FFFFFF',
         position: 'relative',
         zIndex: 1,
