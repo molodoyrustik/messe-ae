@@ -363,25 +363,27 @@ const FooterSection = () => {
                   required
                   fullWidth
                   label="Name"
+                  placeholder="Name*"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   onFocus={() => setFocusedField('name')}
                   onBlur={() => setFocusedField(null)}
                   InputLabelProps={{
-                    shrink: formData.name !== '' || focusedField === 'name' || undefined,
+                    shrink: true,
                   }}
                   InputProps={{
-                    inputProps: {
-                      placeholder: 'Name*',
-                      style: { color: '#262626' },
-                    },
+                    notched: formData.name !== '' || focusedField === 'name',
                   }}
                   sx={{
                     '& .MuiInputLabel-root': {
-                      display: 'none',
-                      '&.Mui-focused, &.MuiInputLabel-shrink': {
-                        display: 'block',
-                      },
+                      opacity: 0,
+                      transition: 'opacity 0.2s ease',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      opacity: 1,
+                    },
+                    '& .MuiInputLabel-root.MuiFormLabel-filled': {
+                      opacity: 1,
                     },
                     '& .MuiOutlinedInput-root': {
                       height: { xs: '32px', md: '40px' },
@@ -417,25 +419,27 @@ const FooterSection = () => {
                   required
                   fullWidth
                   label="Phone"
+                  placeholder="Phone*"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   onFocus={() => setFocusedField('phone')}
                   onBlur={() => setFocusedField(null)}
                   InputLabelProps={{
-                    shrink: formData.phone !== '' || focusedField === 'phone' || undefined,
+                    shrink: true,
                   }}
                   InputProps={{
-                    inputProps: {
-                      placeholder: 'Phone*',
-                      style: { color: '#262626' },
-                    },
+                    notched: formData.phone !== '' || focusedField === 'phone',
                   }}
                   sx={{
                     '& .MuiInputLabel-root': {
-                      display: 'none',
-                      '&.Mui-focused, &.MuiInputLabel-shrink': {
-                        display: 'block',
-                      },
+                      opacity: 0,
+                      transition: 'opacity 0.2s ease',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      opacity: 1,
+                    },
+                    '& .MuiInputLabel-root.MuiFormLabel-filled': {
+                      opacity: 1,
                     },
                     '& .MuiOutlinedInput-root': {
                       height: { xs: '32px', md: '40px' },
@@ -472,25 +476,27 @@ const FooterSection = () => {
                   fullWidth
                   type="email"
                   label="Email"
+                  placeholder="Email*"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
                   InputLabelProps={{
-                    shrink: formData.email !== '' || focusedField === 'email' || undefined,
+                    shrink: true,
                   }}
                   InputProps={{
-                    inputProps: {
-                      placeholder: 'Email*',
-                      style: { color: '#262626' },
-                    },
+                    notched: formData.email !== '' || focusedField === 'email',
                   }}
                   sx={{
                     '& .MuiInputLabel-root': {
-                      display: 'none',
-                      '&.Mui-focused, &.MuiInputLabel-shrink': {
-                        display: 'block',
-                      },
+                      opacity: 0,
+                      transition: 'opacity 0.2s ease',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      opacity: 1,
+                    },
+                    '& .MuiInputLabel-root.MuiFormLabel-filled': {
+                      opacity: 1,
                     },
                     '& .MuiOutlinedInput-root': {
                       height: { xs: '32px', md: '40px' },
