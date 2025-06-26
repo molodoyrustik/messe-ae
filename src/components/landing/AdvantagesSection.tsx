@@ -1,7 +1,6 @@
 'use client';
 
 import { Box, Container, Typography, useTheme } from '@mui/material';
-import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IFESIcon, EUIcon, BoxesIcon, SupportIcon } from '@/components/icons/AdvantageIcons';
 
@@ -16,17 +15,18 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
 
   return (
     <Box
-      component={motion.div}
-      whileHover={{ scale: 1.02 }}
       sx={{
+        '&:hover': {
+          transform: 'scale(1.02)',
+        },
         backgroundColor: '#F5F5F5',
         borderRadius: '8px',
-        padding: { xs: '12px', md: '12px 16px' },
+        padding: { xs: '1rem', md: '1.25rem 1.5rem' },
         width: '100%',
-        height: { xs: '228px', md: '100%' },
+        height: { xs: '14.25rem', md: '20rem' },
         display: 'flex',
         flexDirection: 'column',
-        gap: { xs: '8px', md: '12px' },
+        gap: { xs: '0.75rem', md: '1rem' },
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -46,19 +46,23 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
           },
         },
         '&:hover .learn-more-btn': {
-          opacity: 1,
-          transform: 'translateY(0)',
+          transform: 'scale(1.05)',
         },
       }}
     >
       <Box 
         className="advantage-icon"
         sx={{ 
-          width: { xs: '112px', md: '60px' },
-          height: { xs: '40px', md: '60px' },
+          width: { xs: 'auto', md: 'auto' },
+          height: { xs: '3rem', md: '4rem' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: { xs: 'flex-start', md: 'center' },
+          '& svg': {
+            width: { xs: 'auto', md: '3.5rem' },
+            height: { xs: '2.5rem', md: '3.5rem' },
+            maxWidth: { xs: '7.5rem', md: '8.75rem' },
+          },
         }}
       >
         {icon}
@@ -67,17 +71,18 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        gap: '8px',
+        gap: '0.5rem',
         flex: 1,
+        minHeight: 0,
       }}>
         <Typography
           variant="h5"
           sx={{
             fontWeight: 700,
-            fontSize: { xs: '14px', md: '24px' },
-            lineHeight: { xs: '16px', md: '28px' },
-            letterSpacing: '0.01em',
-            color: '#424242',
+            fontSize: { xs: '0.875rem', md: '1.5rem' },
+            lineHeight: { xs: '1.125rem', md: '1.75rem' },
+            letterSpacing: { xs: '0.0175rem', md: '0.01em' },
+            color: '#262626',
           }}
         >
           {title}
@@ -86,12 +91,16 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         <Typography
           variant="body1"
           sx={{
-            fontSize: { xs: '12px', md: '16px' },
-            lineHeight: { xs: '16px', md: '24px' },
+            fontSize: { xs: '0.75rem', md: '1rem' },
+            lineHeight: { xs: '1rem', md: '1.5rem' },
             letterSpacing: { xs: '0.04em', md: '0.02em' },
             color: '#000000',
-            maxHeight: { xs: '96px', md: 'none' },
-            overflow: { xs: 'hidden', md: 'visible' },
+            display: '-webkit-box',
+            WebkitLineClamp: { xs: 4, md: 6 },
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            flex: 1,
           }}
         >
           {description}
@@ -103,16 +112,18 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '4px',
-          opacity: { xs: 1, md: 0 },
-          transform: { xs: 'none', md: 'translateY(10px)' },
+          gap: '0.25rem',
+          opacity: 1,
+          transform: 'none',
           transition: 'all 0.3s ease',
+          marginTop: 'auto',
+          flexShrink: 0,
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: '12px', md: '16px' },
-            lineHeight: { xs: '16px', md: '24px' },
+            fontSize: { xs: '0.75rem', md: '1rem' },
+            lineHeight: { xs: '1rem', md: '1.5rem' },
             letterSpacing: { xs: '0.04em', md: '0.02em' },
             color: theme.palette.primary.main,
           }}
@@ -121,7 +132,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         </Typography>
         <ArrowForwardIcon 
           sx={{ 
-            fontSize: { xs: '16px', md: '18px' },
+            fontSize: { xs: '1rem', md: '1.125rem' },
             color: theme.palette.primary.main,
           }} 
         />
@@ -159,19 +170,17 @@ const AdvantagesSection = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: 6, md: 10 },
+        py: { xs: '1.25rem', md: '1.25rem' },
         backgroundColor: '#FFFFFF',
+        position: 'relative',
+        zIndex: 1,
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 4, md: 8 }, alignItems: 'center' }}>
-          {/* Section Title - Hidden on mobile */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 8 }, alignItems: 'center' }}>
+          {/* Desktop Title */}
           <Typography
-            component={motion.h2}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            component="h2"
             sx={{
               display: { xs: 'none', md: 'block' },
               fontSize: '34px',
@@ -181,6 +190,7 @@ const AdvantagesSection = () => {
               color: '#262626',
               textAlign: 'justify',
               width: '100%',
+              animation: 'fadeInUp 0.6s ease both',
             }}
           >
             <Box component="span">We proved our expertise by achieving significant awards for outstanding </Box>
@@ -194,20 +204,29 @@ const AdvantagesSection = () => {
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
-              gap: { xs: '8px', md: 4 },
+              gap: { xs: '0.75rem', sm: '0.5rem', md: '1rem' },
               width: '100%',
             }}
           >
             {advantages.map((advantage, index) => (
-              <motion.div
+              <Box
                 key={advantage.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                sx={{
+                  animation: `fadeInUp 0.6s ease ${index * 0.1}s both`,
+                  '@keyframes fadeInUp': {
+                    '0%': {
+                      opacity: 0,
+                      transform: 'translateY(20px)',
+                    },
+                    '100%': {
+                      opacity: 1,
+                      transform: 'translateY(0)',
+                    },
+                  },
+                }}
               >
                 <AdvantageCard {...advantage} />
-              </motion.div>
+              </Box>
             ))}
           </Box>
         </Box>
