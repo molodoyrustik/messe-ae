@@ -64,3 +64,71 @@ import { colors, typography, spacing } from '@/theme/tokens';
 
 ### Material-UI Customization Pattern
 Components are customized through the theme's `components` key, defining default props and style overrides for consistent design system adherence.
+
+## Code Style Guidelines
+
+### Component Styling
+- Use Material-UI's `sx` prop for component-specific styles
+- Prefer responsive arrays/objects for breakpoint-specific values: `{ xs: '1rem', md: '2rem' }`
+- Use theme tokens for colors, spacing, and typography
+- Avoid fixed dimensions that can cause horizontal scrolling - use responsive units
+
+### Responsive Design Patterns
+- Mobile-first approach with progressive enhancement
+- Use `display: { xs: 'none', md: 'block' }` for hiding/showing elements
+- Prefer `minmax()` and `auto-fit` for responsive grids to prevent overflow
+- Always test components for horizontal scrolling issues
+
+### Animation Guidelines
+- Use CSS transitions for simple hover states
+- Apply `transition: 'all 0.3s ease'` for smooth interactions
+- For menu underlines, use `transform: scaleX()` with `transformOrigin` for slide effects
+- Grayscale filters with opacity changes for image hover states
+
+## Recent Changes Log
+
+### Desktop Landing Page Fixes (2025-06-26)
+
+1. **Header Menu Animation**
+   - Added animated underline that slides from left to right on hover
+   - Implementation: `transform: scaleX(0/1)` with `transformOrigin: 'left center'`
+   - File: `src/components/Header.tsx`
+
+2. **Hero Section**
+   - Removed "Connect with us" button from desktop (kept for mobile)
+   - Prevented portal rendering on desktop with `isMobile` condition
+   - File: `src/components/landing/HeroSection.tsx`
+
+3. **Clients Section**
+   - Applied grayscale filter by default with color on hover
+   - File: `src/components/landing/ClientsSection.tsx`
+
+4. **Projects Section**
+   - Fixed card scaling to be uniform (1.05) instead of vertical-only
+   - Removed top padding on desktop
+   - File: `src/components/landing/ProjectsSection.tsx`
+
+5. **Advantages Section**
+   - Swapped positions of "European standards" and "Own production" blocks
+   - Implemented colored icons from Figma with grayscale/color hover effect
+   - Fixed responsive sizing to prevent horizontal scrolling
+   - Removed max-width constraints from icons for natural sizing
+   - Increased gap between cards to 2rem on desktop
+   - Files: `src/components/landing/AdvantagesSection.tsx`, `src/components/icons/AdvantageIcons.tsx`
+
+6. **Awards Section**
+   - Added desktop title with 2.5rem margin above cards
+   - Updated card dimensions to match Figma specifications
+   - Fixed responsive grid to prevent horizontal scrolling using `minmax()` and percentage widths
+   - File: `src/components/landing/AwardsSection.tsx`
+
+7. **Parallax Section**
+   - Removed top and bottom margins (mt: 0, mb: 0)
+   - File: `src/components/landing/ParallaxSection.tsx`
+
+8. **Section Spacing**
+   - Parallax → Advantages: 2.5rem
+   - Advantages → Awards: 6.25rem
+   - Advantages → ExpoGlobal: 6.25rem
+   - ExpoGlobal → Footer: 3.75rem
+   - Projects → Parallax: 6.25rem

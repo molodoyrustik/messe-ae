@@ -70,17 +70,18 @@ const CustomMenuItem = ({
           {children}
         </Typography>
 
-        {/* Underline indicator - exactly like Tailwind */}
+        {/* Underline indicator - animated from left to right */}
         <Box
           sx={{
             position: 'absolute',
             left: 0,
-            bottom: 0, // Changed from top to bottom
+            bottom: 0,
             width: 36, // w-9 = 36px
             height: 3, // h-[3px] = 3px
             backgroundColor: '#C7CAE3', // bg-Primary-purple-100
-            opacity: selected || isHovered ? 1 : 0,
-            transition: 'all 0.3s ease',
+            transform: selected || isHovered ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'left center',
+            transition: 'transform 0.3s ease',
           }}
         />
       </Box>

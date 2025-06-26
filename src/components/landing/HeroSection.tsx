@@ -6,11 +6,15 @@ import {
   Button,
   Container,
   Portal,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
   const [showButton, setShowButton] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -193,55 +197,6 @@ const HeroSection = () => {
           years of award winning expertise
         </Typography>
 
-        {/* CTA Button - Desktop */}
-        <Box
-          sx={{
-            position: 'absolute',
-            right: { xs: '1rem', md: '2.5rem' },
-            top: '529px',
-            width: '316px',
-            height: '48px',
-            display: { xs: 'none', md: 'flex' },
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden',
-          }}
-        >
-          <Button
-            variant="contained"
-            sx={{
-              width: '100%',
-              height: '100%',
-              px: '20px',
-              py: '8px',
-              backgroundColor: '#656CAF',
-              borderRadius: '8px',
-              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-              textTransform: 'none',
-              
-              '&:hover': {
-                backgroundColor: '#4C53A2',
-              },
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '24px',
-                fontWeight: 400,
-                lineHeight: '28px',
-                letterSpacing: '-0.025em',
-                color: '#FFFFFF',
-                textAlign: 'right',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              Request a proposal
-            </Typography>
-          </Button>
-        </Box>
         
         {/* Mobile Layout - Fixed at bottom */}
         <Box
@@ -258,49 +213,51 @@ const HeroSection = () => {
           }}
         >
           {/* CTA Button - Mobile */}
-          <Portal>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={scrollToForm}
-              sx={{
-                position: 'fixed',
-                bottom: '80px',
-                left: '50%',
-                transform: 'translateX(-50%) translateZ(999px)', // Увеличили значение translateZ
-                width: 'calc(100% - 48px)',
-                maxWidth: '400px',
-                height: '48px',
-                backgroundColor: '#656CAF',
-                borderRadius: '8px',
-                boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-                textTransform: 'none',
-                fontSize: '16px',
-                fontWeight: 400,
-                lineHeight: '24px',
-                letterSpacing: '0.02em',
-                zIndex: 99999, // Максимальный z-index для отображения поверх всех элементов
-                opacity: showButton ? 1 : 0,
-                visibility: showButton ? 'visible' : 'hidden',
-                transition: 'opacity 0.3s ease, visibility 0.3s ease',
-                // Исправления для артефактов рендеринга
-                isolation: 'isolate', // Создает новый stacking context
-                willChange: 'opacity, visibility', // Оптимизируем только изменяющиеся свойства
-                backfaceVisibility: 'hidden', // Предотвращаем проблемы с 3D трансформациями
-                WebkitBackfaceVisibility: 'hidden', // Safari совместимость
-                WebkitFontSmoothing: 'antialiased', // Улучшает рендеринг шрифтов
-                MozOsxFontSmoothing: 'grayscale', // Firefox на macOS
-                // Дополнительные фиксы для мобильного Chrome
-                WebkitTransform: 'translateX(-50%) translateZ(999px)',
-                
-                '&:hover': {
-                  backgroundColor: '#4C53A2',
-                },
-              }}
-            >
-              Connect with us
-            </Button>
-          </Portal>
+          {isMobile && (
+            <Portal>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={scrollToForm}
+                sx={{
+                  position: 'fixed',
+                  bottom: '80px',
+                  left: '50%',
+                  transform: 'translateX(-50%) translateZ(999px)', // Увеличили значение translateZ
+                  width: 'calc(100% - 48px)',
+                  maxWidth: '400px',
+                  height: '48px',
+                  backgroundColor: '#656CAF',
+                  borderRadius: '8px',
+                  boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+                  textTransform: 'none',
+                  fontSize: '16px',
+                  fontWeight: 400,
+                  lineHeight: '24px',
+                  letterSpacing: '0.02em',
+                  zIndex: 99999, // Максимальный z-index для отображения поверх всех элементов
+                  opacity: showButton ? 1 : 0,
+                  visibility: showButton ? 'visible' : 'hidden',
+                  transition: 'opacity 0.3s ease, visibility 0.3s ease',
+                  // Исправления для артефактов рендеринга
+                  isolation: 'isolate', // Создает новый stacking context
+                  willChange: 'opacity, visibility', // Оптимизируем только изменяющиеся свойства
+                  backfaceVisibility: 'hidden', // Предотвращаем проблемы с 3D трансформациями
+                  WebkitBackfaceVisibility: 'hidden', // Safari совместимость
+                  WebkitFontSmoothing: 'antialiased', // Улучшает рендеринг шрифтов
+                  MozOsxFontSmoothing: 'grayscale', // Firefox на macOS
+                  // Дополнительные фиксы для мобильного Chrome
+                  WebkitTransform: 'translateX(-50%) translateZ(999px)',
+                  
+                  '&:hover': {
+                    backgroundColor: '#4C53A2',
+                  },
+                }}
+              >
+                Connect with us
+              </Button>
+            </Portal>
+          )}
           
           {/* "20 years" text for mobile */}
           <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>

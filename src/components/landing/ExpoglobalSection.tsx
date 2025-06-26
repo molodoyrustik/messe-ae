@@ -15,7 +15,8 @@ const ExpoglobalSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
+        pt: { xs: 6, md: 0 },
+        pb: { xs: 6, md: '3.75rem' },
         backgroundColor: 'background.default',
       }}
     >
@@ -56,7 +57,7 @@ const ExpoglobalSection = () => {
           </Box>
 
           {/* Content */}
-          <Stack spacing={1.25} sx={{ flex: 1, maxWidth: { xs: '100%', lg: '1012px' } }}>
+          <Stack spacing={1.25} sx={{ flex: 1, maxWidth: { xs: '100%', lg: '1012px' }, pt: { xs: 0, md: '60px' } }}>
             <Typography
               variant="body1"
               sx={{

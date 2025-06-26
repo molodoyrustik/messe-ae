@@ -289,8 +289,8 @@ const ClientsSection = () => {
                 maxWidth: isMobile ? '160px' : '200px', // Mobile: smaller logos
                 maxHeight: isMobile ? '20px' : '48px', // Mobile: 20px height
                 objectFit: 'contain',
-                filter: isMobile ? 'grayscale(100%)' : 'none', // Mobile: grayscale by default
-                opacity: isMobile ? 0.7 : 1, // Mobile: reduced opacity
+                filter: 'grayscale(100%)', // Grayscale by default for both mobile and desktop
+                opacity: isMobile ? 0.7 : 0.8, // Mobile: 0.7, Desktop: 0.8
                 transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'scale(1.05)',

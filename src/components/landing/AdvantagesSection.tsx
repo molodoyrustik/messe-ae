@@ -16,9 +16,6 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
   return (
     <Box
       sx={{
-        '&:hover': {
-          transform: 'scale(1.02)',
-        },
         backgroundColor: '#F5F5F5',
         borderRadius: '8px',
         padding: { xs: '1rem', md: '1.25rem 1.5rem' },
@@ -31,37 +28,37 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         overflow: 'hidden',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
-        '&:hover .advantage-icon': {
-          '& svg path': {
-            transition: 'fill 0.3s ease',
-          },
-          '& .icon-primary': {
-            fill: '#7F87BD',
-          },
-          '& .icon-secondary': {
-            fill: '#4C53A2',
-          },
-          '& .icon-tertiary': {
-            fill: '#A2A9D0',
-          },
+        '& .advantage-icon': {
+          filter: 'grayscale(100%)',
+          opacity: 0.7,
+          transition: 'all 0.3s ease',
         },
-        '&:hover .learn-more-btn': {
+        '&:hover': {
           transform: 'scale(1.05)',
+          '& .advantage-icon': {
+            filter: 'grayscale(0%)',
+            opacity: 1,
+          },
+          '& .learn-more-btn': {
+            transform: 'scale(1.05)',
+          },
         },
       }}
     >
       <Box 
         className="advantage-icon"
         sx={{ 
-          width: { xs: 'auto', md: 'auto' },
-          height: { xs: '3rem', md: '4rem' },
+          width: '100%',
+          height: { xs: '2.5rem', md: '3.5rem' },
           display: 'flex',
           alignItems: 'center',
-          justifyContent: { xs: 'flex-start', md: 'center' },
-          '& svg': {
-            width: { xs: 'auto', md: '3.5rem' },
-            height: { xs: '2.5rem', md: '3.5rem' },
-            maxWidth: { xs: '7.5rem', md: '8.75rem' },
+          justifyContent: 'flex-start',
+          overflow: 'hidden',
+          '& img': {
+            width: 'auto',
+            height: '100%',
+            maxHeight: '100%',
+            objectFit: 'contain',
           },
         }}
       >
@@ -150,14 +147,14 @@ const AdvantagesSection = () => {
       icon: <IFESIcon />,
     },
     {
-      title: 'European standards',
-      description: 'We deliver exceptional exhibition stands that meet the highest European benchmarks, ensuring your brand excels at every event',
-      icon: <EUIcon />,
-    },
-    {
       title: 'Own production',
       description: 'Messe.ae boasts own production facilities in Dubai, allowing us to maintain full control over quality and timelines',
       icon: <BoxesIcon />,
+    },
+    {
+      title: 'European standards',
+      description: 'We deliver exceptional exhibition stands that meet the highest European benchmarks, ensuring your brand excels at every event',
+      icon: <EUIcon />,
     },
     {
       title: 'Trusted Support',
@@ -170,7 +167,8 @@ const AdvantagesSection = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: '1.25rem', md: 10 },
+        pt: { xs: '1.25rem', md: '2.5rem' },
+        pb: { xs: '1.25rem', md: '6.25rem' },
         backgroundColor: '#FFFFFF',
         position: 'relative',
         zIndex: 1,
@@ -178,33 +176,12 @@ const AdvantagesSection = () => {
     >
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 8 }, alignItems: 'center' }}>
-          {/* Desktop Title */}
-          <Typography
-            component="h2"
-            sx={{
-              display: { xs: 'none', md: 'block' },
-              fontSize: '34px',
-              lineHeight: '42px',
-              fontWeight: 400,
-              letterSpacing: '0.01em',
-              color: '#262626',
-              textAlign: 'justify',
-              width: '100%',
-              animation: 'fadeInUp 0.6s ease both',
-            }}
-          >
-            <Box component="span">We proved our expertise by achieving significant awards for outstanding </Box>
-            <Box component="span" sx={{ fontWeight: 400 }}>exhibition display stands</Box>
-            <Box component="span"> as one of the leading </Box>
-            <Box component="span" sx={{ fontWeight: 400 }}>exhibition stand contractor in Dubai and UAE</Box>
-          </Typography>
-
           {/* Advantages Cards */}
           <Box
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
-              gap: { xs: '0.75rem', sm: '0.5rem', md: '1rem' },
+              gap: { xs: '0.75rem', sm: '0.5rem', md: '2rem' },
               width: '100%',
             }}
           >

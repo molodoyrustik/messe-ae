@@ -87,7 +87,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
           cursor: 'pointer',
           transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
           filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
-          transform: isHovered ? 'scale(1, 1.1)' : 'scale(1)',
+          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
           transformOrigin: 'center center',
           '&::before': {
             content: '""',
@@ -261,7 +261,8 @@ const ProjectsSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 4, md: 8 },
+        pt: { xs: 4, md: 0 },
+        pb: { xs: 4, md: '6.25rem' },
         backgroundColor: { xs: '#F5F5F5', md: '#FFFFFF' },
       }}
     >

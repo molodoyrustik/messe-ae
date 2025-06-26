@@ -38,6 +38,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           flexDirection: 'column',
           gap: { xs: '0.5rem', md: '1.25rem' },
           width: { xs: '9rem', md: '100%' },
+          maxWidth: { md: '316px' },
         }}
       >
         {/* Award Image */}
@@ -45,8 +46,8 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           sx={{
             position: 'relative',
             width: { xs: '5rem', md: '100%' },
-            height: { xs: isHighCard ? '9.25rem' : '7rem', md: 'auto' },
-            aspectRatio: { xs: 'unset', md: '239 / 450' },
+            maxWidth: { md: '240px' },
+            height: { xs: isHighCard ? '9.25rem' : '7rem', md: '384px' },
             backgroundColor: 'transparent',
             borderRadius: '4px',
             overflow: 'hidden',
@@ -207,7 +208,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
             rel="noopener noreferrer"
             sx={{
               fontSize: { xs: '0.625rem', md: '0.875rem' },
-              fontWeight: 400,
+              fontWeight: 700,
               lineHeight: { xs: '0.75rem', md: '1.125rem' },
               letterSpacing: { xs: 'normal', md: '0.28px' },
               color: '#656CAF',
@@ -311,7 +312,8 @@ const AwardsSection = () => {
   return (
     <Box
       sx={{
-        py: { xs: 4, md: 8 },
+        pt: { xs: 4, md: 0 },
+        pb: { xs: 4, md: '6.25rem' },
         backgroundColor: { xs: '#F5F5F5', md: '#FFFFFF' },
       }}
     >
@@ -363,13 +365,43 @@ const AwardsSection = () => {
           ))}
         </Box>
 
+        {/* Desktop Title */}
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            mb: '2.5rem',
+            maxWidth: '1360px',
+            mx: 'auto',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '2.25rem', // 36px (text-4xl in Tailwind)
+              lineHeight: '2.5rem', // 40px (leading-10 in Tailwind)
+              letterSpacing: '-0.025em', // tracking-tight in Tailwind
+              textAlign: 'justify',
+              color: '#262626',
+            }}
+          >
+            We proved our expertise by achieving significant awards for outstanding{' '}
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition display stands</Box>
+            {' '}as one of the leading{' '}
+            <Box component="span" sx={{ color: '#656CAF', fontWeight: 700 }}>exhibition stand contractor in Dubai and UAE</Box>
+          </Typography>
+        </Box>
+        
         {/* Desktop Grid */}
         <Box
           sx={{
             display: { xs: 'none', md: 'grid' },
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1rem',
+            gridTemplateColumns: { 
+              md: 'repeat(auto-fit, minmax(280px, 1fr))',
+              lg: 'repeat(4, minmax(280px, 1fr))'
+            },
+            gap: '2rem',
             width: '100%',
+            maxWidth: '1360px',
+            mx: 'auto',
           }}
         >
           {desktopAwards.map((award, index) => (

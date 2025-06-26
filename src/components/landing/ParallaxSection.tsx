@@ -41,8 +41,8 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
         width: '100%',
         height: { xs: '25rem', md: '37.5rem' },
         overflow: 'hidden',
-        mt: { xs: 4, md: 6 },
-        mb: { xs: 0, md: 6 },
+        mt: 0,
+        mb: 0,
       }}
     >
       {/* ДЕСКТОП - CSS Background Fixed */}
