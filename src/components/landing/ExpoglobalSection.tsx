@@ -33,13 +33,13 @@ const ExpoglobalSection = () => {
           <Box
             sx={{
               width: { xs: '100%', sm: '320px', lg: '320px' },
-              height: { xs: '200px', sm: '144px' },
+              height: { xs: '80px', sm: '144px' },
               position: 'relative',
               overflow: 'hidden',
               flexShrink: 0,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: { xs: 'flex-start', sm: 'center' },
             }}
           >
             <Image

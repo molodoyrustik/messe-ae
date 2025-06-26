@@ -19,7 +19,7 @@ import {
   WhatsApp,
   Email,
 } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Custom Menu Item component with proper states
 const CustomMenuItem = ({
@@ -203,8 +203,13 @@ const TopInfoBar = () => {
 // Main Header Component
 const Header = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(false);
+  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMobile(isMobileQuery);
+  }, [isMobileQuery]);
 
   const menuItems = [
     { label: 'Projects', href: '/projects' },

@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 
 // Container for the carousel
-const CarouselContainer = styled(Box)<{ isMobile?: boolean }>(({ isMobile = false }) => ({
+const CarouselContainer = styled(Box)<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
   overflow: 'hidden',
   position: 'relative',
-  height: isMobile ? '1.75rem' : '64px', // Mobile: 1.75rem (28px), Desktop: 64px
+  height: $isMobile ? '1.75rem' : '64px', // Mobile: 1.75rem (28px), Desktop: 64px
   width: '100%',
   isolation: 'isolate',
   backfaceVisibility: 'hidden',
@@ -22,7 +22,7 @@ const CarouselContainer = styled(Box)<{ isMobile?: boolean }>(({ isMobile = fals
     content: '""',
     position: 'absolute',
     top: 0,
-    width: isMobile ? '1rem' : '100px', // Mobile uses 1rem (equal to screen padding)
+    width: $isMobile ? '1rem' : '100px', // Mobile uses 1rem (equal to screen padding)
     height: '100%',
     zIndex: 2,
     pointerEvents: 'none',
@@ -40,11 +40,11 @@ const CarouselContainer = styled(Box)<{ isMobile?: boolean }>(({ isMobile = fals
 }));
 
 // Track that moves continuously
-const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: number; isMobile?: boolean }>(
-  ({ direction = 'left', duration = 120, isMobile = false }) => ({
+const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: number; $isMobile?: boolean }>(
+  ({ direction = 'left', duration = 120, $isMobile = false }) => ({
     display: 'flex',
     alignItems: 'center',
-    gap: isMobile ? '2rem' : '120px', // Mobile: 2rem, Desktop: 120px
+    gap: $isMobile ? '2rem' : '120px', // Mobile: 2rem, Desktop: 120px
     height: '100%',
     width: 'max-content',
     animation: direction === 'left' 
@@ -78,12 +78,12 @@ const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: num
 
 
 // Logo item container
-const LogoItem = styled(Box)<{ isMobile?: boolean }>(({ isMobile = false }) => ({
+const LogoItem = styled(Box)<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
   flexShrink: 0,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: isMobile ? 'auto' : '200px', // Mobile: auto, Desktop: 200px
+  minWidth: $isMobile ? 'auto' : '200px', // Mobile: auto, Desktop: 200px
 }));
 
 const ClientsSection = () => {
@@ -271,10 +271,10 @@ const ClientsSection = () => {
   const extendedMobileLine3 = [...mobileLine3, ...mobileLine3];
 
   const renderLogoLine = (logos: { name: string; filename: string }[], lineKey: string, direction: 'left' | 'right', duration: number = 120, isMobile: boolean = false) => (
-    <CarouselContainer isMobile={isMobile}>
-      <CarouselTrack direction={direction} duration={duration} isMobile={isMobile}>
+    <CarouselContainer $isMobile={isMobile}>
+      <CarouselTrack direction={direction} duration={duration} $isMobile={isMobile}>
         {logos.map((logo, index) => (
-          <LogoItem key={`${lineKey}-${logo.filename}-${index}`} isMobile={isMobile}>
+          <LogoItem key={`${lineKey}-${logo.filename}-${index}`} $isMobile={isMobile}>
             <Box
               component="img"
               src={`/client-logos/${logo.filename}`}

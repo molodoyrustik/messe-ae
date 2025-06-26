@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Box, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
@@ -11,7 +11,12 @@ type ParallaxSectionProps = {
 export default function ParallaxSection({ className = '' }: ParallaxSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(false);
+  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
+
+  useEffect(() => {
+    setIsMobile(isMobileQuery);
+  }, [isMobileQuery]);
   
   // Только для мобильных - Framer Motion параллакс
   const { scrollYProgress } = useScroll({

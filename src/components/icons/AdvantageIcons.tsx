@@ -1,14 +1,14 @@
 export const IFESIcon = () => (
 <svg xmlns="http://www.w3.org/2000/svg" width="109" height="30" viewBox="0 0 109 30" fill="none">
-  <g clip-path="url(#clip0_1055_5893)">
-    <path d="M7.69698 3.43726L3.74969 26.2498" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M38.1247 15.1187L17.6343 15.1187C17.4836 15.1187 17.3544 15.2261 17.327 15.3742L15.3122 26.2497" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M81.5618 14.8197L101.941 14.8196C102.135 14.8196 102.282 14.9942 102.249 15.1852L100.357 26.145C100.331 26.2957 100.2 26.4055 100.046 26.4043L79.6868 26.2501" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M19.7185 3.75024H40.3436" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M51.8743 3.75024H72.4993" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M83.7192 3.75024H104.344" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M49.8442 15H70.4692" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
-    <path d="M47.8128 26.2498H68.4378" stroke="#9D9D9D" stroke-width="7.5" stroke-linecap="round"/>
+  <g clipPath="url(#clip0_1055_5893)">
+    <path d="M7.69698 3.43726L3.74969 26.2498" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M38.1247 15.1187L17.6343 15.1187C17.4836 15.1187 17.3544 15.2261 17.327 15.3742L15.3122 26.2497" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M81.5618 14.8197L101.941 14.8196C102.135 14.8196 102.282 14.9942 102.249 15.1852L100.357 26.145C100.331 26.2957 100.2 26.4055 100.046 26.4043L79.6868 26.2501" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M19.7185 3.75024H40.3436" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M51.8743 3.75024H72.4993" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M83.7192 3.75024H104.344" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M49.8442 15H70.4692" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
+    <path d="M47.8128 26.2498H68.4378" stroke="#9D9D9D" strokeWidth="7.5" strokeLinecap="round"/>
   </g>
   <defs>
     <clipPath id="clip0_1055_5893">
