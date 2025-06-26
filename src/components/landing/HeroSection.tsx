@@ -5,6 +5,7 @@ import {
   Typography,
   Button,
   Container,
+  Portal,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 
@@ -257,47 +258,49 @@ const HeroSection = () => {
           }}
         >
           {/* CTA Button - Mobile */}
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={scrollToForm}
-            sx={{
-              position: 'fixed',
-              bottom: '80px',
-              left: '50%',
-              transform: 'translateX(-50%) translateZ(0)', // Принудительное GPU ускорение
-              width: 'calc(100% - 48px)',
-              maxWidth: '400px',
-              height: '48px',
-              backgroundColor: '#656CAF',
-              borderRadius: '8px',
-              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-              textTransform: 'none',
-              fontSize: '16px',
-              fontWeight: 400,
-              lineHeight: '24px',
-              letterSpacing: '0.02em',
-              zIndex: 10000, // Увеличили z-index
-              opacity: showButton ? 1 : 0,
-              visibility: showButton ? 'visible' : 'hidden',
-              transition: 'opacity 0.3s ease, visibility 0.3s ease',
-              // Исправления для артефактов рендеринга
-              isolation: 'isolate', // Создает новый stacking context
-              willChange: 'opacity, visibility', // Оптимизируем только изменяющиеся свойства
-              backfaceVisibility: 'hidden', // Предотвращаем проблемы с 3D трансформациями
-              WebkitBackfaceVisibility: 'hidden', // Safari совместимость
-              WebkitFontSmoothing: 'antialiased', // Улучшает рендеринг шрифтов
-              MozOsxFontSmoothing: 'grayscale', // Firefox на macOS
-              // Дополнительные фиксы для мобильного Chrome
-              WebkitTransform: 'translateX(-50%) translateZ(0)',
-              
-              '&:hover': {
-                backgroundColor: '#4C53A2',
-              },
-            }}
-          >
-            Connect with us
-          </Button>
+          <Portal>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={scrollToForm}
+              sx={{
+                position: 'fixed',
+                bottom: '80px',
+                left: '50%',
+                transform: 'translateX(-50%) translateZ(999px)', // Увеличили значение translateZ
+                width: 'calc(100% - 48px)',
+                maxWidth: '400px',
+                height: '48px',
+                backgroundColor: '#656CAF',
+                borderRadius: '8px',
+                boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+                textTransform: 'none',
+                fontSize: '16px',
+                fontWeight: 400,
+                lineHeight: '24px',
+                letterSpacing: '0.02em',
+                zIndex: 99999, // Максимальный z-index для отображения поверх всех элементов
+                opacity: showButton ? 1 : 0,
+                visibility: showButton ? 'visible' : 'hidden',
+                transition: 'opacity 0.3s ease, visibility 0.3s ease',
+                // Исправления для артефактов рендеринга
+                isolation: 'isolate', // Создает новый stacking context
+                willChange: 'opacity, visibility', // Оптимизируем только изменяющиеся свойства
+                backfaceVisibility: 'hidden', // Предотвращаем проблемы с 3D трансформациями
+                WebkitBackfaceVisibility: 'hidden', // Safari совместимость
+                WebkitFontSmoothing: 'antialiased', // Улучшает рендеринг шрифтов
+                MozOsxFontSmoothing: 'grayscale', // Firefox на macOS
+                // Дополнительные фиксы для мобильного Chrome
+                WebkitTransform: 'translateX(-50%) translateZ(999px)',
+                
+                '&:hover': {
+                  backgroundColor: '#4C53A2',
+                },
+              }}
+            >
+              Connect with us
+            </Button>
+          </Portal>
           
           {/* "20 years" text for mobile */}
           <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>

@@ -9,7 +9,9 @@ import {
 } from '@mui/material';
 
 // Container for the carousel
-const CarouselContainer = styled(Box)<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
+const CarouselContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== '$isMobile',
+})<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
   overflow: 'hidden',
   position: 'relative',
   height: $isMobile ? '1.75rem' : '64px', // Mobile: 1.75rem (28px), Desktop: 64px
@@ -40,7 +42,9 @@ const CarouselContainer = styled(Box)<{ $isMobile?: boolean }>(({ $isMobile = fa
 }));
 
 // Track that moves continuously
-const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: number; $isMobile?: boolean }>(
+const CarouselTrack = styled(Box, {
+  shouldForwardProp: (prop) => prop !== '$isMobile' && prop !== 'direction' && prop !== 'duration',
+})<{ direction?: 'left' | 'right'; duration?: number; $isMobile?: boolean }>(
   ({ direction = 'left', duration = 120, $isMobile = false }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -78,7 +82,9 @@ const CarouselTrack = styled(Box)<{ direction?: 'left' | 'right'; duration?: num
 
 
 // Logo item container
-const LogoItem = styled(Box)<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
+const LogoItem = styled(Box, {
+  shouldForwardProp: (prop) => prop !== '$isMobile',
+})<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
   flexShrink: 0,
   display: 'flex',
   alignItems: 'center',
