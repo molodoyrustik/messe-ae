@@ -70,9 +70,13 @@ const HeroSection = () => {
         }}
       >
         <Box
-          component="iframe"
-          src="https://player.vimeo.com/video/1066300060?h=1066300060&background=1&controls=0&muted=1&loop=1&autopause=0&dnt=1"
-          title="Video background"
+          component="video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="poster.jpg"
+          preload="auto"
           sx={{
             position: 'absolute',
             top: '50%',
@@ -82,10 +86,12 @@ const HeroSection = () => {
             height: '56.25vw', // 16:9 aspect ratio
             minHeight: '100%',
             minWidth: '177.78vh', // 16:9 aspect ratio
-            border: 'none',
+            objectFit: 'cover',
             opacity: 1,
           }}
-        />
+        >
+          <source src="video.mp4" type="video/mp4" />
+        </Box>
       </Box>
 
       {/* Gradient Overlay */}
