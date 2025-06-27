@@ -16,6 +16,23 @@ const HeroSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Handle dynamic viewport height for mobile Safari
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+
+    return () => {
+      window.removeEventListener('resize', setVh);
+      window.removeEventListener('orientationchange', setVh);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const contactForm = document.getElementById('contact-form');
@@ -23,7 +40,7 @@ const HeroSection = () => {
         const formTop = contactForm.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
         const buttonHeight = 48; // Высота кнопки
-        const buttonBottom = 140 + buttonHeight; // bottom: 80px + высота кнопки
+        const buttonBottom = (windowHeight * 0.16) + buttonHeight; // 16vh + высота кнопки
         
         // Скрывать кнопку на уровне футера, когда расстояние до формы около 120-130px
         const shouldHideButton = formTop < (windowHeight - buttonBottom + 120); // +120px чтобы кнопка исчезала на уровне футера
@@ -49,7 +66,7 @@ const HeroSection = () => {
     <Box
       sx={{
         width: '100vw',
-        height: { xs: '580px', md: '800px' },
+        height: { xs: 'calc(var(--vh, 1vh) * 90)', md: '800px' },
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
@@ -115,56 +132,59 @@ const HeroSection = () => {
           zIndex: 2,
         }}
       >
-        {/* Main Title */}
-        <Typography
-          sx={{
-            position: 'absolute',
-            left: { xs: '16px', md: '2.5rem' },
-            top: { xs: '256px', md: '367px' },
-            maxWidth: { xs: '288px', md: '1084px' },
-            fontSize: { xs: '24px', md: '54px' },
-            fontWeight: 700,
-            lineHeight: { xs: '28px', md: '60px' },
-            letterSpacing: { xs: '0.01em', md: 'normal' },
-            color: '#FFFFFF',
-            display: 'flex',
-            justifyContent: 'flex-start',
-          }}
-        >
-          Exhibition Stand Builder & Designer in UAE and around the world
-        </Typography>
-
-        {/* Subtitle with mixed styling */}
-        <Box
-          sx={{
-            position: 'absolute',
-            left: { xs: '16px', md: '2.5rem' },
-            top: { xs: '352px', md: '511px' },
-            maxWidth: { xs: '288px', md: '100%' },
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flexDirection: 'column',
-          }}
-        >
+        {/* Desktop Layout - Keep as is */}
+        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+          {/* Main Title */}
           <Typography
-            component="div"
             sx={{
-              fontSize: { xs: '12px', md: '34px' },
-              fontWeight: 400,
-              lineHeight: { xs: '16px', md: '42px' },
-              letterSpacing: { xs: '0.04em', md: '-0.025em' },
+              position: 'absolute',
+              left: '2.5rem',
+              top: '367px',
+              maxWidth: '1084px',
+              fontSize: '54px',
+              fontWeight: 700,
+              lineHeight: '60px',
+              letterSpacing: 'normal',
               color: '#FFFFFF',
+              display: 'flex',
+              justifyContent: 'flex-start',
             }}
           >
-            <Box component="span">Your great </Box>
-            <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
-            <Box component="span"> starts here.</Box>
-            <Box component="span" sx={{ display: { xs: 'inline', md: 'block' } }}> </Box>
-            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
-            <Box component="span"> the </Box>
-            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
-            <Box component="span">, and we will handle the rest.</Box>
+            Exhibition Stand Builder & Designer in UAE and around the world
           </Typography>
+
+          {/* Subtitle with mixed styling */}
+          <Box
+            sx={{
+              position: 'absolute',
+              left: '2.5rem',
+              top: '511px',
+              maxWidth: '100%',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography
+              component="div"
+              sx={{
+                fontSize: '34px',
+                fontWeight: 400,
+                lineHeight: '42px',
+                letterSpacing: '-0.025em',
+                color: '#FFFFFF',
+              }}
+            >
+              <Box component="span">Your great </Box>
+              <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
+              <Box component="span"> starts here.</Box>
+              <Box component="span" sx={{ display: 'block' }}> </Box>
+              <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
+              <Box component="span"> the </Box>
+              <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
+              <Box component="span">, and we will handle the rest.</Box>
+            </Typography>
+          </Box>
         </Box>
 
 
@@ -204,7 +224,7 @@ const HeroSection = () => {
         </Typography>
 
         
-        {/* Mobile Layout - Fixed at bottom */}
+        {/* Mobile Layout - Combined bottom block */}
         <Box
           sx={{
             position: 'absolute',
@@ -218,55 +238,46 @@ const HeroSection = () => {
             pb: '16px',
           }}
         >
-          {/* CTA Button - Mobile */}
-          {isMobile && (
-            <Portal>
-              <Button
-                variant="contained"
-                fullWidth
-                onClick={scrollToForm}
-                sx={{
-                  position: 'fixed',
-                  bottom: '140px',
-                  left: '50%',
-                  transform: 'translateX(-50%) translateZ(999px)', // Увеличили значение translateZ
-                  width: 'calc(100% - 48px)',
-                  maxWidth: '400px',
-                  height: '48px',
-                  backgroundColor: '#656CAF',
-                  borderRadius: '8px',
-                  boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-                  textTransform: 'none',
-                  fontSize: '16px',
-                  fontWeight: 400,
-                  lineHeight: '24px',
-                  letterSpacing: '0.02em',
-                  zIndex: 99999, // Максимальный z-index для отображения поверх всех элементов
-                  opacity: showButton ? 1 : 0,
-                  visibility: showButton ? 'visible' : 'hidden',
-                  transition: 'opacity 0.3s ease, visibility 0.3s ease',
-                  // Исправления для артефактов рендеринга
-                  isolation: 'isolate', // Создает новый stacking context
-                  willChange: 'opacity, visibility', // Оптимизируем только изменяющиеся свойства
-                  backfaceVisibility: 'hidden', // Предотвращаем проблемы с 3D трансформациями
-                  WebkitBackfaceVisibility: 'hidden', // Safari совместимость
-                  WebkitFontSmoothing: 'antialiased', // Улучшает рендеринг шрифтов
-                  MozOsxFontSmoothing: 'grayscale', // Firefox на macOS
-                  // Дополнительные фиксы для мобильного Chrome
-                  WebkitTransform: 'translateX(-50%) translateZ(999px)',
-                  
-                  '&:hover': {
-                    backgroundColor: '#4C53A2',
-                  },
-                }}
-              >
-                Connect with us
-              </Button>
-            </Portal>
-          )}
+          {/* Main Title - Mobile */}
+          <Typography
+            sx={{
+              fontSize: '24px',
+              fontWeight: 700,
+              lineHeight: '28px',
+              letterSpacing: '0.01em',
+              color: '#FFFFFF',
+              mb: '0.75rem', // 12px gap to subtitle
+            }}
+          >
+            Exhibition Stand Builder & Designer in UAE and around the world
+          </Typography>
+
+          {/* Subtitle with mixed styling - Mobile */}
+          <Typography
+            component="div"
+            sx={{
+              fontSize: '12px',
+              fontWeight: 400,
+              lineHeight: '16px',
+              letterSpacing: '0.04em',
+              color: '#FFFFFF',
+            }}
+          >
+            <Box component="span">Your great </Box>
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
+            <Box component="span"> starts here.</Box>
+            <Box component="span"> </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
+            <Box component="span"> the </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
+            <Box component="span">, and we will handle the rest.</Box>
+          </Typography>
+
+          {/* Spacer for button */}
+          <Box sx={{ height: '48px', mt: '1.5rem', mb: '1.5rem' }} />
           
           {/* "20 years" text for mobile */}
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px', mt: '1.5rem' }}>
             <Typography
               sx={{
                 fontSize: '60px',
@@ -292,6 +303,44 @@ const HeroSection = () => {
           </Box>
         </Box>
       </Container>
+      
+      {/* Fixed CTA Button - Mobile */}
+      {isMobile && (
+        <Portal>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={scrollToForm}
+            sx={{
+              position: 'fixed',
+              bottom: 'calc(var(--vh, 1vh) * 16)',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 'calc(100% - 48px)',
+              maxWidth: '400px',
+              height: '48px',
+              backgroundColor: '#656CAF',
+              borderRadius: '8px',
+              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '24px',
+              letterSpacing: '0.02em',
+              zIndex: 9999,
+              opacity: showButton ? 1 : 0,
+              visibility: showButton ? 'visible' : 'hidden',
+              transition: 'opacity 0.3s ease, visibility 0.3s ease',
+              
+              '&:hover': {
+                backgroundColor: '#4C53A2',
+              },
+            }}
+          >
+            Connect with us
+          </Button>
+        </Portal>
+      )}
     </Box>
   );
 };
