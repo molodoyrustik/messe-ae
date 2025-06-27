@@ -23,7 +23,7 @@ const HeroSection = () => {
         const formTop = contactForm.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
         const buttonHeight = 48; // Высота кнопки
-        const buttonBottom = 80 + buttonHeight; // bottom: 80px + высота кнопки
+        const buttonBottom = 140 + buttonHeight; // bottom: 80px + высота кнопки
         
         // Скрывать кнопку на уровне футера, когда расстояние до формы около 120-130px
         const shouldHideButton = formTop < (windowHeight - buttonBottom + 120); // +120px чтобы кнопка исчезала на уровне футера
@@ -221,7 +221,7 @@ const HeroSection = () => {
                 onClick={scrollToForm}
                 sx={{
                   position: 'fixed',
-                  bottom: '80px',
+                  bottom: '140px',
                   left: '50%',
                   transform: 'translateX(-50%) translateZ(999px)', // Увеличили значение translateZ
                   width: 'calc(100% - 48px)',
