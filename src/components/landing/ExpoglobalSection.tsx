@@ -23,17 +23,20 @@ const ExpoglobalSection = () => {
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            gap: 4,
+            display: { xs: 'flex', md: 'grid' },
+            gridTemplateColumns: { md: '1fr 3fr' },
+            gap: { xs: 4, md: '20px' },
             alignItems: 'flex-start',
-            flexDirection: { xs: 'column', lg: 'row' },
+            flexDirection: { xs: 'column', md: 'unset' },
+            maxWidth: '1360px',
+            mx: 'auto',
           }}
         >
           {/* Expoglobal Logo */}
           <Box
             sx={{
-              width: { xs: '100%', sm: '320px', lg: '320px' },
+              width: { xs: '100%', sm: '320px', md: '100%' },
+              maxWidth: { md: '320px' },
               height: { xs: '80px', sm: '144px' },
               position: 'relative',
               overflow: 'hidden',
@@ -57,7 +60,7 @@ const ExpoglobalSection = () => {
           </Box>
 
           {/* Content */}
-          <Stack spacing={1.25} sx={{ flex: 1, maxWidth: { xs: '100%', lg: '1012px' }, pt: { xs: 0, md: '60px' } }}>
+          <Stack spacing={1.25} sx={{ flex: 1, pt: { xs: 0, md: '60px' } }}>
             <Typography
               variant="body1"
               sx={{
@@ -186,7 +189,7 @@ const ExpoglobalSection = () => {
                 color: '#656CAF',
                 textTransform: 'none',
                 alignSelf: 'flex-start',
-                minWidth: 'auto',
+                minWidth: { xs: '120px', md: '150px' },
                 
                 '&:hover': {
                   backgroundColor: 'transparent',

@@ -48,7 +48,7 @@ const CarouselTrack = styled(Box, {
   ({ direction = 'left', duration = 120, $isMobile = false }) => ({
     display: 'flex',
     alignItems: 'center',
-    gap: $isMobile ? '2rem' : '120px', // Mobile: 2rem, Desktop: 120px
+    gap: $isMobile ? '2rem' : '7.5rem', // Mobile: 2rem, Desktop: 7.5rem
     height: '100%',
     width: 'max-content',
     animation: direction === 'left' 
@@ -89,7 +89,7 @@ const LogoItem = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: $isMobile ? 'auto' : '200px', // Mobile: auto, Desktop: 200px
+  height: $isMobile ? '28px' : '64px', // Match container height
 }));
 
 const ClientsSection = () => {
@@ -286,11 +286,13 @@ const ClientsSection = () => {
               src={`/client-logos/${logo.filename}`}
               alt={logo.name}
               sx={{
-                maxWidth: isMobile ? '160px' : '200px', // Mobile: smaller logos
+                width: 'auto',
+                maxWidth: isMobile ? '140px' : '180px',
                 maxHeight: isMobile ? '20px' : '48px', // Mobile: 20px height
+                height: '100%',
                 objectFit: 'contain',
                 filter: 'grayscale(100%)', // Grayscale by default for both mobile and desktop
-                opacity: isMobile ? 0.7 : 0.8, // Mobile: 0.7, Desktop: 0.8
+                opacity: isMobile ? 0.6 : 0.7, // Mobile: 0.6, Desktop: 0.7
                 transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'scale(1.05)',
@@ -322,8 +324,8 @@ const ClientsSection = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: { xs: 'center', md: 'flex-start' }, // Mobile: center, Desktop: left
-            textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
+            justifyContent: { xs: 'flex-start', md: 'flex-start' }, // Mobile: left, Desktop: left
+            textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
             width: '100%',
             mb: { xs: '1rem', md: 6 }, // Mobile: 1rem, Desktop: 6 (48px)
           }}
@@ -337,24 +339,24 @@ const ClientsSection = () => {
               fontWeight: 400,
               lineHeight: { xs: '1rem', md: 1.11 }, // Mobile: 1rem (16px), Desktop: 1.11
               letterSpacing: { xs: '0.03rem', md: '-0.02em' }, // Mobile: 0.03rem, Desktop: -0.02em
-              color: 'grey.800',
-              textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
+              color: '#262626', // Direct color for grey.800
+              textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
               width: '100%',
             }}
           >
-            <Box component="span" sx={{ color: 'grey.800' }}>
+            <Box component="span" sx={{ color: '#262626', fontWeight: 400 }}>
               We build{' '}
             </Box>
             <Box 
               component="span" 
               sx={{ 
-                color: 'primary.main',
-                fontWeight: 700,
+                color: '#656CAF',
+                fontWeight: { xs: 400, md: 700 }, // Mobile: 400, Desktop: 700
               }}
             >
               partnerships
             </Box>
-            <Box component="span" sx={{ color: 'grey.800' }}>
+            <Box component="span" sx={{ color: '#262626', fontWeight: 400 }}>
               {' '}that always come back
             </Box>
           </Typography>

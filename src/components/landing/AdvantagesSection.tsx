@@ -17,13 +17,15 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
     <Box
       sx={{
         backgroundColor: '#F5F5F5',
-        borderRadius: '8px',
-        padding: { xs: '1rem', md: '1.25rem 1.5rem' },
+        borderRadius: { xs: '0.5rem', md: '8px' },
+        padding: { xs: '0.75rem', md: '1.25rem 1.5rem' },
         width: '100%',
         height: { xs: '14.25rem', md: '20rem' },
         display: 'flex',
         flexDirection: 'column',
-        gap: { xs: '0.75rem', md: '1rem' },
+        alignItems: { xs: 'flex-start', md: 'stretch' },
+        justifyContent: { xs: 'flex-start', md: 'center' },
+        gap: { xs: '0.5rem', md: '1rem' },
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -59,6 +61,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
             height: '100%',
             maxHeight: '100%',
             objectFit: 'contain',
+            objectPosition: { xs: 'left center', md: 'center' },
           },
         }}
       >
@@ -68,9 +71,10 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        gap: '0.5rem',
+        gap: '8px',
         flex: 1,
         minHeight: 0,
+        overflow: 'hidden', // Add overflow hidden to container
       }}>
         <Typography
           variant="h5"
@@ -80,28 +84,36 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
             lineHeight: { xs: '1.125rem', md: '1.75rem' },
             letterSpacing: { xs: '0.0175rem', md: '0.01em' },
             color: '#262626',
+            textAlign: { xs: 'left', md: 'inherit' },
           }}
         >
           {title}
         </Typography>
         
-        <Typography
-          variant="body1"
-          sx={{
-            fontSize: { xs: '0.75rem', md: '1rem' },
-            lineHeight: { xs: '1rem', md: '1.5rem' },
-            letterSpacing: { xs: '0.04em', md: '0.02em' },
-            color: '#000000',
-            display: '-webkit-box',
-            WebkitLineClamp: { xs: 4, md: 6 },
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            flex: 1,
-          }}
-        >
-          {description}
-        </Typography>
+        <Box sx={{ 
+          overflow: 'hidden',
+          flex: 1,
+          position: 'relative',
+        }}>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '0.75rem', md: '1rem' },
+              lineHeight: { xs: '1rem', md: '1.5rem' },
+              letterSpacing: { xs: '0.04em', md: '0.02em' },
+              color: '#000000',
+              textAlign: { xs: 'left', md: 'inherit' },
+              display: '-webkit-box',
+              WebkitLineClamp: { xs: 5, md: 6 },
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              wordBreak: 'break-word',
+            }}
+          >
+            {description}
+          </Typography>
+        </Box>
       </Box>
 
       <Box
@@ -182,7 +194,8 @@ const AdvantagesSection = () => {
               display: 'grid',
               gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
               gap: { xs: '0.75rem', sm: '0.5rem', md: '2rem' },
-              width: '100%',
+              width: { xs: 'calc(100% + 1rem)', md: '100%' },
+              mx: { xs: '-0.5rem', md: 0 },
             }}
           >
             {advantages.map((advantage, index) => (

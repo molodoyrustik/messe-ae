@@ -289,10 +289,10 @@ const Header = () => {
                   style={{
                     color: 'transparent',
                     position: 'absolute',
-                    left: isMobile ? -93 : -68,
+                    left: isMobile ? -93 : -60,
                     top: isMobile ? -47 : -34,
                     objectFit: 'contain',
-                    transform: isMobile ? 'scale(0.5)' : 'scale(1)',
+                    transform: isMobile ? 'scale(0.5)' : 'scale(1.15)',
                   }}
                   priority
                 />
@@ -417,7 +417,7 @@ const Header = () => {
                   }}
                   component="span"
                 >
-                  arketing and{' '}
+                  arketing&nbsp;and&nbsp;
                 </Typography>
                 <Typography
                   sx={{
@@ -441,7 +441,7 @@ const Header = () => {
                   }}
                   component="span"
                 >
-                  xhibition{' '}
+                  xhibition&nbsp;
                 </Typography>
                 <Typography
                   sx={{
