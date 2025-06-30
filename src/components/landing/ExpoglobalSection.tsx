@@ -186,7 +186,7 @@ const ExpoglobalSection = () => {
                 color: '#656CAF',
                 textTransform: 'none',
                 alignSelf: 'flex-start',
-                minWidth: 'auto',
+                minWidth: { xs: '120px', md: '150px' },
                 
                 '&:hover': {
                   backgroundColor: 'transparent',

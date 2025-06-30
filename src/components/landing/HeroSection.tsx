@@ -5,7 +5,6 @@ import {
   Typography,
   Button,
   Container,
-  Portal,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -16,41 +15,23 @@ const HeroSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Handle dynamic viewport height for mobile Safari
-  useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    setVh();
-    window.addEventListener('resize', setVh);
-    window.addEventListener('orientationchange', setVh);
-
-    return () => {
-      window.removeEventListener('resize', setVh);
-      window.removeEventListener('orientationchange', setVh);
-    };
-  }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       const contactForm = document.getElementById('contact-form');
       if (contactForm) {
         const formTop = contactForm.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
-        const buttonHeight = 48; // Высота кнопки
-        const buttonBottom = (windowHeight * 0.16) + buttonHeight; // 16vh + высота кнопки
+        const buttonHeight = 48;
+        const buttonBottom = (windowHeight * 0.16) + buttonHeight;
         
-        // Скрывать кнопку на уровне футера, когда расстояние до формы около 120-130px
-        const shouldHideButton = formTop < (windowHeight - buttonBottom + 120); // +120px чтобы кнопка исчезала на уровне футера
+        const shouldHideButton = formTop < (windowHeight - buttonBottom + 120);
         
         setShowButton(!shouldHideButton);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial state
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -66,7 +47,7 @@ const HeroSection = () => {
     <Box
       sx={{
         width: '100vw',
-        height: { xs: 'calc(var(--vh, 1vh) * 90)', md: '800px' },
+        height: { xs: '90dvh', md: '800px' },
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
@@ -306,40 +287,38 @@ const HeroSection = () => {
       
       {/* Fixed CTA Button - Mobile */}
       {isMobile && (
-        <Portal>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={scrollToForm}
-            sx={{
-              position: 'fixed',
-              bottom: 'calc(var(--vh, 1vh) * 16)',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 'calc(100% - 48px)',
-              maxWidth: '400px',
-              height: '48px',
-              backgroundColor: '#656CAF',
-              borderRadius: '8px',
-              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-              textTransform: 'none',
-              fontSize: '16px',
-              fontWeight: 400,
-              lineHeight: '24px',
-              letterSpacing: '0.02em',
-              zIndex: 9999,
-              opacity: showButton ? 1 : 0,
-              visibility: showButton ? 'visible' : 'hidden',
-              transition: 'opacity 0.3s ease, visibility 0.3s ease',
-              
-              '&:hover': {
-                backgroundColor: '#4C53A2',
-              },
-            }}
-          >
-            Connect with us
-          </Button>
-        </Portal>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={scrollToForm}
+          sx={{
+            position: 'fixed',
+            bottom: '18.5dvh',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'calc(100% - 2rem)',
+            maxWidth: '400px',
+            height: '48px',
+            backgroundColor: '#656CAF',
+            borderRadius: '8px',
+            boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+            textTransform: 'none',
+            fontSize: '16px',
+            fontWeight: 400,
+            lineHeight: '24px',
+            letterSpacing: '0.02em',
+            zIndex: 9999,
+            opacity: showButton ? 1 : 0,
+            visibility: showButton ? 'visible' : 'hidden',
+            transition: 'opacity 0.3s ease, visibility 0.3s ease',
+            
+            '&:hover': {
+              backgroundColor: '#4C53A2',
+            },
+          }}
+        >
+          Connect with us
+        </Button>
       )}
     </Box>
   );

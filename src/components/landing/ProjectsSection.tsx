@@ -370,6 +370,7 @@ const ProjectsSection = () => {
             size="large"
             sx={{
               width: { xs: '100%', md: '316px' },
+              minWidth: { xs: '200px', md: '316px' },
               height: { xs: '36px', md: '48px' },
               px: { xs: 2, md: '22px' },
               py: { xs: '6px', md: '8px' },
