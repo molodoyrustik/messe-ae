@@ -1,0 +1,46 @@
+export const API_BASE_URL = 'https://lovely-idea-e9a72cf425.strapiapp.com/api';
+
+export const fetcher = async (url: string, options?: RequestInit) => {
+  const fullUrl = `${API_BASE_URL}${url}`;
+  
+  console.log('[API Request]', {
+    url: fullUrl,
+    method: options?.method || 'GET',
+  });
+
+  try {
+    const response = await fetch(fullUrl, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('[API Error]', {
+        url: fullUrl,
+        status: response.status,
+        statusText: response.statusText,
+        data,
+      });
+      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    console.log('[API Response]', {
+      url: fullUrl,
+      status: response.status,
+      dataLength: Array.isArray(data.data) ? data.data.length : 'N/A',
+    });
+
+    return data;
+  } catch (error) {
+    console.error('[API Fetch Error]', {
+      url: fullUrl,
+      error: error instanceof Error ? error.message : error,
+    });
+    throw error;
+  }
+};

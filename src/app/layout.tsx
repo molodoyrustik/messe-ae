@@ -1,4 +1,5 @@
 import ThemeProvider from '@/components/ThemeProvider';
+import QueryProvider from '@/components/QueryProvider';
 import EmotionRegistry from '@/lib/emotion-registry';
 import { Roboto } from 'next/font/google';
 
@@ -25,7 +26,9 @@ export default function RootLayout({
       </head>
       <body className={roboto.className}>
         <EmotionRegistry>
-          <ThemeProvider>{children}</ThemeProvider>
+          <QueryProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </QueryProvider>
         </EmotionRegistry>
       </body>
     </html>
