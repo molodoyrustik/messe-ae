@@ -38,7 +38,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           flexDirection: 'column',
           gap: { xs: '0.5rem', md: '1.25rem' },
           width: { xs: '9rem', md: '100%' },
-          maxWidth: { md: '316px' },
+          maxWidth: { md: '320px' },
         }}
       >
         {/* Award Image */}
@@ -47,7 +47,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
             position: 'relative',
             width: { xs: '5rem', md: '100%' },
             maxWidth: { md: '240px' },
-            height: { xs: isHighCard ? '9.25rem' : '7rem', md: '384px' },
+            height: { xs: isHighCard ? '9.25rem' : '7rem', md: '450px' },
             backgroundColor: 'transparent',
             borderRadius: '4px',
             overflow: 'hidden',
@@ -61,7 +61,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
               style={{
-                objectFit: 'cover',
+                objectFit: 'contain',
                 objectPosition: 'center',
               }}
             />
@@ -395,10 +395,10 @@ const AwardsSection = () => {
           sx={{
             display: { xs: 'none', md: 'grid' },
             gridTemplateColumns: { 
-              md: 'repeat(auto-fit, minmax(280px, 1fr))',
-              lg: 'repeat(4, minmax(280px, 1fr))'
+              md: 'repeat(2, 1fr)',
+              lg: 'repeat(4, 1fr)'
             },
-            gap: '2rem',
+            gap: '20px',
             width: '100%',
             maxWidth: '1360px',
             mx: 'auto',
