@@ -48,7 +48,7 @@ const CarouselTrack = styled(Box, {
   ({ direction = 'left', duration = 120, $isMobile = false }) => ({
     display: 'flex',
     alignItems: 'center',
-    gap: $isMobile ? '2rem' : '120px', // Mobile: 2rem, Desktop: 120px
+    gap: $isMobile ? '2rem' : '7.5rem', // Mobile: 2rem, Desktop: 7.5rem
     height: '100%',
     width: 'max-content',
     animation: direction === 'left' 
@@ -89,7 +89,7 @@ const LogoItem = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: $isMobile ? 'auto' : '200px', // Mobile: auto, Desktop: 200px
+  height: $isMobile ? '28px' : '64px', // Match container height
 }));
 
 const ClientsSection = () => {
@@ -286,11 +286,13 @@ const ClientsSection = () => {
               src={`/client-logos/${logo.filename}`}
               alt={logo.name}
               sx={{
-                maxWidth: isMobile ? '160px' : '200px', // Mobile: smaller logos
+                width: 'auto',
+                maxWidth: isMobile ? '140px' : '180px',
                 maxHeight: isMobile ? '20px' : '48px', // Mobile: 20px height
+                height: '100%',
                 objectFit: 'contain',
                 filter: 'grayscale(100%)', // Grayscale by default for both mobile and desktop
-                opacity: isMobile ? 0.7 : 0.8, // Mobile: 0.7, Desktop: 0.8
+                opacity: isMobile ? 0.6 : 0.7, // Mobile: 0.6, Desktop: 0.7
                 transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'scale(1.05)',

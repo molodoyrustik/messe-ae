@@ -204,6 +204,39 @@ const HeroSection = () => {
           years of award winning expertise
         </Typography>
 
+        {/* Request a proposal Button - Desktop Only */}
+        <Button
+          variant="contained"
+          onClick={scrollToForm}
+          sx={{
+            position: 'absolute',
+            right: '2.5rem',
+            top: '532px', // Centered with subtitle (511px + 42px/2)
+            width: '320px',
+            height: '48px',
+            backgroundColor: 'primary.main',
+            borderRadius: '8px',
+            boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+            textTransform: 'none',
+            fontSize: '24px',
+            fontWeight: 400,
+            lineHeight: '28px',
+            letterSpacing: 'normal',
+            color: '#FFFFFF',
+            display: { xs: 'none', md: 'flex' },
+            justifyContent: 'center',
+            alignItems: 'center',
+            px: '20px',
+            py: '8px',
+            
+            '&:hover': {
+              backgroundColor: 'primary.dark',
+            },
+          }}
+        >
+          Request a proposal
+        </Button>
+
         
         {/* Mobile Layout - Combined bottom block */}
         <Box
