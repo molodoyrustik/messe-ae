@@ -72,6 +72,13 @@ Components are customized through the theme's `components` key, defining default
 - Prefer responsive arrays/objects for breakpoint-specific values: `{ xs: '1rem', md: '2rem' }`
 - Use theme tokens for colors, spacing, and typography
 - Avoid fixed dimensions that can cause horizontal scrolling - use responsive units
+- **ALWAYS use rem units for sizing, spacing, and typography** (e.g., `1rem`, `0.75rem`, `2.5rem`)
+  - This ensures consistent scaling and accessibility
+  - Convert pixel values from designs to rem (1rem = 16px)
+- **ADAPTIVE DESIGN PRINCIPLE**: Never use fixed widths from Figma directly
+  - Components should use `width: '100%'` and let parent containers control sizing
+  - Use grid/flexbox for layout instead of fixed dimensions
+  - Heights can be fixed if needed, but widths should always be responsive
 
 ### Responsive Design Patterns
 - Mobile-first approach with progressive enhancement
