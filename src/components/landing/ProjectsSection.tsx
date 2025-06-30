@@ -301,37 +301,42 @@ const ProjectsSection = () => {
             />
           ))}
         </Box>
+      </Container>
 
-        {/* Projects Carousel - Mobile */}
-        <Box
-          sx={{
-            display: { xs: 'flex', md: 'none' },
-            gap: '8px',
-            overflowX: 'auto',
-            pb: 2,
-            mb: 3,
-            scrollSnapType: 'x mandatory',
-            '&::-webkit-scrollbar': {
-              display: 'none',
-            },
-          }}
-        >
-          {projectCategories.map((category) => (
-            <Box
-              key={category.id}
-              sx={{
-                minWidth: '280px',
-                scrollSnapAlign: 'start',
-              }}
-            >
-              <ProjectCard
-                category={category}
-                currentIndex={currentIndices[category.id] || 0}
-                onNavigate={(direction) => handleNavigate(category.id, direction)}
-              />
-            </Box>
-          ))}
-        </Box>
+      {/* Projects Carousel - Mobile (Full Width) */}
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+          gap: '8px',
+          overflowX: 'auto',
+          pb: 2,
+          mb: 3,
+          scrollSnapType: 'x mandatory',
+          pl: '1rem', // Start padding to align first card
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+      >
+        {projectCategories.map((category, index) => (
+          <Box
+            key={category.id}
+            sx={{
+              minWidth: '280px',
+              scrollSnapAlign: 'start',
+              pr: index === projectCategories.length - 1 ? '1rem' : 0, // End padding for last card
+            }}
+          >
+            <ProjectCard
+              category={category}
+              currentIndex={currentIndices[category.id] || 0}
+              onNavigate={(direction) => handleNavigate(category.id, direction)}
+            />
+          </Box>
+        ))}
+      </Box>
+
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
 
         {/* Call to Action Section */}
         <Box

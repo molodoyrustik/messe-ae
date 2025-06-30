@@ -324,8 +324,8 @@ const ClientsSection = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: { xs: 'center', md: 'flex-start' }, // Mobile: center, Desktop: left
-            textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
+            justifyContent: { xs: 'flex-start', md: 'flex-start' }, // Mobile: left, Desktop: left
+            textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
             width: '100%',
             mb: { xs: '1rem', md: 6 }, // Mobile: 1rem, Desktop: 6 (48px)
           }}
@@ -339,24 +339,24 @@ const ClientsSection = () => {
               fontWeight: 400,
               lineHeight: { xs: '1rem', md: 1.11 }, // Mobile: 1rem (16px), Desktop: 1.11
               letterSpacing: { xs: '0.03rem', md: '-0.02em' }, // Mobile: 0.03rem, Desktop: -0.02em
-              color: 'grey.800',
-              textAlign: { xs: 'center', md: 'left' }, // Mobile: center, Desktop: left
+              color: '#262626', // Direct color for grey.800
+              textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
               width: '100%',
             }}
           >
-            <Box component="span" sx={{ color: 'grey.800' }}>
+            <Box component="span" sx={{ color: '#262626', fontWeight: 400 }}>
               We build{' '}
             </Box>
             <Box 
               component="span" 
               sx={{ 
-                color: 'primary.main',
-                fontWeight: 700,
+                color: '#656CAF',
+                fontWeight: { xs: 400, md: 700 }, // Mobile: 400, Desktop: 700
               }}
             >
               partnerships
             </Box>
-            <Box component="span" sx={{ color: 'grey.800' }}>
+            <Box component="span" sx={{ color: '#262626', fontWeight: 400 }}>
               {' '}that always come back
             </Box>
           </Typography>
