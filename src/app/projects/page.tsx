@@ -1,193 +1,102 @@
 'use client';
 
+import { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
   Chip,
   Stack,
-  Button,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
-import { LocationOn, AccessTime } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
+import ProjectCard from '@/components/projects/ProjectCard';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import { useProjects } from '@/hooks/use-projects';
+import { useClients } from '@/hooks/use-clients';
+import { ProjectsFilters } from '@/types/api';
 
-// Mock project data based on Figma design
-const projects = [
-  {
-    id: 1,
-    title: 'Dubai International Exhibition',
-    location: 'Dubai, UAE',
-    date: '2024-03-15',
-    tags: ['Exhibition', 'Technology'],
-    image: '/project-1.jpg',
-    description: 'A comprehensive exhibition showcasing the latest in technology and innovation.',
-  },
-  {
-    id: 2,
-    title: 'Abu Dhabi Business Summit',
-    location: 'Abu Dhabi, UAE',
-    date: '2024-02-20',
-    tags: ['Business', 'Summit'],
-    image: '/project-2.jpg',
-    description: 'Annual business summit bringing together industry leaders and entrepreneurs.',
-  },
-  {
-    id: 3,
-    title: 'Sharjah Cultural Festival',
-    location: 'Sharjah, UAE',
-    date: '2024-01-10',
-    tags: ['Culture', 'Festival'],
-    image: '/project-3.jpg',
-    description: 'Celebrating the rich cultural heritage of the UAE through art and exhibitions.',
-  },
-  {
-    id: 4,
-    title: 'Qatar Trade Fair',
-    location: 'Doha, Qatar',
-    date: '2023-12-05',
-    tags: ['Trade', 'International'],
-    image: '/project-4.jpg',
-    description: 'International trade fair connecting businesses across the Middle East.',
-  },
-  {
-    id: 5,
-    title: 'Kuwait Innovation Expo',
-    location: 'Kuwait City, Kuwait',
-    date: '2023-11-18',
-    tags: ['Innovation', 'Expo'],
-    image: '/project-5.jpg',
-    description: 'Showcasing cutting-edge innovations and technological advancements.',
-  },
-  {
-    id: 6,
-    title: 'Bahrain Healthcare Conference',
-    location: 'Manama, Bahrain',
-    date: '2023-10-22',
-    tags: ['Healthcare', 'Conference'],
-    image: '/project-6.jpg',
-    description: 'Leading healthcare professionals discussing future medical technologies.',
-  },
+const sizeRanges = [
+  { label: '< 50 m²', value: { min: 0, max: 49 } },
+  { label: '50 - 100 m²', value: { min: 50, max: 100 } },
+  { label: '101 - 300 m²', value: { min: 101, max: 300 } },
+  { label: '> 300 m²', value: { min: 301, max: 10000 } },
 ];
 
-// Project Card Component
-const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
-  return (
-    <Card
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: 2,
-        border: '2px solid #A2A9D0',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
-        },
-      }}
-    >
-      <CardMedia
-        component="img"
-        height="200"
-        image={project.image}
-        alt={project.title}
-        sx={{
-          objectFit: 'cover',
-        }}
-      />
-      <CardContent sx={{ flexGrow: 1, p: 3 }}>
-        <Typography
-          variant="h6"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 700,
-            fontSize: 24,
-            lineHeight: '28px',
-            letterSpacing: '0.01em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          {project.title}
-        </Typography>
-        
-        <Typography
-          variant="body2"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 400,
-            fontSize: 16,
-            lineHeight: '24px',
-            letterSpacing: '0.02em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          {project.description}
-        </Typography>
-
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-          <LocationOn sx={{ fontSize: 16, color: '#656CAF' }} />
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: 14,
-              color: '#7B7B7B',
-            }}
-          >
-            {project.location}
-          </Typography>
-        </Stack>
-
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <AccessTime sx={{ fontSize: 16, color: '#656CAF' }} />
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: 14,
-              color: '#7B7B7B',
-            }}
-          >
-            {new Date(project.date).toLocaleDateString()}
-          </Typography>
-        </Stack>
-
-        <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
-          {project.tags.map((tag) => (
-            <Chip
-              key={tag}
-              label={tag}
-              size="small"
-              sx={{
-                backgroundColor: '#E9EAF4',
-                color: '#4C53A2',
-                fontWeight: 500,
-                '&:hover': {
-                  backgroundColor: '#C7CAE3',
-                },
-              }}
-            />
-          ))}
-        </Stack>
-      </CardContent>
-    </Card>
-  );
-};
-
 export default function ProjectsPage() {
+  const [filters, setFilters] = useState<ProjectsFilters>({
+    pageSize: 20,
+  });
+  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [selectedSizeRange, setSelectedSizeRange] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<'double-decker' | 'events' | null>(null);
+
+  const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
+  const { data: clientsData } = useClients();
+
+  const handleClientFilter = (clientSlug: string | null) => {
+    setSelectedClient(clientSlug);
+    if (clientSlug) {
+      setFilters(prev => ({
+        ...prev,
+        clientSlug: clientSlug,
+      }));
+    } else {
+      setFilters(prev => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { clientSlug, ...rest } = prev;
+        return rest;
+      });
+    }
+  };
+
+  const handleSizeFilter = (rangeLabel: string | null) => {
+    setSelectedSizeRange(rangeLabel);
+    if (!rangeLabel) {
+      setFilters(prev => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { minSize, maxSize, ...rest } = prev;
+        return rest;
+      });
+      return;
+    }
+
+    const range = sizeRanges.find(r => r.label === rangeLabel);
+    if (range) {
+      setFilters(prev => ({
+        ...prev,
+        minSize: range.value.min,
+        maxSize: range.value.max,
+      }));
+    }
+  };
+
+  const handleTypeFilter = (type: 'double-decker' | 'events' | null) => {
+    setSelectedType(type);
+    if (type === 'double-decker') {
+      setFilters(prev => ({
+        ...prev,
+        constructionType: 'double-decker',
+      }));
+    } else {
+      setFilters(prev => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { constructionType, ...rest } = prev;
+        return rest;
+      });
+    }
+  };
+
+
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
-      <Header />
-      
-      {/* Main Content */}
-      <Container maxWidth="xl" sx={{ pt: { xs: 12, md: 20 }, pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
-          {/* Page Header */}
+    <ErrorBoundary>
+      <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
+        <Header />
+        
+        <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: 8 }}>
+          <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
           <Box sx={{ mb: 6 }}>
             <Typography
               variant="h1"
@@ -200,63 +109,271 @@ export default function ProjectsPage() {
                 mb: 3,
               }}
             >
-              Our Projects
+              Projects
             </Typography>
             <Typography
-              variant="body1"
+              component="div"
               sx={{
                 fontFamily: 'Roboto',
-                fontWeight: 400,
                 fontSize: 16,
                 lineHeight: '24px',
                 letterSpacing: '0.02em',
                 color: '#000000',
-                maxWidth: 800,
+                maxWidth: 1359,
               }}
             >
-              Discover our portfolio of successful exhibitions, conferences, and events across the Middle East. 
-              Each project represents our commitment to excellence and innovation in marketing and exhibition services.
+              With 20 years of experience, messe.ae has successfully completed over 4,000 projects worldwide. 
+              As one of the leading{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand builders in UAE
+              </Box>
+              , we deliver premium{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand designs in Dubai and beyond
+              </Box>
+              . From tailored exhibition stands to creative display stand exhibition solutions, we bring 
+              innovation, quality, and expertise to every project. Recognized among top exhibitions companies 
+              in Dubai, messe.ae is your trusted exhibition stand contractor for outstanding exhibition design 
+              stand and impactful global presence.
             </Typography>
           </Box>
 
-          {/* Projects Grid */}
-          <Grid container spacing={4}>
-            {projects.map((project) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.id}>
-                <ProjectCard project={project} />
-              </Grid>
-            ))}
-          </Grid>
-
-          {/* Load More Button */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: '#656CAF',
-                color: '#FFFFFF',
+          <Box sx={{ mb: 4 }}>
+            <Typography 
+              sx={{ 
                 fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: 16,
-                lineHeight: '24px',
-                letterSpacing: '0.02em',
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-                textTransform: 'none',
-                boxShadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
-                '&:hover': {
-                  backgroundColor: '#4C53A2',
-                },
+                fontSize: 24,
+                fontWeight: 700,
+                lineHeight: '28px',
+                letterSpacing: '0.01em',
+                color: '#262626',
+                mb: 1,
               }}
             >
-              Load More Projects
-            </Button>
+              Client:
+            </Typography>
+
+            <Stack 
+              direction="row" 
+              spacing={1.5} 
+              sx={{ 
+                mb: 4,
+                flexWrap: 'wrap',
+                gap: 1.5,
+                maxWidth: 1240,
+                position: 'relative',
+              }}
+            >
+              <Chip
+                label="All"
+                onClick={() => handleClientFilter(null)}
+                sx={{
+                  backgroundColor: !selectedClient ? '#656CAF' : '#E9EAF4',
+                  color: !selectedClient ? '#FFFFFF' : '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: 24,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  height: 'auto',
+                  px: 1.5,
+                  py: 1,
+                  borderRadius: '8px',
+                  '&:hover': {
+                    backgroundColor: !selectedClient ? '#4C53A2' : '#C7CAE3',
+                  },
+                }}
+              />
+              {clientsData?.data.slice(0, 9).map((client) => (
+                <Chip
+                  key={client.id}
+                  label={client.name}
+                  onClick={() => handleClientFilter(selectedClient === client.slug ? null : client.slug)}
+                  sx={{
+                    backgroundColor: selectedClient === client.slug ? '#656CAF' : '#E9EAF4',
+                    color: selectedClient === client.slug ? '#FFFFFF' : '#656CAF',
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: 24,
+                    lineHeight: '28px',
+                    letterSpacing: '0.01em',
+                    height: 'auto',
+                    px: 1.5,
+                    py: 1,
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedClient === client.slug ? '#4C53A2' : '#C7CAE3',
+                    },
+                  }}
+                />
+              ))}
+              {clientsData && clientsData.data.length > 9 && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                    width: 40,
+                    height: 48,
+                    background: 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+              )}
+            </Stack>
+
+            <Typography 
+              sx={{ 
+                fontFamily: 'Roboto',
+                fontSize: 24,
+                fontWeight: 700,
+                lineHeight: '28px',
+                letterSpacing: '0.01em',
+                color: '#262626',
+                mb: 1,
+              }}
+            >
+              Stand size:
+            </Typography>
+
+            <Stack direction="row" spacing={1.5} sx={{ flexWrap: 'wrap', gap: 1.5 }}>
+              <Chip
+                label="All"
+                onClick={() => {
+                  handleSizeFilter(null);
+                  handleTypeFilter(null);
+                }}
+                sx={{
+                  backgroundColor: !selectedSizeRange && !selectedType ? '#656CAF' : '#E9EAF4',
+                  color: !selectedSizeRange && !selectedType ? '#FFFFFF' : '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: 24,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  height: 'auto',
+                  px: 1.5,
+                  py: 1,
+                  borderRadius: '8px',
+                  '&:hover': {
+                    backgroundColor: !selectedSizeRange && !selectedType ? '#4C53A2' : '#C7CAE3',
+                  },
+                }}
+              />
+              {sizeRanges.map((range) => (
+                <Chip
+                  key={range.label}
+                  label={range.label}
+                  onClick={() => handleSizeFilter(selectedSizeRange === range.label ? null : range.label)}
+                  sx={{
+                    backgroundColor: selectedSizeRange === range.label ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRange === range.label ? '#FFFFFF' : '#656CAF',
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: 24,
+                    lineHeight: '28px',
+                    letterSpacing: '0.01em',
+                    height: 'auto',
+                    px: 1.5,
+                    py: 1,
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedSizeRange === range.label ? '#4C53A2' : '#C7CAE3',
+                    },
+                  }}
+                />
+              ))}
+              <Chip
+                label="Double-Deckers"
+                onClick={() => handleTypeFilter(selectedType === 'double-decker' ? null : 'double-decker')}
+                sx={{
+                  backgroundColor: selectedType === 'double-decker' ? '#656CAF' : '#E9EAF4',
+                  color: selectedType === 'double-decker' ? '#FFFFFF' : '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: 24,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  height: 'auto',
+                  px: 1.5,
+                  py: 1,
+                  borderRadius: '8px',
+                  '&:hover': {
+                    backgroundColor: selectedType === 'double-decker' ? '#4C53A2' : '#C7CAE3',
+                  },
+                }}
+              />
+              <Chip
+                label="Events"
+                onClick={() => handleTypeFilter(selectedType === 'events' ? null : 'events')}
+                sx={{
+                  backgroundColor: selectedType === 'events' ? '#656CAF' : '#E9EAF4',
+                  color: selectedType === 'events' ? '#FFFFFF' : '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: 24,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  height: 'auto',
+                  px: 1.5,
+                  py: 1,
+                  borderRadius: '8px',
+                  '&:hover': {
+                    backgroundColor: selectedType === 'events' ? '#4C53A2' : '#C7CAE3',
+                  },
+                }}
+              />
+            </Stack>
           </Box>
+
+          {projectsLoading && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+              <CircularProgress />
+            </Box>
+          )}
+
+          {projectsError && (
+            <Alert severity="error" sx={{ mb: 4 }}>
+              Error loading projects. Please try again later.
+            </Alert>
+          )}
+
+          {projectsData && (
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 4,
+                width: '100%',
+                maxWidth: 1360,
+              }}
+            >
+              {projectsData.data.map((project) => (
+                <Box
+                  key={project.id}
+                  sx={{
+                    flexBasis: { xs: '100%', md: 'calc(33.333% - 24px)' },
+                    maxWidth: { xs: '100%', md: 432 },
+                  }}
+                >
+                  <ProjectCard project={project} />
+                </Box>
+              ))}
+            </Box>
+          )}
+
+          {projectsData && projectsData.data.length === 0 && (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="h6" color="text.secondary">
+                No projects found matching your criteria
+              </Typography>
+            </Box>
+          )}
         </Box>
       </Container>
 
       <FooterSection />
     </Box>
+    </ErrorBoundary>
   );
 }

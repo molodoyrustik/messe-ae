@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Layout Guidelines
+
+### Page Spacing
+- All pages except the main landing page should have a top padding of 3.75rem from the header
+- This ensures consistent spacing across the application
+
 ## Commands
 
 ### Development
