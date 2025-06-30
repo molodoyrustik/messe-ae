@@ -24,7 +24,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: { xs:  'flex-start', md:  'center' },
         alignItems: { xs: 'center', md: 'flex-start' },
         width: '100%',
         height: 'auto',
@@ -52,6 +52,9 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
             borderRadius: '4px',
             overflow: 'hidden',
             flexShrink: 0,
+            '& img': {
+              objectPosition: { xs: 'left center !important', md: 'center !important' },
+            },
           }}
         >
           {imageUrl ? (
@@ -62,7 +65,6 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
               style={{
                 objectFit: 'contain',
-                objectPosition: 'center',
               }}
             />
           ) : (
