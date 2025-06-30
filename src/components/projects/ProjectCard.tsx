@@ -48,7 +48,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <Box
           component="img"
           src={imageUrl}
-          alt={project.title}
+          alt={project.client?.name || project.title}
           sx={{
             width: '100%',
             height: { xs: 240, md: 328 },
