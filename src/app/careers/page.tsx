@@ -237,8 +237,8 @@ export default function CareersPage() {
       </Container>
 
       {/* Vacancies Section */}
-      <Container maxWidth="xl" sx={{ pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ px: { xs: '1rem' } }}>
+      <Container maxWidth="xl" sx={{ pb: { xs: 0, md: '6rem' } }}>
+        <Box sx={{ px: { xs: 0, md: '1rem' } }}>
           <Typography
             sx={{
               fontFamily: 'Roboto',
