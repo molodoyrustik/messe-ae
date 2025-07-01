@@ -85,8 +85,8 @@ const FooterSection = () => {
     { label: 'Projects', href: '/projects' },
     { label: 'About Us', href: '/about' },
     { label: 'Articles', href: '/articles' },
-    { label: 'Manifestos', href: '/manifestos', isActive: true },
-    { label: 'Career', href: '/career' },
+    { label: 'Manifestos', href: '/manifestos' },
+    { label: 'Careers', href: '/careers' },
     { label: 'Privacy policy', href: '/privacy-policy' },
     { label: 'Cookie policy', href: '/cookie-policy' },
   ];
@@ -253,7 +253,7 @@ const FooterSection = () => {
                   fontWeight: 700,
                   lineHeight: '24px',
                   letterSpacing: '0.32px',
-                  color: item.isActive ? '#4C53A2' : '#656CAF',
+                  color: '#656CAF',
                   fontFamily: 'Roboto',
                   transition: 'color 0.3s ease',
                   '&:hover': {

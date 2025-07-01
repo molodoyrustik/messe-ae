@@ -4,329 +4,328 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
+  Button,
   Chip,
   Stack,
-  Button,
 } from '@mui/material';
-import { AccessTime, Person } from '@mui/icons-material';
+import Grid from '@mui/material/Grid2';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
+import ArticleCard, { Article } from '@/components/ArticleCard';
+import NextLink from 'next/link';
 
 // Mock articles data
-const articles = [
+const articles: Article[] = [
   {
     id: 1,
-    title: 'The Future of Exhibition Design in the Middle East',
+    slug: 'future-exhibition-design-middle-east',
+    title: 'The Future of Exhibition Design',
     excerpt: 'Exploring innovative trends and technologies shaping the exhibition industry across the region.',
-    author: 'Sarah Johnson',
-    publishDate: '2024-03-15',
-    readTime: '5 min read',
-    category: 'Industry Insights',
-    image: '/article-1.jpg',
-    featured: true,
+    publishDate: '15 mar 2024',
+    readTime: '5 min',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
   },
   {
     id: 2,
-    title: 'Sustainable Event Management: A Guide for Organizers',
+    slug: 'sustainable-event-management',
+    title: 'Sustainable Event Management',
     excerpt: 'How to create environmentally responsible events without compromising on quality or impact.',
-    author: 'Ahmed Al-Rashid',
-    publishDate: '2024-03-10',
-    readTime: '7 min read',
+    publishDate: '10 mar 2024',
+    readTime: '7 min',
     category: 'Sustainability',
-    image: '/article-2.jpg',
-    featured: false,
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop',
   },
   {
     id: 3,
-    title: 'Digital Integration in Modern Exhibitions',
+    slug: 'digital-integration-exhibitions',
+    title: 'Digital Integration in Exhibitions',
     excerpt: 'Leveraging technology to enhance visitor experience and engagement at trade shows.',
-    author: 'Mohammed Hassan',
-    publishDate: '2024-03-05',
-    readTime: '6 min read',
+    publishDate: '05 mar 2024',
+    readTime: '6 min',
     category: 'Technology',
-    image: '/article-3.jpg',
-    featured: false,
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
   },
   {
     id: 4,
-    title: 'Building Successful Business Networks Through Events',
+    slug: 'business-networking-events',
+    title: 'Building Business Networks',
     excerpt: 'Strategies for creating meaningful connections and lasting partnerships at industry events.',
-    author: 'Sarah Johnson',
-    publishDate: '2024-02-28',
-    readTime: '4 min read',
-    category: 'Networking',
-    image: '/article-4.jpg',
-    featured: false,
+    publishDate: '28 feb 2024',
+    readTime: '4 min',
+    category: 'Business',
+    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
   },
   {
     id: 5,
-    title: 'The Rise of Hybrid Events in Post-Pandemic Era',
+    slug: 'hybrid-events-post-pandemic',
+    title: 'The Rise of Hybrid Events',
     excerpt: 'How the events industry has adapted to combine physical and virtual experiences.',
-    author: 'Ahmed Al-Rashid',
-    publishDate: '2024-02-20',
-    readTime: '8 min read',
-    category: 'Industry Trends',
-    image: '/article-5.jpg',
-    featured: false,
+    publishDate: '20 feb 2024',
+    readTime: '8 min',
+    category: 'Trends',
+    image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=600&fit=crop',
   },
   {
     id: 6,
-    title: 'Cultural Considerations in Middle Eastern Events',
+    slug: 'cultural-considerations-events',
+    title: 'Cultural Considerations in Events',
     excerpt: 'Understanding and respecting local customs when organizing international exhibitions.',
-    author: 'Mohammed Hassan',
-    publishDate: '2024-02-15',
-    readTime: '5 min read',
+    publishDate: '15 feb 2024',
+    readTime: '5 min',
     category: 'Culture',
-    image: '/article-6.jpg',
-    featured: false,
+    image: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&h=600&fit=crop',
   },
 ];
 
-// Article Card Component
-const ArticleCard = ({ article, featured = false }: { article: typeof articles[0]; featured?: boolean }) => {
-  return (
-    <Card
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: 2,
-        border: featured ? '2px solid #656CAF' : '1px solid #E0E0E0',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
-          borderColor: '#656CAF',
-        },
-      }}
-    >
-      <CardMedia
-        component="img"
-        height={featured ? "250" : "200"}
-        image={article.image}
-        alt={article.title}
-        sx={{
-          objectFit: 'cover',
-        }}
-      />
-      <CardContent sx={{ flexGrow: 1, p: 3 }}>
-        <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-          <Chip
-            label={article.category}
-            size="small"
-            sx={{
-              backgroundColor: '#E9EAF4',
-              color: '#4C53A2',
-              fontWeight: 500,
-              fontSize: 12,
-            }}
-          />
-          {featured && (
-            <Chip
-              label="Featured"
-              size="small"
-              sx={{
-                backgroundColor: '#656CAF',
-                color: '#FFFFFF',
-                fontWeight: 500,
-                fontSize: 12,
-              }}
-            />
-          )}
-        </Stack>
-
-        <Typography
-          variant="h6"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 700,
-            fontSize: featured ? 28 : 20,
-            lineHeight: featured ? '32px' : '24px',
-            letterSpacing: '0.01em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          {article.title}
-        </Typography>
-        
-        <Typography
-          variant="body2"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 400,
-            fontSize: 14,
-            lineHeight: '20px',
-            letterSpacing: '0.02em',
-            color: '#7B7B7B',
-            mb: 3,
-          }}
-        >
-          {article.excerpt}
-        </Typography>
-
-        <Stack direction="row" alignItems="center" spacing={2} sx={{ mt: 'auto' }}>
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <Person sx={{ fontSize: 16, color: '#656CAF' }} />
-            <Typography
-              variant="body2"
-              sx={{
-                fontSize: 12,
-                color: '#7B7B7B',
-              }}
-            >
-              {article.author}
-            </Typography>
-          </Stack>
-
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <AccessTime sx={{ fontSize: 16, color: '#656CAF' }} />
-            <Typography
-              variant="body2"
-              sx={{
-                fontSize: 12,
-                color: '#7B7B7B',
-              }}
-            >
-              {article.readTime}
-            </Typography>
-          </Stack>
-
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: 12,
-              color: '#7B7B7B',
-              ml: 'auto',
-            }}
-          >
-            {new Date(article.publishDate).toLocaleDateString()}
-          </Typography>
-        </Stack>
-      </CardContent>
-    </Card>
-  );
-};
-
 export default function ArticlesPage() {
-  const featuredArticle = articles.find(article => article.featured);
-  const regularArticles = articles.filter(article => !article.featured);
-
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       
       {/* Main Content */}
-      <Container maxWidth="xl" sx={{ pt: { xs: 12, md: 20 }, pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
+      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
+        <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
           
           {/* Page Header */}
-          <Box sx={{ mb: 6 }}>
+          <Box sx={{ mb: { xs: '2rem', md: '3.75rem' }, textAlign: 'center' }}>
             <Typography
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 36, md: 54 },
-                lineHeight: '60px',
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
+                lineHeight: { xs: '2.75rem', md: '3.75rem' },
+                letterSpacing: '0.01em',
                 color: '#262626',
-                mb: 3,
+                mb: { xs: '1rem', md: '1.5rem' },
               }}
             >
-              Articles & Insights
+              Articles
             </Typography>
             <Typography
               variant="body1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
-                fontSize: 16,
-                lineHeight: '24px',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+                lineHeight: { xs: '1.25rem', md: '1.5rem' },
                 letterSpacing: '0.02em',
-                color: '#000000',
-                maxWidth: 800,
+                color: '#7B7B7B',
+                maxWidth: '50rem',
+                mx: 'auto',
               }}
             >
               Stay informed with the latest trends, insights, and best practices in the exhibition 
-              and events industry. Our expert team shares valuable knowledge to help you succeed.
+              and events industry
             </Typography>
           </Box>
 
-          {/* Featured Article */}
-          {featuredArticle && (
-            <Box sx={{ mb: 8 }}>
-              <Typography
-                variant="h2"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  fontSize: 32,
-                  lineHeight: '40px',
-                  color: '#262626',
-                  mb: 4,
-                }}
-              >
-                Featured Article
-              </Typography>
-              <Grid container spacing={4}>
-                <Grid size={{ xs: 12, md: 8 }}>
-                  <ArticleCard article={featuredArticle} featured={true} />
-                </Grid>
-              </Grid>
-            </Box>
-          )}
-
-          {/* Regular Articles */}
-          <Box sx={{ mb: 6 }}>
-            <Typography
-              variant="h2"
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: 32,
-                lineHeight: '40px',
-                color: '#262626',
-                mb: 4,
-              }}
-            >
-              Latest Articles
-            </Typography>
-            <Grid container spacing={4}>
-              {regularArticles.map((article) => (
-                <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.id}>
-                  <ArticleCard article={article} />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-
-          {/* Load More Button */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
-            <Button
-              variant="contained"
+          {/* Category Filter Chips */}
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{
+              mb: { xs: '2rem', md: '3rem' },
+              flexWrap: 'wrap',
+              gap: 1.5,
+              justifyContent: 'center',
+            }}
+          >
+            <Chip
+              label="All"
+              clickable
               sx={{
                 backgroundColor: '#656CAF',
                 color: '#FFFFFF',
                 fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: 16,
-                lineHeight: '24px',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
                 letterSpacing: '0.02em',
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-                textTransform: 'none',
-                boxShadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
                 '&:hover': {
                   backgroundColor: '#4C53A2',
                 },
               }}
+            />
+            <Chip
+              label="Design"
+              component={NextLink}
+              href="/articles/categories/design"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+            <Chip
+              label="Sustainability"
+              component={NextLink}
+              href="/articles/categories/sustainability"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+            <Chip
+              label="Technology"
+              component={NextLink}
+              href="/articles/categories/technology"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+            <Chip
+              label="Business"
+              component={NextLink}
+              href="/articles/categories/business"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+            <Chip
+              label="Trends"
+              component={NextLink}
+              href="/articles/categories/trends"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+            <Chip
+              label="Culture"
+              component={NextLink}
+              href="/articles/categories/culture"
+              clickable
+              sx={{
+                backgroundColor: '#F5F5F5',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 500,
+                fontSize: '0.875rem',
+                lineHeight: '1.25rem',
+                letterSpacing: '0.02em',
+                height: '2rem',
+                borderRadius: '1rem',
+                '& .MuiChip-label': {
+                  px: '1rem',
+                },
+                '&:hover': {
+                  backgroundColor: '#E9EAF4',
+                },
+              }}
+            />
+          </Stack>
+
+          {/* Articles Grid */}
+          <Grid container spacing={{ xs: 3, md: 4 }}>
+            {articles.map((article) => (
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.id}>
+                <ArticleCard article={article} />
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Load More Button */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '3rem', md: '3.75rem' } }}>
+            <Button
+              variant="outlined"
+              sx={{
+                color: '#656CAF',
+                borderColor: '#656CAF',
+                fontFamily: 'Roboto',
+                fontWeight: 400,
+                fontSize: '1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02em',
+                px: '2rem',
+                py: '0.75rem',
+                borderRadius: '0.5rem',
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#656CAF',
+                  color: '#FFFFFF',
+                  borderColor: '#656CAF',
+                },
+              }}
             >
-              Load More Articles
+              Load more
             </Button>
           </Box>
 
