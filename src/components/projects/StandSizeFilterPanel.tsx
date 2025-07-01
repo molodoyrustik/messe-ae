@@ -111,7 +111,7 @@ export default function StandSizeFilterPanel({
           }}
         >
           <Stack spacing={0} sx={{ gap: 0 }}>
-            {sizeRanges.map((range, index) => (
+            {sizeRanges.map((range) => (
               <Box
                 key={range.label}
                 onClick={() => onSizeSelect(range.label)}

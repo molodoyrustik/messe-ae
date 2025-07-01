@@ -7,13 +7,13 @@ import {
   Chip,
   Stack,
   Button,
-  Divider,
+  // Divider,
   Checkbox,
-  TextField,
-  InputAdornment,
+  // TextField,
+  // InputAdornment,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import MobileFilterPanel from './MobileFilterPanel';
 import { Client } from '@/types/api';
 
@@ -142,7 +142,7 @@ export default function CombinedFilterPanel({
               gap: 1, 
               pr: 0.5,
               '& .MuiChip-root:first-child': {
-                ml: 0.5,
+                ml: 1,
               },
             }}>
               {selectedClients.map(clientSlug => {

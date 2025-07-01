@@ -50,35 +50,15 @@ export default function ProjectsPage() {
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
   const { data: clientsData } = useClients();
   
-  // Временные моки для тестирования большого количества клиентов
-  const mockClients = useMemo(() => {
-    if (!clientsData) return null;
-    const clients = [...clientsData.data];
-    // Добавляем моки клиентов для тестирования
-    for (let i = 1; i <= 100; i++) {
-      clients.push({
-        id: 1000 + i,
-        documentId: `mock-${i}`,
-        name: `Test Client ${i}`,
-        slug: `test-client-${i}`,
-        logo: null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        publishedAt: new Date().toISOString(),
-      });
-    }
-    return { ...clientsData, data: clients };
-  }, [clientsData]);
-  
   const hasActiveFilters = useMemo(() => {
     return selectedClients.length > 0 || selectedSizeRanges.length > 0 || selectedTypes.length > 0;
   }, [selectedClients, selectedSizeRanges, selectedTypes]);
   
   const activeFilterValues = useMemo(() => {
-    const values = [];
-    if (selectedClients.length > 0 && mockClients) {
+    const values: string[] = [];
+    if (selectedClients.length > 0 && clientsData) {
       selectedClients.forEach(slug => {
-        const client = mockClients.data.find(c => c.slug === slug);
+        const client = clientsData.data.find(c => c.slug === slug);
         if (client) values.push(client.name);
       });
     }
@@ -88,7 +68,7 @@ export default function ProjectsPage() {
       if (type === 'events') values.push('Events');
     });
     return values;
-  }, [selectedClients, selectedSizeRanges, selectedTypes, mockClients]);
+  }, [selectedClients, selectedSizeRanges, selectedTypes, clientsData]);
 
   const handleClientFilter = (clientSlug: string | null) => {
     if (clientSlug === null) {
@@ -396,7 +376,7 @@ export default function ProjectsPage() {
                   },
                 }}
               />
-              {mockClients?.data.slice(0, 9).map((client) => (
+              {clientsData?.data.slice(0, 9).map((client) => (
                 <Chip
                   key={client.id}
                   label={client.name}
@@ -419,7 +399,7 @@ export default function ProjectsPage() {
                   }}
                 />
               ))}
-              {mockClients && mockClients.data.length > 9 && (
+              {clientsData && clientsData.data.length > 9 && (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -591,12 +571,12 @@ export default function ProjectsPage() {
 
       <FooterSection />
       
-      {isMobile && mockClients && (
+      {isMobile && clientsData && (
         <>
           <ClientsFilterPanel
             open={clientsFilterOpen}
             onClose={() => setClientsFilterOpen(false)}
-            clients={mockClients.data}
+            clients={clientsData.data}
             selectedClients={selectedClients}
             onClientSelect={handleClientFilter}
           />
@@ -613,7 +593,7 @@ export default function ProjectsPage() {
           <CombinedFilterPanel
             open={combinedFilterOpen}
             onClose={() => setCombinedFilterOpen(false)}
-            clients={mockClients.data}
+            clients={clientsData.data}
             selectedClients={selectedClients}
             selectedSizeRanges={selectedSizeRanges}
             selectedTypes={selectedTypes}
