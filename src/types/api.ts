@@ -89,9 +89,12 @@ export type ProjectResponse = ApiResponse<Project>;
 
 export interface ProjectsFilters {
   clientSlug?: string;
+  clientSlugs?: string[];
   constructionType?: 'single-level' | 'double-decker';
+  constructionTypes?: string[];
   minSize?: number;
   maxSize?: number;
+  sizeRanges?: Array<{ min: number; max: number }>;
   page?: number;
   pageSize?: number;
 }
