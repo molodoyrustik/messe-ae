@@ -71,85 +71,83 @@ export default function CareersPage() {
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       
-      {/* Hero Section */}
-      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '4rem' } }}>
+      {/* Hero Section - Mobile */}
+      <Box sx={{ display: { xs: 'block', md: 'none' }, pt: '1.5rem', pb: '3rem' }}>
+        {/* Title and Description */}
+        <Box sx={{ mb: '2rem', px: '1rem' }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 700,
+              fontSize: '2.25rem',
+              lineHeight: '2.75rem',
+              color: '#262626',
+              mb: '1rem',
+            }}
+          >
+            Join our team
+          </Typography>
+
+          <Typography
+            component="div"
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 400,
+              fontSize: '0.875rem',
+              lineHeight: '1.25rem',
+              letterSpacing: '0.02rem',
+              color: '#000',
+              '& .company-name': {
+                color: '#262626',
+                fontWeight: 400,
+              },
+              '& .email-link': {
+                color: '#656CAF',
+                fontWeight: 700,
+                textDecoration: 'underline',
+              },
+            }}
+          >
+            At <span className="company-name">messe.ae</span>, we believe that our success is driven by our people. We are always on the lookout for talented, passionate and entrepreneurial exhibition professionals who share our commitment to excellence.
+            <br /><br />
+            As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients&apos; expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
+            <br /><br />
+            If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let&apos;s start the conversation.
+            <br /><br />
+            Join us in our journey to shape the future of exhibitions!
+          </Typography>
+        </Box>
+
+        {/* Image - Full Width */}
+        <Box
+          sx={{
+            width: '100%',
+            aspectRatio: '896 / 464',
+            overflow: 'hidden',
+            backgroundColor: '#F5F5F5',
+            mb: '2rem',
+          }}
+        >
+          <Box
+            component="img"
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=896&h=464&fit=crop"
+            alt="Join our team"
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* Hero Section - Desktop */}
+      <Container maxWidth="xl" sx={{ display: { xs: 'none', md: 'block' }, pt: '3.75rem', pb: '4rem' }}>
         <Box sx={{ px: { xs: '1rem' } }}>
-          {/* Mobile Layout */}
-          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            {/* Title and Description */}
-            <Box sx={{ mb: '2rem' }}>
-              <Typography
-                variant="h1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  fontSize: '2.25rem',
-                  lineHeight: '2.75rem',
-                  color: '#262626',
-                  mb: '1rem',
-                }}
-              >
-                Join our team
-              </Typography>
-
-              <Typography
-                component="div"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: '0.875rem',
-                  lineHeight: '1.25rem',
-                  letterSpacing: '0.02rem',
-                  color: '#000',
-                  '& .company-name': {
-                    color: '#262626',
-                    fontWeight: 400,
-                  },
-                  '& .email-link': {
-                    color: '#656CAF',
-                    fontWeight: 700,
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                At <span className="company-name">messe.ae</span>, we believe that our success is driven by our people. We are always on the lookout for talented, passionate and entrepreneurial exhibition professionals who share our commitment to excellence.
-                <br /><br />
-                As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients&apos; expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
-                <br /><br />
-                If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let&apos;s start the conversation.
-                <br /><br />
-                Join us in our journey to shape the future of exhibitions!
-              </Typography>
-            </Box>
-
-            {/* Image */}
-            <Box
-              sx={{
-                width: '100%',
-                aspectRatio: '896 / 464',
-                borderRadius: '0.5rem',
-                overflow: 'hidden',
-                backgroundColor: '#F5F5F5',
-                mb: '2rem',
-              }}
-            >
-              <Box
-                component="img"
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=896&h=464&fit=crop"
-                alt="Join our team"
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </Box>
-          </Box>
-
-          {/* Desktop Layout */}
           <Box 
             sx={{ 
-              display: { xs: 'none', md: 'grid' },
+              display: 'grid',
               gridTemplateColumns: '24rem 1fr',
               gap: '2rem',
               alignItems: 'stretch',
@@ -249,7 +247,8 @@ export default function CareersPage() {
               lineHeight: { xs: '2rem', md: '2.5rem' },
               letterSpacing: '0.01em',
               color: '#262626',
-              mb: { xs: '1.5rem', md: '3.375rem' },
+              mt: { xs: '1.5rem', md: 0 },
+              mb: { xs: '1rem', md: '3.375rem' },
             }}
           >
             Our vacancies
@@ -273,7 +272,7 @@ export default function CareersPage() {
             sx={{
               display: { xs: 'flex', md: 'none' },
               flexDirection: 'column',
-              gap: '1rem',
+              gap: '0.75rem',
               width: '100%',
             }}
           >
