@@ -8,19 +8,18 @@ const CookiePolicyPage = () => {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
-      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '8rem', px: { xs: '1rem', md: '2.5rem' } }}>
           {/* Page Header */}
-          <Box sx={{ mb: 6 }}>
+          <Box sx={{ mb: '6rem' }}>
             <Typography
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 36, md: 54 },
-                lineHeight: '60px',
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
+                lineHeight: '3.75rem',
                 color: '#262626',
-                mb: 3,
+                mb: '3rem',
               }}
             >
               Cookie Policy
@@ -29,8 +28,8 @@ const CookiePolicyPage = () => {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
-                fontSize: { xs: 16, md: 18 },
-                lineHeight: '28px',
+                fontSize: { xs: '1rem', md: '1.125rem' },
+                lineHeight: '1.75rem',
                 letterSpacing: '0.02em',
                 color: '#7B7B7B',
               }}
@@ -40,17 +39,17 @@ const CookiePolicyPage = () => {
           </Box>
 
           {/* Content Sections */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
             <Box>
               <Typography
                 variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 1. What Are Cookies
@@ -59,8 +58,8 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
                 }}
@@ -75,10 +74,10 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 2. How We Use Cookies
@@ -87,23 +86,23 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 We use cookies for the following purposes:
               </Typography>
-              <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
                 <li>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -116,8 +115,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -130,8 +129,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -144,8 +143,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -162,25 +161,25 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 3. Types of Cookies We Use
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
                 <Box>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 600,
-                      fontSize: 18,
-                      lineHeight: '24px',
+                      fontSize: '1.125rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#262626',
-                      mb: 1,
+                      mb: '1rem',
                     }}
                   >
                     Session Cookies
@@ -189,8 +188,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -203,11 +202,11 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 600,
-                      fontSize: 18,
-                      lineHeight: '24px',
+                      fontSize: '1.125rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#262626',
-                      mb: 1,
+                      mb: '1rem',
                     }}
                   >
                     Persistent Cookies
@@ -216,8 +215,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -234,10 +233,10 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 4. Third-Party Cookies
@@ -246,8 +245,8 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
                 }}
@@ -262,10 +261,10 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 5. Managing Your Cookie Preferences
@@ -274,23 +273,23 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 You have several options for managing cookies:
               </Typography>
-              <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
                 <li>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -303,8 +302,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -317,8 +316,8 @@ const CookiePolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -331,11 +330,11 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mt: 2,
+                  mt: '2rem',
                 }}
               >
                 Please note that disabling certain cookies may impact the functionality of our website and your user experience.
@@ -348,10 +347,10 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 6. Updates to This Policy
@@ -360,8 +359,8 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
                 }}
@@ -376,10 +375,10 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 7. Contact Us
@@ -388,22 +387,22 @@ const CookiePolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 If you have any questions about our use of cookies or this Cookie Policy, please contact us at:
               </Typography>
-              <Box sx={{ pl: 2 }}>
+              <Box sx={{ pl: '2rem' }}>
                 <Typography
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
                   }}
@@ -414,8 +413,8 @@ const CookiePolicyPage = () => {
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
                   }}
@@ -426,11 +425,11 @@ const CookiePolicyPage = () => {
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
-                    mt: 1,
+                    mt: '1rem',
                   }}
                 >
                   Address: UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
@@ -438,7 +437,6 @@ const CookiePolicyPage = () => {
               </Box>
             </Box>
           </Box>
-        </Box>
       </Container>
       <FooterSection />
     </Box>

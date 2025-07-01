@@ -8,19 +8,18 @@ const PrivacyPolicyPage = () => {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
-      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '8rem', px: { xs: '1rem', md: '2.5rem' } }}>
           {/* Page Header */}
-          <Box sx={{ mb: 6 }}>
+          <Box sx={{ mb: '6rem' }}>
             <Typography
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 36, md: 54 },
-                lineHeight: '60px',
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
+                lineHeight: '3.75rem',
                 color: '#262626',
-                mb: 3,
+                mb: '3rem',
               }}
             >
               Privacy Policy
@@ -29,8 +28,8 @@ const PrivacyPolicyPage = () => {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
-                fontSize: { xs: 16, md: 18 },
-                lineHeight: '28px',
+                fontSize: { xs: '1rem', md: '1.125rem' },
+                lineHeight: '1.75rem',
                 letterSpacing: '0.02em',
                 color: '#7B7B7B',
               }}
@@ -40,17 +39,17 @@ const PrivacyPolicyPage = () => {
           </Box>
 
           {/* Content Sections */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
             <Box>
               <Typography
                 variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 1. Introduction
@@ -59,8 +58,8 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
                 }}
@@ -75,10 +74,10 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 2. Information We Collect
@@ -87,23 +86,23 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 We collect information you provide directly to us, such as when you:
               </Typography>
-              <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
                 <li>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -116,8 +115,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -130,8 +129,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -144,8 +143,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -162,10 +161,10 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 3. How We Use Your Information
@@ -174,23 +173,23 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 We use the information we collect to:
               </Typography>
-              <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
                 <li>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -203,8 +202,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -217,8 +216,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -231,8 +230,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -245,8 +244,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -263,10 +262,10 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 4. Data Security
@@ -275,8 +274,8 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
                 }}
@@ -291,10 +290,10 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 5. Your Rights
@@ -303,23 +302,23 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 You have the right to:
               </Typography>
-              <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
                 <li>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -332,8 +331,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -346,8 +345,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -360,8 +359,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -374,8 +373,8 @@ const PrivacyPolicyPage = () => {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 16,
-                      lineHeight: '24px',
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
                       letterSpacing: '0.02em',
                       color: '#000000',
                     }}
@@ -392,10 +391,10 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: 24, md: 32 },
-                  lineHeight: '40px',
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  lineHeight: '2.5rem',
                   color: '#262626',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 6. Contact Us
@@ -404,11 +403,11 @@ const PrivacyPolicyPage = () => {
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: '24px',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02em',
                   color: '#000000',
-                  mb: 2,
+                  mb: '2rem',
                 }}
               >
                 If you have questions about this Privacy Policy or our privacy practices, please contact us at:
@@ -418,8 +417,8 @@ const PrivacyPolicyPage = () => {
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
                   }}
@@ -430,8 +429,8 @@ const PrivacyPolicyPage = () => {
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
                   }}
@@ -442,11 +441,11 @@ const PrivacyPolicyPage = () => {
                   sx={{
                     fontFamily: 'Roboto',
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: '24px',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
                     letterSpacing: '0.02em',
                     color: '#000000',
-                    mt: 1,
+                    mt: '1rem',
                   }}
                 >
                   Address: UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
@@ -454,7 +453,6 @@ const PrivacyPolicyPage = () => {
               </Box>
             </Box>
           </Box>
-        </Box>
       </Container>
       <FooterSection />
     </Box>
