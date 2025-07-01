@@ -10,24 +10,27 @@ import ExpoglobalSection from '@/components/landing/ExpoglobalSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
 import ParallaxSection from '@/components/landing/ParallaxSection';
 import FooterSection from '@/components/landing/FooterSection';
+import { MobileMenuProvider } from '@/contexts/MobileMenuContext';
 
 export default function HomePage() {
   return (
-    <Box sx={{ minHeight: '100vh' }}>
-      {/* Header */}
-      <Header />
+    <MobileMenuProvider>
+      <Box sx={{ minHeight: '100vh' }}>
+        {/* Header */}
+        <Header />
 
-      {/* Main Landing Sections */}
-      <Box component="main">
-        <HeroSection />
-        <ClientsSection />
-        <ProjectsSection />
-        <ParallaxSection />
-        <AdvantagesSection />
-        <AwardsSection />
-        <ExpoglobalSection />
-        <FooterSection />
+        {/* Main Landing Sections */}
+        <Box component="main">
+          <HeroSection />
+          <ClientsSection />
+          <ProjectsSection />
+          <ParallaxSection />
+          <AdvantagesSection />
+          <AwardsSection />
+          <ExpoglobalSection />
+          <FooterSection />
+        </Box>
       </Box>
-    </Box>
+    </MobileMenuProvider>
   );
 }

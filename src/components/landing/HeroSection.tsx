@@ -9,9 +9,12 @@ import {
   useTheme,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { ContactFormModal } from '@/components/ContactFormModal';
+import { useMobileMenu } from '@/contexts/MobileMenuContext';
 
 const HeroSection = () => {
   const [showButton, setShowButton] = useState(true);
+  const { isDrawerOpen, isModalOpen, setModalOpen } = useMobileMenu();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -36,12 +39,6 @@ const HeroSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToForm = () => {
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-      contactForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
 
   return (
     <Box
@@ -204,10 +201,10 @@ const HeroSection = () => {
           years of award winning expertise
         </Typography>
 
-        {/* Request a proposal Button - Desktop Only */}
+        {/* Discuss Your Project Button - Desktop Only */}
         <Button
           variant="contained"
-          onClick={scrollToForm}
+          onClick={() => setModalOpen(true)}
           sx={{
             position: 'absolute',
             right: '2.5rem',
@@ -234,7 +231,7 @@ const HeroSection = () => {
             },
           }}
         >
-          Request a proposal
+          Discuss Your Project
         </Button>
 
         
@@ -323,7 +320,7 @@ const HeroSection = () => {
         <Button
           variant="contained"
           fullWidth
-          onClick={scrollToForm}
+          onClick={() => setModalOpen(true)}
           sx={{
             position: 'fixed',
             bottom: '18.5dvh',
@@ -341,8 +338,8 @@ const HeroSection = () => {
             lineHeight: '24px',
             letterSpacing: '0.02em',
             zIndex: 9999,
-            opacity: showButton ? 1 : 0,
-            visibility: showButton ? 'visible' : 'hidden',
+            opacity: showButton && !isDrawerOpen && !isModalOpen ? 1 : 0,
+            visibility: showButton && !isDrawerOpen && !isModalOpen ? 'visible' : 'hidden',
             transition: 'opacity 0.3s ease, visibility 0.3s ease',
             
             '&:hover': {
@@ -353,6 +350,12 @@ const HeroSection = () => {
           Connect with us
         </Button>
       )}
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </Box>
   );
 };
