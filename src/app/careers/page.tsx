@@ -114,9 +114,9 @@ export default function CareersPage() {
               >
                 At <span className="company-name">messe.ae</span>, we believe that our success is driven by our people. We are always on the lookout for talented, passionate and entrepreneurial exhibition professionals who share our commitment to excellence.
                 <br /><br />
-                As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients' expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
+                As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients&apos; expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
                 <br /><br />
-                If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let's start the conversation.
+                If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let&apos;s start the conversation.
                 <br /><br />
                 Join us in our journey to shape the future of exhibitions!
               </Typography>
@@ -200,9 +200,9 @@ export default function CareersPage() {
               >
                 At <span className="company-name">messe.ae</span>, we believe that our success is driven by our people. We are always on the lookout for talented, passionate and entrepreneurial exhibition professionals who share our commitment to excellence.
                 <br /><br />
-                As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients' expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
+                As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients&apos; expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
                 <br /><br />
-                If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let's start the conversation.
+                If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let&apos;s start the conversation.
                 <br /><br />
                 Join us in our journey to shape the future of exhibitions!
               </Typography>

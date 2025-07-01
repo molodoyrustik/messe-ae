@@ -6,13 +6,10 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import { ArrowBack } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard, { Article } from '@/components/ArticleCard';
 import SmallArticleCard from '@/components/SmallArticleCard';
-import NextLink from 'next/link';
 
 interface CategoryData {
   name: string;
@@ -26,7 +23,7 @@ interface CategoryPageClientProps {
   allCategories: { id: string; name: string }[];
 }
 
-export default function CategoryPageClient({ categoryKey, categoryData, allCategories }: CategoryPageClientProps) {
+export default function CategoryPageClient({ categoryData }: CategoryPageClientProps) {
   if (!categoryData) {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>

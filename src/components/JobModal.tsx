@@ -8,7 +8,7 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import { Close, LocationOn, Work } from '@mui/icons-material';
+import { LocationOn, Work } from '@mui/icons-material';
 import { Job } from './JobCard';
 
 interface JobModalProps {
