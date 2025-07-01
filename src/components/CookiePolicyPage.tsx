@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, Link } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 
@@ -9,432 +9,178 @@ const CookiePolicyPage = () => {
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '8rem', px: { xs: '1rem', md: '2.5rem' } }}>
-          {/* Page Header */}
-          <Box sx={{ mb: '6rem' }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: { xs: '2.25rem', md: '3.375rem' },
-                lineHeight: '3.75rem',
-                color: '#262626',
-                mb: '3rem',
-              }}
-            >
-              Cookie Policy
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: { xs: '1rem', md: '1.125rem' },
-                lineHeight: '1.75rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
-              }}
-            >
-              Last updated: January 2025
-            </Typography>
-          </Box>
-
           {/* Content Sections */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '1.5rem', md: '1.5rem' } }}>
+            {/* What Are Cookies? */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                1. What Are Cookies
+                What Are Cookies?
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
                 }}
               >
-                Cookies are small text files that are placed on your device when you visit a website. They are widely used to make websites work more efficiently and provide information to the owners of the site. This Cookie Policy explains what cookies are, how we use them, and your choices regarding cookies.
+                Cookies are small text files stored on your computer, mobile phone, or other device when you visit a website. These files enable websites to recognize users on subsequent visits and facilitate various functionalities. Cookies play a crucial role in enhancing your internet experience by remembering preferences, user IDs, and shopping basket contents, among other functions.
+                <br />
+                <br />
+                While cookies primarily collect anonymous data to improve user experience, some may track browsing patterns and approximate geographical locations. It's important to note that cookies do not contain personally identifiable information.
               </Typography>
             </Box>
 
-            <Box>
+            {/* How Do We Use Cookies? */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                2. How We Use Cookies
+                How Do We Use Cookies?
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  color: '#000000',
-                  mb: '2rem',
-                }}
-              >
-                We use cookies for the following purposes:
-              </Typography>
-              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Essential Cookies:</strong> These cookies are necessary for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Performance Cookies:</strong> These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Functionality Cookies:</strong> These cookies enable the website to provide enhanced functionality and personalization, such as remembering your preferences.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Marketing Cookies:</strong> These cookies may be set through our site by our advertising partners to build a profile of your interests and show you relevant advertisements.
-                  </Typography>
-                </li>
-              </Box>
-            </Box>
-
-            <Box>
-              <Typography
-                variant="h2"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
-                  color: '#262626',
-                  mb: '2rem',
-                }}
-              >
-                3. Types of Cookies We Use
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                <Box>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 600,
-                      fontSize: '1.125rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#262626',
-                      mb: '1rem',
-                    }}
-                  >
-                    Session Cookies
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    These are temporary cookies that expire when you close your browser. They are used to maintain your session while you navigate our website.
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 600,
-                      fontSize: '1.125rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#262626',
-                      mb: '1rem',
-                    }}
-                  >
-                    Persistent Cookies
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    These cookies remain on your device for a set period or until you delete them. They help us recognize you when you return to our website and remember your preferences.
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-
-            <Box>
-              <Typography
-                variant="h2"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
-                  color: '#262626',
-                  mb: '2rem',
-                }}
-              >
-                4. Third-Party Cookies
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
                 }}
               >
-                In addition to our own cookies, we may also use various third-party cookies to report usage statistics of the website and deliver advertisements on and through the website. These third parties may include analytics providers and advertising networks.
+                We utilize cookies for multiple purposes, including analyzing website performance and delivering personalized content to users. These cookies help us understand user behavior, improve our services, and tailor your experience on the site.
+                <br />
+                <br />
+                We prioritize user privacy and use cookies responsibly to enhance our services. Disabling cookies may adversely affect your experience on the Website.
               </Typography>
             </Box>
 
-            <Box>
+            {/* Types of Cookies We Use */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                5. Managing Your Cookie Preferences
+                Types of Cookies We Use
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
-                You have several options for managing cookies:
-              </Typography>
-              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Browser Settings:</strong> Most web browsers allow you to control cookies through their settings. You can set your browser to refuse cookies or delete certain cookies.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Cookie Consent Banner:</strong> When you first visit our website, you can choose which categories of cookies to accept through our cookie consent banner.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    <strong>Opt-Out Links:</strong> Some third-party providers offer opt-out mechanisms for their cookies.
-                  </Typography>
-                </li>
-              </Box>
-              <Typography
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  color: '#000000',
-                  mt: '2rem',
-                }}
-              >
-                Please note that disabling certain cookies may impact the functionality of our website and your user experience.
+                Cookies can be categorized into two main types: persistent cookies and session cookies. Additionally, cookies serve different functions such as strictly necessary, performance, functionality, and advertising/targeting.
+                <br />
+                <br />
+                <strong>Strictly Necessary Cookies:</strong> Essential for basic website functionalities like registration and shopping baskets. These cookies do not gather information for marketing purposes.
+                <br />
+                <strong>Performance Cookies:</strong> Collect anonymous data for statistical analysis to improve user experience.
+                <br />
+                <strong>Functionality Cookies:</strong> Customize website appearance and provide personalized services based on user preferences.
+                <br />
+                <strong>Advertising and Targeting Cookies:</strong> Deliver relevant advertisements and track ad campaign effectiveness without identifying individuals.
               </Typography>
             </Box>
 
-            <Box>
+            {/* How to Control Your Cookies */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                6. Updates to This Policy
+                How to Control Your Cookies
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
                 }}
               >
-                We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Cookie Policy on this page with a new "Last updated" date.
+                Although most browsers accept cookies automatically, you have the option to manage your cookie preferences. You can delete cookies, block third-party cookies, or adjust browser settings to notify you when a cookie is issued. However, disabling cookies may result in reduced website functionality.
+                <br />
+                <br />
+                For more information on managing cookies, refer to the specific settings in your browser. Additionally, you can visit Youronlinechoices.com to opt out of targeted advertising cookies.
               </Typography>
             </Box>
 
-            <Box>
+            {/* User Agreement */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                7. Contact Us
+                User Agreement
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
-                If you have any questions about our use of cookies or this Cookie Policy, please contact us at:
-              </Typography>
-              <Box sx={{ pl: '2rem' }}>
-                <Typography
+                By continuing to use our site, you consent to the placement of cookies on your device. Please note that disabling cookies may impact certain website features, such as leaving comments. We strive to provide you with the best possible experience on{' '}
+                <Link
+                  href="/"
                   sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
+                    color: '#656CAF',
+                    fontWeight: 700,
+                    textDecoration: 'underline',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                    },
                   }}
                 >
-                  Email: hello@messe.ae
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
-                  }}
-                >
-                  Phone: +971 4 548 5887
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
-                    mt: '1rem',
-                  }}
-                >
-                  Address: UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
-                </Typography>
-              </Box>
+                  messe.ae
+                </Link>
+                , and cookies play a vital role in achieving this goal.
+              </Typography>
             </Box>
           </Box>
       </Container>

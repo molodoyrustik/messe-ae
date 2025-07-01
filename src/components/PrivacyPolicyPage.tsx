@@ -9,58 +9,29 @@ const PrivacyPolicyPage = () => {
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '8rem', px: { xs: '1rem', md: '2.5rem' } }}>
-          {/* Page Header */}
-          <Box sx={{ mb: '6rem' }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: { xs: '2.25rem', md: '3.375rem' },
-                lineHeight: '3.75rem',
-                color: '#262626',
-                mb: '3rem',
-              }}
-            >
-              Privacy Policy
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: { xs: '1rem', md: '1.125rem' },
-                lineHeight: '1.75rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
-              }}
-            >
-              Last updated: January 2025
-            </Typography>
-          </Box>
-
           {/* Content Sections */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '1.5rem', md: '1.5rem' } }}>
+            {/* Introduction */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                1. Introduction
+                Introduction
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
                 }}
               >
@@ -68,215 +39,103 @@ const PrivacyPolicyPage = () => {
               </Typography>
             </Box>
 
-            <Box>
+            {/* Information We Collect */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                2. Information We Collect
+                Information We Collect
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
                 We collect information you provide directly to us, such as when you:
+                <br />
+                <br />
+                • Fill out our contact form
+                <br />
+                • Request information about our services
+                <br />
+                • Subscribe to our newsletter
+                <br />
+                • Communicate with us via email or phone
               </Typography>
-              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Fill out our contact form
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Request information about our services
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Subscribe to our newsletter
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Communicate with us via email or phone
-                  </Typography>
-                </li>
-              </Box>
             </Box>
 
-            <Box>
+            {/* How We Use Your Information */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                3. How We Use Your Information
+                How We Use Your Information
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
                 We use the information we collect to:
+                <br />
+                <br />
+                • Provide, operate, and maintain our services
+                <br />
+                • Process and complete transactions
+                <br />
+                • Send you technical notices and support messages
+                <br />
+                • Respond to your comments and questions
+                <br />
+                • Send you marketing communications (with your consent)
               </Typography>
-              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Provide, operate, and maintain our services
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Process and complete transactions
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Send you technical notices and support messages
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Respond to your comments and questions
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Send you marketing communications (with your consent)
-                  </Typography>
-                </li>
-              </Box>
             </Box>
 
-            <Box>
+            {/* Data Security */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                4. Data Security
+                Data Security
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
                 }}
               >
@@ -284,173 +143,79 @@ const PrivacyPolicyPage = () => {
               </Typography>
             </Box>
 
-            <Box>
+            {/* Your Rights */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                5. Your Rights
+                Your Rights
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
                 You have the right to:
+                <br />
+                <br />
+                • Access your personal information
+                <br />
+                • Correct inaccurate data
+                <br />
+                • Request deletion of your data
+                <br />
+                • Object to processing of your data
+                <br />
+                • Withdraw consent at any time
               </Typography>
-              <Box component="ul" sx={{ pl: '3rem', m: 0 }}>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Access your personal information
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Correct inaccurate data
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Request deletion of your data
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Object to processing of your data
-                  </Typography>
-                </li>
-                <li>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '1rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.02em',
-                      color: '#000000',
-                    }}
-                  >
-                    Withdraw consent at any time
-                  </Typography>
-                </li>
-              </Box>
             </Box>
 
-            <Box>
+            {/* Contact Us */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '0.25rem', md: '0.5rem' } }}>
               <Typography
-                variant="h2"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  lineHeight: '2.5rem',
+                  fontSize: { xs: '1rem', md: '2.125rem' },
+                  lineHeight: { xs: '1.5rem', md: '2.625rem' },
+                  letterSpacing: { xs: '0.32px', md: '0.34px' },
                   color: '#262626',
-                  mb: '2rem',
                 }}
               >
-                6. Contact Us
+                Contact Us
               </Typography>
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: { xs: '0.28px', md: '0.32px' },
                   color: '#000000',
-                  mb: '2rem',
                 }}
               >
                 If you have questions about this Privacy Policy or our privacy practices, please contact us at:
+                <br />
+                <br />
+                Email: hello@messe.ae
+                <br />
+                Phone: +971 4 548 5887
+                <br />
+                <br />
+                Address: UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
               </Typography>
-              <Box sx={{ pl: 2 }}>
-                <Typography
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
-                  }}
-                >
-                  Email: hello@messe.ae
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
-                  }}
-                >
-                  Phone: +971 4 548 5887
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02em',
-                    color: '#000000',
-                    mt: '1rem',
-                  }}
-                >
-                  Address: UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
-                </Typography>
-              </Box>
             </Box>
           </Box>
       </Container>
