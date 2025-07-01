@@ -1,14 +1,10 @@
 import { 
-  Card, 
-  CardContent, 
-  CardMedia, 
-  Chip, 
-  Stack, 
+  Box, 
   Typography, 
   Link,
-  Box 
+  Stack 
 } from '@mui/material';
-import { AccessTime } from '@mui/icons-material';
+import { ArrowForward } from '@mui/icons-material';
 import NextLink from 'next/link';
 
 export interface Article {
@@ -33,38 +29,45 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       href={`/articles/${article.slug}`}
       sx={{ textDecoration: 'none' }}
     >
-      <Card
+      <Box
         sx={{
-          height: '100%',
           display: 'flex',
+          width: { xs: '100%', md: '27rem' }, // 432px
           flexDirection: 'column',
-          borderRadius: '0.75rem',
+          alignItems: 'flex-start',
+          gap: '0.75rem', // 12px
+          flexShrink: 0,
           overflow: 'hidden',
-          boxShadow: 'none',
-          border: 'none',
-          backgroundColor: 'transparent',
           cursor: 'pointer',
-          transition: 'all 0.3s ease',
+          transition: 'transform 0.3s ease',
           '&:hover': {
-            transform: 'translateY(-0.5rem)',
+            transform: 'translateY(-0.25rem)',
             '& .article-image': {
               transform: 'scale(1.05)',
+            },
+            '& .read-article': {
+              color: '#4C53A2',
+              '& .article-arrow': {
+                transform: 'translateX(0.25rem)',
+              },
             },
           },
         }}
       >
+        {/* Image */}
         <Box
           sx={{
+            width: '100%',
+            height: { xs: '13.5rem', md: '15rem' }, // 240px
             position: 'relative',
+            borderRadius: '0.5rem',
             overflow: 'hidden',
-            borderRadius: '0.75rem',
             backgroundColor: '#F5F5F5',
-            aspectRatio: { xs: '16/9', md: '4/3' },
           }}
         >
-          <CardMedia
+          <Box
             component="img"
-            image={article.image}
+            src={article.image}
             alt={article.title}
             className="article-image"
             sx={{
@@ -75,94 +78,88 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             }}
           />
         </Box>
-        <CardContent sx={{ p: 0, pt: '1.5rem' }}>
-          <Stack spacing={1}>
-            <Chip
-              label={article.category}
-              size="small"
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.75rem',
-                lineHeight: '1rem',
-                letterSpacing: '0.02em',
-                height: '1.5rem',
-                borderRadius: '0.25rem',
-                alignSelf: 'flex-start',
-                '& .MuiChip-label': {
-                  px: '0.75rem',
-                },
-              }}
-            />
 
+        {/* Title */}
+        <Typography
+          sx={{
+            alignSelf: 'stretch',
+            height: { xs: 'auto', md: '4rem' }, // 64px
+            fontFamily: 'Roboto',
+            fontSize: { xs: '1.25rem', md: '1.5rem' }, // 24px
+            fontWeight: 400,
+            lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
+            letterSpacing: '0.01em',
+            color: '#7B7B7B',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {article.title}
+        </Typography>
+
+        {/* Bottom Info */}
+        <Stack
+          direction="row"
+          sx={{
+            alignSelf: 'stretch',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontSize: '0.875rem', // 14px
+              fontWeight: 400,
+              lineHeight: '1.25rem', // 20px
+              letterSpacing: '0.01em',
+              color: '#262626',
+            }}
+          >
+            {article.publishDate}
+          </Typography>
+
+          <Box
+            className="read-article"
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              px: '0.3125rem', // 5px
+              py: '0.25rem', // 4px
+              borderRadius: '0.5rem',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                backgroundColor: 'rgba(101, 108, 175, 0.08)',
+              },
+            }}
+          >
             <Typography
-              variant="h6"
               sx={{
                 fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: { xs: '1.125rem', md: '1.25rem' },
-                lineHeight: { xs: '1.5rem', md: '1.75rem' },
-                letterSpacing: '0.01em',
-                color: '#262626',
-              }}
-            >
-              {article.title}
-            </Typography>
-            
-            <Typography
-              variant="body2"
-              sx={{
-                fontFamily: 'Roboto',
+                fontSize: '1rem', // 16px
                 fontWeight: 400,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
+                lineHeight: '1.5rem', // 24px
+                letterSpacing: '0.01em',
+                color: '#656CAF',
+                transition: 'color 0.3s ease',
               }}
             >
-              {article.excerpt}
+              Read article
             </Typography>
-
-            <Stack direction="row" alignItems="center" spacing={2} sx={{ pt: 1 }}>
-              <Typography
-                variant="caption"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '0.75rem',
-                  lineHeight: '1rem',
-                  letterSpacing: '0.02em',
-                  color: '#7B7B7B',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {article.publishDate}
-              </Typography>
-
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                <AccessTime sx={{ fontSize: '1rem', color: '#7B7B7B' }} />
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontSize: '0.75rem',
-                    lineHeight: '1rem',
-                    letterSpacing: '0.02em',
-                    color: '#7B7B7B',
-                  }}
-                >
-                  {article.readTime}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
-        </CardContent>
-      </Card>
+            <ArrowForward 
+              className="article-arrow"
+              sx={{ 
+                fontSize: '1rem', 
+                color: '#656CAF',
+                transition: 'all 0.3s ease',
+              }} 
+            />
+          </Box>
+        </Stack>
+      </Box>
     </Link>
   );
 }

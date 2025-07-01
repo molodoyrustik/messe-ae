@@ -71,7 +71,7 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
           </Button>
 
           {/* Page Header */}
-          <Box sx={{ mb: { xs: '2rem', md: '3.75rem' }, textAlign: 'center' }}>
+          <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
               variant="h1"
               sx={{
@@ -81,7 +81,7 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
                 lineHeight: { xs: '2.75rem', md: '3.75rem' },
                 letterSpacing: '0.01em',
                 color: '#262626',
-                mb: { xs: '1rem', md: '1.5rem' },
+                mb: { xs: '0.5rem', md: '0.75rem' },
               }}
             >
               {categoryData.name}
@@ -96,7 +96,6 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
                 letterSpacing: '0.02em',
                 color: '#7B7B7B',
                 maxWidth: '50rem',
-                mx: 'auto',
               }}
             >
               {categoryData.description}

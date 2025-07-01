@@ -5,80 +5,82 @@ import {
   Container,
   Typography,
   Button,
-  Chip,
-  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard, { Article } from '@/components/ArticleCard';
-import NextLink from 'next/link';
+import BigArticle from '@/components/BigArticle';
+import CategoriesSection from '@/components/CategoriesSection';
 
 // Mock articles data
 const articles: Article[] = [
   {
     id: 1,
-    slug: 'future-exhibition-design-middle-east',
-    title: 'The Future of Exhibition Design',
+    slug: 'exhibition-stand-design-adapting',
+    title: 'Exhibition Stand Design: Adapting to Different Industries',
     excerpt: 'Exploring innovative trends and technologies shaping the exhibition industry across the region.',
-    publishDate: '15 mar 2024',
+    publishDate: 'Few days ago',
     readTime: '5 min',
     category: 'Design',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
   },
   {
     id: 2,
-    slug: 'sustainable-event-management',
-    title: 'Sustainable Event Management',
+    slug: 'lighting-exhibition-stands',
+    title: 'Lighting of Exhibition Stands: How to Make Your Brand Shine',
     excerpt: 'How to create environmentally responsible events without compromising on quality or impact.',
-    publishDate: '10 mar 2024',
+    publishDate: '5 February 2025',
     readTime: '7 min',
-    category: 'Sustainability',
+    category: 'Design',
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop',
   },
   {
     id: 3,
     slug: 'digital-integration-exhibitions',
-    title: 'Digital Integration in Exhibitions',
+    title: 'Digital Integration in Modern Exhibition Design',
     excerpt: 'Leveraging technology to enhance visitor experience and engagement at trade shows.',
-    publishDate: '05 mar 2024',
+    publishDate: '3 February 2025',
     readTime: '6 min',
     category: 'Technology',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
   },
   {
     id: 4,
-    slug: 'business-networking-events',
-    title: 'Building Business Networks',
+    slug: 'sustainable-exhibition-practices',
+    title: 'Sustainable Practices in Exhibition Industry',
     excerpt: 'Strategies for creating meaningful connections and lasting partnerships at industry events.',
-    publishDate: '28 feb 2024',
+    publishDate: '28 January 2025',
     readTime: '4 min',
-    category: 'Business',
+    category: 'Sustainability',
     image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
   },
   {
     id: 5,
-    slug: 'hybrid-events-post-pandemic',
-    title: 'The Rise of Hybrid Events',
+    slug: 'future-of-trade-shows',
+    title: 'The Future of Trade Shows in Post-Pandemic Era',
     excerpt: 'How the events industry has adapted to combine physical and virtual experiences.',
-    publishDate: '20 feb 2024',
+    publishDate: '20 January 2025',
     readTime: '8 min',
     category: 'Trends',
     image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=600&fit=crop',
   },
   {
     id: 6,
-    slug: 'cultural-considerations-events',
-    title: 'Cultural Considerations in Events',
+    slug: 'exhibition-budget-optimization',
+    title: 'Optimizing Your Exhibition Budget for Maximum Impact',
     excerpt: 'Understanding and respecting local customs when organizing international exhibitions.',
-    publishDate: '15 feb 2024',
+    publishDate: '15 January 2025',
     readTime: '5 min',
-    category: 'Culture',
+    category: 'Business',
     image: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&h=600&fit=crop',
   },
 ];
 
 export default function ArticlesPage() {
+  const latestArticle = articles[0]; // Get the latest article for BigArticle
+  const otherArticles = articles.slice(1); // Get remaining articles
+
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
@@ -88,7 +90,7 @@ export default function ArticlesPage() {
         <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
           
           {/* Page Header */}
-          <Box sx={{ mb: { xs: '2rem', md: '3.75rem' }, textAlign: 'center' }}>
+          <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
               variant="h1"
               sx={{
@@ -98,10 +100,10 @@ export default function ArticlesPage() {
                 lineHeight: { xs: '2.75rem', md: '3.75rem' },
                 letterSpacing: '0.01em',
                 color: '#262626',
-                mb: { xs: '1rem', md: '1.5rem' },
+                mb: { xs: '0.5rem', md: '0.75rem' },
               }}
             >
-              Articles
+              Messe.ae blog
             </Typography>
             <Typography
               variant="body1"
@@ -113,7 +115,6 @@ export default function ArticlesPage() {
                 letterSpacing: '0.02em',
                 color: '#7B7B7B',
                 maxWidth: '50rem',
-                mx: 'auto',
               }}
             >
               Stay informed with the latest trends, insights, and best practices in the exhibition 
@@ -121,186 +122,31 @@ export default function ArticlesPage() {
             </Typography>
           </Box>
 
-          {/* Category Filter Chips */}
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{
-              mb: { xs: '2rem', md: '3rem' },
-              flexWrap: 'wrap',
-              gap: 1.5,
-              justifyContent: 'center',
-            }}
-          >
-            <Chip
-              label="All"
-              clickable
-              sx={{
-                backgroundColor: '#656CAF',
-                color: '#FFFFFF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#4C53A2',
-                },
-              }}
-            />
-            <Chip
-              label="Design"
-              component={NextLink}
-              href="/articles/categories/design"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            <Chip
-              label="Sustainability"
-              component={NextLink}
-              href="/articles/categories/sustainability"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            <Chip
-              label="Technology"
-              component={NextLink}
-              href="/articles/categories/technology"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            <Chip
-              label="Business"
-              component={NextLink}
-              href="/articles/categories/business"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            <Chip
-              label="Trends"
-              component={NextLink}
-              href="/articles/categories/trends"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            <Chip
-              label="Culture"
-              component={NextLink}
-              href="/articles/categories/culture"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-          </Stack>
+          {/* Big Article and Categories Section */}
+          <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: '3rem', md: '4rem' } }}>
+            <Grid size={{ xs: 12, md: 'grow' }}>
+              <BigArticle article={latestArticle} />
+            </Grid>
+            <Grid size={{ xs: 12, md: 'auto' }}>
+              <CategoriesSection />
+            </Grid>
+          </Grid>
 
           {/* Articles Grid */}
-          <Grid container spacing={{ xs: 3, md: 4 }}>
-            {articles.map((article) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.id}>
-                <ArticleCard article={article} />
-              </Grid>
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
+              alignContent: 'center',
+              gap: '2rem',
+              flexWrap: 'wrap',
+            }}
+          >
+            {otherArticles.map((article) => (
+              <ArticleCard key={article.id} article={article} />
             ))}
-          </Grid>
+          </Box>
 
           {/* Load More Button */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '3rem', md: '3.75rem' } }}>
