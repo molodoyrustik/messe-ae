@@ -9,9 +9,13 @@ import {
   useTheme,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { ContactFormModal } from '@/components/ContactFormModal';
+import { useMobileMenu } from '@/contexts/MobileMenuContext';
+import { ClientOnly } from '@/components/ClientOnly';
 
 const HeroSection = () => {
   const [showButton, setShowButton] = useState(true);
+  const { isDrawerOpen, isModalOpen, setModalOpen } = useMobileMenu();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -36,12 +40,6 @@ const HeroSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToForm = () => {
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-      contactForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
 
   return (
     <Box
@@ -55,42 +53,44 @@ const HeroSection = () => {
       }}
     >
       {/* Video Background */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden',
-        }}
-      >
+      <ClientOnly>
         <Box
-          component="video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="poster.jpg"
-          preload="auto"
           sx={{
             position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translateX(-50%) translateY(-50%)',
-            width: '100vw',
-            height: '56.25vw', // 16:9 aspect ratio
-            minHeight: '100%',
-            minWidth: '177.78vh', // 16:9 aspect ratio
-            objectFit: 'cover',
-            opacity: 1,
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 0,
+            pointerEvents: 'none',
+            overflow: 'hidden',
           }}
         >
-          <source src="video.mp4" type="video/mp4" />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="poster.jpg"
+            preload="auto"
+            suppressHydrationWarning
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translateX(-50%) translateY(-50%)',
+              width: '100vw',
+              height: '56.25vw',
+              minHeight: '100%',
+              minWidth: '177.78vh',
+              objectFit: 'cover',
+              opacity: 1,
+            }}
+          >
+            <source src="video.mp4" type="video/mp4" />
+          </video>
         </Box>
-      </Box>
+      </ClientOnly>
 
       {/* Gradient Overlay */}
       <Box
@@ -204,10 +204,10 @@ const HeroSection = () => {
           years of award winning expertise
         </Typography>
 
-        {/* Request a proposal Button - Desktop Only */}
+        {/* Discuss Your Project Button - Desktop Only */}
         <Button
           variant="contained"
-          onClick={scrollToForm}
+          onClick={() => setModalOpen(true)}
           sx={{
             position: 'absolute',
             right: '2.5rem',
@@ -234,7 +234,7 @@ const HeroSection = () => {
             },
           }}
         >
-          Request a proposal
+          Discuss Your Project
         </Button>
 
         
@@ -319,40 +319,48 @@ const HeroSection = () => {
       </Container>
       
       {/* Fixed CTA Button - Mobile */}
-      {isMobile && (
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={scrollToForm}
-          sx={{
-            position: 'fixed',
-            bottom: '18.5dvh',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'calc(100% - 2rem)',
-            maxWidth: '400px',
-            height: '48px',
-            backgroundColor: '#656CAF',
-            borderRadius: '8px',
-            boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-            textTransform: 'none',
-            fontSize: '16px',
-            fontWeight: 400,
-            lineHeight: '24px',
-            letterSpacing: '0.02em',
-            zIndex: 9999,
-            opacity: showButton ? 1 : 0,
-            visibility: showButton ? 'visible' : 'hidden',
-            transition: 'opacity 0.3s ease, visibility 0.3s ease',
-            
-            '&:hover': {
-              backgroundColor: '#4C53A2',
-            },
-          }}
-        >
-          Connect with us
-        </Button>
-      )}
+      <ClientOnly>
+        {isMobile && (
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => setModalOpen(true)}
+            sx={{
+              position: 'fixed',
+              bottom: '18.5dvh',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 'calc(100% - 2rem)',
+              maxWidth: '400px',
+              height: '48px',
+              backgroundColor: '#656CAF',
+              borderRadius: '8px',
+              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '24px',
+              letterSpacing: '0.02em',
+              zIndex: 9999,
+              opacity: showButton && !isDrawerOpen && !isModalOpen ? 1 : 0,
+              visibility: showButton && !isDrawerOpen && !isModalOpen ? 'visible' : 'hidden',
+              transition: 'opacity 0.3s ease, visibility 0.3s ease',
+              
+              '&:hover': {
+                backgroundColor: '#4C53A2',
+              },
+            }}
+          >
+            Connect with us
+          </Button>
+        )}
+      </ClientOnly>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </Box>
   );
 };

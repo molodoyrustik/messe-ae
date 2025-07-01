@@ -8,6 +8,12 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Divider,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,8 +24,11 @@ import {
   LinkedIn,
   WhatsApp,
   Email,
+  Close as CloseIcon,
 } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
+import { ContactFormModal } from '@/components/ContactFormModal';
+import { useMobileMenu } from '@/contexts/MobileMenuContext';
 
 // Custom Menu Item component with proper states
 const CustomMenuItem = ({
@@ -204,8 +213,10 @@ const TopInfoBar = () => {
 // Main Header Component
 const Header = () => {
   const theme = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
   const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(isMobileQuery);
+  const { isDrawerOpen, setDrawerOpen } = useMobileMenu();
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -518,6 +529,7 @@ const Header = () => {
 
             {/* CTA Button - Desktop only */}
             <Box
+              onClick={() => setContactModalOpen(true)}
               sx={{
                 position: 'absolute',
                 right: 0,
@@ -556,6 +568,7 @@ const Header = () => {
             
             {/* Hamburger Menu - Mobile only */}
             <IconButton
+              onClick={() => setDrawerOpen(true)}
               sx={{
                 position: 'absolute',
                 right: 0,
@@ -580,6 +593,129 @@ const Header = () => {
           </Box>
         </Container>
       </Box>
+      
+      {/* Mobile Navigation Drawer */}
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: '100%',
+            backgroundColor: '#ffffff',
+          },
+        }}
+      >
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+          {/* Drawer Header */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              p: '1rem',
+              borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+            }}
+          >
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <Box sx={{ width: '61px', height: '30px', position: 'relative' }}>
+                <Image
+                  src="/messe-logo.png"
+                  alt="Messe.ae"
+                  width={244}
+                  height={120}
+                  style={{
+                    position: 'absolute',
+                    left: -93,
+                    top: -47,
+                    objectFit: 'contain',
+                    transform: 'scale(0.5)',
+                  }}
+                  priority
+                />
+              </Box>
+            </Link>
+            
+            <IconButton onClick={() => setDrawerOpen(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          
+          {/* Navigation Links */}
+          <List sx={{ flex: 1, py: 2 }}>
+            {menuItems.map((item) => (
+              <ListItem key={item.href} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  href={item.href}
+                  onClick={() => setDrawerOpen(false)}
+                  selected={pathname === item.href}
+                  sx={{
+                    py: 2,
+                    px: 3,
+                    '&.Mui-selected': {
+                      backgroundColor: 'rgba(101, 108, 175, 0.08)',
+                      '& .MuiListItemText-primary': {
+                        color: '#656CAF',
+                        fontWeight: 700,
+                      },
+                    },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontSize: '1.5rem',
+                      fontWeight: 700,
+                      color: '#4C53A2',
+                      letterSpacing: '0.01em',
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          
+          <Divider />
+          
+          {/* Contact Information */}
+          <Box sx={{ p: 3 }}>
+            <Typography
+              sx={{
+                fontSize: '0.875rem',
+                fontWeight: 400,
+                color: 'grey.700',
+                mb: 1,
+              }}
+            >
+              the part of{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                Expoglobal Group
+              </Box>
+            </Typography>
+            
+            <Typography
+              sx={{
+                fontSize: '1.125rem',
+                fontWeight: 700,
+                color: 'grey.900',
+                mb: 2,
+              }}
+            >
+              +971 4 548 5887
+            </Typography>
+            
+            {/* Social Icons */}
+            <SocialIcons />
+          </Box>
+        </Box>
+      </Drawer>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+      />
     </Box>
   );
 };

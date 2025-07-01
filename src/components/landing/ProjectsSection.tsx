@@ -9,6 +9,8 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ContactFormModal } from '@/components/ContactFormModal';
+import { useMobileMenu } from '@/contexts/MobileMenuContext';
 
 // Project categories data
 const projectCategories = [
@@ -240,6 +242,9 @@ const ProjectsSection = () => {
   const [currentIndices, setCurrentIndices] = useState<Record<string, number>>(
     projectCategories.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
   );
+  
+  // Modal state from context
+  const { isModalOpen, setModalOpen } = useMobileMenu();
 
   const handleNavigate = (categoryId: string, direction: 'prev' | 'next') => {
     const category = projectCategories.find(cat => cat.id === categoryId);
@@ -373,6 +378,7 @@ const ProjectsSection = () => {
           <Button
             variant="contained"
             size="large"
+            onClick={() => setModalOpen(true)}
             sx={{
               width: { xs: '100%', md: '316px' },
               minWidth: { xs: '200px', md: '316px' },
@@ -400,6 +406,12 @@ const ProjectsSection = () => {
           </Button>
         </Box>
       </Container>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </Box>
   );
 };
