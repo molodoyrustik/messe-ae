@@ -18,6 +18,7 @@ export default function CategoriesSection() {
   return (
     <Box
       sx={{
+        position: 'relative',
         width: { xs: '100%', md: '20rem' }, // 320px
         height: { xs: 'auto', md: '24rem' }, // 384px
         backgroundColor: '#F5F5F5',
@@ -36,8 +37,8 @@ export default function CategoriesSection() {
           fontSize: '1.5rem', // 24px
           fontWeight: 700,
           lineHeight: '1.75rem', // 28px
-          letterSpacing: '0.01em',
-          color: '#7B7B7B',
+          letterSpacing: '0.015rem',
+          color: '#262626',
           mb: { xs: 2, md: 0 },
         }}
       >

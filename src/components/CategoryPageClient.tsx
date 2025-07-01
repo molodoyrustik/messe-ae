@@ -5,14 +5,13 @@ import {
   Container,
   Typography,
   Button,
-  Chip,
-  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { ArrowBack } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard, { Article } from '@/components/ArticleCard';
+import SmallArticleCard from '@/components/SmallArticleCard';
 import NextLink from 'next/link';
 
 interface CategoryData {
@@ -46,30 +45,8 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
       
       {/* Main Content */}
       <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
+        <Box sx={{ mx: 'auto', px: { xs: '1rem' } }}>
           
-          {/* Back Button */}
-          <Button
-            component={NextLink}
-            href="/articles"
-            startIcon={<ArrowBack />}
-            sx={{
-              color: '#656CAF',
-              fontFamily: 'Roboto',
-              fontWeight: 400,
-              fontSize: '0.875rem',
-              lineHeight: '1.25rem',
-              letterSpacing: '0.02em',
-              textTransform: 'none',
-              mb: 4,
-              '&:hover': {
-                backgroundColor: 'rgba(101, 108, 175, 0.08)',
-              },
-            }}
-          >
-            Back to All Articles
-          </Button>
-
           {/* Page Header */}
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
@@ -79,7 +56,7 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
                 fontWeight: 700,
                 fontSize: { xs: '2.25rem', md: '3.375rem' },
                 lineHeight: { xs: '2.75rem', md: '3.75rem' },
-                letterSpacing: '0.01em',
+                letterSpacing: '0',
                 color: '#262626',
                 mb: { xs: '0.5rem', md: '0.75rem' },
               }}
@@ -93,85 +70,46 @@ export default function CategoryPageClient({ categoryKey, categoryData, allCateg
                 fontWeight: 400,
                 fontSize: { xs: '0.875rem', md: '1rem' },
                 lineHeight: { xs: '1.25rem', md: '1.5rem' },
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
+                letterSpacing: '0.02rem',
+                color: '#000',
                 maxWidth: '50rem',
               }}
             >
-              {categoryData.description}
+              Stay informed with the latest trends, insights, and best practices in the exhibition 
+              and events industry
             </Typography>
           </Box>
 
-          {/* Category Filter Chips */}
-          <Stack
-            direction="row"
-            spacing={1.5}
+          {/* Articles Grid - Desktop */}
+          <Box
             sx={{
-              mb: { xs: '2rem', md: '3rem' },
+              display: { xs: 'none', md: 'flex' },
+              width: '100%',
+              alignItems: 'center',
+              alignContent: 'center',
+              gap: '2rem',
               flexWrap: 'wrap',
-              gap: 1.5,
-              justifyContent: 'center',
             }}
           >
-            <Chip
-              label="All"
-              component={NextLink}
-              href="/articles"
-              clickable
-              sx={{
-                backgroundColor: '#F5F5F5',
-                color: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                height: '2rem',
-                borderRadius: '1rem',
-                '& .MuiChip-label': {
-                  px: '1rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#E9EAF4',
-                },
-              }}
-            />
-            {allCategories.map((cat) => (
-              <Chip
-                key={cat.id}
-                label={cat.name}
-                component={NextLink}
-                href={`/articles/categories/${cat.id}`}
-                clickable
-                sx={{
-                  backgroundColor: cat.id === categoryKey ? '#656CAF' : '#F5F5F5',
-                  color: cat.id === categoryKey ? '#FFFFFF' : '#656CAF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 500,
-                  fontSize: '0.875rem',
-                  lineHeight: '1.25rem',
-                  letterSpacing: '0.02em',
-                  height: '2rem',
-                  borderRadius: '1rem',
-                  '& .MuiChip-label': {
-                    px: '1rem',
-                  },
-                  '&:hover': {
-                    backgroundColor: cat.id === categoryKey ? '#4C53A2' : '#E9EAF4',
-                  },
-                }}
-              />
-            ))}
-          </Stack>
-
-          {/* Articles Grid */}
-          <Grid container spacing={{ xs: 3, md: 4 }}>
             {categoryData.articles.map((article) => (
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={article.id}>
-                <ArticleCard article={article} />
-              </Grid>
+              <ArticleCard key={article.id} article={article} />
             ))}
-          </Grid>
+          </Box>
+
+          {/* Articles Grid - Mobile */}
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              width: '100%',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '1.5rem',
+            }}
+          >
+            {categoryData.articles.map((article) => (
+              <SmallArticleCard key={article.id} article={article} />
+            ))}
+          </Box>
 
           {/* Load More Button */}
           {categoryData.articles.length >= 6 && (

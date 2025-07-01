@@ -17,7 +17,6 @@ export default function BigArticle({ article }: BigArticleProps) {
       <Box
         sx={{
           width: '100%',
-          maxWidth: '63.25rem', // 1012px
           height: { xs: '20rem', md: '24rem' }, // 384px
           position: 'relative',
           borderRadius: '0.5rem',
@@ -52,33 +51,37 @@ export default function BigArticle({ article }: BigArticleProps) {
           className="overlay-content"
           sx={{
             position: 'absolute',
-            left: { xs: '0', md: '29rem' }, // 464px
-            top: { xs: 'auto', md: '18rem' }, // 288px
-            bottom: { xs: '0', md: 'auto' },
+            left: { xs: '0', md: 'auto' },
+            right: { xs: '0', md: '0' },
+            top: { xs: 'auto', md: 'auto' },
+            bottom: { xs: '0', md: '0' },
             width: { xs: '100%', md: '34.25rem' }, // 548px
-            height: { xs: 'auto', md: '9rem' }, // 144px
+            height: { xs: 'auto', md: '9.5rem' }, // 152px
             backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            borderTopLeftRadius: { xs: '0', md: '0.5rem' },
+            borderTopLeftRadius: { xs: '0', md: '0.25rem' },
             borderTopRightRadius: { xs: '0.5rem', md: '0' },
+            borderBottomLeftRadius: '0',
+            borderBottomRightRadius: '0',
             overflow: 'hidden',
             transition: 'background-color 0.3s ease',
-            p: { xs: 2, md: 0 },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-start',
+            gap: '1rem',
+            p: { xs: '1rem', md: '1.5rem 2rem 1rem 2rem' },
           }}
         >
           {/* Title */}
           <Typography
             sx={{
-              position: { xs: 'relative', md: 'absolute' },
-              left: { xs: 0, md: '2rem' }, // 32px
-              top: { xs: 0, md: '1.5rem' }, // 24px
-              width: { xs: '100%', md: '30.25rem' }, // 484px
-              height: { xs: 'auto', md: '4rem' }, // 64px
+              width: '100%',
               fontFamily: 'Roboto',
               fontSize: { xs: '1.25rem', md: '1.5rem' }, // 24px
               fontWeight: 400,
               lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
               letterSpacing: '0.01em',
-              color: '#262626',
+              color: '#000',
               display: '-webkit-box',
               WebkitLineClamp: { xs: 3, md: 2 },
               WebkitBoxOrient: 'vertical',
@@ -91,14 +94,10 @@ export default function BigArticle({ article }: BigArticleProps) {
           {/* Bottom Info */}
           <Box
             sx={{
-              position: { xs: 'relative', md: 'absolute' },
-              left: { xs: 0, md: '2rem' }, // 32px
-              top: { xs: 'auto', md: '6.5rem' }, // 104px
-              width: { xs: '100%', md: '30.25rem' }, // 484px
+              width: '100%',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              mt: { xs: 2, md: 0 },
             }}
           >
             <Typography
@@ -108,7 +107,7 @@ export default function BigArticle({ article }: BigArticleProps) {
                 fontWeight: 400,
                 lineHeight: '1.25rem', // 20px
                 letterSpacing: '0.01em',
-                color: '#262626',
+                color: '#000',
               }}
             >
               {article.publishDate}

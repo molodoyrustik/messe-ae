@@ -12,6 +12,7 @@ import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard, { Article } from '@/components/ArticleCard';
 import BigArticle from '@/components/BigArticle';
 import CategoriesSection from '@/components/CategoriesSection';
+import ArticleListItem from '@/components/ArticleListItem';
 
 // Mock articles data
 const articles: Article[] = [
@@ -87,7 +88,7 @@ export default function ArticlesPage() {
       
       {/* Main Content */}
       <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
+        <Box sx={{ mx: 'auto', px: { xs: '1rem' } }}>
           
           {/* Page Header */}
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
@@ -98,7 +99,7 @@ export default function ArticlesPage() {
                 fontWeight: 700,
                 fontSize: { xs: '2.25rem', md: '3.375rem' },
                 lineHeight: { xs: '2.75rem', md: '3.75rem' },
-                letterSpacing: '0.01em',
+                letterSpacing: '0',
                 color: '#262626',
                 mb: { xs: '0.5rem', md: '0.75rem' },
               }}
@@ -112,8 +113,8 @@ export default function ArticlesPage() {
                 fontWeight: 400,
                 fontSize: { xs: '0.875rem', md: '1rem' },
                 lineHeight: { xs: '1.25rem', md: '1.5rem' },
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
+                letterSpacing: '0.02rem',
+                color: '#000',
                 maxWidth: '50rem',
               }}
             >
@@ -124,18 +125,20 @@ export default function ArticlesPage() {
 
           {/* Big Article and Categories Section */}
           <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: '3rem', md: '4rem' } }}>
-            <Grid size={{ xs: 12, md: 'grow' }}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <BigArticle article={latestArticle} />
             </Grid>
-            <Grid size={{ xs: 12, md: 'auto' }}>
-              <CategoriesSection />
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}>
+                <CategoriesSection />
+              </Box>
             </Grid>
           </Grid>
 
-          {/* Articles Grid */}
+          {/* Articles Grid - Desktop */}
           <Box
             sx={{
-              display: 'flex',
+              display: { xs: 'none', md: 'flex' },
               width: '100%',
               alignItems: 'center',
               alignContent: 'center',
@@ -145,6 +148,25 @@ export default function ArticlesPage() {
           >
             {otherArticles.map((article) => (
               <ArticleCard key={article.id} article={article} />
+            ))}
+          </Box>
+
+          {/* Articles List - Mobile */}
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              width: '100%',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '0.75rem',
+            }}
+          >
+            {otherArticles.map((article, index) => (
+              <ArticleListItem 
+                key={article.id} 
+                article={article} 
+                isLast={index === otherArticles.length - 1}
+              />
             ))}
           </Box>
 

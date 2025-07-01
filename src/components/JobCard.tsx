@@ -1,12 +1,10 @@
 import { 
-  Card, 
-  CardContent, 
+  Box,
   Typography, 
   Stack,
-  Chip,
-  Box,
+  Button,
 } from '@mui/material';
-import { LocationOn, Work, AccessTime } from '@mui/icons-material';
+import { LocationOn, Work, ArrowForward } from '@mui/icons-material';
 
 export interface Job {
   id: string;
@@ -22,165 +20,155 @@ export interface Job {
 
 interface JobCardProps {
   job: Job;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-export default function JobCard({ job, onClick }: JobCardProps) {
+export default function JobCard({ job }: JobCardProps) {
   return (
-    <Card
-      onClick={onClick}
+    <Box
       sx={{
-        height: '100%',
+        width: '24rem',
+        padding: '1.5rem 2rem',
+        borderRadius: '0.5rem',
+        border: '2px solid',
+        borderColor: '#E9EAF4',
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: '0.75rem',
-        border: '1px solid #E0E0E0',
-        boxShadow: 'none',
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          transform: 'translateY(-0.25rem)',
-          boxShadow: '0 0.5rem 1.5rem rgba(0,0,0,0.1)',
-          borderColor: '#656CAF',
-        },
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        gap: '1.5rem',
+        overflow: 'hidden',
       }}
     >
-      <CardContent 
-        sx={{ 
-          p: { xs: '1.5rem', md: '2rem' },
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Department Chip */}
-        <Box sx={{ mb: 2 }}>
-          <Chip
-            label={job.department}
-            size="small"
-            sx={{
-              backgroundColor: '#E9EAF4',
-              color: '#656CAF',
-              fontFamily: 'Roboto',
-              fontWeight: 500,
-              fontSize: '0.75rem',
-              lineHeight: '1rem',
-              letterSpacing: '0.02em',
-              height: '1.5rem',
-              borderRadius: '0.25rem',
-              '& .MuiChip-label': {
-                px: '0.75rem',
-              },
-            }}
-          />
-        </Box>
-
+      {/* Header Section */}
+      <Box sx={{ alignSelf: 'stretch', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {/* Job Title */}
         <Typography
-          variant="h6"
           sx={{
             fontFamily: 'Roboto',
             fontWeight: 700,
-            fontSize: { xs: '1.125rem', md: '1.25rem' },
-            lineHeight: { xs: '1.5rem', md: '1.75rem' },
+            fontSize: '1.5rem',
+            lineHeight: '1.75rem',
             letterSpacing: '0.01em',
             color: '#262626',
-            mb: 1.5,
           }}
         >
           {job.title}
         </Typography>
 
-        {/* Job Details */}
-        <Stack spacing={1} sx={{ mb: 2 }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <LocationOn sx={{ fontSize: '1rem', color: '#7B7B7B' }} />
+        {/* Tags */}
+        <Stack direction="row" spacing={0.5} alignItems="center">
+          {/* Location Tag */}
+          <Box
+            sx={{
+              px: '0.75rem',
+              py: '0.5rem',
+              backgroundColor: '#656CAF',
+              borderRadius: '62.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <LocationOn sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
             <Typography
-              variant="body2"
               sx={{
                 fontFamily: 'Roboto',
+                fontWeight: 700,
                 fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
+                lineHeight: '1rem',
+                letterSpacing: '0.01em',
+                color: '#FFFFFF',
               }}
             >
               {job.location}
             </Typography>
-          </Stack>
+          </Box>
 
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Work sx={{ fontSize: '1rem', color: '#7B7B7B' }} />
+          {/* Type Tag */}
+          <Box
+            sx={{
+              px: '0.75rem',
+              py: '0.5rem',
+              backgroundColor: '#656CAF',
+              borderRadius: '62.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <Work sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
             <Typography
-              variant="body2"
               sx={{
                 fontFamily: 'Roboto',
+                fontWeight: 700,
                 fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
+                lineHeight: '1rem',
+                letterSpacing: '0.01em',
+                color: '#FFFFFF',
               }}
             >
               {job.type}
             </Typography>
-          </Stack>
-
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <AccessTime sx={{ fontSize: '1rem', color: '#7B7B7B' }} />
-            <Typography
-              variant="body2"
-              sx={{
-                fontFamily: 'Roboto',
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
-              }}
-            >
-              {job.experience}
-            </Typography>
-          </Stack>
+          </Box>
         </Stack>
+      </Box>
 
-        {/* Description Preview */}
+      {/* Description */}
+      <Box
+        sx={{
+          alignSelf: 'stretch',
+          height: '7rem',
+          overflow: 'hidden',
+        }}
+      >
         <Typography
-          variant="body2"
           sx={{
             fontFamily: 'Roboto',
             fontWeight: 400,
-            fontSize: '0.875rem',
-            lineHeight: '1.25rem',
-            letterSpacing: '0.02em',
-            color: '#7B7B7B',
+            fontSize: '1rem',
+            lineHeight: '1.5rem',
+            letterSpacing: '0.02rem',
+            color: '#000',
             display: '-webkit-box',
-            WebkitLineClamp: 2,
+            WebkitLineClamp: 4,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            mt: 'auto',
           }}
         >
           {job.description}
         </Typography>
+      </Box>
 
-        {/* View Details Link */}
-        <Typography
-          variant="body2"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 500,
-            fontSize: '0.875rem',
-            lineHeight: '1.25rem',
-            letterSpacing: '0.02em',
-            color: '#656CAF',
-            mt: 2,
-            '&:hover': {
-              textDecoration: 'underline',
+      {/* Read More Button */}
+      <Button
+        variant="text"
+        endIcon={<ArrowForward />}
+        sx={{
+          height: '2rem',
+          px: '0.3125rem',
+          py: '0.25rem',
+          borderRadius: '0.5rem',
+          textTransform: 'none',
+          color: '#656CAF',
+          fontFamily: 'Roboto',
+          fontWeight: 400,
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
+          letterSpacing: '0.02rem',
+          '&:hover': {
+            backgroundColor: 'rgba(101, 108, 175, 0.08)',
+          },
+          '& .MuiButton-endIcon': {
+            ml: '0.5rem',
+            '& svg': {
+              fontSize: '1rem',
             },
-          }}
-        >
-          View details →
-        </Typography>
-      </CardContent>
-    </Card>
+          },
+        }}
+      >
+        Read more
+      </Button>
+    </Box>
   );
 }

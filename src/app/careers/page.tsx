@@ -1,446 +1,180 @@
 'use client';
 
-import { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
-  Chip,
-  Stack,
-  TextField,
-  InputAdornment,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import { Search, LocationOn, Work } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import JobCard, { Job } from '@/components/JobCard';
-import JobModal from '@/components/JobModal';
 
-// Mock jobs data
+// Mock jobs data - only 3 jobs as per design
 const jobs: Job[] = [
   {
     id: '1',
-    title: 'Senior Exhibition Designer',
-    department: 'Design',
+    title: 'Quantity surveyor',
+    department: 'Operations',
     location: 'Dubai, UAE',
     type: 'Full-time',
     experience: '5+ years',
-    description: 'We are looking for an experienced Exhibition Designer to join our creative team...',
-    requirements: [
-      '5+ years of experience in exhibition design',
-      'Proficiency in 3D design software (3ds Max, SketchUp)',
-      'Strong portfolio demonstrating creative exhibition solutions',
-      'Excellent communication skills in English',
-    ],
-    responsibilities: [
-      'Create innovative exhibition designs that meet client objectives',
-      'Develop detailed 3D renderings and technical drawings',
-      'Collaborate with production team to ensure design feasibility',
-      'Present design concepts to clients and stakeholders',
-    ],
+    description: 'As a Quantity Surveyor specialized in events and exhibitions, you will play a crucial role in managing the costs and budgets associated with our projects. You will work closely with the project management team to ensure that financial aspects are meticulously controlled, and resources are optimally allocated. Your expertise will be instrumental in ensuring the profitability and success of our events and exhibitions.',
+    requirements: [],
+    responsibilities: [],
   },
   {
     id: '2',
-    title: 'Project Manager',
+    title: 'Project manager',
     department: 'Operations',
-    location: 'Abu Dhabi, UAE',
+    location: 'Dubai, UAE',
     type: 'Full-time',
     experience: '3-5 years',
-    description: 'Join our operations team as a Project Manager to oversee exhibition projects...',
-    requirements: [
-      '3-5 years of project management experience',
-      'Experience in events or exhibition industry preferred',
-      'PMP certification is a plus',
-      'Strong organizational and leadership skills',
-    ],
-    responsibilities: [
-      'Manage exhibition projects from conception to completion',
-      'Coordinate with clients, vendors, and internal teams',
-      'Ensure projects are delivered on time and within budget',
-      'Maintain project documentation and reports',
-    ],
+    description: 'Serve as the lead point of contact for all customer account management matters, Build and maintain strong, long-lasting client relationships, Negotiate contracts and close agreements to maximize profits',
+    requirements: [],
+    responsibilities: [],
   },
   {
     id: '3',
-    title: 'Business Development Executive',
-    department: 'Sales',
+    title: 'Equipment Design Engineer',
+    department: 'Engineering',
     location: 'Dubai, UAE',
     type: 'Full-time',
     experience: '2-4 years',
-    description: 'We seek a dynamic Business Development Executive to expand our client base...',
-    requirements: [
-      '2-4 years of sales experience in B2B environment',
-      'Knowledge of exhibition and events industry',
-      'Excellent negotiation and presentation skills',
-      'Fluency in English and Arabic preferred',
-    ],
-    responsibilities: [
-      'Identify and pursue new business opportunities',
-      'Build and maintain client relationships',
-      'Prepare proposals and negotiate contracts',
-      'Achieve sales targets and KPIs',
-    ],
-  },
-  {
-    id: '4',
-    title: 'Marketing Specialist',
-    department: 'Marketing',
-    location: 'Dubai, UAE',
-    type: 'Full-time',
-    experience: '2-3 years',
-    description: 'Looking for a creative Marketing Specialist to enhance our brand presence...',
-    requirements: [
-      '2-3 years of marketing experience',
-      'Strong knowledge of digital marketing channels',
-      'Experience with content creation and social media',
-      'Graphic design skills are a plus',
-    ],
-    responsibilities: [
-      'Develop and execute marketing campaigns',
-      'Manage social media presence and content',
-      'Create marketing materials and presentations',
-      'Analyze campaign performance and ROI',
-    ],
-  },
-  {
-    id: '5',
-    title: '3D Visualizer',
-    department: 'Design',
-    location: 'Dubai, UAE',
-    type: 'Full-time',
-    experience: '2-4 years',
-    description: 'Join our design team as a 3D Visualizer to create stunning exhibition visuals...',
-    requirements: [
-      '2-4 years of 3D visualization experience',
-      'Expert knowledge of 3ds Max, V-Ray, and Adobe Creative Suite',
-      'Strong understanding of lighting and materials',
-      'Portfolio showcasing photorealistic renderings',
-    ],
-    responsibilities: [
-      'Create high-quality 3D renderings of exhibition designs',
-      'Develop walkthrough animations for client presentations',
-      'Collaborate with designers on visual concepts',
-      'Maintain rendering standards and quality',
-    ],
-  },
-  {
-    id: '6',
-    title: 'Production Coordinator',
-    department: 'Production',
-    location: 'Abu Dhabi, UAE',
-    type: 'Full-time',
-    experience: '1-3 years',
-    description: 'We need a detail-oriented Production Coordinator to support our production team...',
-    requirements: [
-      '1-3 years of experience in production or manufacturing',
-      'Knowledge of materials and production processes',
-      'Strong organizational and communication skills',
-      'Ability to work under pressure and meet deadlines',
-    ],
-    responsibilities: [
-      'Coordinate production schedules and workflows',
-      'Liaise with suppliers and vendors',
-      'Monitor quality control and standards',
-      'Maintain production documentation',
-    ],
+    description: 'We are looking for a technically skilled Equipment Design Engineer for Exhibition Stands to join our dynamic team. In this role, you will be responsible for conceptualizing, designing and ensuring completion drawings on time. You will work closely with project manager, production team and other stakeholders to ensure that all design requirements are met and that the final product aligns with the client\'s vision. You will be expected to provide guidance and support to the production team throughout the project lifecycle.',
+    requirements: [],
+    responsibilities: [],
   },
 ];
 
-// Filter options
-const departments = ['All', 'Design', 'Operations', 'Sales', 'Marketing', 'Production'];
-const locations = ['All Locations', 'Dubai, UAE', 'Abu Dhabi, UAE'];
-
 export default function CareersPage() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
-  const [selectedDepartment, setSelectedDepartment] = useState('All');
-  const [selectedLocation, setSelectedLocation] = useState('All Locations');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  // Filter jobs based on selections
-  const filteredJobs = jobs.filter((job) => {
-    const matchesDepartment = selectedDepartment === 'All' || job.department === selectedDepartment;
-    const matchesLocation = selectedLocation === 'All Locations' || job.location === selectedLocation;
-    const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         job.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesDepartment && matchesLocation && matchesSearch;
-  });
-
-  const handleJobClick = (job: Job) => {
-    setSelectedJob(job);
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setTimeout(() => setSelectedJob(null), 300);
-  };
-
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       
-      {/* Main Content */}
-      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
-          
-          {/* Page Header */}
-          <Box sx={{ mb: { xs: '2rem', md: '3rem' }, textAlign: 'center' }}>
+      {/* Hero Section */}
+      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '4rem' } }}>
+        <Box 
+          sx={{ 
+            px: { xs: '1rem' }, 
+            display: 'grid',
+            gridTemplateColumns: '24rem 1fr',
+            gap: '2rem',
+            alignItems: 'stretch',
+          }}
+        >
+          {/* Left Content Block */}
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            {/* Title */}
             <Typography
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: '2.25rem', md: '3.375rem' },
-                lineHeight: { xs: '2.75rem', md: '3.75rem' },
-                letterSpacing: '0.01em',
+                fontSize: '3rem',
+                lineHeight: '3.75rem',
                 color: '#262626',
-                mb: { xs: '1rem', md: '1.5rem' },
+                mb: '0.75rem',
               }}
             >
-              Join Our Team
+              Join our team
             </Typography>
+
+            {/* Description */}
             <Typography
-              variant="body1"
+              component="div"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
-                fontSize: { xs: '0.875rem', md: '1rem' },
-                lineHeight: { xs: '1.25rem', md: '1.5rem' },
-                letterSpacing: '0.02em',
-                color: '#7B7B7B',
-                maxWidth: '50rem',
-                mx: 'auto',
+                fontSize: '1rem',
+                fontStyle: 'normal',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02rem',
+                color: '#000',
+                '& .company-name': {
+                  color: '#262626',
+                  fontWeight: 400,
+                },
+                '& .email-link': {
+                  color: '#656CAF',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    opacity: 0.8,
+                  },
+                },
               }}
             >
-              Be part of a dynamic team that creates exceptional exhibition experiences across the Middle East
+              At <span className="company-name">messe.ae</span>, we believe that our success is driven by our people. We are always on the lookout for talented, passionate and entrepreneurial exhibition professionals who share our commitment to excellence.
+              <br /><br />
+              As a member of our team, you will have the opportunity to work on exciting projects across the globe, delivering quality exhibition solutions that exceed our clients' expectations. We offer a collaborative and supportive work environment where innovation and creativity are encouraged and rewarded.
+              <br /><br />
+              If you are looking for a company where you can achieve your greatest career goals and ambitions, we would love to hear from you. Please send your resume to <span className="email-link">hello@messe.ae</span> and let's start the conversation.
+              <br /><br />
+              Join us in our journey to shape the future of exhibitions!
             </Typography>
           </Box>
 
-          {/* Search and Filters */}
-          <Stack spacing={3} sx={{ mb: { xs: '2rem', md: '3rem' } }}>
-            {/* Search Bar */}
-            <TextField
-              fullWidth
-              placeholder="Search positions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search sx={{ color: '#7B7B7B' }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                maxWidth: { md: '30rem' },
-                mx: 'auto',
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '0.5rem',
-                  backgroundColor: '#F5F5F5',
-                  '& fieldset': {
-                    border: 'none',
-                  },
-                  '&:hover fieldset': {
-                    border: 'none',
-                  },
-                  '&.Mui-focused fieldset': {
-                    border: '1px solid #656CAF',
-                  },
-                },
-                '& .MuiInputBase-input': {
-                  fontFamily: 'Roboto',
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  padding: '0.75rem 1rem',
-                },
-              }}
-            />
-
-            {/* Filter Chips */}
-            <Stack spacing={2}>
-              {/* Department Filters */}
-              <Stack
-                direction="row"
-                spacing={1.5}
-                sx={{
-                  flexWrap: 'wrap',
-                  gap: 1.5,
-                  justifyContent: 'center',
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Work sx={{ fontSize: '1.25rem', color: '#7B7B7B' }} />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      color: '#7B7B7B',
-                      minWidth: 'fit-content',
-                    }}
-                  >
-                    Department:
-                  </Typography>
-                </Stack>
-                {departments.map((dept) => (
-                  <Chip
-                    key={dept}
-                    label={dept}
-                    onClick={() => setSelectedDepartment(dept)}
-                    sx={{
-                      backgroundColor: selectedDepartment === dept ? '#656CAF' : '#F5F5F5',
-                      color: selectedDepartment === dept ? '#FFFFFF' : '#656CAF',
-                      fontFamily: 'Roboto',
-                      fontWeight: 500,
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      height: '2rem',
-                      borderRadius: '1rem',
-                      '& .MuiChip-label': {
-                        px: '1rem',
-                      },
-                      '&:hover': {
-                        backgroundColor: selectedDepartment === dept ? '#4C53A2' : '#E9EAF4',
-                      },
-                    }}
-                  />
-                ))}
-              </Stack>
-
-              {/* Location Filters */}
-              <Stack
-                direction="row"
-                spacing={1.5}
-                sx={{
-                  flexWrap: 'wrap',
-                  gap: 1.5,
-                  justifyContent: 'center',
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <LocationOn sx={{ fontSize: '1.25rem', color: '#7B7B7B' }} />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      color: '#7B7B7B',
-                      minWidth: 'fit-content',
-                    }}
-                  >
-                    Location:
-                  </Typography>
-                </Stack>
-                {locations.map((loc) => (
-                  <Chip
-                    key={loc}
-                    label={loc}
-                    onClick={() => setSelectedLocation(loc)}
-                    sx={{
-                      backgroundColor: selectedLocation === loc ? '#656CAF' : '#F5F5F5',
-                      color: selectedLocation === loc ? '#FFFFFF' : '#656CAF',
-                      fontFamily: 'Roboto',
-                      fontWeight: 500,
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      height: '2rem',
-                      borderRadius: '1rem',
-                      '& .MuiChip-label': {
-                        px: '1rem',
-                      },
-                      '&:hover': {
-                        backgroundColor: selectedLocation === loc ? '#4C53A2' : '#E9EAF4',
-                      },
-                    }}
-                  />
-                ))}
-              </Stack>
-            </Stack>
-          </Stack>
-
-          {/* Results Count */}
-          <Typography
-            variant="body2"
+          {/* Right Image */}
+          <Box
             sx={{
-              fontFamily: 'Roboto',
-              fontSize: '0.875rem',
-              lineHeight: '1.25rem',
-              letterSpacing: '0.02em',
-              color: '#7B7B7B',
-              mb: 3,
-              textAlign: 'center',
+              position: 'relative',
+              width: '100%',
+              maxWidth: '56rem',
+              aspectRatio: '896 / 464', // Maintains proportional scaling
+              borderRadius: '0.5rem',
+              overflow: 'hidden',
+              backgroundColor: '#F5F5F5',
             }}
           >
-            Showing {filteredJobs.length} open position{filteredJobs.length !== 1 ? 's' : ''}
-          </Typography>
-
-          {/* Jobs Grid */}
-          <Grid container spacing={{ xs: 3, md: 4 }}>
-            {filteredJobs.map((job) => (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }} key={job.id}>
-                <JobCard job={job} onClick={() => handleJobClick(job)} />
-              </Grid>
-            ))}
-          </Grid>
-
-          {/* Empty State */}
-          {filteredJobs.length === 0 && (
-            <Box sx={{ textAlign: 'center', py: 8 }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 500,
-                  fontSize: '1.25rem',
-                  lineHeight: '1.75rem',
-                  letterSpacing: '0.01em',
-                  color: '#262626',
-                  mb: 1,
-                }}
-              >
-                No positions found
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.25rem',
-                  letterSpacing: '0.02em',
-                  color: '#7B7B7B',
-                }}
-              >
-                Try adjusting your filters or search query
-              </Typography>
-            </Box>
-          )}
-
+            <Box
+              component="img"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=896&h=464&fit=crop"
+              alt="Join our team"
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
         </Box>
       </Container>
 
-      {/* Job Modal */}
-      {selectedJob && (
-        <JobModal
-          job={selectedJob}
-          open={modalOpen}
-          onClose={handleCloseModal}
-          isMobile={isMobile}
-        />
-      )}
+      {/* Vacancies Section */}
+      <Container maxWidth="xl" sx={{ pb: { xs: '3rem', md: '6rem' } }}>
+        <Box sx={{ px: { xs: '1rem' } }}>
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 700,
+              fontSize: '2.25rem',
+              lineHeight: '2.5rem',
+              letterSpacing: '0.01em',
+              color: '#262626',
+              mb: '3.375rem',
+            }}
+          >
+            Our vacancies
+          </Typography>
+
+          {/* Job Cards */}
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '2rem',
+              justifyContent: 'flex-start',
+            }}
+          >
+            {jobs.map((job) => (
+              <JobCard key={job.id} job={job} />
+            ))}
+          </Box>
+        </Box>
+      </Container>
 
       <FooterSection />
     </Box>
