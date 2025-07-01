@@ -213,10 +213,10 @@ const TopInfoBar = () => {
 // Main Header Component
 const Header = () => {
   const theme = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(isMobileQuery);
   const { isDrawerOpen, setDrawerOpen } = useMobileMenu();
   const [contactModalOpen, setContactModalOpen] = useState(false);
-  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
 
   useEffect(() => {
