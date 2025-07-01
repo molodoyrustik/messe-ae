@@ -5,12 +5,10 @@ import {
   IconButton,
   Typography,
   Stack,
-  Chip,
   Box,
-  Divider,
   Button,
 } from '@mui/material';
-import { Close, LocationOn, Work, AccessTime } from '@mui/icons-material';
+import { Close, LocationOn, Work } from '@mui/icons-material';
 import { Job } from './JobCard';
 
 interface JobModalProps {
@@ -22,254 +20,202 @@ interface JobModalProps {
 
 export default function JobModal({ job, open, onClose, isMobile }: JobModalProps) {
   const content = (
-    <>
-      {/* Header with close button */}
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          mb: 3,
-        }}
-      >
-        <Box sx={{ flex: 1 }}>
-          {/* Department Chip */}
-          <Chip
-            label={job.department}
-            size="small"
-            sx={{
-              backgroundColor: '#E9EAF4',
-              color: '#656CAF',
-              fontFamily: 'Roboto',
-              fontWeight: 500,
-              fontSize: '0.75rem',
-              lineHeight: '1rem',
-              letterSpacing: '0.02em',
-              height: '1.5rem',
-              borderRadius: '0.25rem',
-              mb: 2,
-              '& .MuiChip-label': {
-                px: '0.75rem',
-              },
-            }}
-          />
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* Header */}
+      <Box sx={{ mb: 3 }}>
+        {/* Job Title */}
+        <Typography
+          sx={{
+            fontFamily: 'Roboto',
+            fontWeight: 700,
+            fontSize: '1.5rem',
+            lineHeight: '1.75rem',
+            letterSpacing: '0.01em',
+            color: '#262626',
+            mb: '0.5rem',
+          }}
+        >
+          {job.title}
+        </Typography>
 
-          {/* Job Title */}
-          <Typography
-            variant="h4"
+        {/* Tags */}
+        <Stack direction="row" spacing={0.5} alignItems="center">
+          {/* Location Tag */}
+          <Box
             sx={{
-              fontFamily: 'Roboto',
-              fontWeight: 700,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              lineHeight: { xs: '2rem', md: '2.5rem' },
-              letterSpacing: '0.01em',
-              color: '#262626',
-              mb: 2,
+              px: '0.75rem',
+              py: '0.5rem',
+              backgroundColor: '#656CAF',
+              borderRadius: '62.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
             }}
           >
-            {job.title}
-          </Typography>
-
-          {/* Job Details */}
-          <Stack spacing={1}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <LocationOn sx={{ fontSize: '1.25rem', color: '#7B7B7B' }} />
-              <Typography
-                variant="body1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  color: '#7B7B7B',
-                }}
-              >
-                {job.location}
-              </Typography>
-            </Stack>
-
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Work sx={{ fontSize: '1.25rem', color: '#7B7B7B' }} />
-              <Typography
-                variant="body1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  color: '#7B7B7B',
-                }}
-              >
-                {job.type}
-              </Typography>
-            </Stack>
-
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <AccessTime sx={{ fontSize: '1.25rem', color: '#7B7B7B' }} />
-              <Typography
-                variant="body1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '1rem',
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02em',
-                  color: '#7B7B7B',
-                }}
-              >
-                {job.experience} experience
-              </Typography>
-            </Stack>
-          </Stack>
-        </Box>
-
-        <IconButton
-          onClick={onClose}
-          sx={{
-            color: '#7B7B7B',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
-            },
-          }}
-        >
-          <Close />
-        </IconButton>
-      </Box>
-
-      <Divider sx={{ mb: 3 }} />
-
-      {/* Job Description */}
-      <Box sx={{ mb: 4 }}>
-        <Typography
-          variant="h6"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            lineHeight: '1.75rem',
-            letterSpacing: '0.01em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          About the Role
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 400,
-            fontSize: '1rem',
-            lineHeight: '1.75rem',
-            letterSpacing: '0.02em',
-            color: '#262626',
-          }}
-        >
-          {job.description}
-        </Typography>
-      </Box>
-
-      {/* Requirements */}
-      <Box sx={{ mb: 4 }}>
-        <Typography
-          variant="h6"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            lineHeight: '1.75rem',
-            letterSpacing: '0.01em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          Requirements
-        </Typography>
-        <Box component="ul" sx={{ pl: 3, m: 0 }}>
-          {job.requirements.map((req, index) => (
+            <LocationOn sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
             <Typography
-              key={index}
-              component="li"
-              variant="body1"
               sx={{
                 fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: '1rem',
-                lineHeight: '1.75rem',
-                letterSpacing: '0.02em',
-                color: '#262626',
-                mb: 1,
+                fontWeight: 700,
+                fontSize: '0.875rem',
+                lineHeight: '1rem',
+                letterSpacing: '0.01em',
+                color: '#FFFFFF',
               }}
             >
-              {req}
+              {job.location}
             </Typography>
-          ))}
-        </Box>
-      </Box>
+          </Box>
 
-      {/* Responsibilities */}
-      <Box sx={{ mb: 4 }}>
-        <Typography
-          variant="h6"
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            lineHeight: '1.75rem',
-            letterSpacing: '0.01em',
-            color: '#262626',
-            mb: 2,
-          }}
-        >
-          Key Responsibilities
-        </Typography>
-        <Box component="ul" sx={{ pl: 3, m: 0 }}>
-          {job.responsibilities.map((resp, index) => (
+          {/* Type Tag */}
+          <Box
+            sx={{
+              px: '0.75rem',
+              py: '0.5rem',
+              backgroundColor: '#656CAF',
+              borderRadius: '62.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <Work sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
             <Typography
-              key={index}
-              component="li"
-              variant="body1"
               sx={{
                 fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: '1rem',
-                lineHeight: '1.75rem',
-                letterSpacing: '0.02em',
-                color: '#262626',
-                mb: 1,
+                fontWeight: 700,
+                fontSize: '0.875rem',
+                lineHeight: '1rem',
+                letterSpacing: '0.01em',
+                color: '#FFFFFF',
               }}
             >
-              {resp}
+              {job.type}
             </Typography>
-          ))}
-        </Box>
+          </Box>
+        </Stack>
       </Box>
 
-      {/* Apply Button */}
-      <Box sx={{ pt: 2 }}>
-        <Button
-          variant="contained"
-          fullWidth
+      {/* Scrollable Content */}
+      <Box sx={{ flex: 1, overflow: 'auto', mb: 3 }}>
+        {/* Description */}
+        <Typography
           sx={{
-            backgroundColor: '#656CAF',
-            color: '#FFFFFF',
             fontFamily: 'Roboto',
             fontWeight: 400,
             fontSize: '1rem',
             lineHeight: '1.5rem',
-            letterSpacing: '0.02em',
-            py: '0.75rem',
+            letterSpacing: '0.02rem',
+            color: '#000',
+            whiteSpace: 'pre-wrap',
+          }}
+        >
+          {job.description}
+        </Typography>
+
+        {/* Additional sections if needed */}
+        {job.requirements && job.requirements.length > 0 && (
+          <Box sx={{ mt: 3 }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.125rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.01em',
+                color: '#262626',
+                mb: 1,
+              }}
+            >
+              Requirements
+            </Typography>
+            <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              {job.requirements.map((req, index) => (
+                <Typography
+                  key={index}
+                  component="li"
+                  sx={{
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    mb: 0.5,
+                  }}
+                >
+                  {req}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {job.responsibilities && job.responsibilities.length > 0 && (
+          <Box sx={{ mt: 3 }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.125rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.01em',
+                color: '#262626',
+                mb: 1,
+              }}
+            >
+              Key Responsibilities
+            </Typography>
+            <Box component="ul" sx={{ pl: 3, m: 0 }}>
+              {job.responsibilities.map((resp, index) => (
+                <Typography
+                  key={index}
+                  component="li"
+                  sx={{
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    mb: 0.5,
+                  }}
+                >
+                  {resp}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+        )}
+      </Box>
+
+      {/* Apply Button - Fixed at bottom left */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Button
+          variant="contained"
+          sx={{
+            height: '3rem',
+            px: '1.375rem',
+            py: '0.5rem',
+            backgroundColor: '#656CAF',
+            color: '#FFFFFF',
+            fontFamily: 'Roboto',
+            fontWeight: 400,
+            fontSize: '1.5rem',
+            lineHeight: '1.75rem',
+            letterSpacing: '0.01em',
             borderRadius: '0.5rem',
             textTransform: 'none',
-            boxShadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
+            boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.20)',
             '&:hover': {
               backgroundColor: '#4C53A2',
             },
           }}
         >
-          Apply for this position
+          Apply
         </Button>
       </Box>
-    </>
+    </Box>
   );
 
   if (isMobile) {
@@ -283,8 +229,10 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
             borderTopLeftRadius: '1rem',
             borderTopRightRadius: '1rem',
             maxHeight: '90vh',
-            px: 2,
-            py: 3,
+            height: 'auto',
+            px: '1rem',
+            py: '1.5rem',
+            pb: 'max(env(safe-area-inset-bottom), 1.5rem)',
           },
         }}
       >
@@ -297,16 +245,47 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
     <Dialog
       open={open}
       onClose={onClose}
-      maxWidth="md"
-      fullWidth
-      sx={{
-        '& .MuiDialog-paper': {
-          borderRadius: '0.75rem',
+      maxWidth={false}
+      PaperProps={{
+        sx: {
+          width: '50rem',
+          maxWidth: '90vw',
+          height: '35rem',
           maxHeight: '90vh',
+          borderRadius: '0.5rem',
+          overflow: 'visible',
+          position: 'relative',
         },
       }}
     >
-      <DialogContent sx={{ p: { xs: 3, md: 4 } }}>
+      <IconButton
+        onClick={onClose}
+        sx={{
+          position: 'absolute',
+          right: '0',
+          top: '-2rem',
+          color: 'white',
+          backgroundColor: 'transparent',
+          p: 0,
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M18 18L6 6" stroke="white" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </IconButton>
+      
+      <DialogContent 
+        sx={{ 
+          p: '2rem',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+      >
         {content}
       </DialogContent>
     </Dialog>

@@ -5,46 +5,33 @@ import {
   Button,
 } from '@mui/material';
 import { LocationOn, Work, ArrowForward } from '@mui/icons-material';
+import { Job } from './JobCard';
 
-export interface Job {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-  type: string;
-  experience: string;
-  description: string;
-  requirements: string[];
-  responsibilities: string[];
-}
-
-interface JobCardProps {
+interface JobCardMobileProps {
   job: Job;
   onClick?: () => void;
 }
 
-export default function JobCard({ job, onClick }: JobCardProps) {
+export default function JobCardMobile({ job, onClick }: JobCardMobileProps) {
   return (
     <Box
       onClick={onClick}
       sx={{
-        width: '24rem',
-        padding: '1.5rem 2rem',
+        width: '100%',
+        padding: '0.5rem 0.75rem',
         borderRadius: '0.5rem',
-        border: '2px solid',
+        border: '1px solid',
         borderColor: '#E9EAF4',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        gap: '1.5rem',
+        gap: '1rem',
         overflow: 'hidden',
         cursor: onClick ? 'pointer' : 'default',
         transition: 'all 0.3s ease',
         '&:hover': onClick ? {
           borderColor: '#656CAF',
-          transform: 'translateY(-0.125rem)',
-          boxShadow: '0 0.25rem 0.75rem rgba(0,0,0,0.1)',
         } : {},
       }}
     >
@@ -55,8 +42,8 @@ export default function JobCard({ job, onClick }: JobCardProps) {
           sx={{
             fontFamily: 'Roboto',
             fontWeight: 700,
-            fontSize: '1.5rem',
-            lineHeight: '1.75rem',
+            fontSize: '1rem',
+            lineHeight: '1.5rem',
             letterSpacing: '0.01em',
             color: '#262626',
           }}
@@ -65,7 +52,7 @@ export default function JobCard({ job, onClick }: JobCardProps) {
         </Typography>
 
         {/* Tags */}
-        <Stack direction="row" spacing={0.5} alignItems="center">
+        <Stack direction="row" spacing={0.5} alignItems="center" flexWrap="wrap">
           {/* Location Tag */}
           <Box
             sx={{
@@ -134,12 +121,12 @@ export default function JobCard({ job, onClick }: JobCardProps) {
           sx={{
             fontFamily: 'Roboto',
             fontWeight: 400,
-            fontSize: '1rem',
-            lineHeight: '1.5rem',
-            letterSpacing: '0.02rem',
+            fontSize: '0.875rem',
+            lineHeight: '1rem',
+            letterSpacing: '0.01em',
             color: '#000',
             display: '-webkit-box',
-            WebkitLineClamp: 4,
+            WebkitLineClamp: 7,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
           }}
