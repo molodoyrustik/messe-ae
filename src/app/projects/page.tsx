@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Box,
   Container,
@@ -9,11 +9,18 @@ import {
   Stack,
   CircularProgress,
   Alert,
+  useMediaQuery,
+  useTheme,
+  IconButton,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import ClientsFilterPanel from '@/components/projects/ClientsFilterPanel';
+import StandSizeFilterPanel from '@/components/projects/StandSizeFilterPanel';
+import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
+import FilterIcon from '@/components/icons/FilterIcon';
 import { useProjects } from '@/hooks/use-projects';
 import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
@@ -26,69 +33,143 @@ const sizeRanges = [
 ];
 
 export default function ProjectsPage() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   const [filters, setFilters] = useState<ProjectsFilters>({
     pageSize: 20,
   });
-  const [selectedClient, setSelectedClient] = useState<string | null>(null);
-  const [selectedSizeRange, setSelectedSizeRange] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<'double-decker' | 'events' | null>(null);
+  const [selectedClients, setSelectedClients] = useState<string[]>([]);
+  const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  
+  const [clientsFilterOpen, setClientsFilterOpen] = useState(false);
+  const [standSizeFilterOpen, setStandSizeFilterOpen] = useState(false);
+  const [combinedFilterOpen, setCombinedFilterOpen] = useState(false);
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
   const { data: clientsData } = useClients();
+  
+  const hasActiveFilters = useMemo(() => {
+    return selectedClients.length > 0 || selectedSizeRanges.length > 0 || selectedTypes.length > 0;
+  }, [selectedClients, selectedSizeRanges, selectedTypes]);
+  
+  const activeFilterValues = useMemo(() => {
+    const values: string[] = [];
+    if (selectedClients.length > 0 && clientsData) {
+      selectedClients.forEach(slug => {
+        const client = clientsData.data.find(c => c.slug === slug);
+        if (client) values.push(client.name);
+      });
+    }
+    selectedSizeRanges.forEach(range => values.push(range));
+    selectedTypes.forEach(type => {
+      if (type === 'double-decker') values.push('Double-Deckers');
+      if (type === 'events') values.push('Events');
+    });
+    return values;
+  }, [selectedClients, selectedSizeRanges, selectedTypes, clientsData]);
 
   const handleClientFilter = (clientSlug: string | null) => {
-    setSelectedClient(clientSlug);
-    if (clientSlug) {
-      setFilters(prev => ({
-        ...prev,
-        clientSlug: clientSlug,
-      }));
-    } else {
+    if (clientSlug === null) {
+      setSelectedClients([]);
       setFilters(prev => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { clientSlug, ...rest } = prev;
+        const { clientSlugs, ...rest } = prev;
         return rest;
       });
+    } else {
+      const newClients = selectedClients.includes(clientSlug)
+        ? selectedClients.filter(c => c !== clientSlug)
+        : [...selectedClients, clientSlug];
+      
+      setSelectedClients(newClients);
+      
+      if (newClients.length > 0) {
+        setFilters(prev => ({
+          ...prev,
+          clientSlugs: newClients,
+        }));
+      } else {
+        setFilters(prev => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { clientSlugs, ...rest } = prev;
+          return rest;
+        });
+      }
     }
   };
 
   const handleSizeFilter = (rangeLabel: string | null) => {
-    setSelectedSizeRange(rangeLabel);
-    if (!rangeLabel) {
+    if (rangeLabel === null) {
+      setSelectedSizeRanges([]);
       setFilters(prev => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { minSize, maxSize, ...rest } = prev;
+        const { sizeRanges: _, ...rest } = prev;
         return rest;
       });
-      return;
-    }
-
-    const range = sizeRanges.find(r => r.label === rangeLabel);
-    if (range) {
-      setFilters(prev => ({
-        ...prev,
-        minSize: range.value.min,
-        maxSize: range.value.max,
-      }));
+    } else {
+      const newRanges = selectedSizeRanges.includes(rangeLabel)
+        ? selectedSizeRanges.filter(r => r !== rangeLabel)
+        : [...selectedSizeRanges, rangeLabel];
+      
+      setSelectedSizeRanges(newRanges);
+      
+      if (newRanges.length > 0) {
+        // Convert selected ranges to size filter
+        const ranges = newRanges.map(label => sizeRanges.find(r => r.label === label)).filter(Boolean);
+        if (ranges.length > 0) {
+          setFilters(prev => ({
+            ...prev,
+            sizeRanges: ranges.map(r => r!.value),
+          }));
+        }
+      } else {
+        setFilters(prev => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { sizeRanges: _, ...rest } = prev;
+          return rest;
+        });
+      }
     }
   };
 
   const handleTypeFilter = (type: 'double-decker' | 'events' | null) => {
-    setSelectedType(type);
-    if (type === 'double-decker') {
-      setFilters(prev => ({
-        ...prev,
-        constructionType: 'double-decker',
-      }));
-    } else {
+    if (type === null) {
+      setSelectedTypes([]);
       setFilters(prev => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { constructionType, ...rest } = prev;
+        const { constructionTypes, ...rest } = prev;
         return rest;
       });
+    } else {
+      const newTypes = selectedTypes.includes(type)
+        ? selectedTypes.filter(t => t !== type)
+        : [...selectedTypes, type];
+      
+      setSelectedTypes(newTypes);
+      
+      if (newTypes.length > 0) {
+        setFilters(prev => ({
+          ...prev,
+          constructionTypes: newTypes,
+        }));
+      } else {
+        setFilters(prev => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { constructionTypes, ...rest } = prev;
+          return rest;
+        });
+      }
     }
   };
 
+  const handleResetFilters = () => {
+    setSelectedClients([]);
+    setSelectedSizeRanges([]);
+    setSelectedTypes([]);
+    setFilters({ pageSize: 20 });
+  };
 
   return (
     <ErrorBoundary>
@@ -139,37 +220,148 @@ export default function ProjectsPage() {
           </Box>
 
           <Box sx={{ mb: 4 }}>
-            <Typography 
-              sx={{ 
-                fontFamily: 'Roboto',
-                fontSize: 24,
-                fontWeight: 700,
-                lineHeight: '28px',
-                letterSpacing: '0.01em',
-                color: '#262626',
-                mb: 1,
-              }}
-            >
-              Client:
-            </Typography>
+            {!isMobile && (
+              <Typography 
+                sx={{ 
+                  fontFamily: 'Roboto',
+                  fontSize: 24,
+                  fontWeight: 700,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  color: '#262626',
+                  mb: 1,
+                }}
+              >
+                Client:
+              </Typography>
+            )}
 
-            <Stack 
-              direction="row" 
-              spacing={1.5} 
-              sx={{ 
-                mb: 4,
-                flexWrap: 'wrap',
-                gap: 1.5,
-                maxWidth: 1240,
-                position: 'relative',
-              }}
-            >
+            {isMobile ? (
+              <Box sx={{ mb: 4, position: 'relative' }}>
+                <Box 
+                  sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
+                    pr: hasActiveFilters ? 5 : 0,
+                    '&::-webkit-scrollbar': {
+                      display: 'none',
+                    },
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                  }}
+                >
+                  <Chip
+                    label={selectedClients.length > 0 
+                      ? `Clients: ${activeFilterValues.filter(v => !selectedSizeRanges.includes(v) && v !== 'Double-Deckers' && v !== 'Events').join(', ')}`
+                      : 'Clients'
+                    }
+                    onClick={() => hasActiveFilters ? setCombinedFilterOpen(true) : setClientsFilterOpen(true)}
+                    sx={{
+                      backgroundColor: selectedClients.length > 0 ? '#656CAF' : '#E9EAF4',
+                      color: selectedClients.length > 0 ? '#FFFFFF' : '#656CAF',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
+                      fontSize: '1rem',
+                      lineHeight: '1.25rem',
+                      height: 'auto',
+                      px: 1.5,
+                      py: 0.75,
+                      borderRadius: '0.5rem',
+                      flexShrink: 0,
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                  />
+                  <Chip
+                    label={(selectedSizeRanges.length > 0 || selectedTypes.length > 0)
+                      ? `Stand size: ${activeFilterValues.filter(v => selectedSizeRanges.includes(v) || v === 'Double-Deckers' || v === 'Events').join(', ')}`
+                      : 'Stand size'
+                    }
+                    onClick={() => hasActiveFilters ? setCombinedFilterOpen(true) : setStandSizeFilterOpen(true)}
+                    sx={{
+                      backgroundColor: (selectedSizeRanges.length > 0 || selectedTypes.length > 0) ? '#656CAF' : '#E9EAF4',
+                      color: (selectedSizeRanges.length > 0 || selectedTypes.length > 0) ? '#FFFFFF' : '#656CAF',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
+                      fontSize: '1rem',
+                      lineHeight: '1.25rem',
+                      height: 'auto',
+                      px: 1.5,
+                      py: 0.75,
+                      borderRadius: '0.5rem',
+                      flexShrink: 0,
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </Box>
+                {hasActiveFilters && (
+                  <>
+                    {/* Gradient overlay */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        right: '2rem',
+                        top: 0,
+                        bottom: 0,
+                        width: '2rem',
+                        height: '100%',
+                        background: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    {/* White background for icon */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        width: '2rem',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                    {/* Filter icon button */}
+                    <IconButton
+                      onClick={() => setCombinedFilterOpen(true)}
+                      sx={{
+                        position: 'absolute',
+                        right: 0,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        p: 0.5,
+                        color: '#656CAF',
+                        '&:hover': {
+                          backgroundColor: 'rgba(101, 108, 175, 0.04)',
+                        },
+                      }}
+                    >
+                      <FilterIcon />
+                    </IconButton>
+                  </>
+                )}
+              </Box>
+            ) : (
+              <Stack 
+                direction="row" 
+                spacing={1.5} 
+                sx={{ 
+                  mb: 4,
+                  flexWrap: 'wrap',
+                  gap: 1.5,
+                  maxWidth: 1240,
+                  position: 'relative',
+                }}
+              >
               <Chip
                 label="All"
                 onClick={() => handleClientFilter(null)}
                 sx={{
-                  backgroundColor: !selectedClient ? '#656CAF' : '#E9EAF4',
-                  color: !selectedClient ? '#FFFFFF' : '#656CAF',
+                  backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
+                  color: selectedClients.length === 0 ? '#FFFFFF' : '#656CAF',
                   fontFamily: 'Roboto',
                   fontWeight: 400,
                   fontSize: 24,
@@ -180,7 +372,7 @@ export default function ProjectsPage() {
                   py: 1,
                   borderRadius: '8px',
                   '&:hover': {
-                    backgroundColor: !selectedClient ? '#4C53A2' : '#C7CAE3',
+                    backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
                   },
                 }}
               />
@@ -188,10 +380,10 @@ export default function ProjectsPage() {
                 <Chip
                   key={client.id}
                   label={client.name}
-                  onClick={() => handleClientFilter(selectedClient === client.slug ? null : client.slug)}
+                  onClick={() => handleClientFilter(client.slug)}
                   sx={{
-                    backgroundColor: selectedClient === client.slug ? '#656CAF' : '#E9EAF4',
-                    color: selectedClient === client.slug ? '#FFFFFF' : '#656CAF',
+                    backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#E9EAF4',
+                    color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#656CAF',
                     fontFamily: 'Roboto',
                     fontWeight: 400,
                     fontSize: 24,
@@ -202,7 +394,7 @@ export default function ProjectsPage() {
                     py: 1,
                     borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedClient === client.slug ? '#4C53A2' : '#C7CAE3',
+                      backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#C7CAE3',
                     },
                   }}
                 />
@@ -220,23 +412,27 @@ export default function ProjectsPage() {
                   }}
                 />
               )}
-            </Stack>
+              </Stack>
+            )}
 
-            <Typography 
-              sx={{ 
-                fontFamily: 'Roboto',
-                fontSize: 24,
-                fontWeight: 700,
-                lineHeight: '28px',
-                letterSpacing: '0.01em',
-                color: '#262626',
-                mb: 1,
-              }}
-            >
-              Stand size:
-            </Typography>
+            {!isMobile && (
+              <Typography 
+                sx={{ 
+                  fontFamily: 'Roboto',
+                  fontSize: 24,
+                  fontWeight: 700,
+                  lineHeight: '28px',
+                  letterSpacing: '0.01em',
+                  color: '#262626',
+                  mb: 1,
+                }}
+              >
+                Stand size:
+              </Typography>
+            )}
 
-            <Stack direction="row" spacing={1.5} sx={{ flexWrap: 'wrap', gap: 1.5 }}>
+            {!isMobile && (
+              <Stack direction="row" spacing={1.5} sx={{ flexWrap: 'wrap', gap: 1.5 }}>
               <Chip
                 label="All"
                 onClick={() => {
@@ -244,8 +440,8 @@ export default function ProjectsPage() {
                   handleTypeFilter(null);
                 }}
                 sx={{
-                  backgroundColor: !selectedSizeRange && !selectedType ? '#656CAF' : '#E9EAF4',
-                  color: !selectedSizeRange && !selectedType ? '#FFFFFF' : '#656CAF',
+                  backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
+                  color: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#FFFFFF' : '#656CAF',
                   fontFamily: 'Roboto',
                   fontWeight: 400,
                   fontSize: 24,
@@ -256,7 +452,7 @@ export default function ProjectsPage() {
                   py: 1,
                   borderRadius: '8px',
                   '&:hover': {
-                    backgroundColor: !selectedSizeRange && !selectedType ? '#4C53A2' : '#C7CAE3',
+                    backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#4C53A2' : '#C7CAE3',
                   },
                 }}
               />
@@ -264,10 +460,10 @@ export default function ProjectsPage() {
                 <Chip
                   key={range.label}
                   label={range.label}
-                  onClick={() => handleSizeFilter(selectedSizeRange === range.label ? null : range.label)}
+                  onClick={() => handleSizeFilter(range.label)}
                   sx={{
-                    backgroundColor: selectedSizeRange === range.label ? '#656CAF' : '#E9EAF4',
-                    color: selectedSizeRange === range.label ? '#FFFFFF' : '#656CAF',
+                    backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#656CAF',
                     fontFamily: 'Roboto',
                     fontWeight: 400,
                     fontSize: 24,
@@ -278,17 +474,17 @@ export default function ProjectsPage() {
                     py: 1,
                     borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedSizeRange === range.label ? '#4C53A2' : '#C7CAE3',
+                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#C7CAE3',
                     },
                   }}
                 />
               ))}
               <Chip
                 label="Double-Deckers"
-                onClick={() => handleTypeFilter(selectedType === 'double-decker' ? null : 'double-decker')}
+                onClick={() => handleTypeFilter('double-decker')}
                 sx={{
-                  backgroundColor: selectedType === 'double-decker' ? '#656CAF' : '#E9EAF4',
-                  color: selectedType === 'double-decker' ? '#FFFFFF' : '#656CAF',
+                  backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#E9EAF4',
+                  color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#656CAF',
                   fontFamily: 'Roboto',
                   fontWeight: 400,
                   fontSize: 24,
@@ -299,16 +495,16 @@ export default function ProjectsPage() {
                   py: 1,
                   borderRadius: '8px',
                   '&:hover': {
-                    backgroundColor: selectedType === 'double-decker' ? '#4C53A2' : '#C7CAE3',
+                    backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#C7CAE3',
                   },
                 }}
               />
               <Chip
                 label="Events"
-                onClick={() => handleTypeFilter(selectedType === 'events' ? null : 'events')}
+                onClick={() => handleTypeFilter('events')}
                 sx={{
-                  backgroundColor: selectedType === 'events' ? '#656CAF' : '#E9EAF4',
-                  color: selectedType === 'events' ? '#FFFFFF' : '#656CAF',
+                  backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#E9EAF4',
+                  color: selectedTypes.includes('events') ? '#FFFFFF' : '#656CAF',
                   fontFamily: 'Roboto',
                   fontWeight: 400,
                   fontSize: 24,
@@ -319,11 +515,12 @@ export default function ProjectsPage() {
                   py: 1,
                   borderRadius: '8px',
                   '&:hover': {
-                    backgroundColor: selectedType === 'events' ? '#4C53A2' : '#C7CAE3',
+                    backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#C7CAE3',
                   },
                 }}
               />
-            </Stack>
+              </Stack>
+            )}
           </Box>
 
           {projectsLoading && (
@@ -373,6 +570,40 @@ export default function ProjectsPage() {
       </Container>
 
       <FooterSection />
+      
+      {isMobile && clientsData && (
+        <>
+          <ClientsFilterPanel
+            open={clientsFilterOpen}
+            onClose={() => setClientsFilterOpen(false)}
+            clients={clientsData.data}
+            selectedClients={selectedClients}
+            onClientSelect={handleClientFilter}
+          />
+          
+          <StandSizeFilterPanel
+            open={standSizeFilterOpen}
+            onClose={() => setStandSizeFilterOpen(false)}
+            selectedSizeRanges={selectedSizeRanges}
+            selectedTypes={selectedTypes}
+            onSizeSelect={handleSizeFilter}
+            onTypeSelect={handleTypeFilter}
+          />
+          
+          <CombinedFilterPanel
+            open={combinedFilterOpen}
+            onClose={() => setCombinedFilterOpen(false)}
+            clients={clientsData.data}
+            selectedClients={selectedClients}
+            selectedSizeRanges={selectedSizeRanges}
+            selectedTypes={selectedTypes}
+            onClientSelect={handleClientFilter}
+            onSizeSelect={handleSizeFilter}
+            onTypeSelect={handleTypeFilter}
+            onReset={handleResetFilters}
+          />
+        </>
+      )}
     </Box>
     </ErrorBoundary>
   );
