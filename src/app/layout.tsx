@@ -1,6 +1,7 @@
 import ThemeProvider from '@/components/ThemeProvider';
 import QueryProvider from '@/components/QueryProvider';
 import EmotionRegistry from '@/lib/emotion-registry';
+import { MobileMenuProvider } from '@/contexts/MobileMenuContext';
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({ 
@@ -27,7 +28,11 @@ export default function RootLayout({
       <body className={roboto.className}>
         <EmotionRegistry>
           <QueryProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+              <MobileMenuProvider>
+                {children}
+              </MobileMenuProvider>
+            </ThemeProvider>
           </QueryProvider>
         </EmotionRegistry>
       </body>
