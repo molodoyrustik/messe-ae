@@ -41,22 +41,34 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
       {/* Hero Section */}
       <Box
         sx={{
-          position: 'relative',
           width: '100%',
-          height: { xs: '25rem', md: '39.125rem' }, // 626px
+          aspectRatio: { xs: 'auto', md: '1439.80/626.00' },
+          height: { xs: '25rem', md: 'auto' },
+          display: 'inline-flex',
+          padding: { xs: '1.5rem 1rem', md: '2.5rem 2.4875rem 3.75rem 2.5rem' },
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+          gap: { xs: '10rem', md: '22.375rem' },
+          position: 'relative',
           overflow: 'hidden',
           backgroundImage: `url(${articleData.heroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          background: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%), url(${articleData.heroImage})`,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)',
+            zIndex: 1,
+          },
         }}
       >
         {/* Date in top right */}
         <Typography
           sx={{
-            position: 'absolute',
-            right: { xs: '1rem', md: '10.75rem' }, // 1251px from left on 1440px width
-            top: { xs: '1rem', md: '2.5rem' }, // 40px
             fontFamily: 'Roboto',
             fontWeight: 400,
             fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
@@ -64,6 +76,8 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             letterSpacing: '0.02rem',
             textAlign: 'right',
             color: '#FFFFFF',
+            position: 'relative',
+            zIndex: 2,
           }}
         >
           {articleData.publishDate}
@@ -72,13 +86,12 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
         {/* Title and Subtitle */}
         <Box
           sx={{
-            position: 'absolute',
-            left: { xs: '1rem', md: '2.5rem' }, // 40px
-            bottom: { xs: '2rem', md: '12.5rem' }, // top-426px = bottom-200px on 626px height
-            width: { xs: 'calc(100% - 2rem)', md: '85rem' }, // 1360px
+            width: '100%',
             display: 'flex',
             flexDirection: 'column',
             gap: { xs: '1rem', md: '1.5rem' }, // 24px
+            position: 'relative',
+            zIndex: 2,
           }}
         >
           <Typography
@@ -111,7 +124,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
 
       {/* Article Content */}
       <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', px: { xs: '1rem' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', px: { xs: '1rem', md: '2.5rem' } }}>
           <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start' }}>
             {/* Article Body */}
             <Box
@@ -325,8 +338,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-start' },
             mt: { xs: '3rem', md: '3.75rem' },
-            px: { xs: '1rem', md: 0 },
-            ml: { xs: 0, md: 'calc((100vw - 78rem) / 2)' }, // Align with article content
+            px: { xs: '1rem', md: '2.5rem' },
           }}
         >
           <Button
