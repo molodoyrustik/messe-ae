@@ -123,8 +123,8 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
       </Box>
 
       {/* Article Content */}
-      <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' }, px: { xs: '1rem', md: 0 } }}>
+        <Box>
           <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start', justifyContent: 'space-between' }}>
             {/* Article Body */}
             <Box
