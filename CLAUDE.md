@@ -5,7 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Layout Guidelines
 
 ### Page Spacing
-- All pages except the main landing page should have a top padding of 3.75rem from the header
+- All pages except the main landing page should have a top padding from the header:
+  - Desktop: 3.75rem
+  - Mobile: 1.5rem
+- Mobile content should have horizontal padding of 1rem on each side
+  - Exception: Full-width images can extend to screen edges
 - This ensures consistent spacing across the application
 
 ## Commands
