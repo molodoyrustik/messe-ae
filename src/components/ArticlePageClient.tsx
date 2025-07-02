@@ -48,7 +48,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
           padding: { xs: '1.5rem 1rem', md: '2.5rem 2.4875rem 3.75rem 2.5rem' },
           flexDirection: 'column',
           alignItems: 'flex-end',
-          gap: { xs: '10rem', md: '22.375rem' },
+          gap: { xs: '10rem', md: '25rem' },
           position: 'relative',
           overflow: 'hidden',
           backgroundImage: `url(${articleData.heroImage})`,
@@ -124,8 +124,8 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
 
       {/* Article Content */}
       <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', px: { xs: '1rem', md: '2.5rem' } }}>
-          <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start' }}>
+        <Box sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+          <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start', justifyContent: 'space-between' }}>
             {/* Article Body */}
             <Box
               sx={{
@@ -338,7 +338,6 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-start' },
             mt: { xs: '3rem', md: '3.75rem' },
-            px: { xs: '1rem', md: '2.5rem' },
           }}
         >
           <Button
