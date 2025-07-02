@@ -5,8 +5,8 @@ import {
   Container,
   Typography,
   Button,
+  Grid,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard, { Article } from '@/components/ArticleCard';
