@@ -68,7 +68,7 @@ const CookiePolicyPage = () => {
                 Cookies are small text files stored on your computer, mobile phone, or other device when you visit a website. These files enable websites to recognize users on subsequent visits and facilitate various functionalities. Cookies play a crucial role in enhancing your internet experience by remembering preferences, user IDs, and shopping basket contents, among other functions.
                 <br />
                 <br />
-                While cookies primarily collect anonymous data to improve user experience, some may track browsing patterns and approximate geographical locations. It's important to note that cookies do not contain personally identifiable information.
+                While cookies primarily collect anonymous data to improve user experience, some may track browsing patterns and approximate geographical locations. It&apos;s important to note that cookies do not contain personally identifiable information.
               </Typography>
             </Box>
 
