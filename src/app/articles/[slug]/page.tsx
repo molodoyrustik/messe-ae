@@ -4,42 +4,88 @@ import { Article } from '@/components/ArticleCard';
 
 // Mock article data
 const articleData = {
-  slug: 'future-exhibition-design-middle-east',
-  title: 'The Future of Exhibition Design in the Middle East',
-  subtitle: 'Exploring innovative trends and technologies shaping the exhibition industry across the region',
+  slug: 'exhibition-stand-design-adapting-industries',
+  title: 'Exhibition Stand Design: Adapting to Different Industries',
+  subtitle: 'Stand out with industry-focused exhibition stand designs. We craft high-impact solutions for tech, luxury, healthcare, and more. Our strategic designs elevate brand presence and drive results.',
   author: 'Sarah Johnson',
   authorRole: 'Senior Design Consultant',
-  publishDate: '15 mar 2024',
-  readTime: '5 min',
+  publishDate: 'Few days ago',
+  readTime: '8 min',
   category: 'Design',
   heroImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop',
   content: `
-    <p>The exhibition industry in the Middle East is experiencing a remarkable transformation, driven by technological innovation and changing visitor expectations. As we look towards the future, several key trends are emerging that will shape how exhibitions are designed, built, and experienced in the region.</p>
+    <p>Exhibitions provide a unique opportunity for businesses across various industries to showcase their brand, engage potential clients, and generate leads. However, a one-size-fits-all approach to exhibition stand design does not work when companies compete in a crowded trade show environment. The key to success lies in industry-specific stand designs that align with branding, customer expectations, and visitor engagement strategies.</p>
 
-    <h2>Embracing Digital Integration</h2>
-    <p>One of the most significant shifts in exhibition design is the seamless integration of digital technologies. From interactive touchscreens to augmented reality experiences, exhibitors are finding new ways to engage visitors and create memorable brand experiences. This digital transformation isn't just about adding screens to stands; it's about creating cohesive, immersive environments that blend physical and digital elements.</p>
+    <div class="section">
+      <h2>Key Elements of an Effective Exhibition Stand</h2>
+      <p>Regardless of the industry, a successful stand should integrate the following core elements:<br/>
+Ergonomic Layout & Space Utilization – A well-structured space that enhances visitor movement and optimizes product display.<br/>
+Brand Identity & Visual Consistency – Strategic use of colors, logos, and messaging to reinforce brand recognition.<br/>
+Lighting & Technology Integration – Digital screens, interactive elements, and well-placed lighting to attract and engage visitors.</p>
+    </div>
 
-    <p>Virtual reality (VR) and augmented reality (AR) are becoming increasingly popular tools for exhibitors to showcase products and services that might be difficult to bring to the show floor. Whether it's allowing visitors to take virtual factory tours or visualizing architectural projects in 3D, these technologies are opening up new possibilities for engagement.</p>
+    <div class="industry-section">
+      <h2>Tailored Exhibition Stand Solutions by Industry</h2>
+      
+      <div class="industry-item">
+        <h3>Medical & Healthcare: Emphasizing Trust and Innovation</h3>
+        <p>The medical and healthcare sector demands credibility and professionalism in stand design. A clean, structured layout with informative displays, interactive demonstrations, and sterile aesthetics enhances trust and reliability<br/>
+<strong>Key Features:</strong><br/>
+Well-lit consultation areas for private discussions and networking.<br/>
+Digital screens for research presentations, new product showcases, and medical advancements.<br/>
+A modern, minimalist design reflecting hygiene and precision.</p>
+      </div>
 
-    <h2>Sustainable Design Practices</h2>
-    <p>Sustainability is no longer just a buzzword in the exhibition industry – it's becoming a fundamental requirement. Exhibition designers in the Middle East are increasingly focusing on eco-friendly materials, modular designs that can be reused, and energy-efficient lighting solutions. This shift towards sustainability is driven both by environmental consciousness and practical considerations, as clients seek to reduce costs and minimize waste.</p>
+      <div class="industry-item">
+        <h3>Luxury Brands: Creating an Exclusive Experience</h3>
+        <p>Luxury brands rely on premium aesthetics and exclusivity to appeal to high-end clientele. Using high-quality materials such as marble, wood, and glass, alongside ambient lighting and private meeting areas, helps establish a sense of sophistication.<br/>
+<strong>Key Features:</strong><br/>
+Elegant lighting solutions to highlight products.<br/>
+Custom-built display cases to showcase premium craftsmanship.<br/>
+Exclusive VIP lounges to engage high-value clients in a private setting.</p>
+      </div>
 
-    <p>Many exhibitions are now incorporating recycled materials, using LED lighting exclusively, and designing stands that can be easily disassembled and repurposed for future events. This approach not only reduces environmental impact but also offers cost savings for exhibitors who participate in multiple shows throughout the year.</p>
+      <div class="industry-item">
+        <h3>Tech & Innovation: Showcasing the Future</h3>
+        <p>Tech companies must present themselves as cutting-edge and forward-thinking. A minimalist yet high-tech stand design featuring interactive displays, AR/VR experiences, and touchscreen kiosks captivates visitors.<br/>
+<strong>Key Features:</strong><br/>
+Immersive digital experiences using augmented reality (AR) or virtual reality (VR).<br/>
+Large LED walls for dynamic presentations and product demos.<br/>
+A modern, futuristic layout with sleek materials and smart lighting.</p>
+      </div>
 
-    <h2>Cultural Sensitivity and Local Relevance</h2>
-    <p>As the Middle East continues to attract international exhibitions and events, there's a growing emphasis on designs that respect and celebrate local culture while maintaining global appeal. This means incorporating traditional design elements, considering local customs in spatial planning, and ensuring that exhibitions are accessible and welcoming to diverse audiences.</p>
+      <div class="industry-item">
+        <h3>Food & Beverage: Engaging the Senses</h3>
+        <p>Food and beverage brands thrive on interactive and sensory-driven experiences. Exhibiting at major food trade shows, such as Gulfood, requires open-space designs, sampling stations, and live demonstrations to attract attendees.<br/>
+<strong>Key Features:</strong><br/>
+Tasting stations for visitors to sample products.<br/>
+Live cooking demonstrations or beverage-tasting counters.<br/>
+Sustainable materials that emphasize freshness and quality.</p>
+      </div>
 
-    <p>Designers are increasingly working with local artists and craftspeople to create unique elements that reflect the host country's heritage. This approach not only adds authenticity to exhibitions but also supports local creative industries and creates more meaningful connections with regional visitors.</p>
+      <div class="industry-item">
+        <h3>Automotive & Industrial: Maximizing Display & Interaction</h3>
+        <p>Automotive and industrial brands require large-scale display areas that allow visitors to interact with products directly. Whether showcasing vehicles, machinery, or cutting-edge technology, space optimization is essential.<br/>
+<strong>Key Features:</strong><br/>
+Expansive layouts with large product display zones.<br/>
+Motion graphics and LED displays for product demonstrations.<br/>
+Interactive features such as virtual test drives or mechanical showcases.</p>
+      </div>
 
-    <h2>The Rise of Hybrid Events</h2>
-    <p>The pandemic accelerated the adoption of hybrid event formats, and this trend is here to stay. Exhibition designers are now creating spaces that work equally well for in-person visitors and virtual attendees. This includes considerations for camera angles, lighting for live streaming, and interactive elements that can be accessed remotely.</p>
+      <div class="industry-item">
+        <h3>Sustainability & Green Tech: Showcasing Environmental Responsibility</h3>
+        <p>Sustainability-focused brands must reflect their eco-conscious values through stand materials, design, and messaging. Utilizing biodegradable materials, LED lighting, and interactive eco-awareness displays enhances brand credibility.<br/>
+<strong>Key Features:</strong><br/>
+Recyclable and modular stand components.<br/>
+Green elements such as living walls and natural wood structures.<br/>
+Digital displays promoting eco-friendly products and corporate responsibility initiatives.</p>
+      </div>
+    </div>
 
-    <p>Hybrid exhibitions offer the opportunity to extend reach beyond geographical limitations, allowing exhibitors to connect with global audiences while maintaining the value of face-to-face interactions. This dual approach is particularly relevant in the Middle East, where exhibitions often attract both regional and international participants.</p>
-
-    <h2>Looking Ahead</h2>
-    <p>As we move forward, the future of exhibition design in the Middle East looks bright and innovative. The region's commitment to hosting world-class events, combined with investments in infrastructure and technology, creates an ideal environment for pushing the boundaries of what's possible in exhibition design.</p>
-
-    <p>Success in this evolving landscape will require designers to stay agile, embrace new technologies, and maintain a deep understanding of both local and global trends. By balancing innovation with cultural sensitivity and sustainability, the Middle East's exhibition industry is poised to set new standards for the global events sector.</p>
+    <div class="section">
+      <h2>Why Industry-Specific Stand Design Matters?</h2>
+      <p>An exhibition stand is more than just a visual representation—it's an experience that connects your brand with your target audience. Choosing the right design ensures maximum engagement, effective communication, and a competitive edge in your industry. At Messe.ae, we specialize in customized exhibition stands that align with industry demands while combining creativity, technology, and functionality. Ready to elevate your brand with a tailored exhibition stand? Contact our experts today to explore stand designs that make an impact.</p>
+    </div>
   `,
 };
 
@@ -47,33 +93,33 @@ const articleData = {
 const relatedArticles: Article[] = [
   {
     id: 2,
-    slug: 'sustainable-event-management',
-    title: 'Sustainable Event Management',
-    excerpt: 'How to create environmentally responsible events without compromising on quality or impact.',
-    publishDate: '10 mar 2024',
-    readTime: '7 min',
-    category: 'Sustainability',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop',
+    slug: 'lighting-exhibition-stands',
+    title: 'Lighting of Exhibition Stands: How to Make Your Brand Shine',
+    excerpt: 'Discover how strategic lighting transforms exhibition stands into captivating brand experiences.',
+    publishDate: '5 February 2025',
+    readTime: '6 min',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop',
   },
   {
     id: 3,
-    slug: 'digital-integration-exhibitions',
-    title: 'Digital Integration in Exhibitions',
-    excerpt: 'Leveraging technology to enhance visitor experience and engagement at trade shows.',
-    publishDate: '05 mar 2024',
-    readTime: '6 min',
-    category: 'Technology',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
+    slug: 'exhibition-stand-excellence',
+    title: 'Exhibition Stand Excellence: European Standards at Messe.ae',
+    excerpt: 'Learn how European quality standards elevate exhibition stand design and construction.',
+    publishDate: '14 January 2025',
+    readTime: '5 min',
+    category: 'Standards',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
   },
   {
     id: 4,
-    slug: 'business-networking-events',
-    title: 'Building Business Networks',
-    excerpt: 'Strategies for creating meaningful connections and lasting partnerships at industry events.',
-    publishDate: '28 feb 2024',
-    readTime: '4 min',
-    category: 'Business',
-    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
+    slug: 'uae-exhibition-stands',
+    title: 'UAE-Specific Exhibition Stands: Merging Culture and Business Excellence',
+    excerpt: 'Explore how cultural elements enhance business impact in UAE exhibition design.',
+    publishDate: '5 February 2025',
+    readTime: '7 min',
+    category: 'Culture',
+    image: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800&h=600&fit=crop',
   },
 ];
 

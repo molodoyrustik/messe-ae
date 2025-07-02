@@ -5,19 +5,13 @@ import {
   Box,
   Container,
   Typography,
-  Chip,
-  Stack,
-  Breadcrumbs,
-  Link,
   Button,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import { AccessTime, ArrowBack, Share } from '@mui/icons-material';
+import { ArrowForward } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
-import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import ArticleCard, { Article } from '@/components/ArticleCard';
+import { ContactFormModal } from '@/components/ContactFormModal';
+import { Article } from '@/components/ArticleCard';
 
 interface ArticleData {
   slug: string;
@@ -38,19 +32,7 @@ interface ArticlePageClientProps {
 }
 
 export default function ArticlePageClient({ articleData, relatedArticles }: ArticlePageClientProps) {
-  const router = useRouter();
-  const [copied, setCopied] = useState(false);
-
-  const handleShare = async () => {
-    const url = window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy URL:', err);
-    }
-  };
+  const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
@@ -60,326 +42,330 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
       <Box
         sx={{
           position: 'relative',
-          height: { xs: '50vh', md: '60vh' },
-          minHeight: { xs: '25rem', md: '30rem' },
+          width: '100%',
+          height: { xs: '25rem', md: '39.125rem' }, // 626px
           overflow: 'hidden',
-          mt: { xs: 0, md: 0 },
+          backgroundImage: `url(${articleData.heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          background: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%), url(${articleData.heroImage})`,
         }}
       >
+        {/* Date in top right */}
+        <Typography
+          sx={{
+            position: 'absolute',
+            right: { xs: '1rem', md: '10.75rem' }, // 1251px from left on 1440px width
+            top: { xs: '1rem', md: '2.5rem' }, // 40px
+            fontFamily: 'Roboto',
+            fontWeight: 400,
+            fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
+            lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
+            letterSpacing: '0.02rem',
+            textAlign: 'right',
+            color: '#FFFFFF',
+          }}
+        >
+          {articleData.publishDate}
+        </Typography>
+
+        {/* Title and Subtitle */}
         <Box
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `url(${articleData.heroImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)',
-            },
-          }}
-        />
-        
-        <Container
-          maxWidth="xl"
-          sx={{
-            position: 'relative',
-            height: '100%',
+            left: { xs: '1rem', md: '2.5rem' }, // 40px
+            bottom: { xs: '2rem', md: '12.5rem' }, // top-426px = bottom-200px on 626px height
+            width: { xs: 'calc(100% - 2rem)', md: '85rem' }, // 1360px
             display: 'flex',
-            alignItems: 'flex-end',
-            pb: { xs: 4, md: 6 },
+            flexDirection: 'column',
+            gap: { xs: '1rem', md: '1.5rem' }, // 24px
           }}
         >
-          <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' }, width: '100%' }}>
-            {/* Breadcrumbs */}
-            <Breadcrumbs
-              sx={{
-                mb: 3,
-                '& .MuiBreadcrumbs-ol': {
-                  color: '#FFFFFF',
-                },
-                '& .MuiBreadcrumbs-separator': {
-                  color: '#FFFFFF',
-                },
-              }}
-            >
-              <Link
-                component={NextLink}
-                href="/"
-                sx={{
-                  color: '#FFFFFF',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                Home
-              </Link>
-              <Link
-                component={NextLink}
-                href="/articles"
-                sx={{
-                  color: '#FFFFFF',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                Articles
-              </Link>
-              <Typography color="#FFFFFF">{articleData.category}</Typography>
-            </Breadcrumbs>
-
-            {/* Article Meta */}
-            <Stack spacing={3}>
-              <Chip
-                label={articleData.category}
-                size="small"
-                sx={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  color: '#FFFFFF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 500,
-                  fontSize: '0.875rem',
-                  lineHeight: '1.25rem',
-                  letterSpacing: '0.02em',
-                  height: '2rem',
-                  borderRadius: '0.5rem',
-                  alignSelf: 'flex-start',
-                  backdropFilter: 'blur(10px)',
-                  '& .MuiChip-label': {
-                    px: '1rem',
-                  },
-                }}
-              />
-
-              <Typography
-                variant="h1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  fontSize: { xs: '2rem', md: '3rem' },
-                  lineHeight: { xs: '2.5rem', md: '3.5rem' },
-                  letterSpacing: '0.01em',
-                  color: '#FFFFFF',
-                  maxWidth: '50rem',
-                }}
-              >
-                {articleData.title}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: { xs: '1rem', md: '1.125rem' },
-                  lineHeight: { xs: '1.5rem', md: '1.75rem' },
-                  letterSpacing: '0.02em',
-                  color: '#FFFFFF',
-                  maxWidth: '50rem',
-                  opacity: 0.9,
-                }}
-              >
-                {articleData.subtitle}
-              </Typography>
-
-              <Stack direction="row" alignItems="center" spacing={3}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontSize: '0.875rem',
-                    lineHeight: '1.25rem',
-                    letterSpacing: '0.02em',
-                    color: '#FFFFFF',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {articleData.publishDate}
-                </Typography>
-
-                <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <AccessTime sx={{ fontSize: '1.25rem', color: '#FFFFFF' }} />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      color: '#FFFFFF',
-                    }}
-                  >
-                    {articleData.readTime}
-                  </Typography>
-                </Stack>
-              </Stack>
-            </Stack>
-          </Box>
-        </Container>
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 400,
+              fontSize: { xs: '2rem', md: '3rem' }, // 48px
+              lineHeight: { xs: '2.5rem', md: '3.75rem' }, // 60px
+              color: '#FFFFFF',
+              maxHeight: { xs: 'none', md: '7rem' }, // 112px
+            }}
+          >
+            {articleData.title}
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 400,
+              fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
+              lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
+              letterSpacing: '0.02rem',
+              color: '#FFFFFF',
+              maxHeight: { xs: 'none', md: '6rem' }, // 96px
+            }}
+          >
+            {articleData.subtitle}
+          </Typography>
+        </Box>
       </Box>
 
       {/* Article Content */}
-      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 6 } }}>
-        <Box sx={{ maxWidth: '85rem', mx: 'auto', px: { xs: '1rem', md: '5rem' } }}>
-          <Grid container spacing={{ xs: 4, md: 8 }}>
-            <Grid size={{ xs: 12, md: 8 }}>
-              {/* Action Buttons */}
-              <Stack direction="row" spacing={2} sx={{ mb: 4 }}>
-                <Button
-                  startIcon={<ArrowBack />}
-                  onClick={() => router.back()}
-                  sx={{
-                    color: '#656CAF',
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '0.875rem',
-                    lineHeight: '1.25rem',
-                    letterSpacing: '0.02em',
-                    textTransform: 'none',
-                    '&:hover': {
-                      backgroundColor: 'rgba(101, 108, 175, 0.08)',
-                    },
-                  }}
-                >
-                  Back to Articles
-                </Button>
-                <Button
-                  startIcon={<Share />}
-                  onClick={handleShare}
-                  sx={{
-                    color: '#656CAF',
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '0.875rem',
-                    lineHeight: '1.25rem',
-                    letterSpacing: '0.02em',
-                    textTransform: 'none',
-                    '&:hover': {
-                      backgroundColor: 'rgba(101, 108, 175, 0.08)',
-                    },
-                  }}
-                >
-                  {copied ? 'Copied!' : 'Share'}
-                </Button>
-              </Stack>
-
-              {/* Article Body */}
+      <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', px: { xs: '1rem' } }}>
+          <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start' }}>
+            {/* Article Body */}
+            <Box
+              sx={{
+                width: { xs: '100%', md: '58rem' }, // 928px
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2.5rem', // 40px
+              }}
+            >
+              {/* Article content will be rendered here */}
               <Box
                 dangerouslySetInnerHTML={{ __html: articleData.content }}
                 sx={{
-                  '& p': {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2.5rem',
+                  '& > p:first-of-type': {
                     fontFamily: 'Roboto',
                     fontWeight: 400,
                     fontSize: '1rem',
-                    lineHeight: '1.75rem',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    marginBottom: '1.5rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    margin: 0,
+                  },
+                  '& .section': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
                   },
                   '& h2': {
                     fontFamily: 'Roboto',
                     fontWeight: 700,
-                    fontSize: '1.75rem',
-                    lineHeight: '2.25rem',
-                    letterSpacing: '0.01em',
-                    color: '#262626',
-                    marginTop: '2.5rem',
-                    marginBottom: '1.5rem',
+                    fontSize: '2.25rem',
+                    lineHeight: '2.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#424242',
+                    margin: 0,
                   },
-                  '& ul, & ol': {
-                    paddingLeft: '1.5rem',
-                    marginBottom: '1.5rem',
+                  '& h3': {
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: '1.5rem',
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    margin: 0,
                   },
-                  '& li': {
+                  '& p': {
                     fontFamily: 'Roboto',
                     fontWeight: 400,
                     fontSize: '1rem',
-                    lineHeight: '1.75rem',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    marginBottom: '0.5rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    margin: 0,
+                  },
+                  '& strong': {
+                    fontWeight: 700,
+                  },
+                  '& .industry-section': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                  },
+                  '& .industry-item': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
                   },
                 }}
               />
+            </Box>
 
-              {/* Author Info */}
-              <Box
+            {/* Next Articles Section */}
+            <Box
+              sx={{
+                width: { xs: '100%', md: '20rem' }, // 320px
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem', // 12px
+                mt: { xs: '3rem', md: 0 },
+              }}
+            >
+              <Typography
                 sx={{
-                  mt: 6,
-                  pt: 4,
-                  borderTop: '1px solid #E0E0E0',
+                  fontFamily: 'Roboto',
+                  fontWeight: 700,
+                  fontSize: '2.25rem',
+                  lineHeight: '2.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#424242',
                 }}
               >
-                <Stack spacing={1}>
-                  <Typography
-                    variant="h6"
+                Next articles
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2rem', // 32px
+                }}
+              >
+                {relatedArticles.slice(0, 3).map((article) => (
+                  <Box
+                    key={article.id}
                     sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 500,
-                      fontSize: '1.125rem',
-                      lineHeight: '1.5rem',
-                      letterSpacing: '0.01em',
-                      color: '#262626',
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.75rem',
+                      overflow: 'hidden',
                     }}
                   >
-                    {articleData.author}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                      letterSpacing: '0.02em',
-                      color: '#7B7B7B',
-                    }}
-                  >
-                    {articleData.authorRole}
-                  </Typography>
-                </Stack>
+                    <Box
+                      sx={{
+                        width: '100%',
+                        height: '15rem', // 240px
+                        borderRadius: '0.25rem',
+                        overflow: 'hidden',
+                        backgroundColor: '#F5F5F5',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src={article.image}
+                        alt={article.title}
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </Box>
+                    <Typography
+                      sx={{
+                        fontFamily: 'Roboto',
+                        fontWeight: 400,
+                        fontSize: '1.5rem',
+                        lineHeight: '1.75rem',
+                        letterSpacing: '0.02rem',
+                        color: '#000',
+                        height: '4rem',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                      }}
+                    >
+                      {article.title}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: 'Roboto',
+                          fontWeight: 400,
+                          fontSize: '0.875rem',
+                          lineHeight: '1.125rem',
+                          letterSpacing: '0.02rem',
+                          color: '#000',
+                        }}
+                      >
+                        {article.publishDate}
+                      </Typography>
+                      <Button
+                        endIcon={<ArrowForward />}
+                        href={`/articles/${article.slug}`}
+                        sx={{
+                          height: '2rem',
+                          px: '0.3125rem',
+                          py: '0.25rem',
+                          borderRadius: '0.5rem',
+                          color: '#656CAF',
+                          fontFamily: 'Roboto',
+                          fontWeight: 400,
+                          fontSize: '1rem',
+                          lineHeight: '1.5rem',
+                          letterSpacing: '0.02rem',
+                          textTransform: 'none',
+                          '&:hover': {
+                            backgroundColor: 'rgba(101, 108, 175, 0.08)',
+                          },
+                          '& .MuiButton-endIcon': {
+                            ml: '0.5rem',
+                            '& svg': {
+                              fontSize: '1rem',
+                            },
+                          },
+                        }}
+                      >
+                        Read article
+                      </Button>
+                    </Box>
+                  </Box>
+                ))}
               </Box>
-            </Grid>
+            </Box>
+          </Box>
+        </Box>
 
-            {/* Sidebar */}
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Box sx={{ position: 'sticky', top: '6rem' }}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 700,
-                    fontSize: '1.5rem',
-                    lineHeight: '2rem',
-                    letterSpacing: '0.01em',
-                    color: '#262626',
-                    mb: 3,
-                  }}
-                >
-                  Related Articles
-                </Typography>
-                <Stack spacing={3}>
-                  {relatedArticles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
-                  ))}
-                </Stack>
-              </Box>
-            </Grid>
-          </Grid>
+        {/* Start Your Project Button */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: { xs: 'center', md: 'flex-start' },
+            mt: { xs: '3rem', md: '3.75rem' },
+            px: { xs: '1rem', md: 0 },
+            ml: { xs: 0, md: 'calc((100vw - 78rem) / 2)' }, // Align with article content
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => setContactModalOpen(true)}
+            sx={{
+              height: '3rem',
+              px: '1.25rem',
+              py: '0.5rem',
+              backgroundColor: '#656CAF',
+              borderRadius: '0.5rem',
+              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#4C53A2',
+              },
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 400,
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                letterSpacing: '0.02rem',
+                color: '#FFFFFF',
+              }}
+            >
+              Start Your Project
+            </Typography>
+          </Button>
         </Box>
       </Container>
+
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+      />
 
       <FooterSection />
     </Box>
