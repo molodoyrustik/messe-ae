@@ -60,14 +60,16 @@ export default function ProjectsPage() {
   // Filter projects by search query
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
-    if (!projectSearchQuery) return projectsData.data;
+    // Temporarily disabled project search
+    return projectsData.data;
+    // if (!projectSearchQuery) return projectsData.data;
     
-    return projectsData.data.filter(project => 
-      project.title.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-      project.client?.name.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-      project.eventName.toLowerCase().includes(projectSearchQuery.toLowerCase())
-    );
-  }, [projectsData, projectSearchQuery]);
+    // return projectsData.data.filter(project => 
+    //   project.title.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
+    //   project.client?.name.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
+    //   project.eventName.toLowerCase().includes(projectSearchQuery.toLowerCase())
+    // );
+  }, [projectsData]);
   
   // Filter clients by search query for desktop
   const filteredClientsForChips = useMemo(() => {
@@ -252,7 +254,7 @@ export default function ProjectsPage() {
           </Box>
 
           {/* Search Projects Field - Desktop Only */}
-          {!isMobile && (
+          {/* {!isMobile && (
             <Box sx={{ mb: 4 }}>
               <TextField
                 placeholder="Search projects..."
@@ -290,7 +292,7 @@ export default function ProjectsPage() {
                 }}
               />
             </Box>
-          )}
+          )} */}
 
           <Box sx={{ mb: 4 }}>
             {!isMobile && (
