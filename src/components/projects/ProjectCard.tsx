@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Box
       component={Link}
-      href={`/projects/${project.slug}`}
+      href={`/projects/${project.id}`}
       sx={{
         textDecoration: 'none',
         display: 'flex',

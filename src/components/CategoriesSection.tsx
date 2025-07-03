@@ -1,20 +1,18 @@
-import { Box, Typography, Link, Stack } from '@mui/material';
+'use client';
+
+import { Box, Typography, Link, Stack, Skeleton } from '@mui/material';
 import { ArrowForward } from '@mui/icons-material';
 import NextLink from 'next/link';
-
-interface Category {
-  id: string;
-  name: string;
-  href: string;
-}
-
-const categories: Category[] = [
-  { id: 'expert-insights', name: 'Expert insights', href: '/articles/categories/expert-insights' },
-  { id: 'exhibition-trends', name: 'Exhibition stands trends', href: '/articles/categories/exhibition-trends' },
-  { id: 'about-messe', name: 'About messe.ae', href: '/articles/categories/about-messe' },
-];
+import { useCategories } from '@/hooks/use-categories';
 
 export default function CategoriesSection() {
+  const { data, isLoading } = useCategories({ pageSize: 10 });
+  
+  const categories = data?.data.map(cat => ({
+    id: cat.slug,
+    name: cat.title,
+    href: `/articles/categories/${cat.slug}`,
+  })) || [];
   return (
     <Box
       sx={{
@@ -55,7 +53,14 @@ export default function CategoriesSection() {
           gap: '0.5rem',
         }}
       >
-        {categories.map((category) => (
+        {isLoading ? (
+          <>
+            <Skeleton variant="text" width="100%" height={40} />
+            <Skeleton variant="text" width="100%" height={40} />
+            <Skeleton variant="text" width="100%" height={40} />
+          </>
+        ) : (
+          categories.map((category) => (
           <Link
             key={category.id}
             component={NextLink}
@@ -104,7 +109,8 @@ export default function CategoriesSection() {
               }} 
             />
           </Link>
-        ))}
+        ))
+        )}
       </Stack>
     </Box>
   );

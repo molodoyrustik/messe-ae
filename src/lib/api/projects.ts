@@ -54,4 +54,11 @@ export const projectsApi = {
       meta: response.meta,
     };
   },
+
+  getProjectById: async (id: string): Promise<ProjectResponse> => {
+    const params = new URLSearchParams();
+    params.append('populate', '*');
+    
+    return fetcher(`/projects/${id}?${params.toString()}`);
+  },
 };

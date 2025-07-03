@@ -98,3 +98,47 @@ export interface ProjectsFilters {
   page?: number;
   pageSize?: number;
 }
+
+export interface Category {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string;
+  test?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface Article {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  text: string;
+  createDate: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  image?: ProjectImage;
+  category?: Category;
+}
+
+export type ArticlesResponse = ApiResponse<Article[]>;
+export type ArticleResponse = ApiResponse<Article>;
+export type CategoriesResponse = ApiResponse<Category[]>;
+export type CategoryResponse = ApiResponse<Category>;
+
+export interface ArticlesFilters {
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+  categorySlug?: string;
+}
+
+export interface CategoriesFilters {
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+}

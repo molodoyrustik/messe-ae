@@ -1,86 +1,55 @@
 'use client';
 
+import { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Button,
   Grid,
+  CircularProgress,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
-import ArticleCard, { Article } from '@/components/ArticleCard';
+import ArticleCard from '@/components/ArticleCard';
 import BigArticle from '@/components/BigArticle';
 import CategoriesSection from '@/components/CategoriesSection';
 import ArticleListItem from '@/components/ArticleListItem';
-
-// Mock articles data
-const articles: Article[] = [
-  {
-    id: 1,
-    slug: 'exhibition-stand-design-adapting',
-    title: 'Exhibition Stand Design: Adapting to Different Industries',
-    excerpt: 'Exploring innovative trends and technologies shaping the exhibition industry across the region.',
-    publishDate: 'Few days ago',
-    readTime: '5 min',
-    category: 'Design',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
-  },
-  {
-    id: 2,
-    slug: 'lighting-exhibition-stands',
-    title: 'Lighting of Exhibition Stands: How to Make Your Brand Shine',
-    excerpt: 'How to create environmentally responsible events without compromising on quality or impact.',
-    publishDate: '5 February 2025',
-    readTime: '7 min',
-    category: 'Design',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=600&fit=crop',
-  },
-  {
-    id: 3,
-    slug: 'digital-integration-exhibitions',
-    title: 'Digital Integration in Modern Exhibition Design',
-    excerpt: 'Leveraging technology to enhance visitor experience and engagement at trade shows.',
-    publishDate: '3 February 2025',
-    readTime: '6 min',
-    category: 'Technology',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-  },
-  {
-    id: 4,
-    slug: 'sustainable-exhibition-practices',
-    title: 'Sustainable Practices in Exhibition Industry',
-    excerpt: 'Strategies for creating meaningful connections and lasting partnerships at industry events.',
-    publishDate: '28 January 2025',
-    readTime: '4 min',
-    category: 'Sustainability',
-    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=600&fit=crop',
-  },
-  {
-    id: 5,
-    slug: 'future-of-trade-shows',
-    title: 'The Future of Trade Shows in Post-Pandemic Era',
-    excerpt: 'How the events industry has adapted to combine physical and virtual experiences.',
-    publishDate: '20 January 2025',
-    readTime: '8 min',
-    category: 'Trends',
-    image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=600&fit=crop',
-  },
-  {
-    id: 6,
-    slug: 'exhibition-budget-optimization',
-    title: 'Optimizing Your Exhibition Budget for Maximum Impact',
-    excerpt: 'Understanding and respecting local customs when organizing international exhibitions.',
-    publishDate: '15 January 2025',
-    readTime: '5 min',
-    category: 'Business',
-    image: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&h=600&fit=crop',
-  },
-];
+import { useArticles } from '@/hooks/use-articles';
+import { Article } from '@/types/api';
 
 export default function ArticlesPage() {
-  const latestArticle = articles[0]; // Get the latest article for BigArticle
-  const otherArticles = articles.slice(1); // Get remaining articles
+  const [page, setPage] = useState(1);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [latestArticle, setLatestArticle] = useState<Article | null>(null);
+  
+  const { data, isLoading, error } = useArticles({ 
+    page, 
+    pageSize: page === 1 ? 6 : 5 // Load 6 on first page (1 for big + 5 for grid), 5 on subsequent pages
+  });
+
+  // Update articles when data changes
+  if (data && data.data.length > 0) {
+    if (page === 1 && !latestArticle) {
+      setLatestArticle(data.data[0]);
+      setArticles(data.data.slice(1));
+    } else if (page > 1) {
+      const newArticles = data.data.filter(
+        (article) => !articles.some((a) => a.id === article.id)
+      );
+      if (newArticles.length > 0) {
+        setArticles((prev) => [...prev, ...newArticles]);
+      }
+    }
+  }
+
+  const hasMore = data ? page < data.meta.pagination.pageCount : false;
+
+  const handleLoadMore = () => {
+    if (hasMore) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
@@ -123,79 +92,147 @@ export default function ArticlesPage() {
             </Typography>
           </Box>
 
-          {/* Big Article and Categories Section */}
-          <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: '3rem', md: '4rem' } }}>
-            <Grid size={{ xs: 12, md: 8 }}>
-              <BigArticle article={latestArticle} />
-            </Grid>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}>
-                <CategoriesSection />
+          {/* Loading state */}
+          {isLoading && page === 1 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: '3rem' }}>
+              <CircularProgress sx={{ color: '#656CAF' }} />
+            </Box>
+          )}
+
+          {/* Error state */}
+          {error && (
+            <Box sx={{ textAlign: 'center', py: '3rem' }}>
+              <Typography variant="body1" color="error">
+                Failed to load articles. Please try again later.
+              </Typography>
+            </Box>
+          )}
+
+          {/* Content */}
+          {!isLoading && !error && latestArticle && (
+            <>
+              {/* Big Article and Categories Section */}
+              <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: '3rem', md: '4rem' } }}>
+                <Grid size={{ xs: 12, md: 8 }}>
+                  <BigArticle article={{
+                    id: latestArticle.id,
+                    slug: latestArticle.slug,
+                    title: latestArticle.title,
+                    excerpt: latestArticle.text.substring(0, 150) + '...',
+                    publishDate: new Date(latestArticle.createDate).toLocaleDateString('en-US', { 
+                      day: 'numeric', 
+                      month: 'long', 
+                      year: 'numeric' 
+                    }),
+                    readTime: '5 min',
+                    category: latestArticle.category?.title || 'Articles',
+                    image: latestArticle.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
+                  }} />
+                </Grid>
+                <Grid size={{ xs: 12, md: 4 }}>
+                  <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}>
+                    <CategoriesSection />
+                  </Box>
+                </Grid>
+              </Grid>
+
+              {/* Articles Grid - Desktop */}
+              <Box
+                sx={{
+                  display: { xs: 'none', md: 'flex' },
+                  width: '100%',
+                  alignItems: 'center',
+                  alignContent: 'center',
+                  gap: '2rem',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {articles.map((article) => (
+                  <ArticleCard key={article.id} article={{
+                    id: article.id,
+                    slug: article.slug,
+                    title: article.title,
+                    excerpt: article.text.substring(0, 150) + '...',
+                    publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
+                      day: 'numeric', 
+                      month: 'long', 
+                      year: 'numeric' 
+                    }),
+                    readTime: '5 min',
+                    category: article.category?.title || 'Articles',
+                    image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
+                  }} />
+                ))}
               </Box>
-            </Grid>
-          </Grid>
 
-          {/* Articles Grid - Desktop */}
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              width: '100%',
-              alignItems: 'center',
-              alignContent: 'center',
-              gap: '2rem',
-              flexWrap: 'wrap',
-            }}
-          >
-            {otherArticles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </Box>
+              {/* Articles List - Mobile */}
+              <Box
+                sx={{
+                  display: { xs: 'flex', md: 'none' },
+                  width: '100%',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '0.75rem',
+                }}
+              >
+                {articles.map((article, index) => (
+                  <ArticleListItem 
+                    key={article.id} 
+                    article={{
+                      id: article.id,
+                      slug: article.slug,
+                      title: article.title,
+                      excerpt: article.text.substring(0, 150) + '...',
+                      publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
+                        day: 'numeric', 
+                        month: 'long', 
+                        year: 'numeric' 
+                      }),
+                      readTime: '5 min',
+                      category: article.category?.title || 'Articles',
+                      image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
+                    }}
+                    isLast={index === articles.length - 1}
+                  />
+                ))}
+              </Box>
 
-          {/* Articles List - Mobile */}
-          <Box
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              width: '100%',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '0.75rem',
-            }}
-          >
-            {otherArticles.map((article, index) => (
-              <ArticleListItem 
-                key={article.id} 
-                article={article} 
-                isLast={index === otherArticles.length - 1}
-              />
-            ))}
-          </Box>
-
-          {/* Load More Button */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '3rem', md: '3.75rem' } }}>
-            <Button
-              variant="outlined"
-              sx={{
-                color: '#656CAF',
-                borderColor: '#656CAF',
-                fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: '1rem',
-                lineHeight: '1.5rem',
-                letterSpacing: '0.02em',
-                px: '2rem',
-                py: '0.75rem',
-                borderRadius: '0.5rem',
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: '#656CAF',
-                  color: '#FFFFFF',
-                  borderColor: '#656CAF',
-                },
-              }}
-            >
-              Load more
-            </Button>
-          </Box>
+              {/* Load More Button */}
+              {hasMore && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '3rem', md: '3.75rem' } }}>
+                  <Button
+                    variant="outlined"
+                    onClick={handleLoadMore}
+                    disabled={isLoading}
+                    sx={{
+                      color: '#656CAF',
+                      borderColor: '#656CAF',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
+                      fontSize: '1rem',
+                      lineHeight: '1.5rem',
+                      letterSpacing: '0.02em',
+                      px: '2rem',
+                      py: '0.75rem',
+                      borderRadius: '0.5rem',
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#656CAF',
+                        color: '#FFFFFF',
+                        borderColor: '#656CAF',
+                      },
+                      '&:disabled': {
+                        borderColor: '#ccc',
+                        color: '#ccc',
+                      },
+                    }}
+                  >
+                    {isLoading ? 'Loading...' : 'Load more'}
+                  </Button>
+                </Box>
+              )}
+            </>
+          )}
 
         </Box>
       </Container>

@@ -9,17 +9,18 @@ import {
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
-import { useProjectBySlug } from '@/hooks/use-projects';
+import { useProject } from '@/hooks/use-projects';
+import { use } from 'react';
 
 interface ProjectPageProps {
   params: Promise<{
-    slug: string;
+    id: string;
   }>;
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = use(params);
-  const { data, isLoading, error } = useProjectBySlug(resolvedParams.slug);
+  const { data, isLoading, error } = useProject(resolvedParams.id);
 
   if (isLoading) {
     return (
@@ -248,5 +249,3 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     </Box>
   );
 }
-
-import { use } from 'react';

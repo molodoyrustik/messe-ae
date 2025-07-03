@@ -12,6 +12,7 @@ import {
   useMediaQuery,
   useTheme,
   IconButton,
+  Button,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
@@ -37,7 +38,8 @@ export default function ProjectsPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
   const [filters, setFilters] = useState<ProjectsFilters>({
-    pageSize: 20,
+    page: 1,
+    pageSize: 12,
   });
   const [selectedClients, setSelectedClients] = useState<string[]>([]);
   const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>([]);
@@ -88,13 +90,14 @@ export default function ProjectsPage() {
       if (newClients.length > 0) {
         setFilters(prev => ({
           ...prev,
+          page: 1,
           clientSlugs: newClients,
         }));
       } else {
         setFilters(prev => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { clientSlugs, ...rest } = prev;
-          return rest;
+          return { ...rest, page: 1 };
         });
       }
     }
@@ -121,6 +124,7 @@ export default function ProjectsPage() {
         if (ranges.length > 0) {
           setFilters(prev => ({
             ...prev,
+            page: 1,
             sizeRanges: ranges.map(r => r!.value),
           }));
         }
@@ -128,7 +132,7 @@ export default function ProjectsPage() {
         setFilters(prev => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { sizeRanges: _, ...rest } = prev;
-          return rest;
+          return { ...rest, page: 1 };
         });
       }
     }
@@ -152,13 +156,14 @@ export default function ProjectsPage() {
       if (newTypes.length > 0) {
         setFilters(prev => ({
           ...prev,
+          page: 1,
           constructionTypes: newTypes,
         }));
       } else {
         setFilters(prev => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { constructionTypes, ...rest } = prev;
-          return rest;
+          return { ...rest, page: 1 };
         });
       }
     }
@@ -168,7 +173,7 @@ export default function ProjectsPage() {
     setSelectedClients([]);
     setSelectedSizeRanges([]);
     setSelectedTypes([]);
-    setFilters({ pageSize: 20 });
+    setFilters({ page: 1, pageSize: 12 });
   };
 
   return (
@@ -564,6 +569,84 @@ export default function ProjectsPage() {
               <Typography variant="h6" color="text.secondary">
                 No projects found matching your criteria
               </Typography>
+            </Box>
+          )}
+
+          {/* Pagination */}
+          {projectsData && projectsData.meta.pagination.pageCount > 1 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, gap: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, (prev.page || 1) - 1) }))}
+                disabled={filters.page === 1 || projectsLoading}
+                sx={{
+                  color: '#656CAF',
+                  borderColor: '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02em',
+                  px: '2rem',
+                  py: '0.75rem',
+                  borderRadius: '0.5rem',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#656CAF',
+                    color: '#FFFFFF',
+                    borderColor: '#656CAF',
+                  },
+                  '&:disabled': {
+                    borderColor: '#ccc',
+                    color: '#ccc',
+                  },
+                }}
+              >
+                Previous
+              </Button>
+              
+              <Typography
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  px: 2,
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  color: '#262626',
+                }}
+              >
+                Page {filters.page || 1} of {projectsData.meta.pagination.pageCount}
+              </Typography>
+              
+              <Button
+                variant="outlined"
+                onClick={() => setFilters(prev => ({ ...prev, page: Math.min(projectsData.meta.pagination.pageCount, (prev.page || 1) + 1) }))}
+                disabled={filters.page === projectsData.meta.pagination.pageCount || projectsLoading}
+                sx={{
+                  color: '#656CAF',
+                  borderColor: '#656CAF',
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02em',
+                  px: '2rem',
+                  py: '0.75rem',
+                  borderRadius: '0.5rem',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#656CAF',
+                    color: '#FFFFFF',
+                    borderColor: '#656CAF',
+                  },
+                  '&:disabled': {
+                    borderColor: '#ccc',
+                    color: '#ccc',
+                  },
+                }}
+              >
+                Next
+              </Button>
             </Box>
           )}
         </Box>
