@@ -6,7 +6,6 @@ import {
   Container,
   Typography,
   Chip,
-  Stack,
   CircularProgress,
   Alert,
   useMediaQuery,
@@ -47,7 +46,7 @@ export default function ProjectsPage() {
   const [selectedClients, setSelectedClients] = useState<string[]>([]);
   const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [projectSearchQuery, setProjectSearchQuery] = useState('');
+  // const [projectSearchQuery, setProjectSearchQuery] = useState('');
   const [clientSearchQuery, setClientSearchQuery] = useState('');
   
   const [clientsFilterOpen, setClientsFilterOpen] = useState(false);
@@ -429,7 +428,7 @@ export default function ProjectsPage() {
                     overflowX: 'auto',
                     overflowY: 'hidden',
                     pb: 0.5,
-                    pr: clientSearchQuery || clientsData?.data.length > 9 ? '200px' : '0',
+                    pr: clientSearchQuery || (clientsData?.data?.length ?? 0) > 9 ? '200px' : '0',
                     '&::-webkit-scrollbar': {
                       height: '4px',
                     },
