@@ -174,14 +174,39 @@ export default function ArticlesPage() {
               {/* Articles List - Mobile */}
               <Box
                 sx={{
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: 'block', md: 'none' },
                   width: '100%',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  gap: '0.75rem',
                 }}
               >
-                {articles.map((article, index) => (
+                {/* Top Articles heading */}
+                <Typography
+                  sx={{
+                    color: '#262626',
+                    fontFamily: 'Roboto',
+                    fontSize: '1rem',
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    mb: '1rem',
+                  }}
+                >
+                  Top Articles
+                </Typography>
+                
+                {/* Articles container */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    pb: '0.5rem',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '0.25rem',
+                    alignSelf: 'stretch',
+                    borderBottom: '1px solid #E9E9E9',
+                  }}
+                >
+                  {articles.map((article, index) => (
                   <ArticleListItem 
                     key={article.id} 
                     article={{
@@ -200,7 +225,8 @@ export default function ArticlesPage() {
                     }}
                     isLast={index === articles.length - 1}
                   />
-                ))}
+                  ))}
+                </Box>
               </Box>
 
               {/* Load More Button */}
