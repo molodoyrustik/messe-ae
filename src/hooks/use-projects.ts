@@ -16,3 +16,11 @@ export const useProjectBySlug = (slug: string) => {
     enabled: !!slug,
   });
 };
+
+export const useProject = (documentId: string) => {
+  return useQuery({
+    queryKey: ['project', documentId],
+    queryFn: () => projectsApi.getProjectById(documentId),
+    enabled: !!documentId,
+  });
+};

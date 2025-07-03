@@ -17,6 +17,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     ? `https://lovely-idea-e9a72cf425.strapiapp.com${baseImageUrl}`
     : baseImageUrl;
 
+  // Create SEO-friendly URL slug
+  const createProjectUrl = () => {
+    const clientSlug = project.client?.name
+      ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+      : 'client';
+    const size = `${project.totalSize}m2`;
+    return `/projects/${clientSlug}-${size}-${project.documentId}`;
+  };
+
   const formatSize = (size: number) => {
     if (size < 50) return '< 50';
     if (size <= 100) return '50 - 100';
@@ -31,7 +40,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Box
       component={Link}
-      href={`/projects/${project.slug}`}
+      href={createProjectUrl()}
       sx={{
         textDecoration: 'none',
         display: 'flex',

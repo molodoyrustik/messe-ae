@@ -9,11 +9,11 @@ import {
   Button,
   // Divider,
   Checkbox,
-  // TextField,
-  // InputAdornment,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-// import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search';
 import MobileFilterPanel from './MobileFilterPanel';
 import { Client } from '@/types/api';
 
@@ -242,7 +242,7 @@ export default function CombinedFilterPanel({
           </Typography>
           
           {/* Search field */}
-          {/* <TextField
+          <TextField
             fullWidth
             size="small"
             placeholder="Search clients..."
@@ -278,7 +278,7 @@ export default function CombinedFilterPanel({
                 fontFamily: 'Roboto',
               },
             }}
-          /> */}
+          />
           
           <Box
             sx={{
