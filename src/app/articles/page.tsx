@@ -6,7 +6,6 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
   CircularProgress,
 } from '@mui/material';
 import Header from '@/components/Header';
@@ -112,8 +111,14 @@ export default function ArticlesPage() {
           {!isLoading && !error && latestArticle && (
             <>
               {/* Big Article and Categories Section */}
-              <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: { xs: '3rem', md: '4rem' } }}>
-                <Grid size={{ xs: 12, md: 8 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: '2rem',
+                mb: { xs: '3rem', md: '4rem' },
+                width: '100%'
+              }}>
+                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 auto' }, minWidth: 0 }}>
                   <BigArticle article={{
                     id: latestArticle.id,
                     slug: latestArticle.slug,
@@ -128,13 +133,14 @@ export default function ArticlesPage() {
                     category: latestArticle.category?.title || 'Articles',
                     image: latestArticle.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
                   }} />
-                </Grid>
-                <Grid size={{ xs: 12, md: 4 }}>
-                  <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}>
-                    <CategoriesSection />
-                  </Box>
-                </Grid>
-              </Grid>
+                </Box>
+                <Box sx={{ 
+                  flexShrink: 0,
+                  width: { xs: '100%', md: '20rem' }
+                }}>
+                  <CategoriesSection />
+                </Box>
+              </Box>
 
               {/* Articles Grid - Desktop */}
               <Box
