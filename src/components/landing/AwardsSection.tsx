@@ -372,8 +372,6 @@ const AwardsSection = () => {
           sx={{
             display: { xs: 'none', md: 'block' },
             mb: '2.5rem',
-            maxWidth: '1360px',
-            mx: 'auto',
           }}
         >
           <Typography
@@ -402,8 +400,6 @@ const AwardsSection = () => {
             },
             gap: '20px',
             width: '100%',
-            maxWidth: '1360px',
-            mx: 'auto',
           }}
         >
           {desktopAwards.map((award, index) => (
