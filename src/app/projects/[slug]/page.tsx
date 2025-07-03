@@ -14,13 +14,21 @@ import { use } from 'react';
 
 interface ProjectPageProps {
   params: Promise<{
-    documentId: string;
+    slug: string;
   }>;
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = use(params);
-  const { data, isLoading, error } = useProject(resolvedParams.documentId);
+  
+  // Extract documentId from the slug (format: client-name-150m2-documentId)
+  const extractDocumentId = (slug: string) => {
+    const parts = slug.split('-');
+    return parts[parts.length - 1]; // documentId is always the last part
+  };
+  
+  const documentId = extractDocumentId(resolvedParams.slug);
+  const { data, isLoading, error } = useProject(documentId);
 
   if (isLoading) {
     return (
