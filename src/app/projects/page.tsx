@@ -13,6 +13,8 @@ import {
   useTheme,
   IconButton,
   Button,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
@@ -22,6 +24,7 @@ import ClientsFilterPanel from '@/components/projects/ClientsFilterPanel';
 import StandSizeFilterPanel from '@/components/projects/StandSizeFilterPanel';
 import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
 import FilterIcon from '@/components/icons/FilterIcon';
+import SearchIcon from '@mui/icons-material/Search';
 import { useProjects } from '@/hooks/use-projects';
 import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
@@ -44,6 +47,8 @@ export default function ProjectsPage() {
   const [selectedClients, setSelectedClients] = useState<string[]>([]);
   const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [projectSearchQuery, setProjectSearchQuery] = useState('');
+  const [clientSearchQuery, setClientSearchQuery] = useState('');
   
   const [clientsFilterOpen, setClientsFilterOpen] = useState(false);
   const [standSizeFilterOpen, setStandSizeFilterOpen] = useState(false);
@@ -51,6 +56,28 @@ export default function ProjectsPage() {
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
   const { data: clientsData } = useClients();
+  
+  // Filter projects by search query
+  const filteredProjects = useMemo(() => {
+    if (!projectsData?.data) return [];
+    if (!projectSearchQuery) return projectsData.data;
+    
+    return projectsData.data.filter(project => 
+      project.title.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
+      project.client?.name.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
+      project.eventName.toLowerCase().includes(projectSearchQuery.toLowerCase())
+    );
+  }, [projectsData, projectSearchQuery]);
+  
+  // Filter clients by search query for desktop
+  const filteredClientsForChips = useMemo(() => {
+    if (!clientsData?.data) return [];
+    if (!clientSearchQuery) return clientsData.data.slice(0, 9);
+    
+    return clientsData.data
+      .filter(client => client.name.toLowerCase().includes(clientSearchQuery.toLowerCase()))
+      .slice(0, 9);
+  }, [clientsData, clientSearchQuery]);
   
   const hasActiveFilters = useMemo(() => {
     return selectedClients.length > 0 || selectedSizeRanges.length > 0 || selectedTypes.length > 0;
@@ -224,6 +251,85 @@ export default function ProjectsPage() {
             </Typography>
           </Box>
 
+          {/* Desktop Search Fields */}
+          {!isMobile && (
+            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
+              {/* Search Projects */}
+              <TextField
+                placeholder="Search projects..."
+                value={projectSearchQuery}
+                onChange={(e) => setProjectSearchQuery(e.target.value)}
+                sx={{
+                  width: '300px',
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: '8px',
+                    '& fieldset': {
+                      border: 'none',
+                    },
+                    '&:hover': {
+                      backgroundColor: '#EEEEEE',
+                    },
+                    '&.Mui-focused': {
+                      backgroundColor: '#FFFFFF',
+                      '& fieldset': {
+                        border: '1px solid #656CAF',
+                      },
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    fontSize: '16px',
+                    fontFamily: 'Roboto',
+                  },
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon sx={{ color: '#9E9E9E' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              
+              {/* Search Clients */}
+              <TextField
+                placeholder="Search clients..."
+                value={clientSearchQuery}
+                onChange={(e) => setClientSearchQuery(e.target.value)}
+                sx={{
+                  width: '300px',
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: '8px',
+                    '& fieldset': {
+                      border: 'none',
+                    },
+                    '&:hover': {
+                      backgroundColor: '#EEEEEE',
+                    },
+                    '&.Mui-focused': {
+                      backgroundColor: '#FFFFFF',
+                      '& fieldset': {
+                        border: '1px solid #656CAF',
+                      },
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    fontSize: '16px',
+                    fontFamily: 'Roboto',
+                  },
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon sx={{ color: '#9E9E9E' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+          )}
+
           <Box sx={{ mb: 4 }}>
             {!isMobile && (
               <Typography 
@@ -381,7 +487,7 @@ export default function ProjectsPage() {
                   },
                 }}
               />
-              {clientsData?.data.slice(0, 9).map((client) => (
+              {filteredClientsForChips.map((client) => (
                 <Chip
                   key={client.id}
                   label={client.name}
@@ -550,7 +656,7 @@ export default function ProjectsPage() {
                 maxWidth: 1360,
               }}
             >
-              {projectsData.data.map((project) => (
+              {filteredProjects.map((project) => (
                 <Box
                   key={project.id}
                   sx={{
@@ -564,7 +670,7 @@ export default function ProjectsPage() {
             </Box>
           )}
 
-          {projectsData && projectsData.data.length === 0 && (
+          {projectsData && filteredProjects.length === 0 && (
             <Box sx={{ textAlign: 'center', py: 8 }}>
               <Typography variant="h6" color="text.secondary">
                 No projects found matching your criteria

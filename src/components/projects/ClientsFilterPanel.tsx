@@ -7,10 +7,10 @@ import {
   Checkbox,
   Stack,
   Button,
-  // TextField,
-  // InputAdornment,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
-// import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search';
 import MobileFilterPanel from './MobileFilterPanel';
 import { Client } from '@/types/api';
 
@@ -29,8 +29,7 @@ export default function ClientsFilterPanel({
   selectedClients,
   onClientSelect,
 }: ClientsFilterPanelProps) {
-  const [searchQuery] = useState('');
-  // const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   
   const filteredClients = clients.filter(client => 
     client.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -113,7 +112,7 @@ export default function ClientsFilterPanel({
         </Box>
         
         {/* Search field */}
-        {/* <Box sx={{ px: 2, mb: 2 }}>
+        <Box sx={{ px: 2, mb: 2 }}>
           <TextField
             fullWidth
             size="small"
@@ -150,7 +149,7 @@ export default function ClientsFilterPanel({
               },
             }}
           />
-        </Box> */}
+        </Box>
         
         {/* Client list */}
         <Box
