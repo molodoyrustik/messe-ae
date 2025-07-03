@@ -143,8 +143,7 @@ export default function CareersPage() {
       </Box>
 
       {/* Hero Section - Desktop */}
-      <Container maxWidth="xl" sx={{ display: { xs: 'none', md: 'block' }, pt: '3.75rem', pb: '4rem' }}>
-        <Box sx={{ px: { xs: '1rem' } }}>
+      <Container maxWidth="xl" sx={{ display: { xs: 'none', md: 'block' }, pt: '3.75rem', pb: '4rem', px: { xs: '1rem', md: '2.5rem' } }}>
           <Box 
             sx={{ 
               display: 'grid',
@@ -211,7 +210,7 @@ export default function CareersPage() {
               sx={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: '56rem',
+                // maxWidth: '56rem',
                 aspectRatio: '896 / 464',
                 borderRadius: '0.5rem',
                 overflow: 'hidden',
@@ -233,12 +232,10 @@ export default function CareersPage() {
               />
             </Box>
           </Box>
-        </Box>
       </Container>
 
       {/* Vacancies Section */}
-      <Container maxWidth="xl" sx={{ pb: { xs: 0, md: '6rem' } }}>
-        <Box sx={{ px: { xs: 0, md: '1rem' } }}>
+      <Container maxWidth="xl" sx={{ pb: { xs: 0, md: '6rem' }, px: { xs: '1rem', md: '2.5rem' } }}>
           <Typography
             sx={{
               fontFamily: 'Roboto',
@@ -280,7 +277,6 @@ export default function CareersPage() {
               <JobCardMobile key={job.id} job={job} onClick={() => handleJobClick(job)} />
             ))}
           </Box>
-        </Box>
       </Container>
 
       {/* Job Modal */}
