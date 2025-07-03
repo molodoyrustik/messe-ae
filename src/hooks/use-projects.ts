@@ -17,10 +17,10 @@ export const useProjectBySlug = (slug: string) => {
   });
 };
 
-export const useProject = (id: string) => {
+export const useProject = (documentId: string) => {
   return useQuery({
-    queryKey: ['project', id],
-    queryFn: () => projectsApi.getProjectById(id),
-    enabled: !!id,
+    queryKey: ['project', documentId],
+    queryFn: () => projectsApi.getProjectById(documentId),
+    enabled: !!documentId,
   });
 };

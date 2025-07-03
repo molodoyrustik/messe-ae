@@ -14,13 +14,13 @@ import { use } from 'react';
 
 interface ProjectPageProps {
   params: Promise<{
-    id: string;
+    documentId: string;
   }>;
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = use(params);
-  const { data, isLoading, error } = useProject(resolvedParams.id);
+  const { data, isLoading, error } = useProject(resolvedParams.documentId);
 
   if (isLoading) {
     return (

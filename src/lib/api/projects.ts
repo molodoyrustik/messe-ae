@@ -55,10 +55,10 @@ export const projectsApi = {
     };
   },
 
-  getProjectById: async (id: string): Promise<ProjectResponse> => {
+  getProjectById: async (documentId: string): Promise<ProjectResponse> => {
     const params = new URLSearchParams();
     params.append('populate', '*');
     
-    return fetcher(`/projects/${id}?${params.toString()}`);
+    return fetcher(`/projects/${documentId}?${params.toString()}`);
   },
 };
