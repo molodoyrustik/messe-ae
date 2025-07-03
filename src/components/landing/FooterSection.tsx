@@ -186,45 +186,65 @@ const FooterSection = () => {
               <Stack spacing={1.5}>
                 <Stack direction="row" spacing={0.5} alignItems="center">
                   <Phone sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626' }} />
-                  <Typography
+                  <Link
+                    href="tel:+97145485887"
                     sx={{
                       fontSize: { xs: '10px', md: '14px' },
                       lineHeight: { xs: '13px', md: '18px' },
                       letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        color: '#656CAF',
+                        textDecoration: 'underline',
+                      },
                     }}
                   >
                     +971 4 548 5887
-                  </Typography>
+                  </Link>
                 </Stack>
 
                 <Stack direction="row" spacing={0.5} alignItems="center">
                   <Email sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626' }} />
-                  <Typography
+                  <Link
+                    href="mailto:hello@messe.ae"
                     sx={{
                       fontSize: { xs: '10px', md: '14px' },
                       lineHeight: { xs: '13px', md: '18px' },
                       letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        color: '#656CAF',
+                        textDecoration: 'underline',
+                      },
                     }}
                   >
                     hello@messe.ae
-                  </Typography>
+                  </Link>
                 </Stack>
 
                 <Stack direction="row" spacing={0.5} alignItems="flex-start">
                   <LocationOn sx={{ fontSize: { xs: 14, md: 20 }, color: '#262626', mt: 0.25 }} />
-                  <Typography
+                  <Link
+                    href="https://maps.google.com/?q=UAE,+Dubai,+Dubai+Industrial+City,+KJ+Autopart+complex,+Office+building,+ground+floor,+left+wing.+PO+box+118995"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     sx={{
                       fontSize: { xs: '10px', md: '14px' },
                       lineHeight: { xs: '13px', md: '18px' },
                       letterSpacing: { xs: '0.2px', md: '0.28px' },
                       color: '#262626',
                       flex: 1,
+                      textDecoration: 'none',
+                      '&:hover': {
+                        color: '#656CAF',
+                        textDecoration: 'underline',
+                      },
                     }}
                   >
                     UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office building, ground floor, left wing. PO box 118995
-                  </Typography>
+                  </Link>
                 </Stack>
               </Stack>
             </Stack>
