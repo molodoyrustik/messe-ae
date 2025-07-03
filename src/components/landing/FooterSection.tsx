@@ -168,16 +168,44 @@ const FooterSection = () => {
 
               {/* Social Icons */}
               <Stack direction="row" spacing={1}>
-                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                <IconButton 
+                  component="a"
+                  href="https://www.instagram.com/messe.ae/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small" 
+                  sx={{ p: 0.5, color: '#262626' }}
+                >
                   <Instagram sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
-                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                <IconButton 
+                  component="a"
+                  href="https://www.facebook.com/ExpoGlobalGroup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small" 
+                  sx={{ p: 0.5, color: '#262626' }}
+                >
                   <Facebook sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
-                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                <IconButton 
+                  component="a"
+                  href="https://www.linkedin.com/company/messe-ae"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small" 
+                  sx={{ p: 0.5, color: '#262626' }}
+                >
                   <LinkedIn sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
-                <IconButton size="small" sx={{ p: 0.5, color: '#262626' }}>
+                <IconButton 
+                  component="a"
+                  href="https://wa.me/971505588060"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="small" 
+                  sx={{ p: 0.5, color: '#262626' }}
+                >
                   <WhatsApp sx={{ fontSize: { xs: 14, md: 20 } }} />
                 </IconButton>
               </Stack>
@@ -299,25 +327,70 @@ const FooterSection = () => {
               px: 2,
             }}
           >
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="https://www.instagram.com/messe.ae/"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <InstagramSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="https://www.facebook.com/ExpoGlobalGroup"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <FacebookSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="https://www.linkedin.com/company/messe-ae"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <LinkedInSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="https://wa.me/971505588060"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <WhatsAppSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="mailto:hello@messe.ae"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <EmailSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="https://maps.google.com/?q=UAE,+Dubai,+Dubai+Industrial+City,+KJ+Autopart+complex,+Office+building,+ground+floor,+left+wing.+PO+box+118995"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <LocationSolid />
             </IconButton>
-            <IconButton size="small" sx={{ p: 0, width: 24, height: 24 }}>
+            <IconButton 
+              component="a"
+              href="tel:+97145485887"
+              size="small" 
+              sx={{ p: 0, width: 24, height: 24 }}
+            >
               <PhoneSolid />
             </IconButton>
           </Box>
