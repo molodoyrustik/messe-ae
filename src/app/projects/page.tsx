@@ -251,53 +251,15 @@ export default function ProjectsPage() {
             </Typography>
           </Box>
 
-          {/* Desktop Search Fields */}
+          {/* Search Projects Field - Desktop Only */}
           {!isMobile && (
-            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
-              {/* Search Projects */}
+            <Box sx={{ mb: 4 }}>
               <TextField
                 placeholder="Search projects..."
                 value={projectSearchQuery}
                 onChange={(e) => setProjectSearchQuery(e.target.value)}
                 sx={{
-                  width: '300px',
-                  '& .MuiOutlinedInput-root': {
-                    backgroundColor: '#F5F5F5',
-                    borderRadius: '8px',
-                    '& fieldset': {
-                      border: 'none',
-                    },
-                    '&:hover': {
-                      backgroundColor: '#EEEEEE',
-                    },
-                    '&.Mui-focused': {
-                      backgroundColor: '#FFFFFF',
-                      '& fieldset': {
-                        border: '1px solid #656CAF',
-                      },
-                    },
-                  },
-                  '& .MuiInputBase-input': {
-                    fontSize: '16px',
-                    fontFamily: 'Roboto',
-                  },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: '#9E9E9E' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              
-              {/* Search Clients */}
-              <TextField
-                placeholder="Search clients..."
-                value={clientSearchQuery}
-                onChange={(e) => setClientSearchQuery(e.target.value)}
-                sx={{
-                  width: '300px',
+                  width: '400px',
                   '& .MuiOutlinedInput-root': {
                     backgroundColor: '#F5F5F5',
                     borderRadius: '8px',
@@ -456,74 +418,133 @@ export default function ProjectsPage() {
                 )}
               </Box>
             ) : (
-              <Stack 
-                direction="row" 
-                spacing={1.5} 
-                sx={{ 
-                  mb: 4,
-                  flexWrap: 'wrap',
-                  gap: 1.5,
-                  maxWidth: 1240,
-                  position: 'relative',
-                }}
-              >
-              <Chip
-                label="All"
-                onClick={() => handleClientFilter(null)}
-                sx={{
-                  backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
-                  color: selectedClients.length === 0 ? '#FFFFFF' : '#656CAF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: 24,
-                  lineHeight: '28px',
-                  letterSpacing: '0.01em',
-                  height: 'auto',
-                  px: 1.5,
-                  py: 1,
-                  borderRadius: '8px',
-                  '&:hover': {
-                    backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
-                  },
-                }}
-              />
-              {filteredClientsForChips.map((client) => (
-                <Chip
-                  key={client.id}
-                  label={client.name}
-                  onClick={() => handleClientFilter(client.slug)}
-                  sx={{
-                    backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#E9EAF4',
-                    color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#656CAF',
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: 24,
-                    lineHeight: '28px',
-                    letterSpacing: '0.01em',
-                    height: 'auto',
-                    px: 1.5,
-                    py: 1,
-                    borderRadius: '8px',
-                    '&:hover': {
-                      backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#C7CAE3',
+              <Box sx={{ position: 'relative', mb: 4 }}>
+                <Box 
+                  sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
+                    pb: 0.5,
+                    pr: clientSearchQuery || clientsData?.data.length > 9 ? '200px' : '0',
+                    '&::-webkit-scrollbar': {
+                      height: '4px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      backgroundColor: '#F5F5F5',
+                      borderRadius: '2px',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      backgroundColor: '#E0E0E0',
+                      borderRadius: '2px',
+                      '&:hover': {
+                        backgroundColor: '#BDBDBD',
+                      },
                     },
                   }}
-                />
-              ))}
-              {clientsData && clientsData.data.length > 9 && (
+                >
+                  <Chip
+                    label="All"
+                    onClick={() => handleClientFilter(null)}
+                    sx={{
+                      backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
+                      color: selectedClients.length === 0 ? '#FFFFFF' : '#656CAF',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
+                      fontSize: 24,
+                      lineHeight: '28px',
+                      letterSpacing: '0.01em',
+                      height: 'auto',
+                      px: 1.5,
+                      py: 1,
+                      borderRadius: '8px',
+                      flexShrink: 0,
+                      '&:hover': {
+                        backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
+                      },
+                    }}
+                  />
+                  {(clientSearchQuery ? filteredClientsForChips : clientsData?.data || []).map((client) => (
+                    <Chip
+                      key={client.id}
+                      label={client.name}
+                      onClick={() => handleClientFilter(client.slug)}
+                      sx={{
+                        backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#E9EAF4',
+                        color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#656CAF',
+                        fontFamily: 'Roboto',
+                        fontWeight: 400,
+                        fontSize: 24,
+                        lineHeight: '28px',
+                        letterSpacing: '0.01em',
+                        height: 'auto',
+                        px: 1.5,
+                        py: 1,
+                        borderRadius: '8px',
+                        flexShrink: 0,
+                        '&:hover': {
+                          backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#C7CAE3',
+                        },
+                      }}
+                    />
+                  ))}
+                </Box>
+                
+                {/* Gradient and Search Field */}
                 <Box
                   sx={{
                     position: 'absolute',
                     right: 0,
                     top: 0,
-                    width: 40,
-                    height: 48,
-                    background: 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
+                    bottom: 0,
+                    width: '200px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    background: 'linear-gradient(270deg, #FFFFFF 60%, rgba(255, 255, 255, 0) 100%)',
                     pointerEvents: 'none',
                   }}
-                />
-              )}
-              </Stack>
+                >
+                  <TextField
+                    placeholder="Search clients..."
+                    value={clientSearchQuery}
+                    onChange={(e) => setClientSearchQuery(e.target.value)}
+                    size="small"
+                    sx={{
+                      width: '160px',
+                      ml: 'auto',
+                      mr: 1,
+                      pointerEvents: 'all',
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '8px',
+                        height: '48px',
+                        '& fieldset': {
+                          borderColor: '#E0E0E0',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#BDBDBD',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#656CAF',
+                        },
+                      },
+                      '& .MuiInputBase-input': {
+                        fontSize: '16px',
+                        fontFamily: 'Roboto',
+                        py: 0.5,
+                      },
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon sx={{ color: '#9E9E9E', fontSize: '20px' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
             )}
 
             {!isMobile && (
@@ -543,38 +564,39 @@ export default function ProjectsPage() {
             )}
 
             {!isMobile && (
-              <Stack direction="row" spacing={1.5} sx={{ flexWrap: 'wrap', gap: 1.5 }}>
-              <Chip
-                label="All"
-                onClick={() => {
-                  handleSizeFilter(null);
-                  handleTypeFilter(null);
-                }}
-                sx={{
-                  backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
-                  color: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#FFFFFF' : '#656CAF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: 24,
-                  lineHeight: '28px',
-                  letterSpacing: '0.01em',
-                  height: 'auto',
-                  px: 1.5,
-                  py: 1,
-                  borderRadius: '8px',
-                  '&:hover': {
-                    backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#4C53A2' : '#C7CAE3',
+              <Box 
+                sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1.5,
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
+                  pb: 0.5,
+                  '&::-webkit-scrollbar': {
+                    height: '4px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: '2px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#E0E0E0',
+                    borderRadius: '2px',
+                    '&:hover': {
+                      backgroundColor: '#BDBDBD',
+                    },
                   },
                 }}
-              />
-              {sizeRanges.map((range) => (
+              >
                 <Chip
-                  key={range.label}
-                  label={range.label}
-                  onClick={() => handleSizeFilter(range.label)}
+                  label="All"
+                  onClick={() => {
+                    handleSizeFilter(null);
+                    handleTypeFilter(null);
+                  }}
                   sx={{
-                    backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#E9EAF4',
-                    color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#656CAF',
+                    backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#FFFFFF' : '#656CAF',
                     fontFamily: 'Roboto',
                     fontWeight: 400,
                     fontSize: 24,
@@ -584,53 +606,79 @@ export default function ProjectsPage() {
                     px: 1.5,
                     py: 1,
                     borderRadius: '8px',
+                    flexShrink: 0,
                     '&:hover': {
-                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#C7CAE3',
+                      backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#4C53A2' : '#C7CAE3',
                     },
                   }}
                 />
-              ))}
-              <Chip
-                label="Double-Deckers"
-                onClick={() => handleTypeFilter('double-decker')}
-                sx={{
-                  backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#E9EAF4',
-                  color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#656CAF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: 24,
-                  lineHeight: '28px',
-                  letterSpacing: '0.01em',
-                  height: 'auto',
-                  px: 1.5,
-                  py: 1,
-                  borderRadius: '8px',
-                  '&:hover': {
-                    backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#C7CAE3',
-                  },
-                }}
-              />
-              <Chip
-                label="Events"
-                onClick={() => handleTypeFilter('events')}
-                sx={{
-                  backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#E9EAF4',
-                  color: selectedTypes.includes('events') ? '#FFFFFF' : '#656CAF',
-                  fontFamily: 'Roboto',
-                  fontWeight: 400,
-                  fontSize: 24,
-                  lineHeight: '28px',
-                  letterSpacing: '0.01em',
-                  height: 'auto',
-                  px: 1.5,
-                  py: 1,
-                  borderRadius: '8px',
-                  '&:hover': {
-                    backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#C7CAE3',
-                  },
-                }}
-              />
-              </Stack>
+                {sizeRanges.map((range) => (
+                  <Chip
+                    key={range.label}
+                    label={range.label}
+                    onClick={() => handleSizeFilter(range.label)}
+                    sx={{
+                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#E9EAF4',
+                      color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#656CAF',
+                      fontFamily: 'Roboto',
+                      fontWeight: 400,
+                      fontSize: 24,
+                      lineHeight: '28px',
+                      letterSpacing: '0.01em',
+                      height: 'auto',
+                      px: 1.5,
+                      py: 1,
+                      borderRadius: '8px',
+                      flexShrink: 0,
+                      '&:hover': {
+                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#C7CAE3',
+                      },
+                    }}
+                  />
+                ))}
+                <Chip
+                  label="Double-Deckers"
+                  onClick={() => handleTypeFilter('double-decker')}
+                  sx={{
+                    backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#656CAF',
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: 24,
+                    lineHeight: '28px',
+                    letterSpacing: '0.01em',
+                    height: 'auto',
+                    px: 1.5,
+                    py: 1,
+                    borderRadius: '8px',
+                    flexShrink: 0,
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#C7CAE3',
+                    },
+                  }}
+                />
+                <Chip
+                  label="Events"
+                  onClick={() => handleTypeFilter('events')}
+                  sx={{
+                    backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('events') ? '#FFFFFF' : '#656CAF',
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: 24,
+                    lineHeight: '28px',
+                    letterSpacing: '0.01em',
+                    height: 'auto',
+                    px: 1.5,
+                    py: 1,
+                    borderRadius: '8px',
+                    flexShrink: 0,
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#C7CAE3',
+                    },
+                  }}
+                />
+              </Box>
             )}
           </Box>
 
