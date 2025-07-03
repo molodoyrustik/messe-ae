@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { Article } from '@/components/ArticleCard';
+import LinkedInNotification from '@/components/LinkedInNotification';
 
 interface ArticleData {
   slug: string;
@@ -37,6 +38,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
+      <LinkedInNotification />
       
       {/* Hero Section */}
       <Box
@@ -338,6 +340,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-start' },
             mt: { xs: '3rem', md: '3.75rem' },
+            px: { xs: '1rem', md: '2.5rem' },
           }}
         >
           <Button
