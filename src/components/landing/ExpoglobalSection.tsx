@@ -28,8 +28,6 @@ const ExpoglobalSection = () => {
             gap: { xs: 4, md: '20px' },
             alignItems: 'flex-start',
             flexDirection: { xs: 'column', md: 'unset' },
-            maxWidth: '1360px',
-            mx: 'auto',
           }}
         >
           {/* Expoglobal Logo */}
