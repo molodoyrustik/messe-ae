@@ -14,12 +14,12 @@ import FooterSection from '@/components/landing/FooterSection';
 import DownloadIcon from '@/components/icons/DownloadIcon';
 
 const manifestos = [
-  { title: 'Quality Policy' },
-  { title: 'Health and safety Policy' },
-  { title: 'Environment Policy' },
-  { title: 'Worker welfare commitment' },
-  { title: 'Anti-corruption Policy' },
-  { title: 'Environment Audit' },
+  { title: 'Quality Policy', file: null },
+  { title: 'Health and safety Policy', file: '/manifestos/Health and Safety Policy Statement.pdf' },
+  { title: 'Environment Policy', file: '/manifestos/Environmental Policy Statement.pdf' },
+  { title: 'Worker welfare commitment', file: '/manifestos/Worker Welfare Commitment.pdf' },
+  { title: 'Anti-corruption Policy', file: '/manifestos/Anticorruption Policy Statement.pdf' },
+  { title: 'Environment Audit', file: null },
 ];
 
 
@@ -92,16 +92,25 @@ export default function ManifestosPage() {
                   <Button
                     variant="text"
                     endIcon={<DownloadIcon />}
+                    component={manifesto.file ? 'a' : 'button'}
+                    href={manifesto.file || undefined}
+                    download={manifesto.file ? true : undefined}
+                    target={manifesto.file ? '_blank' : undefined}
+                    disabled={!manifesto.file}
                     sx={{
                       justifyContent: 'flex-start',
                       p: 0,
                       fontSize: '12px',
                       lineHeight: '16px',
                       letterSpacing: '0.04em',
-                      color: 'primary.main',
+                      color: manifesto.file ? 'primary.main' : 'grey.400',
                       textTransform: 'none',
+                      textDecoration: 'none',
                       '&:hover': {
                         backgroundColor: 'transparent'
+                      },
+                      '&.Mui-disabled': {
+                        color: 'grey.400'
                       },
                       '& .MuiButton-endIcon': {
                         ml: '4px',
@@ -122,7 +131,7 @@ export default function ManifestosPage() {
             <Box 
               sx={{ 
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, minmax(0, 27rem))',
+                gridTemplateColumns: 'repeat(3, minmax(280px, 1fr))',
                 gap: 4,
                 justifyContent: 'start'
               }}
@@ -140,8 +149,7 @@ export default function ManifestosPage() {
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                     gap: '1.5rem',
-                    width: '27rem',
-                    flexShrink: 0
+                    minWidth: '280px'
                   }}
                 >
                   <Typography
@@ -160,6 +168,11 @@ export default function ManifestosPage() {
                   <Button
                     variant="text"
                     endIcon={<DownloadIcon />}
+                    component={manifesto.file ? 'a' : 'button'}
+                    href={manifesto.file || undefined}
+                    download={manifesto.file ? true : undefined}
+                    target={manifesto.file ? '_blank' : undefined}
+                    disabled={!manifesto.file}
                     sx={{
                       justifyContent: 'flex-start',
                       p: '4px 5px',
@@ -167,10 +180,14 @@ export default function ManifestosPage() {
                       fontSize: '16px',
                       lineHeight: '24px',
                       letterSpacing: '0.025em',
-                      color: 'primary.main',
+                      color: manifesto.file ? 'primary.main' : 'grey.400',
                       textTransform: 'none',
+                      textDecoration: 'none',
                       '&:hover': {
                         backgroundColor: 'transparent'
+                      },
+                      '&.Mui-disabled': {
+                        color: 'grey.400'
                       },
                       '& .MuiButton-endIcon': {
                         ml: '8px',
