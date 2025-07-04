@@ -114,19 +114,52 @@ const SocialIcons = () => {
 
   return (
     <Stack direction="row" spacing={1.5} alignItems="center">
-      <IconButton size="small" sx={iconStyle}>
+      <IconButton 
+        component="a"
+        href="https://www.instagram.com/messe.ae/"
+        target="_blank"
+        rel="noopener noreferrer"
+        size="small" 
+        sx={iconStyle}
+      >
         <Instagram sx={{ fontSize: 20 }} />
       </IconButton>
-      <IconButton size="small" sx={iconStyle}>
+      <IconButton 
+        component="a"
+        href="https://www.facebook.com/ExpoGlobalGroup"
+        target="_blank"
+        rel="noopener noreferrer"
+        size="small" 
+        sx={iconStyle}
+      >
         <Facebook sx={{ fontSize: 20 }} />
       </IconButton>
-      <IconButton size="small" sx={iconStyle}>
+      <IconButton 
+        component="a"
+        href="https://www.linkedin.com/company/messe-ae"
+        target="_blank"
+        rel="noopener noreferrer"
+        size="small" 
+        sx={iconStyle}
+      >
         <LinkedIn sx={{ fontSize: 20 }} />
       </IconButton>
-      <IconButton size="small" sx={iconStyle}>
+      <IconButton 
+        component="a"
+        href="https://wa.me/971505588060"
+        target="_blank"
+        rel="noopener noreferrer"
+        size="small" 
+        sx={iconStyle}
+      >
         <WhatsApp sx={{ fontSize: 20 }} />
       </IconButton>
-      <IconButton size="small" sx={iconStyle}>
+      <IconButton 
+        component="a"
+        href="mailto:hello@messe.ae"
+        size="small" 
+        sx={iconStyle}
+      >
         <Email sx={{ fontSize: 20 }} />
       </IconButton>
     </Stack>
@@ -179,7 +212,23 @@ const TopInfoBar = () => {
               }}
             >
               the part of{' '}
-              <Box component="span" sx={{ fontWeight: 700, ml: 0.5 }}>
+              <Box 
+                component="a" 
+                href="https://www.expoglobal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ 
+                  fontWeight: 700, 
+                  ml: 0.5,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                  },
+                  transition: 'color 0.2s ease',
+                }}
+              >
                 Expoglobal Group
               </Box>
             </Typography>
@@ -191,6 +240,8 @@ const TopInfoBar = () => {
 
             {/* Phone Number */}
             <Typography
+              component="a"
+              href="tel:+97145485887"
               sx={{
                 fontSize: 12,
                 fontWeight: 700,
@@ -199,6 +250,12 @@ const TopInfoBar = () => {
                 color: 'grey.900',
                 display: 'flex',
                 alignItems: 'center',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                '&:hover': {
+                  color: '#4C53A2',
+                },
+                transition: 'color 0.2s ease',
               }}
             >
               +971 4 548 5887
@@ -497,7 +554,22 @@ const Header = () => {
               }}
             >
               the part of{' '}
-              <Box component="span" sx={{ fontWeight: 700 }}>
+              <Box 
+                component="a"
+                href="https://www.expoglobal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ 
+                  fontWeight: 700,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    color: '#4C53A2',
+                  },
+                  transition: 'color 0.2s ease',
+                }}
+              >
                 Expoglobal Group
               </Box>
             </Typography>

@@ -75,7 +75,7 @@ const ExpoglobalSection = () => {
               Messe.ae is part of{' '}
               <Box 
                 component={Link}
-                href="#"
+                href="https://expoglobal.group/#about_us"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -93,7 +93,7 @@ const ExpoglobalSection = () => {
               , an international holding based in Belgium, specializing in B2B and B2C markets with customized solutions in the event industry, personalized furniture, and mobile homes. The group includes{' '}
               <Box 
                 component={Link}
-                href="#"
+                href="https://nook-me.com/"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -111,7 +111,7 @@ const ExpoglobalSection = () => {
               {' '}(customized furniture),{' '}
               <Box 
                 component={Link}
-                href="#"
+                href="https://fived.be/#solutions"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -129,7 +129,7 @@ const ExpoglobalSection = () => {
               {' '}(exhibition stands in Europe), messe.ae (exhibition stands in the Middle East), and{' '}
               <Box 
                 component={Link}
-                href="#"
+                href="https://huett.be/"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
