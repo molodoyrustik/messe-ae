@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   Box,
   Container,
@@ -38,23 +39,122 @@ const sizeRanges = [
 export default function ProjectsPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  // Parse URL params on initial load
+  const getInitialFilters = useCallback(() => {
+    const clients = searchParams.get('clients')?.split(',').filter(Boolean) || [];
+    const sizes = searchParams.get('sizes')?.split(',').filter(Boolean) || [];
+    const types = searchParams.get('types')?.split(',').filter(Boolean) || [];
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    
+    return {
+      clients,
+      sizes,
+      types,
+      page,
+    };
+  }, [searchParams]);
+  
+  const initialParams = getInitialFilters();
   
   const [filters, setFilters] = useState<ProjectsFilters>({
-    page: 1,
+    page: initialParams.page,
     pageSize: 12,
   });
-  const [selectedClients, setSelectedClients] = useState<string[]>([]);
-  const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>([]);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedClients, setSelectedClients] = useState<string[]>(initialParams.clients);
+  const [selectedSizeRanges, setSelectedSizeRanges] = useState<string[]>(initialParams.sizes);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>(initialParams.types);
   // const [projectSearchQuery, setProjectSearchQuery] = useState('');
   const [clientSearchQuery, setClientSearchQuery] = useState('');
   
   const [clientsFilterOpen, setClientsFilterOpen] = useState(false);
   const [standSizeFilterOpen, setStandSizeFilterOpen] = useState(false);
   const [combinedFilterOpen, setCombinedFilterOpen] = useState(false);
+  
+  // Update URL when filters change
+  const updateURL = useCallback((params: {
+    clients?: string[];
+    sizes?: string[];
+    types?: string[];
+    page?: number;
+  }) => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    
+    // Update or remove clients param
+    if (params.clients !== undefined) {
+      if (params.clients.length > 0) {
+        newSearchParams.set('clients', params.clients.join(','));
+      } else {
+        newSearchParams.delete('clients');
+      }
+    }
+    
+    // Update or remove sizes param
+    if (params.sizes !== undefined) {
+      if (params.sizes.length > 0) {
+        newSearchParams.set('sizes', params.sizes.join(','));
+      } else {
+        newSearchParams.delete('sizes');
+      }
+    }
+    
+    // Update or remove types param
+    if (params.types !== undefined) {
+      if (params.types.length > 0) {
+        newSearchParams.set('types', params.types.join(','));
+      } else {
+        newSearchParams.delete('types');
+      }
+    }
+    
+    // Update or remove page param
+    if (params.page !== undefined) {
+      if (params.page > 1) {
+        newSearchParams.set('page', params.page.toString());
+      } else {
+        newSearchParams.delete('page');
+      }
+    }
+    
+    const newURL = `${pathname}${newSearchParams.toString() ? `?${newSearchParams.toString()}` : ''}`;
+    router.push(newURL, { scroll: false });
+  }, [searchParams, pathname, router]);
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
   const { data: clientsData } = useClients();
+  
+  // Sync filters with URL params when they're set initially
+  useEffect(() => {
+    const newFilters: ProjectsFilters = {
+      page: initialParams.page,
+      pageSize: 12,
+    };
+    
+    // Add client filter if present
+    if (initialParams.clients.length > 0) {
+      newFilters.clientSlugs = initialParams.clients;
+    }
+    
+    // Add size filter if present
+    if (initialParams.sizes.length > 0) {
+      const ranges = initialParams.sizes
+        .map(label => sizeRanges.find(r => r.label === label))
+        .filter(Boolean);
+      if (ranges.length > 0) {
+        newFilters.sizeRanges = ranges.map(r => r!.value);
+      }
+    }
+    
+    // Add type filter if present
+    if (initialParams.types.length > 0) {
+      newFilters.constructionTypes = initialParams.types;
+    }
+    
+    setFilters(newFilters);
+  }, []); // Only run on mount
   
   // Filter projects by search query
   const filteredProjects = useMemo(() => {
@@ -108,6 +208,7 @@ export default function ProjectsPage() {
         const { clientSlugs, ...rest } = prev;
         return rest;
       });
+      updateURL({ clients: [], page: 1 });
     } else {
       const newClients = selectedClients.includes(clientSlug)
         ? selectedClients.filter(c => c !== clientSlug)
@@ -128,6 +229,7 @@ export default function ProjectsPage() {
           return { ...rest, page: 1 };
         });
       }
+      updateURL({ clients: newClients, page: 1 });
     }
   };
 
@@ -139,6 +241,7 @@ export default function ProjectsPage() {
         const { sizeRanges: _, ...rest } = prev;
         return rest;
       });
+      updateURL({ sizes: [], page: 1 });
     } else {
       const newRanges = selectedSizeRanges.includes(rangeLabel)
         ? selectedSizeRanges.filter(r => r !== rangeLabel)
@@ -163,6 +266,7 @@ export default function ProjectsPage() {
           return { ...rest, page: 1 };
         });
       }
+      updateURL({ sizes: newRanges, page: 1 });
     }
   };
 
@@ -174,6 +278,7 @@ export default function ProjectsPage() {
         const { constructionTypes, ...rest } = prev;
         return rest;
       });
+      updateURL({ types: [], page: 1 });
     } else {
       const newTypes = selectedTypes.includes(type)
         ? selectedTypes.filter(t => t !== type)
@@ -194,6 +299,7 @@ export default function ProjectsPage() {
           return { ...rest, page: 1 };
         });
       }
+      updateURL({ types: newTypes, page: 1 });
     }
   };
 
@@ -202,6 +308,7 @@ export default function ProjectsPage() {
     setSelectedSizeRanges([]);
     setSelectedTypes([]);
     setFilters({ page: 1, pageSize: 12 });
+    updateURL({ clients: [], sizes: [], types: [], page: 1 });
   };
 
   return (
@@ -592,8 +699,14 @@ export default function ProjectsPage() {
                 <Chip
                   label="All"
                   onClick={() => {
-                    handleSizeFilter(null);
-                    handleTypeFilter(null);
+                    setSelectedSizeRanges([]);
+                    setSelectedTypes([]);
+                    setFilters(prev => {
+                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                      const { sizeRanges: _, constructionTypes: __, ...rest } = prev;
+                      return { ...rest, page: 1 };
+                    });
+                    updateURL({ sizes: [], types: [], page: 1 });
                   }}
                   sx={{
                     backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
@@ -732,7 +845,11 @@ export default function ProjectsPage() {
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, gap: 2 }}>
               <Button
                 variant="outlined"
-                onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, (prev.page || 1) - 1) }))}
+                onClick={() => {
+                  const newPage = Math.max(1, (filters.page || 1) - 1);
+                  setFilters(prev => ({ ...prev, page: newPage }));
+                  updateURL({ page: newPage });
+                }}
                 disabled={filters.page === 1 || projectsLoading}
                 sx={{
                   color: '#656CAF',
@@ -775,7 +892,11 @@ export default function ProjectsPage() {
               
               <Button
                 variant="outlined"
-                onClick={() => setFilters(prev => ({ ...prev, page: Math.min(projectsData.meta.pagination.pageCount, (prev.page || 1) + 1) }))}
+                onClick={() => {
+                  const newPage = Math.min(projectsData.meta.pagination.pageCount, (filters.page || 1) + 1);
+                  setFilters(prev => ({ ...prev, page: newPage }));
+                  updateURL({ page: newPage });
+                }}
                 disabled={filters.page === projectsData.meta.pagination.pageCount || projectsLoading}
                 sx={{
                   color: '#656CAF',

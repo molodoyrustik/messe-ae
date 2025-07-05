@@ -1,70 +1,78 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Box,
   Container,
   Typography,
   Button,
+  Skeleton,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
+import { useProjects } from '@/hooks/use-projects';
+import { Project } from '@/types/api';
 
-// Project categories data
-const projectCategories = [
+// Helper function to get full image URL
+const getImageUrl = (url: string) => {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  // For Strapi images that come with relative paths
+  return `https://lovely-idea-e9a72cf425.strapiapp.com${url}`;
+};
+
+// Project categories configuration
+const projectCategoriesConfig = [
   {
     id: 'small',
     title: '< 100 m',
     subtitle: '²',
     slug: 'under-100',
-    projects: [
-      { id: 1, image: '/projects/project-small.jpg', name: 'Belgium Pavilion' },
-      { id: 2, image: '/projects/project-medium.jpg', name: 'Tech Expo Stand' },
-      { id: 3, image: '/projects/project-large.jpg', name: 'Innovation Hub' },
-    ],
+    filterUrl: '/projects?sizes=< 50 m²,50 - 100 m²',
   },
   {
     id: 'medium',
     title: '100 m - 300 m',
     subtitle: '²',
     slug: '100-300',
-    projects: [
-      { id: 4, image: '/projects/project-medium.jpg', name: 'Energy Summit' },
-      { id: 5, image: '/projects/project-large.jpg', name: 'Auto Show 2023' },
-      { id: 6, image: '/projects/project-small.jpg', name: 'Digital Forum' },
-    ],
+    filterUrl: '/projects?sizes=101 - 300 m²',
   },
   {
     id: 'large',
     title: '> 300 m',
     subtitle: '²',
     slug: 'over-300',
-    projects: [
-      { id: 7, image: '/projects/project-large.jpg', name: 'World Expo Pavilion' },
-      { id: 8, image: '/projects/project-double.jpg', name: 'Corporate Showcase' },
-      { id: 9, image: '/projects/project-medium.jpg', name: 'Industry 4.0' },
-    ],
+    filterUrl: '/projects?sizes=> 300 m²',
   },
   {
     id: 'double',
     title: 'Double-deckers',
     subtitle: '',
     slug: 'double-deckers',
-    projects: [
-      { id: 10, image: '/projects/project-double.jpg', name: 'Two-Story Pavilion' },
-      { id: 11, image: '/projects/project-small.jpg', name: 'Executive Lounge' },
-      { id: 12, image: '/projects/project-large.jpg', name: 'VIP Experience' },
-    ],
+    filterUrl: '/projects?types=double-decker',
   },
 ];
 
+// Category type definition
+interface ProjectCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  slug: string;
+  filterUrl: string;
+  projects: Project[];
+}
+
 // Project Card Component
-const ProjectCard = ({ category, currentIndex, onNavigate }: {
-  category: typeof projectCategories[0];
+const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
+  category: ProjectCategory;
   currentIndex: number;
   onNavigate: (direction: 'prev' | 'next') => void;
+  isLoading?: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -104,30 +112,67 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
         }}
       >
       {/* Background Images with Slide Animation */}
-      <Link href={`/projects/${category.slug}`} style={{ position: 'absolute', inset: 0 }}>
-        {category.projects.map((project, index) => (
+      <Link href={category.filterUrl} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+        {isLoading ? (
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+        ) : category.projects.length > 0 ? (
+          category.projects.slice(0, 3).map((project, index) => (
+            <Box
+              key={project.id}
+              sx={{
+                position: 'absolute',
+                inset: 0,
+                opacity: index === currentIndex ? 1 : 0,
+                transform: `translateX(${(index - currentIndex) * 100}%)`,
+                transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
+              }}
+            >
+              {project.images && project.images.length > 0 ? (
+                <Image
+                  src={getImageUrl(project.images[0].url)}
+                  alt={project.title || 'Project image'}
+                  fill
+                  priority={index === 0}
+                  sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: '#E0E0E0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h6" color="text.secondary">
+                    {project.title}
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+          ))
+        ) : (
           <Box
-            key={project.id}
             sx={{
-              position: 'absolute',
-              inset: 0,
-              opacity: index === currentIndex ? 1 : 0,
-              transform: `translateX(${(index - currentIndex) * 100}%)`,
-              transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
+              width: '100%',
+              height: '100%',
+              backgroundColor: '#E0E0E0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <Image
-              src={project.image}
-              alt={project.name}
-              fill
-              sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
-              style={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-            />
+            <Typography variant="h6" color="text.secondary">
+              No projects
+            </Typography>
           </Box>
-        ))}
+        )}
       </Link>
 
       {/* Title */}
@@ -141,7 +186,8 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
           lineHeight: { xs: '24px', md: '40px' },
           letterSpacing: { xs: '0.02em', md: '-0.02em' },
           color: '#FFFFFF',
-          zIndex: 2,
+          zIndex: 4,
+          pointerEvents: 'none',
         }}
       >
         {category.title}
@@ -188,51 +234,57 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
       </Box>
       
       {/* Navigation Buttons - Outside the scaling container */}
-      <Box
-        onClick={(e) => {
-          e.stopPropagation();
-          onNavigate('prev');
-        }}
-        sx={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '48px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 3,
-        }}
-      >
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <path d="M30 36L18 24L30 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </Box>
+      {category.projects.length > 1 && (
+      <>
+        <Box
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('prev');
+          }}
+          sx={{
+            position: 'absolute',
+            left: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: 3,
+          }}
+        >
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M30 36L18 24L30 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </Box>
 
-      <Box
-        onClick={(e) => {
-          e.stopPropagation();
-          onNavigate('next');
-        }}
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: '48px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 3,
-        }}
-      >
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <path d="M18 36L30 24L18 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </Box>
+        <Box
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('next');
+          }}
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: 3,
+          }}
+        >
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M18 36L30 24L18 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </Box>
+      </>
+      )}
     </Box>
   );
 };
@@ -240,18 +292,61 @@ const ProjectCard = ({ category, currentIndex, onNavigate }: {
 const ProjectsSection = () => {
   // Track current project index for each category
   const [currentIndices, setCurrentIndices] = useState<Record<string, number>>(
-    projectCategories.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
+    projectCategoriesConfig.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
   );
   
   // Modal state from context
   const { isModalOpen, setModalOpen } = useMobileMenu();
+  
+  // Fetch projects from API
+  const { data: projectsData, isLoading } = useProjects({ pageSize: 50 });
+  
+  // Group projects by category
+  const categorizedProjects = useMemo(() => {
+    if (!projectsData?.data) return {};
+    
+    const projects = projectsData.data;
+    const categorized: Record<string, Project[]> = {
+      small: [],
+      medium: [],
+      large: [],
+      double: [],
+    };
+    
+    projects.forEach(project => {
+      // Check if it's a double-decker
+      if (project.constructionType === 'double-decker') {
+        categorized.double.push(project);
+      } else {
+        // Categorize by size
+        const size = project.totalSize;
+        if (size < 100) {
+          categorized.small.push(project);
+        } else if (size >= 100 && size <= 300) {
+          categorized.medium.push(project);
+        } else if (size > 300) {
+          categorized.large.push(project);
+        }
+      }
+    });
+    
+    return categorized;
+  }, [projectsData]);
+
+  // Create categories with real project data
+  const projectCategories = useMemo(() => {
+    return projectCategoriesConfig.map(config => ({
+      ...config,
+      projects: categorizedProjects[config.id] || [],
+    }));
+  }, [categorizedProjects]);
 
   const handleNavigate = (categoryId: string, direction: 'prev' | 'next') => {
     const category = projectCategories.find(cat => cat.id === categoryId);
     if (!category) return;
 
     const currentIndex = currentIndices[categoryId];
-    const projectCount = category.projects.length;
+    const projectCount = Math.min(category.projects.length, 3); // Max 3 projects per category
     let newIndex = currentIndex;
 
     if (direction === 'next') {
@@ -303,6 +398,7 @@ const ProjectsSection = () => {
               category={category}
               currentIndex={currentIndices[category.id] || 0}
               onNavigate={(direction) => handleNavigate(category.id, direction)}
+              isLoading={isLoading}
             />
           ))}
         </Box>
@@ -336,6 +432,7 @@ const ProjectsSection = () => {
               category={category}
               currentIndex={currentIndices[category.id] || 0}
               onNavigate={(direction) => handleNavigate(category.id, direction)}
+              isLoading={isLoading}
             />
           </Box>
         ))}
