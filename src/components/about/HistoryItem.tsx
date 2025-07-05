@@ -68,10 +68,11 @@ export default function HistoryItem({ img, html, year, index, arrowWidth = 0, ar
                 }}
             >
                 <Image
-                    src={`/about/history/${img}.jpg`} 
+                    src={`/about/history/${img}.png`} 
                     alt={img}
                     width={50}
                     height={164}
+                    quality={100}
                     style={{
                         width: '100%',
                         height: '100%',
@@ -98,6 +99,7 @@ export default function HistoryItem({ img, html, year, index, arrowWidth = 0, ar
                 overflow: 'visible',
                 zIndex: 100,
             }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 {index < 2 && (isMobile ? <img 
                     style={{
                         position: 'absolute',
@@ -110,6 +112,7 @@ export default function HistoryItem({ img, html, year, index, arrowWidth = 0, ar
                     }}
                     src='about/icons/arrowDown.svg' 
                     alt=""
+                // eslint-disable-next-line @next/next/no-img-element
                 /> : <img 
                     style={{
                         position: 'absolute',

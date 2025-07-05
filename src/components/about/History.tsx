@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import HistoryItem from "./HistoryItem";
@@ -123,6 +124,7 @@ export default function History() {
     return (
         <Box ref={containerRef} sx={{ position: 'relative', width: '100%' }}>
             {arrowStyle && (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                     ref={arrowImgRef}
                     src="/about/icons/arrowSystem.svg"
@@ -144,20 +146,23 @@ export default function History() {
                 />
             )}
             {vertArrowStyle && (
-                <img
-                    ref={vertArrowRef}
-                    src="/about/icons/arrowSystemVert.svg"
-                    alt=""
-                    style={{
-                        position: 'absolute',
-                        right: vertArrowStyle.right,
-                        top: vertArrowStyle.top,
-                        height: vertArrowStyle.height,
-                        width: 9,
-                        pointerEvents: 'none',
-                        zIndex: 2,
-                    }}
-                />
+                <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        ref={vertArrowRef}
+                        src="/about/icons/arrowSystemVert.svg"
+                        alt=""
+                        style={{
+                            position: 'absolute',
+                            right: vertArrowStyle.right,
+                            top: vertArrowStyle.top,
+                            height: vertArrowStyle.height,
+                            width: 9,
+                            pointerEvents: 'none',
+                            zIndex: 2,
+                        }}
+                    />
+                </Box>
             )}
             <Grid container spacing={4} rowSpacing={{xs: '22px', md: arrowHeight + 'px'}}>
                 {historyItems.map((historyItem, index) => {
