@@ -1,4 +1,5 @@
 import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Image from "next/image";
 
 interface IServiceCard {
     img: string,
@@ -20,18 +21,24 @@ export default function ServiceCard(card: IServiceCard) {
         gap: { xs: 1, md: 4 },
         boxShadow: 'none',
     }}>
-        <img 
-            src={`/about/services/${img}.jpg`} 
-            alt={title}
-            style={isMobile ? {
-                width: '100%',
-                height: '100%',
-            } : {
-                flex: 1,
-                width: 0,
-                borderRadius: 8,
-            }}
-        />
+        <Box sx={{
+            flex: 1,
+            position: 'relative',
+            minHeight: { xs: 200, md: 300 },
+            width: isMobile ? '100%' : 0,
+            borderRadius: isMobile ? 0 : 1,
+            overflow: 'hidden',
+        }}>
+            <Image
+                src={`/about/services/${img}.jpg`} 
+                alt={title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{
+                    objectFit: 'cover',
+                }}
+            />
+        </Box>
         <Box sx={{
             flex: 1,
             display: 'flex',
