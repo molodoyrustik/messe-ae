@@ -176,60 +176,85 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
       </Link>
 
       {/* Title */}
-      <Typography
+      <Box
         sx={{
           position: 'absolute',
           top: { xs: '12px', md: '20px' },
           left: { xs: '12px', md: '20px' },
-          fontSize: { xs: '16px', md: '36px' },
-          fontWeight: 700,
-          lineHeight: { xs: '24px', md: '40px' },
-          letterSpacing: { xs: '0.02em', md: '-0.02em' },
-          color: '#FFFFFF',
           zIndex: 4,
           pointerEvents: 'none',
         }}
       >
-        {category.title}
-        {category.subtitle && (
+        <Typography
+          sx={{
+            fontSize: { xs: '16px', md: '36px' },
+            fontWeight: 700,
+            lineHeight: { xs: '24px', md: '40px' },
+            letterSpacing: { xs: '0.02em', md: '-0.02em' },
+            color: '#FFFFFF',
+          }}
+        >
+          {category.title}
+          {category.subtitle && (
+            <Typography
+              component="sup"
+              sx={{
+                fontSize: { xs: '10px', md: '20px' },
+                verticalAlign: 'super',
+              }}
+            >
+              {category.subtitle}
+            </Typography>
+          )}
+        </Typography>
+        {/* Debug info */}
+        {category.projects.length > 0 && (
           <Typography
-            component="sup"
             sx={{
-              fontSize: { xs: '10px', md: '20px' },
-              verticalAlign: 'super',
+              fontSize: '12px',
+              color: '#FFFFFF',
+              mt: 0.5,
+              opacity: 0.8,
             }}
           >
-            {category.subtitle}
+            {category.projects.length} projects
+            {category.projects[currentIndex] && (
+              <> • {category.projects[currentIndex].title}</>
+            )}
           </Typography>
         )}
-      </Typography>
+      </Box>
 
       {/* Progress Indicators */}
-       {/* <Box
-        sx={{
-          position: 'absolute',
-          bottom: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: '8px',
-          zIndex: 2,
-        }}
-      >
-        {category.projects.map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              backgroundColor: '#FFFFFF',
-              opacity: index === currentIndex ? 1 : 0.4,
-              transition: 'opacity 0.3s ease',
-            }}
-          />
-        ))}
-      </Box>  */}
+      {category.projects.length > 1 && (
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            gap: '8px',
+            zIndex: 4,
+            pointerEvents: 'none',
+          }}
+        >
+          {category.projects.slice(0, 3).map((_, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: '#FFFFFF',
+                opacity: index === currentIndex ? 1 : 0.4,
+                transition: 'opacity 0.3s ease',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+              }}
+            />
+          ))}
+        </Box>
+      )}
 
       </Box>
       
@@ -314,6 +339,18 @@ const ProjectsSection = () => {
     };
     
     projects.forEach(project => {
+      // Debug logging
+      // console.log('Project:', {
+      //   title: project.title,
+      //   totalSize: project.totalSize,
+      //   constructionType: project.constructionType,
+      //   images: project.images?.map(img => ({
+      //     url: img.url,
+      //     alternativeText: img.alternativeText,
+      //     formats: img.formats ? Object.keys(img.formats) : []
+      //   }))
+      // });
+      
       // Check if it's a double-decker
       if (project.constructionType === 'double-decker') {
         categorized.double.push(project);
@@ -329,6 +366,13 @@ const ProjectsSection = () => {
         }
       }
     });
+    
+    // console.log('Categorized projects:', {
+    //   small: categorized.small.length,
+    //   medium: categorized.medium.length,
+    //   large: categorized.large.length,
+    //   double: categorized.double.length,
+    // });
     
     return categorized;
   }, [projectsData]);
