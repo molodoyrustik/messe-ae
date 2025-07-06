@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import ThemeProvider from '@/components/ThemeProvider';
 import QueryProvider from '@/components/QueryProvider';
 import EmotionRegistry from '@/lib/emotion-registry';
@@ -68,12 +68,13 @@ export const metadata: Metadata = {
     google: 'google-site-verification-code', // Add your Google verification code
     yandex: 'yandex-verification-code', // Add if needed
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
   category: 'business',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
