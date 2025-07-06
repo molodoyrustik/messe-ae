@@ -6,13 +6,11 @@ import {
   Container,
   Typography,
   Button,
-  Skeleton,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
-import { useProjects } from '@/hooks/use-projects';
 import { Project } from '@/types/api';
 
 // Helper function to get full image URL
@@ -68,11 +66,10 @@ interface ProjectCategory {
 }
 
 // Project Card Component
-const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
+const ProjectCard = ({ category, currentIndex, onNavigate }: {
   category: ProjectCategory;
   currentIndex: number;
   onNavigate: (direction: 'prev' | 'next') => void;
-  isLoading?: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -113,30 +110,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
       >
       {/* Background Images with Slide Animation */}
       <Link href={category.filterUrl} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-        {isLoading ? (
-          <Skeleton 
-            variant="rectangular" 
-            width="100%" 
-            height="100%" 
-            sx={{ 
-              bgcolor: '#E0E0E0',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: '-100%',
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-                animation: 'shimmer 2s infinite',
-              },
-              '@keyframes shimmer': {
-                '0%': { left: '-100%' },
-                '100%': { left: '100%' },
-              },
-            }} 
-          />
-        ) : category.projects.length > 0 ? (
+        {category.projects.length > 0 ? (
           category.projects.slice(0, 3).map((project, index) => (
             <Box
               key={project.id}
@@ -206,26 +180,6 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
           pointerEvents: 'none',
         }}
       >
-        {isLoading ? (
-          <Box>
-            <Skeleton 
-              width={200} 
-              height={40}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                display: { xs: 'none', md: 'block' }
-              }}
-            />
-            <Skeleton 
-              width={100} 
-              height={24}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                display: { xs: 'block', md: 'none' }
-              }}
-            />
-          </Box>
-        ) : (
         <Typography
           sx={{
             fontSize: { xs: '16px', md: '36px' },
@@ -248,27 +202,10 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
             </Typography>
           )}
         </Typography>
-        )}
-        {/* Debug info */}
-        {!isLoading && category.projects.length > 0 && (
-          <Typography
-            sx={{
-              fontSize: '12px',
-              color: '#FFFFFF',
-              mt: 0.5,
-              opacity: 0.8,
-            }}
-          >
-            {category.projects.length} projects
-            {category.projects[currentIndex] && (
-              <> • {category.projects[currentIndex].title}</>
-            )}
-          </Typography>
-        )}
       </Box>
 
       {/* Progress Indicators */}
-      {!isLoading && category.projects.length > 1 && (
+      {category.projects.length > 1 && (
         <Box
           sx={{
             position: 'absolute',
@@ -300,37 +237,8 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
 
       </Box>
       
-      {/* Skeleton Progress Indicators for Loading State */}
-      {isLoading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: '8px',
-            zIndex: 4,
-            pointerEvents: 'none',
-          }}
-        >
-          {[0, 1, 2].map((index) => (
-            <Skeleton
-              key={index}
-              variant="circular"
-              width={8}
-              height={8}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                animation: `pulse 1.5s ease-in-out ${index * 0.2}s infinite`
-              }}
-            />
-          ))}
-        </Box>
-      )}
-      
       {/* Navigation Buttons - Outside the scaling container */}
-      {!isLoading && category.projects.length > 1 && (
+      {category.projects.length > 1 && (
       <>
         <Box
           onClick={(e) => {
@@ -385,7 +293,11 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
   );
 };
 
-const ProjectsSection = () => {
+interface ProjectsSectionClientProps {
+  projects: Project[];
+}
+
+const ProjectsSectionClient = ({ projects }: ProjectsSectionClientProps) => {
   // Track current project index for each category
   const [currentIndices, setCurrentIndices] = useState<Record<string, number>>(
     projectCategoriesConfig.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
@@ -394,14 +306,8 @@ const ProjectsSection = () => {
   // Modal state from context
   const { isModalOpen, setModalOpen } = useMobileMenu();
   
-  // Fetch projects from API
-  const { data: projectsData, isLoading } = useProjects({ pageSize: 50 });
-  
   // Group projects by category
   const categorizedProjects = useMemo(() => {
-    if (!projectsData?.data) return {};
-    
-    const projects = projectsData.data;
     const categorized: Record<string, Project[]> = {
       small: [],
       medium: [],
@@ -410,18 +316,6 @@ const ProjectsSection = () => {
     };
     
     projects.forEach(project => {
-      // Debug logging
-      // console.log('Project:', {
-      //   title: project.title,
-      //   totalSize: project.totalSize,
-      //   constructionType: project.constructionType,
-      //   images: project.images?.map(img => ({
-      //     url: img.url,
-      //     alternativeText: img.alternativeText,
-      //     formats: img.formats ? Object.keys(img.formats) : []
-      //   }))
-      // });
-      
       // Check if it's a double-decker
       if (project.constructionType === 'double-decker') {
         categorized.double.push(project);
@@ -438,15 +332,8 @@ const ProjectsSection = () => {
       }
     });
     
-    // console.log('Categorized projects:', {
-    //   small: categorized.small.length,
-    //   medium: categorized.medium.length,
-    //   large: categorized.large.length,
-    //   double: categorized.double.length,
-    // });
-    
     return categorized;
-  }, [projectsData]);
+  }, [projects]);
 
   // Create categories with real project data
   const projectCategories = useMemo(() => {
@@ -514,7 +401,6 @@ const ProjectsSection = () => {
               category={category}
               currentIndex={currentIndices[category.id] || 0}
               onNavigate={(direction) => handleNavigate(category.id, direction)}
-              isLoading={isLoading}
             />
           ))}
         </Box>
@@ -548,7 +434,6 @@ const ProjectsSection = () => {
               category={category}
               currentIndex={currentIndices[category.id] || 0}
               onNavigate={(direction) => handleNavigate(category.id, direction)}
-              isLoading={isLoading}
             />
           </Box>
         ))}
@@ -629,4 +514,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection; 
+export default ProjectsSectionClient;

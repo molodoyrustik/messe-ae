@@ -14,12 +14,12 @@ import FooterSection from '@/components/landing/FooterSection';
 import DownloadIcon from '@/components/icons/DownloadIcon';
 
 const manifestos = [
-  { title: 'Quality Policy', file: null },
+  // { title: 'Quality Policy', file: null },
   { title: 'Health and safety Policy', file: '/manifestos/Health and Safety Policy Statement.pdf' },
   { title: 'Environment Policy', file: '/manifestos/Environmental Policy Statement.pdf' },
   { title: 'Worker welfare commitment', file: '/manifestos/Worker Welfare Commitment.pdf' },
   { title: 'Anti-corruption Policy', file: '/manifestos/Anticorruption Policy Statement.pdf' },
-  { title: 'Environment Audit', file: null },
+  // { title: 'Environment Audit', file: null },
 ];
 
 

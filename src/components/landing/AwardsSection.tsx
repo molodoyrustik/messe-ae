@@ -313,6 +313,7 @@ const AwardsSection = () => {
 
   return (
     <Box
+      component="section"
       sx={{
         pt: { xs: 4, md: 0 },
         pb: { xs: 4, md: '6.25rem' },

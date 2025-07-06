@@ -117,6 +117,7 @@ const HeroSection = () => {
         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
           {/* Main Title */}
           <Typography
+            variant="h1"
             sx={{
               position: 'absolute',
               left: '2.5rem',
@@ -254,6 +255,7 @@ const HeroSection = () => {
         >
           {/* Main Title - Mobile */}
           <Typography
+            variant="h1"
             sx={{
               fontSize: '24px',
               fontWeight: 700,

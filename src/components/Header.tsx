@@ -289,6 +289,7 @@ const Header = () => {
   
   return (
     <Box
+      component="header"
       sx={{
         position: 'sticky',
         top: 0,
