@@ -313,6 +313,7 @@ const ClientsSection = () => {
 
   return (
     <Box
+      component="section"
       sx={{
         pt: { xs: '2.5rem', md: 8 }, // Mobile: 2.5rem, Desktop: 8 (64px)
         pb: { xs: 0, md: 8 }, // Mobile: 0, Desktop: 8 (64px)
@@ -332,7 +333,6 @@ const ClientsSection = () => {
         >
           <Typography
             variant="h4"
-            component="div"
             sx={{
               fontSize: { xs: '0.75rem', md: 36 }, // Mobile: 0.75rem (12px), Desktop: 36px
               fontStyle: 'normal',

@@ -93,6 +93,7 @@ const FooterSection = () => {
 
   return (
     <Box
+      component="footer"
       id="footer-section"
       sx={{
         backgroundColor: '#F5F5F5',

@@ -14,6 +14,7 @@ import Image from 'next/image';
 const ExpoglobalSection = () => {
   return (
     <Box
+      component="section"
       sx={{
         pt: { xs: 6, md: 0 },
         pb: { xs: 6, md: '3.75rem' },
