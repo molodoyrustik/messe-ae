@@ -73,7 +73,7 @@ const ExpoglobalSection = () => {
               Messe.ae is part of{' '}
               <Box 
                 component="a"
-                href="https://expoglobal.group/#about_us"
+                href="https://expoglobal.group/#about_us?utm_source=messe.ae"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
@@ -183,7 +183,7 @@ const ExpoglobalSection = () => {
 
             <Button
               component="a"
-              href="https://expoglobal.group/?utm_source=messe.ae"
+              href="https://expoglobal.group/#about_us?utm_source=messe.ae"
               target="_blank"
               rel="noopener noreferrer"
               variant="text"
