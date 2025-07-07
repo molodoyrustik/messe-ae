@@ -296,6 +296,28 @@ export default function ProjectsPageContent() {
             >
               Our Projects
             </Typography>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+                fontWeight: 400,
+                lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                letterSpacing: '0.02rem',
+                color: '#000',
+                mt: { xs: 0.5, md: 0.75 },
+                maxWidth: '1359px',
+              }}
+            >
+              With 20 years of experience, messe.ae has successfully completed over 4,000 projects worldwide. As one of the leading{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand builders in UAE
+              </Box>
+              , we deliver premium{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand designs in Dubai and beyond
+              </Box>
+              . From tailored exhibition stands to creative display stand exhibition solutions, we bring innovation, quality, and expertise to every project. Recognized among top exhibitions companies in Dubai, messe.ae is your trusted exhibition stand contractor for outstanding exhibition design stand and impactful global presence.
+            </Typography>
             {hasActiveFilters && (
               <Typography
                 sx={{
@@ -352,23 +374,7 @@ export default function ProjectsPageContent() {
         
         {/* Desktop Filter Section */}
         {!isMobile && (
-          <Box sx={{ mb: 4 }}>
-            {/* Filters Title */}
-            <Typography
-              sx={{
-                color: '#000',
-                fontFamily: 'Roboto',
-                fontSize: '1.5rem',
-                fontStyle: 'normal',
-                fontWeight: 700,
-                lineHeight: '1.75rem',
-                letterSpacing: '0.015rem',
-                mb: 3,
-              }}
-            >
-              Filters
-            </Typography>
-            
+          <Box sx={{ mb: 4, mt: 4 }}>
             {/* Client Filters */}
             <Box sx={{ mb: 3 }}>
               <Typography
