@@ -160,11 +160,10 @@ export default function ProjectsPageContent() {
   // Filter clients by search query for desktop
   const filteredClientsForChips = useMemo(() => {
     if (!clientsData?.data) return [];
-    if (!clientSearchQuery) return clientsData.data.slice(0, 9);
+    if (!clientSearchQuery) return clientsData.data;
     
     return clientsData.data
-      .filter(client => client.name.toLowerCase().includes(clientSearchQuery.toLowerCase()))
-      .slice(0, 9);
+      .filter(client => client.name.toLowerCase().includes(clientSearchQuery.toLowerCase()));
   }, [clientsData, clientSearchQuery]);
   
   const hasActiveFilters = useMemo(() => {
@@ -351,19 +350,94 @@ export default function ProjectsPageContent() {
         {/* Desktop Filter Section */}
         {!isMobile && (
           <Box sx={{ mb: 4 }}>
-            {/* Client Section with Search */}
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                <Typography sx={{ fontSize: 16, fontWeight: 700, color: '#262626' }}>
-                  Clients
-                </Typography>
+            {/* Filters Title */}
+            <Typography
+              sx={{
+                color: '#000',
+                fontFamily: 'Roboto',
+                fontSize: '1.5rem',
+                fontStyle: 'normal',
+                fontWeight: 700,
+                lineHeight: '1.75rem',
+                letterSpacing: '0.015rem',
+                mb: 2,
+              }}
+            >
+              Filters
+            </Typography>
+            
+            {/* Client Filters with Horizontal Scroll */}
+            <Box sx={{ mb: 3, position: 'relative' }}>
+              <Box 
+                sx={{ 
+                  display: 'flex',
+                  gap: 1,
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
+                  pb: 1,
+                  pr: '200px', // Space for search field
+                  '&::-webkit-scrollbar': {
+                    height: '4px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: 'transparent',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#E0E0E0',
+                    borderRadius: '2px',
+                  },
+                }}
+              >
+                {filteredClientsForChips.map((client) => (
+                  <Chip
+                    key={client.id}
+                    label={client.name}
+                    onClick={() => handleClientToggle(client.slug)}
+                    sx={{
+                      backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#F5F5F5',
+                      color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#262626',
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      fontWeight: 400,
+                      flexShrink: 0,
+                      '&:hover': {
+                        backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#E0E0E0',
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
+              
+              {/* Gradient Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: '200px',
+                  background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)',
+                  pointerEvents: 'none',
+                }}
+              />
+              
+              {/* Client Search Field */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 0,
+                  width: '180px',
+                  pointerEvents: 'auto',
+                }}
+              >
                 <TextField
                   size="small"
                   placeholder="Search clients..."
                   value={clientSearchQuery}
                   onChange={(e) => setClientSearchQuery(e.target.value)}
                   sx={{
-                    width: '200px',
+                    width: '100%',
                     '& .MuiInputBase-root': {
                       backgroundColor: '#F5F5F5',
                       borderRadius: '8px',
@@ -384,150 +458,102 @@ export default function ProjectsPageContent() {
                   }}
                 />
               </Box>
-              {clientsData && (
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {filteredClientsForChips.map((client) => (
-                    <Chip
-                      key={client.id}
-                      label={client.name}
-                      onClick={() => handleClientToggle(client.slug)}
-                      sx={{
-                        backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#F5F5F5',
-                        color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#262626',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        fontWeight: 400,
-                        '&:hover': {
-                          backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#E0E0E0',
-                        },
-                      }}
-                    />
-                  ))}
-                  {clientsData.data.length > 9 && !clientSearchQuery && (
-                    <Chip
-                      label={`+${clientsData.data.length - 9} more`}
-                      sx={{
-                        backgroundColor: '#F5F5F5',
-                        color: '#656CAF',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        fontWeight: 700,
-                        cursor: 'default',
-                      }}
-                    />
-                  )}
-                </Box>
-              )}
             </Box>
             
-            {/* Size and Type Filters */}
-            <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-              {/* Stand Size Filters */}
-              <Box>
-                <Typography 
-                  sx={{ 
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '24px',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    mb: 1,
-                  }}
-                >
-                  Stand size
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {sizeRanges.map((range) => (
-                    <Chip
-                      key={range.label}
-                      label={range.label}
-                      onClick={() => handleSizeToggle(range.label)}
-                      sx={{
-                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#F5F5F5',
-                        color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#262626',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        fontWeight: 400,
-                        '&:hover': {
-                          backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#E0E0E0',
-                        },
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Box>
-              
-              {/* Stand Type Filters */}
-              <Box>
-                <Typography 
-                  sx={{ 
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '24px',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    mb: 1,
-                  }}
-                >
-                  Stand type
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
+            {/* Stand Size Filters - Horizontal */}
+            <Box sx={{ mb: 3 }}>
+              <Box 
+                sx={{ 
+                  display: 'flex',
+                  gap: 1,
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
+                  pb: 1,
+                  '&::-webkit-scrollbar': {
+                    height: '4px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: 'transparent',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#E0E0E0',
+                    borderRadius: '2px',
+                  },
+                }}
+              >
+                {sizeRanges.map((range) => (
                   <Chip
-                    label="Double-Deckers"
-                    onClick={() => handleTypeToggle('double-decker')}
+                    key={range.label}
+                    label={range.label}
+                    onClick={() => handleSizeToggle(range.label)}
                     sx={{
-                      backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#F5F5F5',
-                      color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#262626',
+                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#F5F5F5',
+                      color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#262626',
                       fontFamily: 'Roboto',
                       fontSize: 14,
                       fontWeight: 400,
+                      flexShrink: 0,
                       '&:hover': {
-                        backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#E0E0E0',
+                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#E0E0E0',
                       },
                     }}
                   />
-                  <Chip
-                    label="Events"
-                    onClick={() => handleTypeToggle('events')}
-                    sx={{
-                      backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#F5F5F5',
-                      color: selectedTypes.includes('events') ? '#FFFFFF' : '#262626',
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: 400,
-                      '&:hover': {
-                        backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#E0E0E0',
-                      },
-                    }}
-                  />
-                </Box>
+                ))}
+                <Chip
+                  label="Double-Deckers"
+                  onClick={() => handleTypeToggle('double-decker')}
+                  sx={{
+                    backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#F5F5F5',
+                    color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#262626',
+                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                    fontWeight: 400,
+                    flexShrink: 0,
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#E0E0E0',
+                    },
+                  }}
+                />
+                <Chip
+                  label="Events"
+                  onClick={() => handleTypeToggle('events')}
+                  sx={{
+                    backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#F5F5F5',
+                    color: selectedTypes.includes('events') ? '#FFFFFF' : '#262626',
+                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                    fontWeight: 400,
+                    flexShrink: 0,
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#E0E0E0',
+                    },
+                  }}
+                />
               </Box>
-              
-              {/* Clear Filters Button */}
-              {hasActiveFilters && (
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                  <Button
-                    variant="text"
-                    onClick={handleClearFilters}
-                    sx={{
-                      color: '#656CAF',
-                      textTransform: 'none',
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: 700,
-                      '&:hover': {
-                        backgroundColor: 'transparent',
-                        color: '#4C53A2',
-                      },
-                    }}
-                  >
-                    Clear all filters
-                  </Button>
-                </Box>
-              )}
             </Box>
+            
+            {/* Clear Filters Button */}
+            {hasActiveFilters && (
+              <Box sx={{ mt: 2 }}>
+                <Button
+                  variant="text"
+                  onClick={handleClearFilters}
+                  sx={{
+                    color: '#656CAF',
+                    textTransform: 'none',
+                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                      color: '#4C53A2',
+                    },
+                  }}
+                >
+                  Clear all filters
+                </Button>
+              </Box>
+            )}
           </Box>
         )}
         
