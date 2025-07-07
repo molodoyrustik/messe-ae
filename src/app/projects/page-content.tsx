@@ -12,9 +12,7 @@ import {
   useMediaQuery,
   useTheme,
   IconButton,
-  Button,
-  TextField,
-  InputAdornment,
+  Button
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
@@ -22,7 +20,6 @@ import ProjectCard from '@/components/projects/ProjectCard';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
 import FilterIcon from '@/components/icons/FilterIcon';
-import SearchIcon from '@mui/icons-material/Search';
 import { useProjects } from '@/hooks/use-projects';
 import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
@@ -121,7 +118,7 @@ export default function ProjectsPageContent() {
   }, [searchParams, pathname, router]);
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
-  const { data: clientsData } = useClients();
+  const { data: clientsData, isLoading: clientsLoading } = useClients();
   
   // Sync filters with URL params when they're set initially
   useEffect(() => {
@@ -482,12 +479,41 @@ export default function ProjectsPageContent() {
                     pb: 1,
                     pl: 'calc(3rem + 1rem)', // Width of "All" button + gap
                     pr: '60px', // Space for gradient only
+                    minHeight: '42px', // Prevent layout shift
                     '&::-webkit-scrollbar': {
                       display: 'none',
                     },
                   }}
                 >
-                  {filteredClientsForChips.map((client) => (
+                  {clientsLoading && !clientsData ? (
+                    // Show skeleton chips while loading
+                    Array.from({ length: 8 }).map((_, index) => (
+                      <Box
+                        key={`skeleton-${index}`}
+                        sx={{
+                          height: '42px',
+                          minWidth: `${80 + (index % 3) * 20}px`,
+                          backgroundColor: '#E9EAF4',
+                          borderRadius: '8px',
+                          flexShrink: 0,
+                          animation: 'pulse 1.5s ease-in-out infinite',
+                          animationDelay: `${index * 0.1}s`,
+                          '@keyframes pulse': {
+                            '0%': {
+                              opacity: 1,
+                            },
+                            '50%': {
+                              opacity: 0.6,
+                            },
+                            '100%': {
+                              opacity: 1,
+                            },
+                          },
+                        }}
+                      />
+                    ))
+                  ) : (
+                    filteredClientsForChips.map((client) => (
                     <Chip
                       key={client.id}
                       label={client.name}
@@ -512,7 +538,8 @@ export default function ProjectsPageContent() {
                         },
                       }}
                     />
-                  ))}
+                  ))
+                  )}
                 </Box>
                 
                 {/* Right Gradient Overlay */}
