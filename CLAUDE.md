@@ -29,6 +29,14 @@ When implementing features or fixes that establish new patterns for the entire c
 - CTA buttons should be smaller on tablets (e.g., 160px vs 200px)
 - Always test tablet view to prevent content overlap
 
+### Filter Design Pattern (Established 2025-01-07)
+- Filters section starts with "Filters" title (24px, 700 weight, Roboto)
+- All filter chips display horizontally with scroll on overflow
+- Client filters have gradient overlay on right side with search field
+- Search field positioned absolutely over the gradient
+- Stand Size and Type filters combined in single horizontal row
+- No project search functionality - only client search
+
 ## Layout Guidelines
 
 ### Page Spacing
