@@ -403,6 +403,19 @@ export default function ProjectsPageContent() {
                     zIndex: 1,
                   }}
                 />
+                {/* Left gradient for smooth fade */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: 'calc(3rem + 1rem)',
+                    top: 0,
+                    bottom: 0,
+                    width: '30px',
+                    background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }}
+                />
                 {/* All button - fixed position */}
                 <Chip
                   label="All"
