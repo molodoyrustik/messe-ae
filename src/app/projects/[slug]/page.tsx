@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import {
   Box,
   Container,
@@ -114,24 +115,71 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             </Typography>
           </Box>
 
-          {/* Client Description - Show actual description if available */}
-          {project.description && (
+          {/* Client Description */}
+          <Box sx={{ mb: 4, maxWidth: 1359 }}>
             <Typography
-              variant="body1"
               sx={{
                 fontFamily: 'Roboto',
-                fontWeight: 400,
-                fontSize: 16,
-                lineHeight: '24px',
-                letterSpacing: '0.02em',
-                color: '#000000',
-                mb: 4,
-                maxWidth: 1359,
+                fontSize: '1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02rem',
               }}
             >
-              {project.description}
+              {(() => {
+                const description = project.description || 'Client description will be displayed here when available from the backend.';
+                const clientName = project.client?.name || '';
+                
+                // Check if client name exists in description
+                if (clientName && description.includes(clientName)) {
+                  const parts = description.split(clientName);
+                  return (
+                    <>
+                      {parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {index > 0 && (
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontWeight: 700,
+                                color: '#656CAF',
+                                textDecoration: 'underline',
+                                textDecorationStyle: 'solid',
+                                textDecorationSkipInk: 'none',
+                              }}
+                            >
+                              {clientName}
+                            </Typography>
+                          )}
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 400,
+                              color: '#000000',
+                            }}
+                          >
+                            {part}
+                          </Typography>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  );
+                } else {
+                  // If client name not found in description, just show the description
+                  return (
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 400,
+                        color: '#000000',
+                      }}
+                    >
+                      {description}
+                    </Typography>
+                  );
+                }
+              })()}
             </Typography>
-          )}
+          </Box>
 
           {/* Images Gallery Section */}
           {project.images && project.images.length > 0 && (
