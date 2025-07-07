@@ -276,7 +276,8 @@ const ClientsSection = () => {
   const extendedMobileLine2 = [...mobileLine2, ...mobileLine2];
   const extendedMobileLine3 = [...mobileLine3, ...mobileLine3];
 
-  const renderLogoLine = (logos: { name: string; filename: string }[], lineKey: string, direction: 'left' | 'right', duration: number = 120, isMobile: boolean = false) => (
+  const renderLogoLine = (logos: { name: string; filename: string }[], lineKey: string, direction: 'left' | 'right', duration: number = 120, isMobile: boolean = false) => {
+    return (
     <CarouselContainer $isMobile={isMobile}>
       <CarouselTrack direction={direction} duration={duration} $isMobile={isMobile}>
         {logos.map((logo, index) => (
@@ -309,7 +310,8 @@ const ClientsSection = () => {
         ))}
       </CarouselTrack>
     </CarouselContainer>
-  );
+    );
+  };
 
   return (
     <Box
@@ -338,7 +340,7 @@ const ClientsSection = () => {
               fontStyle: 'normal',
               fontWeight: 400,
               lineHeight: { xs: '1rem', sm: '1.75rem', md: 1.11 },
-              letterSpacing: { xs: '0.03rem', sm: '0.01em', md: '-0.02em' }
+              letterSpacing: { xs: '0.03rem', sm: '0.01em', md: '-0.02em' },
               color: '#262626', // Direct color for grey.800
               textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
               width: '100%',
