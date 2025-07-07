@@ -64,8 +64,8 @@ const CustomMenuItem = ({
       >
         <Typography
           sx={{
-                    fontSize: size === 'medium' ? 24 : 16,
-          fontWeight: 700,
+            fontSize: size === 'medium' ? { md: 18, lg: 24 } : 16,
+            fontWeight: 700,
             lineHeight: size === 'medium' ? '28px' : '24px',
             letterSpacing: size === 'medium' ? '0.01em' : '0.02em',
             color: '#4C53A2', // Direct color from Figma
@@ -582,10 +582,12 @@ const Header = () => {
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: { md: 664 },
+                width: { md: '100%', lg: 664 },
+                maxWidth: { md: 'calc(100% - 23.75rem)', lg: 664 }, // Account for logo and button on tablets
                 display: { xs: 'none', md: 'flex' },
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                px: { md: 2, lg: 0 },
               }}
             >
               {menuItems.map((item) => (
@@ -608,7 +610,7 @@ const Header = () => {
                 right: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: 200,
+                width: { md: 160, lg: 200 },
                 height: 36,
                 backgroundColor: '#656CAF',
                 borderRadius: 1,
@@ -627,7 +629,7 @@ const Header = () => {
             >
               <Typography
                 sx={{
-                  fontSize: 16,
+                  fontSize: { md: 14, lg: 16 },
                   fontWeight: 400,
                   lineHeight: '24px',
                   letterSpacing: '0.02em',
@@ -747,6 +749,64 @@ const Header = () => {
                 </ListItemButton>
               </ListItem>
             ))}
+            
+            <Divider sx={{ my: 2, mx: 3 }} />
+            
+            {/* Footer Links */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/careers"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Careers"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/privacy-policy"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Privacy policy"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/cookie-policy"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Cookie policy"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
           </List>
           
           <Divider />

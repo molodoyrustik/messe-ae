@@ -105,8 +105,12 @@ const FooterSection = () => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: 'auto auto 1fr' },
-            gap: { xs: 0, lg: 0 },
+            gridTemplateColumns: { 
+              xs: '1fr', 
+              md: '1fr 1fr',
+              lg: 'auto auto 1fr' 
+            },
+            gap: { xs: 0, md: 4, lg: 0 },
             position: 'relative',
           }}
         >
@@ -117,7 +121,7 @@ const FooterSection = () => {
               flexDirection: 'column',
               gap: { xs: 3, md: 6 },
               maxWidth: '320px',
-              gridColumn: { xs: '1', lg: '1' },
+              gridColumn: { xs: '1', md: '1', lg: '1' },
             }}
           >
             {/* Logo */}
@@ -282,14 +286,15 @@ const FooterSection = () => {
           {/* Middle Column - Navigation Menu */}
           <Box
             sx={{
-              display: { xs: 'none', lg: 'flex' },
+              display: { xs: 'none', md: 'flex' },
               flexDirection: 'column',
               gap: 1.5,
-              gridColumn: { lg: '2' },
-              ml: { lg: 20 },
-              mr: { lg: 8 },
-              alignSelf: 'end',
-              pb: 5,
+              gridColumn: { md: '2', lg: '2' },
+              ml: { md: 'auto', lg: 20 },
+              mr: { md: 0, lg: 8 },
+              alignSelf: { md: 'start', lg: 'end' },
+              pb: { md: 0, lg: 5 },
+              pt: { md: 12, lg: 0 },
             }}
           >
             {menuItems.map((item) => (
@@ -313,6 +318,62 @@ const FooterSection = () => {
                 {item.label}
               </Link>
             ))}
+          </Box>
+
+          {/* Mobile Navigation Links */}
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 2,
+              mb: 3,
+              px: 2,
+            }}
+          >
+            <Link
+              href="/careers"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Careers
+            </Link>
+            <Link
+              href="/privacy-policy"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Privacy policy
+            </Link>
+            <Link
+              href="/cookie-policy"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Cookie policy
+            </Link>
           </Box>
 
           {/* Mobile Social Icons */}
@@ -402,9 +463,10 @@ const FooterSection = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: { xs: 3, md: 2.5 },
-              gridColumn: { xs: '1', lg: '3' },
+              gridColumn: { xs: '1', md: '1 / -1', lg: '3' },
               justifySelf: { lg: 'end' },
-              width: { xs: '100%', md: 'auto' },
+              width: { xs: '100%', md: '100%', lg: 'auto' },
+              mt: { md: 4, lg: 0 },
             }}
           >
             {/* Title - Hidden on mobile */}

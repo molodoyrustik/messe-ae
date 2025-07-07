@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   Box,
@@ -12,9 +12,7 @@ import {
   useMediaQuery,
   useTheme,
   IconButton,
-  Button,
-  TextField,
-  InputAdornment,
+  Button
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
@@ -22,7 +20,6 @@ import ProjectCard from '@/components/projects/ProjectCard';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
 import FilterIcon from '@/components/icons/FilterIcon';
-import SearchIcon from '@mui/icons-material/Search';
 import { useProjects } from '@/hooks/use-projects';
 import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
@@ -67,8 +64,9 @@ export default function ProjectsPageContent() {
   const [currentPage, setCurrentPage] = useState(initialParams.page);
   
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
-  const [clientSearchQuery, setClientSearchQuery] = useState('');
-  const [projectSearchQuery, setProjectSearchQuery] = useState('');
+  const [showLeftGradient, setShowLeftGradient] = useState(false);
+  const [showRightGradient, setShowRightGradient] = useState(true);
+  const clientScrollRef = useRef<HTMLDivElement>(null);
 
   // Update URL when filters change
   const updateURL = useCallback((params: {
@@ -120,7 +118,7 @@ export default function ProjectsPageContent() {
   }, [searchParams, pathname, router]);
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
-  const { data: clientsData } = useClients();
+  const { data: clientsData, isLoading: clientsLoading } = useClients();
   
   // Sync filters with URL params when they're set initially
   useEffect(() => {
@@ -152,29 +150,17 @@ export default function ProjectsPageContent() {
     setFilters(newFilters);
   }, [initialParams.page, initialParams.clients, initialParams.sizes, initialParams.types]); // Dependencies for URL params
   
-  // Filter projects by search query
+  // Use all projects data directly
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
-    // Temporarily disabled project search
     return projectsData.data;
-    // if (!projectSearchQuery) return projectsData.data;
-    
-    // return projectsData.data.filter(project => 
-    //   project.title.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-    //   project.client?.name.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-    //   project.eventName.toLowerCase().includes(projectSearchQuery.toLowerCase())
-    // );
   }, [projectsData]);
   
-  // Filter clients by search query for desktop
+  // Use all clients for chips
   const filteredClientsForChips = useMemo(() => {
     if (!clientsData?.data) return [];
-    if (!clientSearchQuery) return clientsData.data.slice(0, 9);
-    
-    return clientsData.data
-      .filter(client => client.name.toLowerCase().includes(clientSearchQuery.toLowerCase()))
-      .slice(0, 9);
-  }, [clientsData, clientSearchQuery]);
+    return clientsData.data;
+  }, [clientsData]);
   
   const hasActiveFilters = useMemo(() => {
     return selectedClients.length > 0 || selectedSizeRanges.length > 0 || selectedTypes.length > 0;
@@ -270,6 +256,23 @@ export default function ProjectsPageContent() {
     setCurrentPage(1);
   };
 
+  const handleClientScroll = useCallback(() => {
+    if (clientScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = clientScrollRef.current;
+      
+      // Show left gradient if scrolled right
+      setShowLeftGradient(scrollLeft > 5);
+      
+      // Show right gradient if not scrolled to the end
+      setShowRightGradient(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  }, []);
+
+  // Check scroll position on mount and when clients data changes
+  useEffect(() => {
+    handleClientScroll();
+  }, [clientsData, handleClientScroll]);
+
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
@@ -298,309 +301,410 @@ export default function ProjectsPageContent() {
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
-                fontSize: { xs: 24, md: 54 },
+                fontSize: { xs: '1.5rem', md: '3.375rem' },
                 fontWeight: 700,
-                lineHeight: { xs: '28px', md: '60px' },
-                letterSpacing: { xs: '0.01em', md: 'normal' },
+                lineHeight: { xs: '1.75rem', md: '3.75rem' },
                 color: '#262626',
               }}
             >
               Our Projects
             </Typography>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+                fontWeight: 400,
+                lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                letterSpacing: '0.02rem',
+                color: '#000',
+                mt: { xs: 0.5, md: 0.75 },
+                maxWidth: '1359px',
+              }}
+            >
+              With 20 years of experience, messe.ae has successfully completed over 4,000 projects worldwide. As one of the leading{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand builders in UAE
+              </Box>
+              , we deliver premium{' '}
+              <Box component="span" sx={{ fontWeight: 700 }}>
+                exhibition stand designs in Dubai and beyond
+              </Box>
+              . From tailored exhibition stands to creative display stand exhibition solutions, we bring innovation, quality, and expertise to every project. Recognized among top exhibitions companies in Dubai, messe.ae is your trusted exhibition stand contractor for outstanding exhibition design stand and impactful global presence.
+            </Typography>
             {hasActiveFilters && (
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
-                  fontSize: { xs: 14, md: 16 },
+                  fontSize: { xs: '0.875rem', md: '1rem' },
                   fontWeight: 400,
-                  lineHeight: { xs: '18px', md: '24px' },
-                  letterSpacing: '0.02em',
-                  color: '#000000',
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mt: { xs: 0.5, md: 0.75 },
                 }}
               >
-                {filteredProjects.length} {filteredProjects.length === 1 ? 'result' : 'results'} found
+                <Box component="span" sx={{ fontWeight: 700 }}>
+                  {filteredProjects.length}
+                </Box>{' '}
+                {filteredProjects.length === 1 ? 'result' : 'results'} found
               </Typography>
             )}
           </Box>
           
-          {/* Mobile Filter Button and Search */}
+          {/* Mobile Filter Button */}
           {isMobile && (
-            <Box sx={{ width: '100%', display: 'flex', gap: 1 }}>
-              <Box sx={{ flex: 1 }}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Search projects..."
-                  value={projectSearchQuery}
-                  onChange={(e) => setProjectSearchQuery(e.target.value)}
+            <IconButton
+              onClick={() => setIsFilterPanelOpen(true)}
+              sx={{
+                backgroundColor: '#F5F5F5',
+                borderRadius: '4px',
+                width: '36px',
+                height: '36px',
+                position: 'relative',
+                '&:hover': {
+                  backgroundColor: '#E0E0E0',
+                },
+              }}
+            >
+              <FilterIcon />
+              {hasActiveFilters && (
+                <Box
                   sx={{
-                    '& .MuiInputBase-root': {
-                      backgroundColor: '#F5F5F5',
-                      borderRadius: '4px',
-                      height: '36px',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      fontFamily: 'Roboto',
-                      py: 0.5,
-                    },
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9E9E9E', fontSize: '20px' }} />
-                      </InputAdornment>
-                    ),
+                    position: 'absolute',
+                    top: 4,
+                    right: 4,
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    backgroundColor: '#A64B66',
                   }}
                 />
-              </Box>
-              <IconButton
-                onClick={() => setIsFilterPanelOpen(true)}
-                sx={{
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: '4px',
-                  width: '36px',
-                  height: '36px',
-                  position: 'relative',
-                  '&:hover': {
-                    backgroundColor: '#E0E0E0',
-                  },
-                }}
-              >
-                <FilterIcon />
-                {hasActiveFilters && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: 4,
-                      right: 4,
-                      width: 8,
-                      height: 8,
-                      borderRadius: '50%',
-                      backgroundColor: '#A64B66',
-                    }}
-                  />
-                )}
-              </IconButton>
-            </Box>
+              )}
+            </IconButton>
           )}
           
-          {/* Desktop Search */}
-          {!isMobile && (
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-              {/* Desktop Project Search */}
-              <TextField
-                size="small"
-                placeholder="Search projects..."
-                value={projectSearchQuery}
-                onChange={(e) => setProjectSearchQuery(e.target.value)}
-                sx={{
-                  width: '300px',
-                  '& .MuiInputBase-root': {
-                    backgroundColor: '#F5F5F5',
-                    borderRadius: '8px',
-                    height: '40px',
-                  },
-                  '& .MuiInputBase-input': {
-                    fontSize: '16px',
-                    fontFamily: 'Roboto',
-                    py: 1,
-                  },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: '#9E9E9E' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              
-              {/* Desktop Client Search */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography sx={{ fontSize: 16, fontWeight: 700, color: '#262626' }}>
-                  Clients:
-                </Typography>
-                <TextField
-                  size="small"
-                  placeholder="Search clients..."
-                  value={clientSearchQuery}
-                  onChange={(e) => setClientSearchQuery(e.target.value)}
-                  sx={{
-                    width: '200px',
-                    '& .MuiInputBase-root': {
-                      backgroundColor: '#F5F5F5',
-                      borderRadius: '8px',
-                      height: '40px',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      fontFamily: 'Roboto',
-                      py: 1,
-                    },
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9E9E9E' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Box>
-            </Box>
-          )}
         </Box>
         
         {/* Desktop Filter Section */}
         {!isMobile && (
-          <Box sx={{ mb: 4 }}>
-            {/* Client Chips */}
+          <Box sx={{ mb: 4, mt: 4 }}>
+            {/* Client Filters */}
             <Box sx={{ mb: 3 }}>
-              {clientsData && (
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {filteredClientsForChips.map((client) => (
+              <Typography
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mb: 1,
+                }}
+              >
+                Clients
+              </Typography>
+              <Box sx={{ position: 'relative' }}>
+                {/* White background for All button */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: 'calc(3rem + 1rem)',
+                    backgroundColor: '#FFFFFF',
+                    zIndex: 1,
+                  }}
+                />
+                {/* Left gradient for smooth fade */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: 'calc(3rem + 1rem)',
+                    top: 0,
+                    bottom: 0,
+                    width: '10px',
+                    background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                    opacity: showLeftGradient ? 1 : 0,
+                    transition: 'opacity 0.5s ease-in-out',
+                  }}
+                />
+                {/* All button - fixed position */}
+                <Chip
+                  label="All"
+                  onClick={() => {
+                    setSelectedClients([]);
+                    updateURL({ clients: [], page: 1 });
+                    const newFilters: ProjectsFilters = {
+                      ...filters,
+                      clientSlugs: undefined,
+                      page: 1,
+                    };
+                    setFilters(newFilters);
+                    setCurrentPage(1);
+                  }}
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    zIndex: 2,
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedClients.length === 0 ? '#FFFFFF' : '#4C53A2',
+                    fontFamily: 'Roboto',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
+                  }}
+                />
+                <Box 
+                  ref={clientScrollRef}
+                  onScroll={handleClientScroll}
+                  sx={{ 
+                    display: 'flex',
+                    gap: 1.5,
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
+                    pb: 1,
+                    pl: 'calc(3rem + 1rem)', // Width of "All" button + gap
+                    pr: '60px', // Space for gradient only
+                    minHeight: '42px', // Prevent layout shift
+                    '&::-webkit-scrollbar': {
+                      display: 'none',
+                    },
+                  }}
+                >
+                  {clientsLoading && !clientsData ? (
+                    // Show skeleton chips while loading
+                    Array.from({ length: 8 }).map((_, index) => (
+                      <Box
+                        key={`skeleton-${index}`}
+                        sx={{
+                          height: '42px',
+                          minWidth: `${80 + (index % 3) * 20}px`,
+                          backgroundColor: '#E9EAF4',
+                          borderRadius: '8px',
+                          flexShrink: 0,
+                          animation: 'pulse 1.5s ease-in-out infinite',
+                          animationDelay: `${index * 0.1}s`,
+                          '@keyframes pulse': {
+                            '0%': {
+                              opacity: 1,
+                            },
+                            '50%': {
+                              opacity: 0.6,
+                            },
+                            '100%': {
+                              opacity: 1,
+                            },
+                          },
+                        }}
+                      />
+                    ))
+                  ) : (
+                    filteredClientsForChips.map((client) => (
                     <Chip
                       key={client.id}
                       label={client.name}
                       onClick={() => handleClientToggle(client.slug)}
                       sx={{
-                        backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#F5F5F5',
-                        color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#262626',
+                        px: 1.5,
+                        py: 1,
+                        backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#E9EAF4',
+                        color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#4C53A2',
                         fontFamily: 'Roboto',
-                        fontSize: 14,
+                        fontSize: '1.5rem',
                         fontWeight: 400,
+                        lineHeight: '1.75rem',
+                        letterSpacing: '0.01em',
+                        flexShrink: 0,
+                        borderRadius: '8px',
                         '&:hover': {
-                          backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#E0E0E0',
+                          backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#C7CAE3',
+                        },
+                        '& .MuiChip-label': {
+                          px: 0,
                         },
                       }}
                     />
-                  ))}
-                  {clientsData.data.length > 9 && !clientSearchQuery && (
-                    <Chip
-                      label={`+${clientsData.data.length - 9} more`}
-                      sx={{
-                        backgroundColor: '#F5F5F5',
-                        color: '#656CAF',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        fontWeight: 700,
-                        cursor: 'default',
-                      }}
-                    />
+                  ))
                   )}
                 </Box>
-              )}
+                
+                {/* Right Gradient Overlay */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: '40px',
+                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                    opacity: showRightGradient ? 1 : 0,
+                    transition: 'opacity 0.5s ease-in-out',
+                  }}
+                />
+              </Box>
             </Box>
             
-            {/* Size and Type Filters */}
-            <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-              {/* Stand Size Filters */}
-              <Box>
-                <Typography 
-                  sx={{ 
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '24px',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    mb: 1,
+            {/* Stand Size and Type Filters - Combined */}
+            <Box sx={{ mb: 3 }}>
+              <Typography
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mb: 1,
+                }}
+              >
+                Stand size
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                <Chip
+                  label="All"
+                  onClick={() => {
+                    setSelectedSizeRanges([]);
+                    updateURL({ sizes: [], page: 1 });
+                    const newFilters: ProjectsFilters = {
+                      ...filters,
+                      sizeRanges: undefined,
+                      page: 1,
+                    };
+                    setFilters(newFilters);
+                    setCurrentPage(1);
                   }}
-                >
-                  Stand size
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {sizeRanges.map((range) => (
-                    <Chip
-                      key={range.label}
-                      label={range.label}
-                      onClick={() => handleSizeToggle(range.label)}
-                      sx={{
-                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#F5F5F5',
-                        color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#262626',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        fontWeight: 400,
-                        '&:hover': {
-                          backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#E0E0E0',
-                        },
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Box>
-              
-              {/* Stand Type Filters */}
-              <Box>
-                <Typography 
-                  sx={{ 
+                  sx={{
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedSizeRanges.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.length === 0 ? '#FFFFFF' : '#4C53A2',
                     fontFamily: 'Roboto',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '24px',
-                    letterSpacing: '0.02em',
-                    color: '#262626',
-                    mb: 1,
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedSizeRanges.length === 0 ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
                   }}
-                >
-                  Stand type
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
+                />
+                {sizeRanges.map((range) => (
                   <Chip
-                    label="Double-Deckers"
-                    onClick={() => handleTypeToggle('double-decker')}
+                    key={range.label}
+                    label={range.label}
+                    onClick={() => handleSizeToggle(range.label)}
                     sx={{
-                      backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#F5F5F5',
-                      color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#262626',
+                      px: 1.5,
+                      py: 1,
+                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#E9EAF4',
+                      color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#4C53A2',
                       fontFamily: 'Roboto',
-                      fontSize: 14,
+                      fontSize: '1.5rem',
                       fontWeight: 400,
+                      lineHeight: '1.75rem',
+                      letterSpacing: '0.01em',
+                      borderRadius: '8px',
                       '&:hover': {
-                        backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#E0E0E0',
+                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#C7CAE3',
+                      },
+                      '& .MuiChip-label': {
+                        px: 0,
                       },
                     }}
                   />
-                  <Chip
-                    label="Events"
-                    onClick={() => handleTypeToggle('events')}
-                    sx={{
-                      backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#F5F5F5',
-                      color: selectedTypes.includes('events') ? '#FFFFFF' : '#262626',
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: 400,
-                      '&:hover': {
-                        backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#E0E0E0',
-                      },
-                    }}
-                  />
-                </Box>
+                ))}
+                <Chip
+                  label="Double-Deckers"
+                  onClick={() => handleTypeToggle('double-decker')}
+                  sx={{
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#4C53A2',
+                    fontFamily: 'Roboto',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
+                  }}
+                />
+                <Chip
+                  label="Events"
+                  onClick={() => handleTypeToggle('events')}
+                  sx={{
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('events') ? '#FFFFFF' : '#4C53A2',
+                    fontFamily: 'Roboto',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
+                  }}
+                />
               </Box>
-              
-              {/* Clear Filters Button */}
-              {hasActiveFilters && (
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                  <Button
-                    variant="text"
-                    onClick={handleClearFilters}
-                    sx={{
-                      color: '#656CAF',
-                      textTransform: 'none',
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: 700,
-                      '&:hover': {
-                        backgroundColor: 'transparent',
-                        color: '#4C53A2',
-                      },
-                    }}
-                  >
-                    Clear all filters
-                  </Button>
-                </Box>
-              )}
             </Box>
+            
+            {/* Clear Filters Button */}
+            {hasActiveFilters && (
+              <Box sx={{ mt: 2 }}>
+                <Button
+                  variant="text"
+                  onClick={handleClearFilters}
+                  sx={{
+                    color: '#656CAF',
+                    textTransform: 'none',
+                    fontFamily: 'Roboto',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.02rem',
+                    p: 0,
+                    minWidth: 'auto',
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                      color: '#4C53A2',
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  Clear all filters
+                </Button>
+              </Box>
+            )}
           </Box>
         )}
         

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import {
   Box,
   Container,
@@ -9,7 +10,7 @@ import {
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
-import { useProject } from '@/hooks/use-projects';
+import { useProject, useProjects } from '@/hooks/use-projects';
 import { use } from 'react';
 
 interface ProjectPageProps {
@@ -29,6 +30,12 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   
   const documentId = extractDocumentId(resolvedParams.slug);
   const { data, isLoading, error } = useProject(documentId);
+  
+  // Fetch client projects count
+  const { data: clientProjectsData } = useProjects({
+    clientSlug: data?.data?.client?.slug,
+    pageSize: 1, // We only need the count
+  });
 
   if (isLoading) {
     return (
@@ -64,59 +71,140 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       
       <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: 8 }}>
         <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
+          {/* Project Title - using client name */}
           <Typography
-            variant="h1"
+            component="h1"
             sx={{
               fontFamily: 'Roboto',
               fontWeight: 700,
-              fontSize: { xs: 28, md: 34 },
-              lineHeight: '42px',
-              letterSpacing: '0.01em',
+              fontSize: '2.125rem',
+              lineHeight: '2.625rem',
+              letterSpacing: '0.02125rem',
               color: '#262626',
-              mb: 3,
+              mb: 2,
             }}
           >
-            {project.title}
+            {project.client?.name || 'Client Name'}
           </Typography>
 
-          <Typography
-            variant="body1"
-            sx={{
-              fontFamily: 'Roboto',
-              fontWeight: 400,
-              fontSize: 16,
-              lineHeight: '24px',
-              letterSpacing: '0.02em',
-              color: '#000000',
-              mb: 4,
-              maxWidth: 1359,
-            }}
-          >
-            {project.client?.name || 'Client'}, founded in 1993, is a global leader in enterprise open-source solutions, best known for Red Hat Enterprise Linux (RHEL). It drives innovation in hybrid cloud, Kubernetes (OpenShift), automation (Ansible), and cloud infrastructure (OpenStack). Following a community-driven model, Red Hat develops secure, scalable, and reliable software. Acquired by IBM in 2019, it operates independently, integrating with IBM&apos;s cloud and AI strategy while maintaining its open-source philosophy.
-          </Typography>
+          {/* Number of projects */}
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.25, mb: 3 }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 400,
+                fontSize: '1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02em',
+                color: '#000000',
+              }}
+            >
+              Number of projects:
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02em',
+                color: '#000000',
+              }}
+            >
+              {clientProjectsData?.meta?.pagination?.total || 0}
+            </Typography>
+          </Box>
+
+          {/* Client Description */}
+          <Box sx={{ mb: 4, maxWidth: 1359 }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontSize: '1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '0.02rem',
+              }}
+            >
+              {(() => {
+                const description = project.description || 'Client description will be displayed here when available from the backend.';
+                const clientName = project.client?.name || '';
+                
+                // Check if client name exists in description
+                if (clientName && description.includes(clientName)) {
+                  const parts = description.split(clientName);
+                  return (
+                    <>
+                      {parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {index > 0 && (
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontWeight: 700,
+                                color: '#656CAF',
+                                textDecoration: 'underline',
+                                textDecorationStyle: 'solid',
+                                textDecorationSkipInk: 'none',
+                              }}
+                            >
+                              {clientName}
+                            </Typography>
+                          )}
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 400,
+                              color: '#000000',
+                            }}
+                          >
+                            {part}
+                          </Typography>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  );
+                } else {
+                  // If client name not found in description, just show the description
+                  return (
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 400,
+                        color: '#000000',
+                      }}
+                    >
+                      {description}
+                    </Typography>
+                  );
+                }
+              })()}
+            </Typography>
+          </Box>
 
           {/* Images Gallery Section */}
           {project.images && project.images.length > 0 && (
-            <Box sx={{ position: 'relative', width: '100%', height: { xs: 'auto', md: 384 }, mb: 6 }}>
+            <Box sx={{ position: 'relative', width: '100%', mb: 6 }}>
               {/* Info bar above images */}
               <Box 
                 sx={{ 
                   display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
                   flexWrap: 'wrap',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
-                  mb: 3,
-                  gap: { xs: 2, md: 4 },
+                  alignItems: { xs: 'flex-start', sm: 'center' },
+                  mb: { xs: 2, md: 3.5 },
+                  gap: { xs: 1.5, sm: 2, md: 0 },
+                  width: '100%',
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 700,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#656CAF',
                     }}
                   >
@@ -126,9 +214,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#000000',
                     }}
                   >
@@ -136,14 +224,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 700,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#656CAF',
                     }}
                   >
@@ -153,9 +241,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#000000',
                     }}
                   >
@@ -163,41 +251,57 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.25 }}>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 700,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#656CAF',
                     }}
                   >
                     Space:
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 400,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
-                      color: '#000000',
-                    }}
-                  >
-                    {project.totalSize} m<sup>2</sup>
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+                    <Typography
+                      sx={{
+                        fontFamily: 'Roboto',
+                        fontWeight: 400,
+                        fontSize: { xs: '1.25rem', md: '1.5rem' },
+                        lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                        letterSpacing: '0.02em',
+                        color: '#000000',
+                      }}
+                    >
+                      {project.totalSize} m
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: 'Roboto',
+                        fontWeight: 400,
+                        fontSize: { xs: '0.875rem', md: '1.05rem' },
+                        lineHeight: 1,
+                        color: '#000000',
+                        verticalAlign: 'super',
+                        position: 'relative',
+                        top: '-0.3em',
+                      }}
+                    >
+                      2
+                    </Typography>
+                  </Box>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
                   <Typography
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 700,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#656CAF',
                     }}
                   >
@@ -207,9 +311,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     sx={{
                       fontFamily: 'Roboto',
                       fontWeight: 400,
-                      fontSize: 24,
-                      lineHeight: '28px',
-                      letterSpacing: '0.01em',
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                      letterSpacing: '0.02em',
                       color: '#000000',
                     }}
                   >
@@ -222,8 +326,12 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <Box 
                 sx={{ 
                   display: 'grid',
-                  gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-                  gap: 2,
+                  gridTemplateColumns: { 
+                    xs: '1fr', 
+                    sm: 'repeat(2, 1fr)',
+                    md: 'repeat(3, 1fr)' 
+                  },
+                  gap: { xs: 1, sm: 1.5, md: 2 },
                   width: '100%',
                 }}
               >
@@ -239,9 +347,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     alt={image.alternativeText || `${project.title} - Image ${index + 1}`}
                     sx={{
                       width: '100%',
-                      height: { xs: 240, md: 316 },
+                      height: { xs: '15rem', sm: '18rem', md: '19.75rem' },
                       objectFit: 'cover',
-                      borderRadius: '8px',
+                      borderRadius: '0.5rem',
                     }}
                   />
                 ))}
