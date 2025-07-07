@@ -8,20 +8,47 @@ export const projectsApi = {
     // Populate all fields
     params.append('populate', '*');
     
+    // Handle single client or multiple clients
     if (filters?.clientSlug) {
       params.append('filters[client][slug][$eq]', filters.clientSlug);
+    } else if (filters?.clientSlugs && filters.clientSlugs.length > 0) {
+      filters.clientSlugs.forEach((slug, index) => {
+        params.append(`filters[$or][${index}][client][slug][$eq]`, slug);
+      });
     }
     
+    // Handle construction types
     if (filters?.constructionType) {
       params.append('filters[constructionType][$eq]', filters.constructionType);
+    } else if (filters?.constructionTypes && filters.constructionTypes.length > 0) {
+      // For now, handle 'double-decker' and 'events' separately
+      const hasDoubleDecker = filters.constructionTypes.includes('double-decker');
+      const hasEvents = filters.constructionTypes.includes('events');
+      
+      if (hasDoubleDecker && !hasEvents) {
+        params.append('filters[constructionType][$eq]', 'double-decker');
+      } else if (hasEvents && !hasDoubleDecker) {
+        params.append('filters[eventType][$eq]', 'event');
+      }
+      // If both are selected, show all (no filter)
     }
     
-    if (filters?.minSize !== undefined) {
-      params.append('filters[totalSize][$gte]', filters.minSize.toString());
-    }
-    
-    if (filters?.maxSize !== undefined) {
-      params.append('filters[totalSize][$lte]', filters.maxSize.toString());
+    // Handle size ranges
+    if (filters?.sizeRanges && filters.sizeRanges.length > 0) {
+      // Create OR conditions for size ranges
+      filters.sizeRanges.forEach((range, index) => {
+        params.append(`filters[$or][${index}][$and][0][totalSize][$gte]`, range.min.toString());
+        params.append(`filters[$or][${index}][$and][1][totalSize][$lte]`, range.max.toString());
+      });
+    } else {
+      // Fall back to simple min/max if provided
+      if (filters?.minSize !== undefined) {
+        params.append('filters[totalSize][$gte]', filters.minSize.toString());
+      }
+      
+      if (filters?.maxSize !== undefined) {
+        params.append('filters[totalSize][$lte]', filters.maxSize.toString());
+      }
     }
     
     if (filters?.page) {
