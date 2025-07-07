@@ -67,7 +67,6 @@ export default function ProjectsPageContent() {
   const [currentPage, setCurrentPage] = useState(initialParams.page);
   
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
-  const [clientSearchQuery, setClientSearchQuery] = useState('');
 
   // Update URL when filters change
   const updateURL = useCallback((params: {
@@ -157,14 +156,11 @@ export default function ProjectsPageContent() {
     return projectsData.data;
   }, [projectsData]);
   
-  // Filter clients by search query for desktop
+  // Use all clients for chips
   const filteredClientsForChips = useMemo(() => {
     if (!clientsData?.data) return [];
-    if (!clientSearchQuery) return clientsData.data;
-    
-    return clientsData.data
-      .filter(client => client.name.toLowerCase().includes(clientSearchQuery.toLowerCase()));
-  }, [clientsData, clientSearchQuery]);
+    return clientsData.data;
+  }, [clientsData]);
   
   const hasActiveFilters = useMemo(() => {
     return selectedClients.length > 0 || selectedSizeRanges.length > 0 || selectedTypes.length > 0;
@@ -410,7 +406,7 @@ export default function ProjectsPageContent() {
                     left: 'calc(3rem + 1rem)',
                     top: 0,
                     bottom: 0,
-                    width: '30px',
+                    width: '20px',
                     background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
                     pointerEvents: 'none',
                     zIndex: 1,
@@ -461,7 +457,7 @@ export default function ProjectsPageContent() {
                     overflowY: 'hidden',
                     pb: 1,
                     pl: 'calc(3rem + 1rem)', // Width of "All" button + gap
-                    pr: '200px', // Space for search field and gradient
+                    pr: '60px', // Space for gradient only
                     '&::-webkit-scrollbar': {
                       display: 'none',
                     },
@@ -499,55 +495,14 @@ export default function ProjectsPageContent() {
                 <Box
                   sx={{
                     position: 'absolute',
-                    right: '160px',
+                    right: 0,
                     top: 0,
                     bottom: 0,
-                    width: '80px',
-                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.3) 80%, rgba(255,255,255,0) 100%)',
+                    width: '40px',
+                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
                     pointerEvents: 'none',
                   }}
                 />
-                
-                {/* Client Search Field with White Background */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    right: 0,
-                    top: '50%',
-                    transform: 'translateY(calc(-50% - 0.25rem))',
-                    width: '180px',
-                    backgroundColor: '#FFFFFF',
-                    py: 0.5,
-                    pr: 0.5,
-                  }}
-                >
-                  <TextField
-                    size="small"
-                    placeholder="Search clients..."
-                    value={clientSearchQuery}
-                    onChange={(e) => setClientSearchQuery(e.target.value)}
-                    sx={{
-                      width: '100%',
-                      '& .MuiInputBase-root': {
-                        backgroundColor: '#F5F5F5',
-                        borderRadius: '8px',
-                        height: '40px',
-                      },
-                      '& .MuiInputBase-input': {
-                        fontSize: '1rem',
-                        fontFamily: 'Roboto',
-                        py: 0.5,
-                      },
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon sx={{ color: '#9E9E9E' }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Box>
               </Box>
             </Box>
             
