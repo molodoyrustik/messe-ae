@@ -320,6 +320,62 @@ const FooterSection = () => {
             ))}
           </Box>
 
+          {/* Mobile Navigation Links */}
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 2,
+              mb: 3,
+              px: 2,
+            }}
+          >
+            <Link
+              href="/careers"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Careers
+            </Link>
+            <Link
+              href="/privacy-policy"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Privacy policy
+            </Link>
+            <Link
+              href="/cookie-policy"
+              sx={{
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: '18px',
+                letterSpacing: '0.28px',
+                color: '#656CAF',
+                fontFamily: 'Roboto',
+              }}
+            >
+              Cookie policy
+            </Link>
+          </Box>
+
           {/* Mobile Social Icons */}
           <Box
             sx={{
