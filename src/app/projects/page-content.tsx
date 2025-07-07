@@ -420,21 +420,20 @@ export default function ProjectsPageContent() {
                   }}
                 />
                 {/* Left gradient for smooth fade */}
-                {showLeftGradient && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      left: 'calc(3rem + 1rem)',
-                      top: 0,
-                      bottom: 0,
-                      width: '10px',
-                      background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
-                      pointerEvents: 'none',
-                      zIndex: 1,
-                      transition: 'opacity 0.2s ease',
-                    }}
-                  />
-                )}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: 'calc(3rem + 1rem)',
+                    top: 0,
+                    bottom: 0,
+                    width: '10px',
+                    background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                    opacity: showLeftGradient ? 1 : 0,
+                    transition: 'opacity 0.5s ease-in-out',
+                  }}
+                />
                 {/* All button - fixed position */}
                 <Chip
                   label="All"
@@ -517,20 +516,19 @@ export default function ProjectsPageContent() {
                 </Box>
                 
                 {/* Right Gradient Overlay */}
-                {showRightGradient && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: '40px',
-                      background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
-                      pointerEvents: 'none',
-                      transition: 'opacity 0.2s ease',
-                    }}
-                  />
-                )}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: '40px',
+                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                    opacity: showRightGradient ? 1 : 0,
+                    transition: 'opacity 0.5s ease-in-out',
+                  }}
+                />
               </Box>
             </Box>
             
