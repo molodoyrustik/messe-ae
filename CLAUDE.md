@@ -2,6 +2,33 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Development Workflow
+
+### Git Commit Strategy
+- Create a commit after completing each major task or checkpoint
+- Use descriptive commit messages that explain what was changed and why
+- When making changes that affect the entire project (e.g., adding tablet support, changing design system), document these in the Project Rules section below
+
+### Project Rules Documentation
+When implementing features or fixes that establish new patterns for the entire codebase:
+1. Complete the implementation
+2. Create a git commit
+3. Update the "Project Rules" section in this file to document the new pattern
+4. This ensures consistency across the entire project
+
+## Project Rules
+
+### Responsive Design Breakpoints
+- **Mobile (xs)**: 0-899px - Mobile-first approach
+- **Tablet (md)**: 900-1199px - Requires special attention to prevent overlapping
+- **Desktop (lg)**: 1200px+ - Full desktop experience
+
+### Tablet Adaptations (Established 2025-01-07)
+- Header menu font size: 18px on tablets, 24px on desktop
+- Navigation menu uses flexible width on tablets with padding
+- CTA buttons should be smaller on tablets (e.g., 160px vs 200px)
+- Always test tablet view to prevent content overlap
+
 ## Layout Guidelines
 
 ### Page Spacing
