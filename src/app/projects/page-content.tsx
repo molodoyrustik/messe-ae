@@ -288,10 +288,9 @@ export default function ProjectsPageContent() {
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
-                fontSize: { xs: 24, md: 54 },
+                fontSize: { xs: '1.5rem', md: '3.375rem' },
                 fontWeight: 700,
-                lineHeight: { xs: '28px', md: '60px' },
-                letterSpacing: { xs: '0.01em', md: 'normal' },
+                lineHeight: { xs: '1.75rem', md: '3.75rem' },
                 color: '#262626',
               }}
             >
@@ -301,14 +300,18 @@ export default function ProjectsPageContent() {
               <Typography
                 sx={{
                   fontFamily: 'Roboto',
-                  fontSize: { xs: 14, md: 16 },
+                  fontSize: { xs: '0.875rem', md: '1rem' },
                   fontWeight: 400,
-                  lineHeight: { xs: '18px', md: '24px' },
-                  letterSpacing: '0.02em',
-                  color: '#000000',
+                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mt: { xs: 0.5, md: 0.75 },
                 }}
               >
-                {filteredProjects.length} {filteredProjects.length === 1 ? 'result' : 'results'} found
+                <Box component="span" sx={{ fontWeight: 700 }}>
+                  {filteredProjects.length}
+                </Box>{' '}
+                {filteredProjects.length === 1 ? 'result' : 'results'} found
               </Typography>
             )}
           </Box>
@@ -360,157 +363,201 @@ export default function ProjectsPageContent() {
                 fontWeight: 700,
                 lineHeight: '1.75rem',
                 letterSpacing: '0.015rem',
-                mb: 2,
+                mb: 3,
               }}
             >
               Filters
             </Typography>
             
-            {/* Client Filters with Horizontal Scroll */}
-            <Box sx={{ mb: 3, position: 'relative' }}>
-              <Box 
-                sx={{ 
-                  display: 'flex',
-                  gap: 1,
-                  overflowX: 'auto',
-                  overflowY: 'hidden',
-                  pb: 1,
-                  pr: '200px', // Space for search field
-                  '&::-webkit-scrollbar': {
-                    height: '4px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    backgroundColor: 'transparent',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#E0E0E0',
-                    borderRadius: '2px',
-                  },
+            {/* Client Filters */}
+            <Box sx={{ mb: 3 }}>
+              <Typography
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mb: 1,
                 }}
               >
-                {filteredClientsForChips.map((client) => (
-                  <Chip
-                    key={client.id}
-                    label={client.name}
-                    onClick={() => handleClientToggle(client.slug)}
-                    sx={{
-                      backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#F5F5F5',
-                      color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#262626',
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: 400,
-                      flexShrink: 0,
-                      '&:hover': {
-                        backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#E0E0E0',
-                      },
-                    }}
-                  />
-                ))}
-              </Box>
-              
-              {/* Gradient Overlay */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  right: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: '200px',
-                  background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)',
-                  pointerEvents: 'none',
-                }}
-              />
-              
-              {/* Client Search Field */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  right: 0,
-                  top: 0,
-                  width: '180px',
-                  pointerEvents: 'auto',
-                }}
-              >
-                <TextField
-                  size="small"
-                  placeholder="Search clients..."
-                  value={clientSearchQuery}
-                  onChange={(e) => setClientSearchQuery(e.target.value)}
-                  sx={{
-                    width: '100%',
-                    '& .MuiInputBase-root': {
-                      backgroundColor: '#F5F5F5',
-                      borderRadius: '8px',
-                      height: '32px',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '14px',
-                      fontFamily: 'Roboto',
-                      py: 0.5,
+                Clients
+              </Typography>
+              <Box sx={{ position: 'relative' }}>
+                <Box 
+                  sx={{ 
+                    display: 'flex',
+                    gap: 1.5,
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
+                    pb: 1,
+                    pr: '220px', // Space for search field and gradient
+                    '&::-webkit-scrollbar': {
+                      display: 'none',
                     },
                   }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9E9E9E', fontSize: '18px' }} />
-                      </InputAdornment>
-                    ),
+                >
+                  {filteredClientsForChips.map((client) => (
+                    <Chip
+                      key={client.id}
+                      label={client.name}
+                      onClick={() => handleClientToggle(client.slug)}
+                      sx={{
+                        px: 1.5,
+                        py: 1,
+                        backgroundColor: selectedClients.includes(client.slug) ? '#656CAF' : '#E9EAF4',
+                        color: selectedClients.includes(client.slug) ? '#FFFFFF' : '#4C53A2',
+                        fontFamily: 'Roboto',
+                        fontSize: '1.5rem',
+                        fontWeight: 400,
+                        lineHeight: '1.75rem',
+                        letterSpacing: '0.01em',
+                        flexShrink: 0,
+                        borderRadius: '8px',
+                        '&:hover': {
+                          backgroundColor: selectedClients.includes(client.slug) ? '#4C53A2' : '#C7CAE3',
+                        },
+                        '& .MuiChip-label': {
+                          px: 0,
+                        },
+                      }}
+                    />
+                  ))}
+                </Box>
+                
+                {/* Gradient Overlay */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: '180px',
+                    top: 0,
+                    bottom: 0,
+                    width: '40px',
+                    background: 'linear-gradient(to left, #FFFFFF, transparent)',
+                    pointerEvents: 'none',
                   }}
                 />
+                
+                {/* Client Search Field */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '160px',
+                  }}
+                >
+                  <TextField
+                    size="small"
+                    placeholder="Search clients..."
+                    value={clientSearchQuery}
+                    onChange={(e) => setClientSearchQuery(e.target.value)}
+                    sx={{
+                      width: '100%',
+                      '& .MuiInputBase-root': {
+                        backgroundColor: '#F5F5F5',
+                        borderRadius: '8px',
+                        height: '40px',
+                      },
+                      '& .MuiInputBase-input': {
+                        fontSize: '1rem',
+                        fontFamily: 'Roboto',
+                        py: 0.5,
+                      },
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon sx={{ color: '#9E9E9E' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Box>
               </Box>
             </Box>
             
-            {/* Stand Size Filters - Horizontal */}
+            {/* Stand Size Filters */}
             <Box sx={{ mb: 3 }}>
-              <Box 
-                sx={{ 
-                  display: 'flex',
-                  gap: 1,
-                  overflowX: 'auto',
-                  overflowY: 'hidden',
-                  pb: 1,
-                  '&::-webkit-scrollbar': {
-                    height: '4px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    backgroundColor: 'transparent',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#E0E0E0',
-                    borderRadius: '2px',
-                  },
+              <Typography
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mb: 1,
                 }}
               >
+                Stand size
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
                 {sizeRanges.map((range) => (
                   <Chip
                     key={range.label}
                     label={range.label}
                     onClick={() => handleSizeToggle(range.label)}
                     sx={{
-                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#F5F5F5',
-                      color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#262626',
+                      px: 1.5,
+                      py: 1,
+                      backgroundColor: selectedSizeRanges.includes(range.label) ? '#656CAF' : '#E9EAF4',
+                      color: selectedSizeRanges.includes(range.label) ? '#FFFFFF' : '#4C53A2',
                       fontFamily: 'Roboto',
-                      fontSize: 14,
+                      fontSize: '1.5rem',
                       fontWeight: 400,
-                      flexShrink: 0,
+                      lineHeight: '1.75rem',
+                      letterSpacing: '0.01em',
+                      borderRadius: '8px',
                       '&:hover': {
-                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#E0E0E0',
+                        backgroundColor: selectedSizeRanges.includes(range.label) ? '#4C53A2' : '#C7CAE3',
+                      },
+                      '& .MuiChip-label': {
+                        px: 0,
                       },
                     }}
                   />
                 ))}
+              </Box>
+            </Box>
+            
+            {/* Stand Type Filters */}
+            <Box sx={{ mb: 3 }}>
+              <Typography
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  lineHeight: '1.5rem',
+                  letterSpacing: '0.02rem',
+                  color: '#000',
+                  mb: 1,
+                }}
+              >
+                Stand type
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 1.5 }}>
                 <Chip
                   label="Double-Deckers"
                   onClick={() => handleTypeToggle('double-decker')}
                   sx={{
-                    backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#F5F5F5',
-                    color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#262626',
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedTypes.includes('double-decker') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('double-decker') ? '#FFFFFF' : '#4C53A2',
                     fontFamily: 'Roboto',
-                    fontSize: 14,
+                    fontSize: '1.5rem',
                     fontWeight: 400,
-                    flexShrink: 0,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#E0E0E0',
+                      backgroundColor: selectedTypes.includes('double-decker') ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
                     },
                   }}
                 />
@@ -518,14 +565,21 @@ export default function ProjectsPageContent() {
                   label="Events"
                   onClick={() => handleTypeToggle('events')}
                   sx={{
-                    backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#F5F5F5',
-                    color: selectedTypes.includes('events') ? '#FFFFFF' : '#262626',
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedTypes.includes('events') ? '#656CAF' : '#E9EAF4',
+                    color: selectedTypes.includes('events') ? '#FFFFFF' : '#4C53A2',
                     fontFamily: 'Roboto',
-                    fontSize: 14,
+                    fontSize: '1.5rem',
                     fontWeight: 400,
-                    flexShrink: 0,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#E0E0E0',
+                      backgroundColor: selectedTypes.includes('events') ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
                     },
                   }}
                 />
@@ -542,11 +596,15 @@ export default function ProjectsPageContent() {
                     color: '#656CAF',
                     textTransform: 'none',
                     fontFamily: 'Roboto',
-                    fontSize: 14,
+                    fontSize: '1rem',
                     fontWeight: 700,
+                    letterSpacing: '0.02rem',
+                    p: 0,
+                    minWidth: 'auto',
                     '&:hover': {
                       backgroundColor: 'transparent',
                       color: '#4C53A2',
+                      textDecoration: 'underline',
                     },
                   }}
                 >
