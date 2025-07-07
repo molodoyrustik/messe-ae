@@ -13,6 +13,8 @@ import FooterSection from '@/components/landing/FooterSection';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { Article } from '@/components/ArticleCard';
 import LinkedInNotification from '@/components/LinkedInNotification';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface ArticleData {
   slug: string;
@@ -46,58 +48,57 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
           width: '100%',
           aspectRatio: { xs: 'auto', md: '1439.80/626.00' },
           height: { xs: '25rem', md: 'auto' },
-          display: 'inline-flex',
-          padding: { xs: '1.5rem 1rem', md: '2.5rem 2.4875rem 3.75rem 2.5rem' },
+          display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-end',
-          gap: { xs: '10rem', md: '25rem' },
+          justifyContent: 'space-between',
           position: 'relative',
           overflow: 'hidden',
-          backgroundImage: `url(${articleData.heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)',
-            zIndex: 1,
-          },
+          background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.80) 60%), url(${articleData.heroImage}) lightgray 50% / cover no-repeat`,
         }}
       >
-        {/* Date in top right */}
-        <Typography
-          sx={{
-            fontFamily: 'Roboto',
-            fontWeight: 400,
-            fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
-            lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
-            letterSpacing: '0.02rem',
-            textAlign: 'right',
-            color: '#FFFFFF',
-            position: 'relative',
-            zIndex: 2,
-          }}
-        >
-          {articleData.publishDate}
-        </Typography>
+        {/* Content wrapper with consistent padding */}
+        <Container maxWidth="xl" sx={{ 
+          height: '100%', 
+          px: { xs: '1rem', md: '2.5rem' },
+          py: { xs: '1.5rem', md: '2.5rem' },
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}>
+          {/* Date in top right */}
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 400,
+                fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
+                lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
+                letterSpacing: '0.02rem',
+                textAlign: 'right',
+                color: '#FFFFFF',
+                position: 'relative',
+                zIndex: 2,
+              }}
+            >
+              {articleData.publishDate}
+            </Typography>
+          </Box>
 
-        {/* Title and Subtitle */}
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: { xs: '1rem', md: '1.5rem' }, // 24px
-            position: 'relative',
-            zIndex: 2,
-          }}
-        >
+          {/* Title and Subtitle */}
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem', // 24px
+              position: 'relative',
+              zIndex: 2,
+              pb: { xs: 0, md: '1.25rem' }, // Add bottom padding to match design
+            }}
+          >
           <Typography
             sx={{
+              alignSelf: 'stretch',
               fontFamily: 'Roboto',
               fontWeight: 400,
               fontSize: { xs: '2rem', md: '3rem' }, // 48px
@@ -110,11 +111,12 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
           </Typography>
           <Typography
             sx={{
+              alignSelf: 'stretch',
               fontFamily: 'Roboto',
               fontWeight: 400,
               fontSize: { xs: '1rem', md: '1.5rem' }, // 24px
               lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
-              letterSpacing: '0.02rem',
+              letterSpacing: '0.015rem',
               color: '#FFFFFF',
               maxHeight: { xs: 'none', md: '6rem' }, // 96px
             }}
@@ -122,6 +124,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             {articleData.subtitle}
           </Typography>
         </Box>
+        </Container>
       </Box>
 
       {/* Article Content */}
@@ -139,7 +142,6 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             >
               {/* Article content will be rendered here */}
               <Box
-                dangerouslySetInnerHTML={{ __html: articleData.content }}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -158,6 +160,15 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     flexDirection: 'column',
                     gap: '0.5rem',
                   },
+                  '& h1': {
+                    fontFamily: 'Roboto',
+                    fontWeight: 700,
+                    fontSize: '3rem',
+                    lineHeight: '3.75rem',
+                    letterSpacing: '0.02rem',
+                    color: '#424242',
+                    margin: '2rem 0 1rem 0',
+                  },
                   '& h2': {
                     fontFamily: 'Roboto',
                     fontWeight: 700,
@@ -165,7 +176,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     lineHeight: '2.5rem',
                     letterSpacing: '0.02rem',
                     color: '#424242',
-                    margin: 0,
+                    margin: '2rem 0 1rem 0',
                   },
                   '& h3': {
                     fontFamily: 'Roboto',
@@ -174,7 +185,16 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     lineHeight: '1.75rem',
                     letterSpacing: '0.02rem',
                     color: '#000',
-                    margin: 0,
+                    margin: '1.5rem 0 0.75rem 0',
+                  },
+                  '& h4, & h5, & h6': {
+                    fontFamily: 'Roboto',
+                    fontWeight: 700,
+                    fontSize: '1.125rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    margin: '1rem 0 0.5rem 0',
                   },
                   '& p': {
                     fontFamily: 'Roboto',
@@ -183,10 +203,94 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     lineHeight: '1.5rem',
                     letterSpacing: '0.02rem',
                     color: '#000',
-                    margin: 0,
+                    margin: '0 0 1rem 0',
                   },
-                  '& strong': {
+                  '& strong, & b': {
                     fontWeight: 700,
+                  },
+                  '& em, & i': {
+                    fontStyle: 'italic',
+                  },
+                  '& ul, & ol': {
+                    margin: '0 0 1rem 0',
+                    paddingLeft: '2rem',
+                  },
+                  '& ul': {
+                    listStyleType: 'disc',
+                  },
+                  '& ol': {
+                    listStyleType: 'decimal',
+                  },
+                  '& li': {
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
+                    letterSpacing: '0.02rem',
+                    color: '#000',
+                    marginBottom: '0.5rem',
+                  },
+                  '& blockquote': {
+                    margin: '1rem 0',
+                    padding: '1rem 1.5rem',
+                    borderLeft: '4px solid #656CAF',
+                    backgroundColor: '#F5F5F5',
+                    '& p': {
+                      margin: 0,
+                    },
+                  },
+                  '& code': {
+                    fontFamily: 'monospace',
+                    fontSize: '0.875rem',
+                    backgroundColor: '#F5F5F5',
+                    padding: '0.125rem 0.25rem',
+                    borderRadius: '0.25rem',
+                  },
+                  '& pre': {
+                    margin: '1rem 0',
+                    padding: '1rem',
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: '0.5rem',
+                    overflow: 'auto',
+                    '& code': {
+                      padding: 0,
+                      backgroundColor: 'transparent',
+                    },
+                  },
+                  '& hr': {
+                    margin: '2rem 0',
+                    border: 'none',
+                    borderTop: '1px solid #E0E0E0',
+                  },
+                  '& a': {
+                    color: '#656CAF',
+                    textDecoration: 'underline',
+                    '&:hover': {
+                      color: '#4C53A2',
+                    },
+                  },
+                  '& img': {
+                    maxWidth: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    margin: '2rem auto',
+                    borderRadius: '0.5rem',
+                  },
+                  '& table': {
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                    margin: '1rem 0',
+                    '& th, & td': {
+                      fontFamily: 'Roboto',
+                      fontSize: '1rem',
+                      padding: '0.75rem',
+                      textAlign: 'left',
+                      borderBottom: '1px solid #E0E0E0',
+                    },
+                    '& th': {
+                      fontWeight: 700,
+                      backgroundColor: '#F5F5F5',
+                    },
                   },
                   '& .industry-section': {
                     display: 'flex',
@@ -199,7 +303,11 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     gap: '0.5rem',
                   },
                 }}
-              />
+              >
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {articleData.content}
+                </ReactMarkdown>
+              </Box>
             </Box>
 
             {/* Next Articles Section */}
