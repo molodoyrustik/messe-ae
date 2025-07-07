@@ -404,6 +404,39 @@ export default function ProjectsPageContent() {
                     },
                   }}
                 >
+                  <Chip
+                    label="All"
+                    onClick={() => {
+                      setSelectedClients([]);
+                      updateURL({ clients: [], page: 1 });
+                      const newFilters: ProjectsFilters = {
+                        ...filters,
+                        clientSlugs: undefined,
+                        page: 1,
+                      };
+                      setFilters(newFilters);
+                      setCurrentPage(1);
+                    }}
+                    sx={{
+                      px: 1.5,
+                      py: 1,
+                      backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
+                      color: selectedClients.length === 0 ? '#FFFFFF' : '#4C53A2',
+                      fontFamily: 'Roboto',
+                      fontSize: '1.5rem',
+                      fontWeight: 400,
+                      lineHeight: '1.75rem',
+                      letterSpacing: '0.01em',
+                      flexShrink: 0,
+                      borderRadius: '8px',
+                      '&:hover': {
+                        backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
+                      },
+                      '& .MuiChip-label': {
+                        px: 0,
+                      },
+                    }}
+                  />
                   {filteredClientsForChips.map((client) => (
                     <Chip
                       key={client.id}
@@ -498,9 +531,41 @@ export default function ProjectsPageContent() {
                   mb: 1,
                 }}
               >
-                Stand size & type
+                Stand size
               </Typography>
               <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                <Chip
+                  label="All"
+                  onClick={() => {
+                    setSelectedSizeRanges([]);
+                    updateURL({ sizes: [], page: 1 });
+                    const newFilters: ProjectsFilters = {
+                      ...filters,
+                      sizeRanges: undefined,
+                      page: 1,
+                    };
+                    setFilters(newFilters);
+                    setCurrentPage(1);
+                  }}
+                  sx={{
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedSizeRanges.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.length === 0 ? '#FFFFFF' : '#4C53A2',
+                    fontFamily: 'Roboto',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedSizeRanges.length === 0 ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
+                  }}
+                />
                 {sizeRanges.map((range) => (
                   <Chip
                     key={range.label}
