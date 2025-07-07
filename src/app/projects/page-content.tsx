@@ -398,7 +398,7 @@ export default function ProjectsPageContent() {
                     overflowX: 'auto',
                     overflowY: 'hidden',
                     pb: 1,
-                    pr: '220px', // Space for search field and gradient
+                    pr: '200px', // Space for search field and gradient
                     '&::-webkit-scrollbar': {
                       display: 'none',
                     },
@@ -469,23 +469,26 @@ export default function ProjectsPageContent() {
                 <Box
                   sx={{
                     position: 'absolute',
-                    right: '180px',
+                    right: '160px',
                     top: 0,
                     bottom: 0,
-                    width: '40px',
+                    width: '60px',
                     background: 'linear-gradient(to left, #FFFFFF, transparent)',
                     pointerEvents: 'none',
                   }}
                 />
                 
-                {/* Client Search Field */}
+                {/* Client Search Field with White Background */}
                 <Box
                   sx={{
                     position: 'absolute',
                     right: 0,
                     top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '160px',
+                    transform: 'translateY(calc(-50% - 0.25rem))',
+                    width: '180px',
+                    backgroundColor: '#FFFFFF',
+                    py: 0.5,
+                    pr: 0.5,
                   }}
                 >
                   <TextField
