@@ -749,6 +749,64 @@ const Header = () => {
                 </ListItemButton>
               </ListItem>
             ))}
+            
+            <Divider sx={{ my: 2, mx: 3 }} />
+            
+            {/* Footer Links */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/careers"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Careers"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/privacy-policy"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Privacy policy"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                href="/cookie-policy"
+                onClick={() => setDrawerOpen(false)}
+                sx={{ py: 1.5, px: 3 }}
+              >
+                <ListItemText
+                  primary="Cookie policy"
+                  primaryTypographyProps={{
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    color: '#424242',
+                    letterSpacing: '0.01em',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
           </List>
           
           <Divider />
