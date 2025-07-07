@@ -398,7 +398,7 @@ export default function ProjectsPageContent() {
                     left: 0,
                     top: 0,
                     bottom: 0,
-                    width: '5rem',
+                    width: 'calc(3rem + 1.5rem)',
                     backgroundColor: '#FFFFFF',
                     zIndex: 1,
                   }}
@@ -447,7 +447,7 @@ export default function ProjectsPageContent() {
                     overflowX: 'auto',
                     overflowY: 'hidden',
                     pb: 1,
-                    pl: '5rem', // Space for fixed "All" button
+                    pl: 'calc(3rem + 1.5rem)', // Width of "All" button + gap
                     pr: '200px', // Space for search field and gradient
                     '&::-webkit-scrollbar': {
                       display: 'none',
