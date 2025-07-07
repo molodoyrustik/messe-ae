@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   Box,
@@ -67,6 +67,9 @@ export default function ProjectsPageContent() {
   const [currentPage, setCurrentPage] = useState(initialParams.page);
   
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+  const [showLeftGradient, setShowLeftGradient] = useState(false);
+  const [showRightGradient, setShowRightGradient] = useState(true);
+  const clientScrollRef = useRef<HTMLDivElement>(null);
 
   // Update URL when filters change
   const updateURL = useCallback((params: {
@@ -256,6 +259,23 @@ export default function ProjectsPageContent() {
     setCurrentPage(1);
   };
 
+  const handleClientScroll = useCallback(() => {
+    if (clientScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = clientScrollRef.current;
+      
+      // Show left gradient if scrolled right
+      setShowLeftGradient(scrollLeft > 5);
+      
+      // Show right gradient if not scrolled to the end
+      setShowRightGradient(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  }, []);
+
+  // Check scroll position on mount and when clients data changes
+  useEffect(() => {
+    handleClientScroll();
+  }, [clientsData, handleClientScroll]);
+
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
@@ -400,18 +420,21 @@ export default function ProjectsPageContent() {
                   }}
                 />
                 {/* Left gradient for smooth fade */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    left: 'calc(3rem + 1rem)',
-                    top: 0,
-                    bottom: 0,
-                    width: '20px',
-                    background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
-                    pointerEvents: 'none',
-                    zIndex: 1,
-                  }}
-                />
+                {showLeftGradient && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      left: 'calc(3rem + 1rem)',
+                      top: 0,
+                      bottom: 0,
+                      width: '10px',
+                      background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%)',
+                      pointerEvents: 'none',
+                      zIndex: 1,
+                      transition: 'opacity 0.2s ease',
+                    }}
+                  />
+                )}
                 {/* All button - fixed position */}
                 <Chip
                   label="All"
@@ -450,6 +473,8 @@ export default function ProjectsPageContent() {
                   }}
                 />
                 <Box 
+                  ref={clientScrollRef}
+                  onScroll={handleClientScroll}
                   sx={{ 
                     display: 'flex',
                     gap: 1.5,
@@ -491,18 +516,21 @@ export default function ProjectsPageContent() {
                   ))}
                 </Box>
                 
-                {/* Gradient Overlay */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: '40px',
-                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
-                    pointerEvents: 'none',
-                  }}
-                />
+                {/* Right Gradient Overlay */}
+                {showRightGradient && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: '40px',
+                      background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.3) 70%, rgba(255,255,255,0) 100%)',
+                      pointerEvents: 'none',
+                      transition: 'opacity 0.2s ease',
+                    }}
+                  />
+                )}
               </Box>
             </Box>
             
