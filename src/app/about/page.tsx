@@ -22,7 +22,7 @@ export default function AboutPage() {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
-      <Container maxWidth="xl" sx={{ pt: { xs: 3, md: 7.5 }, pb: { xs: 5, md: 7.5 } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: 3, sm: 5, md: 7.5 }, pb: { xs: 5, sm: 6, md: 7.5 } }}>
         <Box sx={{ mx: 'auto', px: { md: 2 } }}>
           <Box>
             <Typography
@@ -30,8 +30,8 @@ export default function AboutPage() {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 24, md: 54 },
-                lineHeight: { xs: '28px', md: '60px' },
+                fontSize: { xs: 24, sm: 36, md: 54 },
+                lineHeight: { xs: '28px', sm: '42px', md: '60px' },
                 color: '#262626',
                 mb: { xs: 2, md: 3 },
               }}
@@ -43,8 +43,8 @@ export default function AboutPage() {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 16, md: 34 },
-                lineHeight: { xs: '24px', md: '42px' },
+                fontSize: { xs: 16, sm: 24, md: 34 },
+                lineHeight: { xs: '24px', sm: '32px', md: '42px' },
                 color: '#262626',
                 mb: { xs: 0.5, md: 1 },
               }}
@@ -56,8 +56,8 @@ export default function AboutPage() {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
-                fontSize: { xs: 14, md: 16 },
-                lineHeight: { xs: '18px', md: '24px' },
+                fontSize: { xs: 14, sm: 15, md: 16 },
+                lineHeight: { xs: '18px', sm: '21px', md: '24px' },
                 letterSpacing: '0.02em',
                 color: '#000000',
                 mb: { xs: '26px', md: 4 },

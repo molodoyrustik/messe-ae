@@ -287,12 +287,12 @@ const ClientsSection = () => {
               alt={logo.name}
               sx={{
                 width: 'auto',
-                maxWidth: isMobile ? '140px' : '180px',
-                maxHeight: isMobile ? '20px' : '48px', // Mobile: 20px height
+                maxWidth: { xs: '140px', sm: '160px', md: '180px' },
+                maxHeight: { xs: '20px', sm: '36px', md: '48px' },
                 height: '100%',
                 objectFit: 'contain',
                 filter: 'grayscale(100%)', // Grayscale by default for both mobile and desktop
-                opacity: isMobile ? 0.6 : 0.7, // Mobile: 0.6, Desktop: 0.7
+                opacity: { xs: 0.6, sm: 0.65, md: 0.7 },
                 transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'scale(1.05)',
@@ -334,11 +334,11 @@ const ClientsSection = () => {
           <Typography
             variant="h4"
             sx={{
-              fontSize: { xs: '0.75rem', md: 36 }, // Mobile: 0.75rem (12px), Desktop: 36px
+              fontSize: { xs: '0.75rem', sm: '1.5rem', md: 36 },
               fontStyle: 'normal',
               fontWeight: 400,
-              lineHeight: { xs: '1rem', md: 1.11 }, // Mobile: 1rem (16px), Desktop: 1.11
-              letterSpacing: { xs: '0.03rem', md: '-0.02em' }, // Mobile: 0.03rem, Desktop: -0.02em
+              lineHeight: { xs: '1rem', sm: '1.75rem', md: 1.11 },
+              letterSpacing: { xs: '0.03rem', sm: '0.01em', md: '-0.02em' }
               color: '#262626', // Direct color for grey.800
               textAlign: { xs: 'left', md: 'left' }, // Mobile: left, Desktop: left
               width: '100%',

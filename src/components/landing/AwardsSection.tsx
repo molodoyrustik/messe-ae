@@ -350,8 +350,8 @@ const AwardsSection = () => {
         <Box
           sx={{
             display: { xs: 'grid', md: 'none' },
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '0.5rem',
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)' },
+            gap: { xs: '0.5rem', sm: '1rem' },
             width: '100%',
           }}
         >
@@ -399,7 +399,7 @@ const AwardsSection = () => {
               md: 'repeat(2, 1fr)',
               lg: 'repeat(4, 1fr)'
             },
-            gap: '20px',
+            gap: { md: '1rem', lg: '1.25rem' },
             width: '100%',
           }}
         >

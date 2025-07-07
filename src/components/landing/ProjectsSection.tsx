@@ -81,7 +81,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
       sx={{
         position: 'relative',
         width: '100%',
-        height: { xs: '280px', md: '480px' },
+        height: { xs: '280px', sm: '340px', md: '480px' },
         transition: 'all 0.3s ease',
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -499,13 +499,13 @@ const ProjectsSection = () => {
           Our Projects
         </Typography>
 
-        {/* Projects Grid - Desktop */}
+        {/* Projects Grid - Desktop and Tablet */}
         <Box
           sx={{
-            display: { xs: 'none', md: 'grid' },
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 4,
-            mb: 8,
+            display: { xs: 'none', sm: 'grid' },
+            gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gap: { sm: 2, md: 4 },
+            mb: { sm: 6, md: 8 },
           }}
         >
           {projectCategories.map((category) => (
@@ -523,7 +523,7 @@ const ProjectsSection = () => {
       {/* Projects Carousel - Mobile (Full Width) */}
       <Box
         sx={{
-          display: { xs: 'flex', md: 'none' },
+          display: { xs: 'flex', sm: 'none' },
           gap: '8px',
           overflowX: 'auto',
           pb: 2,

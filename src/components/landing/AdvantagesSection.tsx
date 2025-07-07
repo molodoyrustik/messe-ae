@@ -192,10 +192,14 @@ const AdvantagesSection = () => {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
-              gap: { xs: '0.75rem', sm: '0.5rem', md: '2rem' },
-              width: { xs: 'calc(100% + 1rem)', md: '100%' },
-              mx: { xs: '-0.5rem', md: 0 },
+              gridTemplateColumns: { 
+                xs: 'repeat(2, 1fr)', 
+                sm: 'repeat(2, 1fr)', 
+                md: 'repeat(4, 1fr)' 
+              },
+              gap: { xs: '0.75rem', sm: '1.5rem', md: '2rem' },
+              width: { xs: 'calc(100% + 1rem)', sm: '100%', md: '100%' },
+              mx: { xs: '-0.5rem', sm: 0, md: 0 },
             }}
           >
             {advantages.map((advantage, index) => (
