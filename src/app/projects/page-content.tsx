@@ -391,6 +391,55 @@ export default function ProjectsPageContent() {
                 Clients
               </Typography>
               <Box sx={{ position: 'relative' }}>
+                {/* White background for All button */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: '5rem',
+                    backgroundColor: '#FFFFFF',
+                    zIndex: 1,
+                  }}
+                />
+                {/* All button - fixed position */}
+                <Chip
+                  label="All"
+                  onClick={() => {
+                    setSelectedClients([]);
+                    updateURL({ clients: [], page: 1 });
+                    const newFilters: ProjectsFilters = {
+                      ...filters,
+                      clientSlugs: undefined,
+                      page: 1,
+                    };
+                    setFilters(newFilters);
+                    setCurrentPage(1);
+                  }}
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    zIndex: 2,
+                    px: 1.5,
+                    py: 1,
+                    backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedClients.length === 0 ? '#FFFFFF' : '#4C53A2',
+                    fontFamily: 'Roboto',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    lineHeight: '1.75rem',
+                    letterSpacing: '0.01em',
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
+                    },
+                    '& .MuiChip-label': {
+                      px: 0,
+                    },
+                  }}
+                />
                 <Box 
                   sx={{ 
                     display: 'flex',
@@ -398,45 +447,13 @@ export default function ProjectsPageContent() {
                     overflowX: 'auto',
                     overflowY: 'hidden',
                     pb: 1,
+                    pl: '5rem', // Space for fixed "All" button
                     pr: '200px', // Space for search field and gradient
                     '&::-webkit-scrollbar': {
                       display: 'none',
                     },
                   }}
                 >
-                  <Chip
-                    label="All"
-                    onClick={() => {
-                      setSelectedClients([]);
-                      updateURL({ clients: [], page: 1 });
-                      const newFilters: ProjectsFilters = {
-                        ...filters,
-                        clientSlugs: undefined,
-                        page: 1,
-                      };
-                      setFilters(newFilters);
-                      setCurrentPage(1);
-                    }}
-                    sx={{
-                      px: 1.5,
-                      py: 1,
-                      backgroundColor: selectedClients.length === 0 ? '#656CAF' : '#E9EAF4',
-                      color: selectedClients.length === 0 ? '#FFFFFF' : '#4C53A2',
-                      fontFamily: 'Roboto',
-                      fontSize: '1.5rem',
-                      fontWeight: 400,
-                      lineHeight: '1.75rem',
-                      letterSpacing: '0.01em',
-                      flexShrink: 0,
-                      borderRadius: '8px',
-                      '&:hover': {
-                        backgroundColor: selectedClients.length === 0 ? '#4C53A2' : '#C7CAE3',
-                      },
-                      '& .MuiChip-label': {
-                        px: 0,
-                      },
-                    }}
-                  />
                   {filteredClientsForChips.map((client) => (
                     <Chip
                       key={client.id}
@@ -472,8 +489,8 @@ export default function ProjectsPageContent() {
                     right: '160px',
                     top: 0,
                     bottom: 0,
-                    width: '60px',
-                    background: 'linear-gradient(to left, #FFFFFF, transparent)',
+                    width: '80px',
+                    background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.3) 80%, rgba(255,255,255,0) 100%)',
                     pointerEvents: 'none',
                   }}
                 />
