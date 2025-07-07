@@ -68,7 +68,6 @@ export default function ProjectsPageContent() {
   
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [clientSearchQuery, setClientSearchQuery] = useState('');
-  const [projectSearchQuery, setProjectSearchQuery] = useState('');
 
   // Update URL when filters change
   const updateURL = useCallback((params: {
@@ -152,18 +151,10 @@ export default function ProjectsPageContent() {
     setFilters(newFilters);
   }, [initialParams.page, initialParams.clients, initialParams.sizes, initialParams.types]); // Dependencies for URL params
   
-  // Filter projects by search query
+  // Use all projects data directly
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
-    // Temporarily disabled project search
     return projectsData.data;
-    // if (!projectSearchQuery) return projectsData.data;
-    
-    // return projectsData.data.filter(project => 
-    //   project.title.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-    //   project.client?.name.toLowerCase().includes(projectSearchQuery.toLowerCase()) ||
-    //   project.eventName.toLowerCase().includes(projectSearchQuery.toLowerCase())
-    // );
   }, [projectsData]);
   
   // Filter clients by search query for desktop
@@ -323,103 +314,48 @@ export default function ProjectsPageContent() {
             )}
           </Box>
           
-          {/* Mobile Filter Button and Search */}
+          {/* Mobile Filter Button */}
           {isMobile && (
-            <Box sx={{ width: '100%', display: 'flex', gap: 1 }}>
-              <Box sx={{ flex: 1 }}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Search projects..."
-                  value={projectSearchQuery}
-                  onChange={(e) => setProjectSearchQuery(e.target.value)}
+            <IconButton
+              onClick={() => setIsFilterPanelOpen(true)}
+              sx={{
+                backgroundColor: '#F5F5F5',
+                borderRadius: '4px',
+                width: '36px',
+                height: '36px',
+                position: 'relative',
+                '&:hover': {
+                  backgroundColor: '#E0E0E0',
+                },
+              }}
+            >
+              <FilterIcon />
+              {hasActiveFilters && (
+                <Box
                   sx={{
-                    '& .MuiInputBase-root': {
-                      backgroundColor: '#F5F5F5',
-                      borderRadius: '4px',
-                      height: '36px',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '16px',
-                      fontFamily: 'Roboto',
-                      py: 0.5,
-                    },
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9E9E9E', fontSize: '20px' }} />
-                      </InputAdornment>
-                    ),
+                    position: 'absolute',
+                    top: 4,
+                    right: 4,
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    backgroundColor: '#A64B66',
                   }}
                 />
-              </Box>
-              <IconButton
-                onClick={() => setIsFilterPanelOpen(true)}
-                sx={{
-                  backgroundColor: '#F5F5F5',
-                  borderRadius: '4px',
-                  width: '36px',
-                  height: '36px',
-                  position: 'relative',
-                  '&:hover': {
-                    backgroundColor: '#E0E0E0',
-                  },
-                }}
-              >
-                <FilterIcon />
-                {hasActiveFilters && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: 4,
-                      right: 4,
-                      width: 8,
-                      height: 8,
-                      borderRadius: '50%',
-                      backgroundColor: '#A64B66',
-                    }}
-                  />
-                )}
-              </IconButton>
-            </Box>
+              )}
+            </IconButton>
           )}
           
-          {/* Desktop Search */}
-          {!isMobile && (
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-              {/* Desktop Project Search */}
-              <TextField
-                size="small"
-                placeholder="Search projects..."
-                value={projectSearchQuery}
-                onChange={(e) => setProjectSearchQuery(e.target.value)}
-                sx={{
-                  width: '300px',
-                  '& .MuiInputBase-root': {
-                    backgroundColor: '#F5F5F5',
-                    borderRadius: '8px',
-                    height: '40px',
-                  },
-                  '& .MuiInputBase-input': {
-                    fontSize: '16px',
-                    fontFamily: 'Roboto',
-                    py: 1,
-                  },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: '#9E9E9E' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              
-              {/* Desktop Client Search */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        </Box>
+        
+        {/* Desktop Filter Section */}
+        {!isMobile && (
+          <Box sx={{ mb: 4 }}>
+            {/* Client Section with Search */}
+            <Box sx={{ mb: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                 <Typography sx={{ fontSize: 16, fontWeight: 700, color: '#262626' }}>
-                  Clients:
+                  Clients
                 </Typography>
                 <TextField
                   size="small"
@@ -431,32 +367,23 @@ export default function ProjectsPageContent() {
                     '& .MuiInputBase-root': {
                       backgroundColor: '#F5F5F5',
                       borderRadius: '8px',
-                      height: '40px',
+                      height: '32px',
                     },
                     '& .MuiInputBase-input': {
-                      fontSize: '16px',
+                      fontSize: '14px',
                       fontFamily: 'Roboto',
-                      py: 1,
+                      py: 0.5,
                     },
                   }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9E9E9E' }} />
+                        <SearchIcon sx={{ color: '#9E9E9E', fontSize: '18px' }} />
                       </InputAdornment>
                     ),
                   }}
                 />
               </Box>
-            </Box>
-          )}
-        </Box>
-        
-        {/* Desktop Filter Section */}
-        {!isMobile && (
-          <Box sx={{ mb: 4 }}>
-            {/* Client Chips */}
-            <Box sx={{ mb: 3 }}>
               {clientsData && (
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                   {filteredClientsForChips.map((client) => (
