@@ -26,7 +26,7 @@ const ExpoglobalSection = () => {
             display: { xs: 'flex', md: 'grid' },
             gridTemplateColumns: { md: '1fr 3fr' },
             gap: { xs: 4, md: '20px' },
-            alignItems: 'flex-start',
+            alignItems: { xs: 'flex-start', md: 'center' },
             flexDirection: { xs: 'column', md: 'unset' },
           }}
         >
@@ -58,7 +58,7 @@ const ExpoglobalSection = () => {
           </Box>
 
           {/* Content */}
-          <Stack spacing={1.25} sx={{ flex: 1, pt: { xs: 0, md: '60px' } }}>
+          <Stack spacing={1.25} sx={{ flex: 1 }}>
             <Typography
               variant="body1"
               sx={{
