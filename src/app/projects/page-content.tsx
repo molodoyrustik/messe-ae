@@ -485,7 +485,7 @@ export default function ProjectsPageContent() {
               </Box>
             </Box>
             
-            {/* Stand Size Filters */}
+            {/* Stand Size and Type Filters - Combined */}
             <Box sx={{ mb: 3 }}>
               <Typography
                 sx={{
@@ -498,7 +498,7 @@ export default function ProjectsPageContent() {
                   mb: 1,
                 }}
               >
-                Stand size
+                Stand size & type
               </Typography>
               <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
                 {sizeRanges.map((range) => (
@@ -526,25 +526,6 @@ export default function ProjectsPageContent() {
                     }}
                   />
                 ))}
-              </Box>
-            </Box>
-            
-            {/* Stand Type Filters */}
-            <Box sx={{ mb: 3 }}>
-              <Typography
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  lineHeight: '1.5rem',
-                  letterSpacing: '0.02rem',
-                  color: '#000',
-                  mb: 1,
-                }}
-              >
-                Stand type
-              </Typography>
-              <Box sx={{ display: 'flex', gap: 1.5 }}>
                 <Chip
                   label="Double-Deckers"
                   onClick={() => handleTypeToggle('double-decker')}
