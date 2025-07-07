@@ -66,10 +66,9 @@ export default function ManifestosPage() {
                   key={index}
                   sx={{
                     p: '12px',
-                    border: '1px solid',
-                    borderColor: 'primary.200',
+                    border: '2px solid #A2A9D0',
                     boxShadow: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '0.5rem',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '4px',
@@ -141,10 +140,9 @@ export default function ManifestosPage() {
                   key={index}
                   sx={{
                     p: '1.5rem 2rem',
-                    border: '2px solid',
-                    borderColor: 'primary.200',
+                    border: '2px solid #A2A9D0',
                     boxShadow: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '0.5rem',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
