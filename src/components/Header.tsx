@@ -358,8 +358,8 @@ const Header = () => {
                   style={{
                     color: 'transparent',
                     position: 'absolute',
-                    left: isMobile ? -93 : -60,
-                    top: isMobile ? -47 : -34,
+                    left: isMobile ? -93 : -62,
+                    top: isMobile ? -47 : -30,
                     objectFit: 'contain',
                     transform: isMobile ? 'scale(0.5)' : 'scale(1.15)',
                   }}
