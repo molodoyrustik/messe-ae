@@ -88,7 +88,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           data-id="article-card-title"
           sx={{
             alignSelf: 'stretch',
-            height: { xs: 'auto', md: '4rem' }, // 64px
+            height: { xs: 'auto', md: '3.5rem' }, // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
