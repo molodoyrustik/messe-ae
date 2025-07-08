@@ -17,6 +17,7 @@ export interface Client {
   documentId: string;
   name: string;
   slug: string;
+  description: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -78,7 +79,7 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  referringCompany: Record<string, unknown> | null;
+  referringCompany: string | null;
   client?: Client;
   images?: ProjectImage[];
 }
