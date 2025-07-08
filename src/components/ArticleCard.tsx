@@ -35,7 +35,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         data-id="article-card"
         sx={{
           display: 'flex',
-          width: { xs: '100%', md: '27rem' }, // 432px
+          width: '100%',
           flexDirection: 'column',
           alignItems: 'flex-start',
           gap: '0.75rem', // 12px
@@ -62,7 +62,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           data-id="article-card-image-container"
           sx={{
             width: '100%',
-            height: { xs: '13.5rem', md: '15rem' }, // 240px
+            height: { xs: '15rem', md: '15rem' }, // 240px on both mobile and desktop
             position: 'relative',
             borderRadius: '0.5rem',
             overflow: 'hidden',

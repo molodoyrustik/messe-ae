@@ -28,7 +28,7 @@ export default function JobCard({ job, onClick }: JobCardProps) {
     <Box
       onClick={onClick}
       sx={{
-        width: '24rem',
+        width: '100%',
         padding: '1.5rem 2rem',
         borderRadius: '0.5rem',
         border: '2px solid',

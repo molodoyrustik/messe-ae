@@ -7,6 +7,9 @@ import {
   Stack,
   Box,
   Button,
+  Container,
+  Divider,
+  Link,
 } from '@mui/material';
 import { LocationOn, Work } from '@mui/icons-material';
 import { Job } from './JobCard';
@@ -19,193 +22,394 @@ interface JobModalProps {
 }
 
 export default function JobModal({ job, open, onClose, isMobile }: JobModalProps) {
+  const getJobContent = () => {
+    const baseCompanyDescription = [
+      'Messe.ae is a part of Expoglobal Group operating in the Middle East based in Dubai. With more than 20 years of experience in Design, Project Management, Exhibition Stand Building and Custom-Made Solutions we work with a wide range of customers in multiple sectors creating stands for small businesses as well as for international corporations.',
+      'Our service is guaranteed worldwide thanks to the convenient location of our offices in Antwerp and Dubai. We can extend our services to multiple countries and events with partners in Southeast Asia, India, South America, and South Africa.',
+      `Messe.ae is happy to offer the position of ${job.title}.`
+    ];
+
+    const baseWhatWeProvide = [
+      'You will work in a highly enthusiastic environment with passionate colleagues;',
+      'An extensive training period, familiarizing you with our business and all stages of the process;',
+      'A representative salary according to your experience and education;',
+      'An opportunity to develop yourself within a fast-growing international company;',
+      'An opportunity to work alongside a team with a wide variety of different nationalities.'
+    ];
+
+    if (job.id === '1') {
+      return {
+        aboutJob: 'As a Quantity Surveyor specialized in events and exhibitions, you will play a crucial role in managing the costs and budgets associated with our projects. You will work closely with the project management team to ensure that financial aspects are meticulously controlled, and resources are optimally allocated. Your expertise will be instrumental in ensuring the profitability and success of our events and exhibitions.',
+        whatWeProvide: baseWhatWeProvide,
+        remunerationPackage: [
+          'Basic medical insurance cover, as per UAE law.',
+          'Postpaid SIM card and a basic smartphone, data and call package included for business purposes.',
+          'Company laptop.',
+          '30 days paid vacation',
+          'Salary 8000 AED/month',
+          'Working hours: 9-18'
+        ]
+      };
+    } else if (job.id === '2') {
+      return {
+        aboutJob: null,
+        whatWeProvide: baseWhatWeProvide,
+        remunerationPackage: [
+          'Basic medical insurance cover, as per UAE law;',
+          'Postpaid SIM card and a basic smartphone, data and call package included for business purposes;',
+          'Company laptop;',
+          '30 days paid vacation.'
+        ]
+      };
+    } else if (job.id === '3') {
+      return {
+        aboutJob: 'We are looking for a technically skilled Equipment Design Engineer for Exhibition Stands to join our dynamic team. In this role, you will be responsible for conceptualizing, designing and ensuring completion drawings on time. You will work closely with project manager, production team and other stakeholders to ensure that all design requirements are met and that the final product aligns with the client\'s vision. You will be expected to provide guidance and support to the production team throughout the project lifecycle.',
+        additionalDescription: 'You will be involved in every stage of the equipment design process, from initial concept development to final execution, ensuring that all elements are aligned with the client\'s objectives – including installation and dismantling of equipment directly at the exhibition. This role requires a strong understanding of structural engineering, lighting, load calculation and other technical aspects of exhibition equipment production. The ideal candidate will have the ability to work under pressure in a fast-paced environment.',
+        whatWeProvide: [
+          'Monthly salary via WPS;',
+          'Employment and Resident VISA;',
+          'Basic Medical Insurance as per UAE law;',
+          'Leave period 1 month;',
+          'Trial period 3+3 (total 6 months).'
+        ],
+        remunerationPackage: null
+      };
+    }
+    
+    return { aboutJob: null, whatWeProvide: baseWhatWeProvide, remunerationPackage: null };
+  };
+
+  const jobContent = getJobContent();
+
   const content = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* Header */}
-      <Box sx={{ mb: 3 }}>
-        {/* Job Title */}
+    <Box
+      sx={{
+        maxWidth: 'none',
+        mx: 'auto',
+        p: '2rem',
+        overflowX: 'auto',
+      }}
+    >
+      <Typography
+        variant="h1"
+        sx={{
+          fontFamily: 'Roboto',
+          fontWeight: 700,
+          fontSize: '2rem',
+          lineHeight: '2.5rem',
+          color: '#262626',
+          mb: '1rem',
+        }}
+      >
+        {job.title} position
+      </Typography>
+      
+      <Box sx={{ mb: '2rem' }}>
+        {/* Empty div equivalent to gallery-bg-objects */}
+        <Box sx={{ height: 0, overflow: 'hidden' }}>&nbsp;</Box>
+      </Box>
+      
+      <Box sx={{ className: 'text text-page-content vacancy-text' }}>
         <Typography
+          variant="h2"
           sx={{
             fontFamily: 'Roboto',
             fontWeight: 700,
             fontSize: '1.5rem',
             lineHeight: '1.75rem',
-            letterSpacing: '0.01em',
             color: '#262626',
-            mb: '0.5rem',
+            mb: '1rem',
           }}
         >
-          {job.title}
+          Company Description
         </Typography>
-
-        {/* Tags */}
-        <Stack direction="row" spacing={0.5} alignItems="center">
-          {/* Location Tag */}
-          <Box
-            sx={{
-              px: '0.75rem',
-              py: '0.5rem',
-              backgroundColor: '#656CAF',
-              borderRadius: '62.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            <LocationOn sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
+        <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+          Messe.ae is a part of Expoglobal Group operating in the Middle East based in Dubai. With more than 20 years of experience in Design, Project Management, Exhibition Stand Building and Custom-Made Solutions we work with a wide range of customers in multiple sectors creating stands for small businesses as well as for international corporations.
+        </Typography>
+        <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+          Our service is guaranteed worldwide thanks to the convenient location of our offices in Antwerp and Dubai. We can extend our services to multiple countries and events with partners in Southeast Asia, India, South America, and South Africa.
+        </Typography>
+        <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+          Messe.ae is happy to offer the position of {job.title}.
+        </Typography>
+        
+        {/* About the job or Role Requirements */}
+        {job.id === '2' ? (
+          <Box sx={{ mb: '2rem' }}>
             <Typography
+              variant="h2"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: '0.875rem',
-                lineHeight: '1rem',
-                letterSpacing: '0.01em',
-                color: '#FFFFFF',
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
               }}
             >
-              {job.location}
+              <Box component="strong">Role Requirements:</Box>
             </Typography>
+            <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+              {job.requirements.map((req, index) => (
+                <Typography key={index} component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  {req};
+                </Typography>
+              ))}
+            </Box>
           </Box>
-
-          {/* Type Tag */}
-          <Box
-            sx={{
-              px: '0.75rem',
-              py: '0.5rem',
-              backgroundColor: '#656CAF',
-              borderRadius: '62.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            <Work sx={{ fontSize: '1rem', color: '#FFFFFF' }} />
+        ) : job.id === '3' ? (
+          <Box sx={{ mb: '2rem' }}>
             <Typography
+              variant="h2"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: '0.875rem',
-                lineHeight: '1rem',
-                letterSpacing: '0.01em',
-                color: '#FFFFFF',
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
               }}
             >
-              {job.type}
+              Vacancy Description
+            </Typography>
+            <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+              {jobContent.aboutJob}
+            </Typography>
+            <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+              {jobContent.additionalDescription}
             </Typography>
           </Box>
-        </Stack>
-      </Box>
+        ) : jobContent.aboutJob ? (
+          <Box sx={{ mb: '2rem' }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
+              }}
+            >
+              <Box component="strong">About the job</Box>
+            </Typography>
+            <Typography sx={{ mb: '1rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+              {jobContent.aboutJob}
+            </Typography>
+          </Box>
+        ) : null}
+        
+        {/* Responsibilities */}
+        {job.responsibilities && job.responsibilities.length > 0 && (
+          <Box sx={{ mb: '2rem' }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
+              }}
+            >
+              <Box component="strong">
+                {job.id === '2' ? 'Tasks and Responsibilities:' : 
+                 job.id === '3' ? 'Responsibilities:' : 
+                 'Key Responsibilities:'}
+              </Box>
+            </Typography>
+            {job.id === '1' ? (
+              // Quantity Surveyor detailed structure
+              <>
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Cost Estimation and Budgeting:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Prepare accurate and detailed cost estimates for events and exhibition projects.
+                  </Typography>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Develop and manage project budgets, ensuring alignment with client expectations and company profitability targets.
+                  </Typography>
+                </Box>
 
-      {/* Scrollable Content */}
-      <Box sx={{ flex: 1, overflow: 'auto', mb: 3 }}>
-        {/* Description */}
-        <Typography
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Tendering and Procurement:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Oversee the tendering process, including the preparation of tender documents, evaluation of bids, and negotiation with suppliers and contractors.
+                  </Typography>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Source and select subcontractors, suppliers, and vendors based on cost, quality, and reliability.
+                  </Typography>
+                </Box>
+
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Contract Management:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Administer contracts and agreements with subcontractors, suppliers, and vendors.
+                  </Typography>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Ensure compliance with contractual terms and conditions, and manage variations as required.
+                  </Typography>
+                </Box>
+
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Cost Control and Reporting:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Monitor project costs and expenditures against approved budgets.
+                  </Typography>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Provide regular financial reports to project management, highlighting any variances and proposing corrective actions.
+                  </Typography>
+                </Box>
+
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Value Engineering:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Identify opportunities for cost optimization and value engineering without compromising quality or client satisfaction.
+                  </Typography>
+                </Box>
+
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Risk Assessment and Mitigation:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Identify potential risks related to costs, and develop strategies to mitigate them.
+                  </Typography>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Maintain a proactive approach to risk management throughout the project lifecycle.
+                  </Typography>
+                </Box>
+
+                <Typography sx={{ mb: '0.5rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  Documentation and Record Keeping:
+                </Typography>
+                <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                  <Typography component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    Maintain accurate and organized records of all financial transactions, contracts, and project-related documentation.
+                  </Typography>
+                </Box>
+              </>
+            ) : (
+              // Other jobs - simple list
+              <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+                {job.responsibilities.map((resp, index) => (
+                  <Typography key={index} component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                    {resp};
+                  </Typography>
+                ))}
+              </Box>
+            )}
+          </Box>
+        )}
+
+        {/* Requirements */}
+        {job.requirements && job.requirements.length > 0 && job.id !== '2' && (
+          <Box sx={{ mb: '2rem' }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
+              }}
+            >
+              <Box component="strong">
+                {job.id === '1' ? 'Qualifications and Skills:' : 'Requirements:'}
+              </Box>
+            </Typography>
+            <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+              {job.requirements.map((req, index) => (
+                <Typography key={index} component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  {req}{job.id === '1' ? '.' : ';'}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {/* What we provide */}
+        <Box sx={{ mb: '2rem' }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 700,
+              fontSize: '1.5rem',
+              lineHeight: '1.75rem',
+              color: '#262626',
+              mb: '1rem',
+            }}
+          >
+            <Box component="strong">
+              {job.id === '3' ? 'Company providing' : 'What We Provide?'}
+            </Box>
+          </Typography>
+          <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+            {jobContent.whatWeProvide.map((item, index) => (
+              <Typography key={index} component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                {item}
+              </Typography>
+            ))}
+          </Box>
+        </Box>
+
+        {/* Remuneration package */}
+        {jobContent.remunerationPackage && (
+          <Box sx={{ mb: '2rem' }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: 'Roboto',
+                fontWeight: 700,
+                fontSize: '1.5rem',
+                lineHeight: '1.75rem',
+                color: '#262626',
+                mb: '1rem',
+              }}
+            >
+              <Box component="strong">And Remuneration Package:</Box>
+            </Typography>
+            <Box component="ul" sx={{ pl: '1.5rem', mb: '1rem', m: 0 }}>
+              {jobContent.remunerationPackage.map((item, index) => (
+                <Typography key={index} component="li" sx={{ mb: '0.25rem', fontFamily: 'Roboto', fontSize: '1rem', lineHeight: '1.5rem', color: '#000' }}>
+                  {item}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        <Box sx={{ borderTop: '1px solid #E0E0E0', my: '1rem' }} />
+        
+        <Link
+          href="mailto:hello@messe.ae"
           sx={{
+            display: 'inline-block',
+            px: '1.5rem',
+            py: '0.75rem',
+            backgroundColor: '#656CAF',
+            color: '#FFFFFF',
+            textDecoration: 'none',
+            borderRadius: '0.5rem',
             fontFamily: 'Roboto',
             fontWeight: 400,
             fontSize: '1rem',
             lineHeight: '1.5rem',
-            letterSpacing: '0.02rem',
-            color: '#000',
-            whiteSpace: 'pre-wrap',
-          }}
-        >
-          {job.description}
-        </Typography>
-
-        {/* Additional sections if needed */}
-        {job.requirements && job.requirements.length > 0 && (
-          <Box sx={{ mt: 3 }}>
-            <Typography
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: '1.125rem',
-                lineHeight: '1.5rem',
-                letterSpacing: '0.01em',
-                color: '#262626',
-                mb: 1,
-              }}
-            >
-              Requirements
-            </Typography>
-            <Box component="ul" sx={{ pl: 3, m: 0 }}>
-              {job.requirements.map((req, index) => (
-                <Typography
-                  key={index}
-                  component="li"
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02rem',
-                    color: '#000',
-                    mb: 0.5,
-                  }}
-                >
-                  {req}
-                </Typography>
-              ))}
-            </Box>
-          </Box>
-        )}
-
-        {job.responsibilities && job.responsibilities.length > 0 && (
-          <Box sx={{ mt: 3 }}>
-            <Typography
-              sx={{
-                fontFamily: 'Roboto',
-                fontWeight: 700,
-                fontSize: '1.125rem',
-                lineHeight: '1.5rem',
-                letterSpacing: '0.01em',
-                color: '#262626',
-                mb: 1,
-              }}
-            >
-              Key Responsibilities
-            </Typography>
-            <Box component="ul" sx={{ pl: 3, m: 0 }}>
-              {job.responsibilities.map((resp, index) => (
-                <Typography
-                  key={index}
-                  component="li"
-                  sx={{
-                    fontFamily: 'Roboto',
-                    fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02rem',
-                    color: '#000',
-                    mb: 0.5,
-                  }}
-                >
-                  {resp}
-                </Typography>
-              ))}
-            </Box>
-          </Box>
-        )}
-      </Box>
-
-      {/* Apply Button - Fixed at bottom left */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-        <Button
-          variant="contained"
-          sx={{
-            height: '3rem',
-            px: '1.375rem',
-            py: '0.5rem',
-            backgroundColor: '#656CAF',
-            color: '#FFFFFF',
-            fontFamily: 'Roboto',
-            fontWeight: 400,
-            fontSize: '1.5rem',
-            lineHeight: '1.75rem',
-            letterSpacing: '0.01em',
-            borderRadius: '0.5rem',
-            textTransform: 'none',
             boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.20)',
             '&:hover': {
               backgroundColor: '#4C53A2',
@@ -213,7 +417,7 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
           }}
         >
           Apply
-        </Button>
+        </Link>
       </Box>
     </Box>
   );
@@ -279,7 +483,7 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
       
       <DialogContent 
         sx={{ 
-          p: '2rem',
+          p: 0,
           height: '100%',
           display: 'flex',
           flexDirection: 'column',

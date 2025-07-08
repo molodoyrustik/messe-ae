@@ -3,6 +3,7 @@ import {
   Typography, 
   Link
 } from '@mui/material';
+import { ArrowForward } from '@mui/icons-material';
 import NextLink from 'next/link';
 import { Article } from './ArticleCard';
 
@@ -30,6 +31,7 @@ export default function SmallArticleCard({ article }: SmallArticleCardProps) {
           alignSelf: 'stretch',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
+          overflow: 'hidden',
           '&:hover': {
             '& .article-image': {
               transform: 'scale(1.05)',
@@ -43,9 +45,9 @@ export default function SmallArticleCard({ article }: SmallArticleCardProps) {
         {/* Article Image */}
         <Box
           sx={{
-            width: '100%',
-            height: '10rem', // 160px
-            borderRadius: '0.5rem',
+            alignSelf: 'stretch',
+            height: '15rem', // 240px
+            borderRadius: '0.25rem',
             overflow: 'hidden',
             backgroundColor: '#F5F5F5',
           }}
@@ -68,11 +70,12 @@ export default function SmallArticleCard({ article }: SmallArticleCardProps) {
         <Typography
           className="article-title"
           sx={{
+            alignSelf: 'stretch',
             fontFamily: 'Roboto',
             fontSize: '0.875rem', // 14px
             fontWeight: 400,
-            lineHeight: '1rem', // 16px
-            letterSpacing: '0.01em',
+            lineHeight: '1.125rem', // 18px
+            letterSpacing: '0.0175rem',
             color: '#000',
             transition: 'color 0.3s ease',
             display: '-webkit-box',
@@ -88,6 +91,7 @@ export default function SmallArticleCard({ article }: SmallArticleCardProps) {
         {/* Publish Date */}
         <Typography
           sx={{
+            alignSelf: 'stretch',
             fontFamily: 'Roboto',
             fontSize: '0.625rem', // 10px
             fontWeight: 400,
@@ -97,6 +101,49 @@ export default function SmallArticleCard({ article }: SmallArticleCardProps) {
         >
           {article.publishDate}
         </Typography>
+
+        {/* Read Article Button */}
+        <Box
+          className="read-article"
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            pl: 0,
+            pr: '0.3125rem', // 5px
+            py: '0.25rem', // 4px
+            borderRadius: '0.5rem',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'rgba(101, 108, 175, 0.08)',
+              '& .article-arrow': {
+                transform: 'translateX(0.25rem)',
+              },
+            },
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontSize: '0.75rem', // 12px
+              fontWeight: 400,
+              lineHeight: 1, // leading-none
+              letterSpacing: '0.025rem', // tracking-wide
+              color: '#656CAF',
+              transition: 'color 0.3s ease',
+            }}
+          >
+            Read article
+          </Typography>
+          <ArrowForward 
+            className="article-arrow"
+            sx={{ 
+              fontSize: '1rem', 
+              color: '#656CAF',
+              transition: 'all 0.3s ease',
+            }} 
+          />
+        </Box>
       </Box>
     </Link>
   );

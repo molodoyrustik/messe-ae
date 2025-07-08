@@ -18,7 +18,7 @@ export default function CategoriesSection() {
       data-id="categories-section"
       sx={{
         position: 'relative',
-        width: { xs: '100%', md: '20rem' }, // 320px
+        width: '100%',
         height: { xs: 'auto', md: '24rem' }, // 384px
         backgroundColor: '#F5F5F5',
         borderRadius: '0.5rem',
@@ -51,7 +51,7 @@ export default function CategoriesSection() {
           position: { xs: 'relative', md: 'absolute' },
           left: { xs: 0, md: '2rem' }, // 32px
           top: { xs: 'auto', md: '4.75rem' }, // 76px
-          width: { xs: '100%', md: '16rem' }, // 256px
+          width: { xs: '100%', md: 'calc(100% - 4rem)' }, // Full width minus padding
           gap: '0.5rem',
         }}
       >
