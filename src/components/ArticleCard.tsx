@@ -6,6 +6,8 @@ import {
 } from '@mui/material';
 import { ArrowForward } from '@mui/icons-material';
 import NextLink from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export interface Article {
   id: number;
@@ -80,24 +82,35 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         </Box>
 
         {/* Title */}
-        <Typography
+        <Box
           sx={{
             alignSelf: 'stretch',
             height: { xs: 'auto', md: '4rem' }, // 64px
-            fontFamily: 'Roboto',
-            fontSize: { xs: '1.25rem', md: '1.5rem' }, // 24px
-            fontWeight: 400,
-            lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
-            letterSpacing: '0.01em',
-            color: '#7B7B7B',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
+            '& p': {
+              fontFamily: 'Roboto',
+              fontSize: { xs: '1.25rem', md: '1.5rem' }, // 24px
+              fontWeight: 400,
+              lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
+              letterSpacing: '0.01em',
+              color: '#7B7B7B',
+              margin: 0,
+            },
+            '& strong, & b': {
+              fontWeight: 700,
+            },
+            '& em, & i': {
+              fontStyle: 'italic',
+            },
           }}
         >
-          {article.title}
-        </Typography>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {article.title}
+          </ReactMarkdown>
+        </Box>
 
         {/* Bottom Info */}
         <Stack

@@ -75,6 +75,7 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
   isLoading?: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  
 
   return (
     <Box
@@ -137,47 +138,64 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
             }} 
           />
         ) : category.projects.length > 0 ? (
-          category.projects.slice(0, 3).map((project, index) => (
-            <Box
-              key={project.id}
-              sx={{
-                position: 'absolute',
-                inset: 0,
-                opacity: index === currentIndex ? 1 : 0,
-                transform: `translateX(${(index - currentIndex) * 100}%)`,
-                transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
-              }}
-            >
-              {project.images && project.images.length > 0 ? (
-                <Image
-                  src={getImageUrl(project.images[0].url)}
-                  alt={project.title || 'Project image'}
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                  }}
-                />
-              ) : (
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: '#E0E0E0',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography variant="h6" color="text.secondary">
-                    {project.title}
-                  </Typography>
-                </Box>
-              )}
-            </Box>
-          ))
+          category.projects.map((project, index) => {
+            const projectsCount = category.projects.length;
+            // Calculate relative position for smooth circular animation
+            let relativePos = index - currentIndex;
+            
+            // Handle wrapping for circular effect
+            if (relativePos > projectsCount / 2) {
+              relativePos -= projectsCount;
+            } else if (relativePos < -projectsCount / 2) {
+              relativePos += projectsCount;
+            }
+            
+            // Only render projects that are visible or adjacent
+            const isVisible = Math.abs(relativePos) <= 1;
+            
+            return (
+              <Box
+                key={project.id}
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  opacity: isVisible ? 1 : 0,
+                  transform: `translateX(${relativePos * 100}%)`,
+                  transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                  pointerEvents: relativePos === 0 ? 'auto' : 'none',
+                }}
+              >
+                {project.images && project.images.length > 0 ? (
+                  <Image
+                    src={getImageUrl(project.images[0].url)}
+                    alt={project.eventName || 'Project image'}
+                    fill
+                    priority={index === currentIndex}
+                    sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
+                  />
+                ) : (
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#E0E0E0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography variant="h6" color="text.secondary">
+                      {project.eventName || `Project ${project.id}`}
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            );
+          })
         ) : (
           <Box
             sx={{
@@ -249,85 +267,10 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
           )}
         </Typography>
         )}
-        {/* Debug info */}
-        {!isLoading && category.projects.length > 0 && (
-          <Typography
-            sx={{
-              fontSize: '12px',
-              color: '#FFFFFF',
-              mt: 0.5,
-              opacity: 0.8,
-            }}
-          >
-            {category.projects.length} projects
-            {category.projects[currentIndex] && (
-              <> • {category.projects[currentIndex].title}</>
-            )}
-          </Typography>
-        )}
       </Box>
 
-      {/* Progress Indicators */}
-      {!isLoading && category.projects.length > 1 && (
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: '8px',
-            zIndex: 4,
-            pointerEvents: 'none',
-          }}
-        >
-          {category.projects.slice(0, 3).map((_, index) => (
-            <Box
-              key={index}
-              sx={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: '#FFFFFF',
-                opacity: index === currentIndex ? 1 : 0.4,
-                transition: 'opacity 0.3s ease',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-              }}
-            />
-          ))}
-        </Box>
-      )}
 
       </Box>
-      
-      {/* Skeleton Progress Indicators for Loading State */}
-      {isLoading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: '8px',
-            zIndex: 4,
-            pointerEvents: 'none',
-          }}
-        >
-          {[0, 1, 2].map((index) => (
-            <Skeleton
-              key={index}
-              variant="circular"
-              width={8}
-              height={8}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                animation: `pulse 1.5s ease-in-out ${index * 0.2}s infinite`
-              }}
-            />
-          ))}
-        </Box>
-      )}
       
       {/* Navigation Buttons - Outside the scaling container */}
       {!isLoading && category.projects.length > 1 && (
@@ -397,6 +340,7 @@ const ProjectsSection = () => {
   // Fetch projects from API
   const { data: projectsData, isLoading } = useProjects({ pageSize: 50 });
   
+  
   // Group projects by category
   const categorizedProjects = useMemo(() => {
     if (!projectsData?.data) return {};
@@ -409,41 +353,43 @@ const ProjectsSection = () => {
       double: [],
     };
     
-    projects.forEach(project => {
-      // Debug logging
-      // console.log('Project:', {
-      //   title: project.title,
-      //   totalSize: project.totalSize,
-      //   constructionType: project.constructionType,
-      //   images: project.images?.map(img => ({
-      //     url: img.url,
-      //     alternativeText: img.alternativeText,
-      //     formats: img.formats ? Object.keys(img.formats) : []
-      //   }))
-      // });
-      
-      // Check if it's a double-decker
+    projects.forEach((project) => {
+      // Add double-decker to its own category
       if (project.constructionType === 'double-decker') {
         categorized.double.push(project);
-      } else {
-        // Categorize by size
-        const size = project.totalSize;
-        if (size < 100) {
-          categorized.small.push(project);
-        } else if (size >= 100 && size <= 300) {
-          categorized.medium.push(project);
-        } else if (size > 300) {
-          categorized.large.push(project);
-        }
+      }
+      
+      // ALSO categorize by size (including double-deckers)
+      const size = Number(project.totalSize) || 0;
+      
+      if (size > 0 && size < 100) {
+        categorized.small.push(project);
+      } else if (size >= 100 && size <= 300) {
+        categorized.medium.push(project);
+      } else if (size > 300) {
+        categorized.large.push(project);
       }
     });
     
-    // console.log('Categorized projects:', {
-    //   small: categorized.small.length,
-    //   medium: categorized.medium.length,
-    //   large: categorized.large.length,
-    //   double: categorized.double.length,
-    // });
+    // Multiply arrays that have exactly 2 items
+    Object.keys(categorized).forEach(key => {
+      const categoryProjects = categorized[key];
+      if (categoryProjects.length === 2) {
+        // For 2 items: multiply by 3 = 6 items
+        const multipliedProjects: Project[] = [];
+        
+        for (let i = 0; i < 3; i++) {
+          multipliedProjects.push(...categoryProjects.map((p) => ({
+            ...p,
+            // Add unique ID for duplicates
+            id: p.id * 1000 + i
+          })));
+        }
+        
+        categorized[key] = multipliedProjects;
+      }
+      // For 1 item: leave as is (no scrolling needed)
+    });
     
     return categorized;
   }, [projectsData]);
@@ -460,8 +406,8 @@ const ProjectsSection = () => {
     const category = projectCategories.find(cat => cat.id === categoryId);
     if (!category) return;
 
-    const currentIndex = currentIndices[categoryId];
-    const projectCount = Math.min(category.projects.length, 3); // Max 3 projects per category
+    const currentIndex = currentIndices[categoryId] || 0;
+    const projectCount = category.projects.length;
     let newIndex = currentIndex;
 
     if (direction === 'next') {
@@ -469,6 +415,7 @@ const ProjectsSection = () => {
     } else {
       newIndex = currentIndex === 0 ? projectCount - 1 : currentIndex - 1;
     }
+
 
     setCurrentIndices(prev => ({ ...prev, [categoryId]: newIndex }));
   };

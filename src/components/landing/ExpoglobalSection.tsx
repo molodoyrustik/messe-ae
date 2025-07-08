@@ -8,7 +8,6 @@ import {
   Button,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Link from 'next/link';
 import Image from 'next/image';
 
 const ExpoglobalSection = () => {
@@ -27,7 +26,7 @@ const ExpoglobalSection = () => {
             display: { xs: 'flex', md: 'grid' },
             gridTemplateColumns: { md: '1fr 3fr' },
             gap: { xs: 4, md: '20px' },
-            alignItems: 'flex-start',
+            alignItems: { xs: 'flex-start', md: 'center' },
             flexDirection: { xs: 'column', md: 'unset' },
           }}
         >
@@ -59,7 +58,7 @@ const ExpoglobalSection = () => {
           </Box>
 
           {/* Content */}
-          <Stack spacing={1.25} sx={{ flex: 1, pt: { xs: 0, md: '60px' } }}>
+          <Stack spacing={1.25} sx={{ flex: 1 }}>
             <Typography
               variant="body1"
               sx={{
@@ -73,8 +72,10 @@ const ExpoglobalSection = () => {
             >
               Messe.ae is part of{' '}
               <Box 
-                component={Link}
-                href="https://expoglobal.group/#about_us"
+                component="a"
+                href="https://expoglobal.group/#about_us?utm_source=messe.ae"
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -91,8 +92,10 @@ const ExpoglobalSection = () => {
               </Box>
               , an international holding based in Belgium, specializing in B2B and B2C markets with customized solutions in the event industry, personalized furniture, and mobile homes. The group includes{' '}
               <Box 
-                component={Link}
+                component="a"
                 href="https://nook-me.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -109,8 +112,10 @@ const ExpoglobalSection = () => {
               </Box>
               {' '}(customized furniture),{' '}
               <Box 
-                component={Link}
+                component="a"
                 href="https://fived.be/#solutions"
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -127,8 +132,10 @@ const ExpoglobalSection = () => {
               </Box>
               {' '}(exhibition stands in Europe), messe.ae (exhibition stands in the Middle East), and{' '}
               <Box 
-                component={Link}
+                component="a"
                 href="https://huett.be/"
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
                   color: '#656CAF',
                   fontWeight: 700,
@@ -175,6 +182,10 @@ const ExpoglobalSection = () => {
             </Typography>
 
             <Button
+              component="a"
+              href="https://expoglobal.group/#about_us?utm_source=messe.ae"
+              target="_blank"
+              rel="noopener noreferrer"
               variant="text"
               endIcon={<ArrowForwardIcon sx={{ fontSize: { xs: '12px', md: 16 } }} />}
               sx={{

@@ -115,6 +115,7 @@ export interface Article {
   id: number;
   documentId: string;
   title: string;
+  subtitle: string;
   slug: string;
   text: string;
   createDate: string;
