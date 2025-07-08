@@ -41,7 +41,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
         <Header />
-        <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: 8 }}>
+        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
             <CircularProgress />
           </Box>
@@ -54,7 +54,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
         <Header />
-        <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: 8 }}>
+        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
           <Alert severity="error">
             Project not found. Please check the URL and try again.
           </Alert>
@@ -69,16 +69,16 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
       
-      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto', px: { xs: 2, md: 5 } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
+        <Box sx={{ maxWidth: 1360, mx: 'auto' }}>
           {/* Project Title - using client name */}
           <Typography
             component="h1"
             sx={{
               fontFamily: 'Roboto',
               fontWeight: 700,
-              fontSize: '2.125rem',
-              lineHeight: '2.625rem',
+              fontSize: { xs: '2.25rem', md: '3.375rem' },
+              lineHeight: { xs: '2.75rem', md: '4rem' },
               letterSpacing: '0.02125rem',
               color: '#262626',
               mb: 2,
@@ -126,7 +126,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               }}
             >
               {(() => {
-                const description = project.description || 'Client description will be displayed here when available from the backend.';
+                const description = project.description || project.client?.description || '';
                 const clientName = project.client?.name || '';
                 
                 // Check if client name exists in description
@@ -317,7 +317,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                       color: '#000000',
                     }}
                   >
-                    {project.client?.name}
+                    {project.referringCompany || project.client?.name}
                   </Typography>
                 </Box>
               </Box>

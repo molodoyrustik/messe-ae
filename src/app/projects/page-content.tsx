@@ -277,7 +277,7 @@ export default function ProjectsPageContent() {
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
       
-      <Container maxWidth="xl" sx={{ flex: 1, pt: { xs: 1.5, md: 3.75 }, pb: { xs: 5, md: 7.5 } }}>
+      <Container maxWidth="xl" sx={{ flex: 1, px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: 5, md: 7.5 } }}>
         {/* Error State */}
         {projectsError && (
           <Alert severity="error" sx={{ mb: 3 }}>
@@ -301,9 +301,9 @@ export default function ProjectsPageContent() {
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
-                fontSize: { xs: '1.5rem', md: '3.375rem' },
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
                 fontWeight: 700,
-                lineHeight: { xs: '1.75rem', md: '3.75rem' },
+                lineHeight: { xs: '2.75rem', md: '4rem' },
                 color: '#262626',
               }}
             >

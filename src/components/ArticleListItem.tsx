@@ -26,9 +26,7 @@ export default function ArticleListItem({ article, isLast = false }: ArticleList
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.25rem', // 4px gap between title and date
-          pb: '0.5rem', // 8px bottom padding
-          borderBottom: isLast ? 'none' : '1px solid #E0E0E0',
+          borderBottom: isLast ? 'none' : '1px solid #E9E9E9',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           '&:hover': {
@@ -45,10 +43,17 @@ export default function ArticleListItem({ article, isLast = false }: ArticleList
             fontFamily: 'Roboto',
             fontSize: '0.875rem', // 14px
             fontWeight: 400,
-            lineHeight: '1rem', // 16px
-            letterSpacing: '0.01em',
+            lineHeight: '1.125rem', // 18px
+            letterSpacing: '0.0175rem',
             color: '#000000',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 2,
+            alignSelf: 'stretch',
             transition: 'color 0.3s ease',
+            mb: '0.25rem', // 4px gap to date
           }}
         >
           {article.title}
@@ -62,6 +67,8 @@ export default function ArticleListItem({ article, isLast = false }: ArticleList
             fontWeight: 400,
             lineHeight: '0.75rem', // 12px
             color: '#000000',
+            alignSelf: 'stretch',
+            pb: '0.5rem', // 8px to bottom border
           }}
         >
           {article.publishDate}

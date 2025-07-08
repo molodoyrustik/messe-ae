@@ -22,16 +22,16 @@ export default function AboutPage() {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
-      <Container maxWidth="xl" sx={{ pt: { xs: 3, sm: 5, md: 7.5 }, pb: { xs: 5, sm: 6, md: 7.5 } }}>
-        <Box sx={{ mx: 'auto', px: { md: 2 } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: 5, sm: 6, md: 7.5 } }}>
+        <Box sx={{ mx: 'auto' }}>
           <Box>
             <Typography
               variant="h1"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: 24, sm: 36, md: 54 },
-                lineHeight: { xs: '28px', sm: '42px', md: '60px' },
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
+                lineHeight: { xs: '2.75rem', md: '4rem' },
                 color: '#262626',
                 mb: { xs: 2, md: 3 },
               }}
