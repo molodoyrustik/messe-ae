@@ -16,8 +16,8 @@ const PrivacyPolicyPage = () => {
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: { xs: '2.25rem', md: '3.125rem' },
-                lineHeight: { xs: '2.5rem', md: '3.75rem' },
+                fontSize: { xs: '2.25rem', md: '3.375rem' },
+                lineHeight: { xs: '2.75rem', md: '4rem' },
                 color: '#262626',
               }}
             >

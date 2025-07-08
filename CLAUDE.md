@@ -39,13 +39,26 @@ When implementing features or fixes that establish new patterns for the entire c
 
 ## Layout Guidelines
 
-### Page Spacing
-- All pages except the main landing page should have a top padding from the header:
-  - Desktop: 3.75rem
-  - Mobile: 1.5rem
-- Mobile content should have horizontal padding of 1rem on each side
-  - Exception: Full-width images can extend to screen edges
-- This ensures consistent spacing across the application
+### Page Spacing and Alignment
+
+#### Standard Page Layout
+- **Container**: Use `Container maxWidth="xl"` with consistent padding:
+  - Horizontal padding: `px: { xs: '1rem', md: '2.5rem' }`
+  - Top padding from header: `pt: { xs: '1.5rem', md: '3.75rem' }`
+  - This aligns content with the logo position in the header
+
+#### Heading Standards
+- **Page titles (h1)**: Use consistent sizing across all pages:
+  - Font size: `fontSize: { xs: '2.25rem', md: '3.375rem' }`
+  - Line height: `lineHeight: { xs: '2.75rem', md: '4rem' }`
+  - Font weight: 700
+  - Color: #262626
+
+#### Unified Spacing Rules
+- All internal page content should align with the header logo position
+- Container padding ensures content starts where the logo begins
+- Exception: Landing page has its own spacing rules
+- Full-width images can extend beyond container padding on mobile
 
 ## Commands
 
@@ -125,6 +138,15 @@ Components are customized through the theme's `components` key, defining default
   - Use grid/flexbox for layout instead of fixed dimensions
   - Heights can be fixed if needed, but widths should always be responsive
 
+### Working with Tailwind HTML from Figma
+- **IMPORTANT**: Tailwind HTML code generated from Figma uses fixed values and is not responsive
+- Always convert fixed Tailwind classes to responsive Material-UI sx prop values
+- Example conversions:
+  - `text-sm` → `fontSize: { xs: '0.875rem', md: '1rem' }`
+  - `w-72` → Use responsive widths or `width: '100%'`
+  - `gap-1` → `gap: '0.25rem'`
+- Focus on the design intent rather than copying Tailwind classes directly
+
 ### Responsive Design Patterns
 - Mobile-first approach with progressive enhancement
 - Use `display: { xs: 'none', md: 'block' }` for hiding/showing elements
@@ -138,6 +160,22 @@ Components are customized through the theme's `components` key, defining default
 - Grayscale filters with opacity changes for image hover states
 
 ## Recent Changes Log
+
+### Spacing and Typography Unification (2025-01-08)
+
+1. **Unified Page Headers**
+   - Standardized h1 sizing across all pages: 36px/54px (mobile/desktop)
+   - Fixed inconsistent heading sizes on /about, /manifestos, /cookie-policy, /privacy-policy, /projects/[slug]
+   
+2. **Container Padding Standardization**
+   - All pages now use consistent container padding: 16px/40px (mobile/desktop)
+   - This aligns content with header logo position
+   - Fixed: /about, /projects, /articles pages had inconsistent padding
+
+3. **Articles Page Improvements**
+   - Fixed mobile padding to match other pages
+   - Removed bottom border under last category in categories list
+   - Changed arrow icon from ArrowForward to ChevronRight in categories
 
 ### Desktop Landing Page Fixes (2025-06-26)
 

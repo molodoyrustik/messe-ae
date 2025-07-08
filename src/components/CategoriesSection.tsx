@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Typography, Link, Stack, Skeleton } from '@mui/material';
-import { ArrowForward } from '@mui/icons-material';
+import ChevronRightIcon from '@/components/icons/ChevronRightIcon';
 import NextLink from 'next/link';
 import { useCategories } from '@/hooks/use-categories';
 
@@ -60,7 +60,7 @@ export default function CategoriesSection() {
             <Skeleton variant="text" width="100%" height={40} />
           </>
         ) : (
-          categories.map((category) => (
+          categories.map((category, index) => (
           <Link
             key={category.id}
             component={NextLink}
@@ -71,7 +71,7 @@ export default function CategoriesSection() {
               alignItems: 'center',
               pt: '0.25rem', // 4px
               pb: '0.5rem', // 8px
-              borderBottom: '1px solid #E0E0E0',
+              borderBottom: index < categories.length - 1 ? '1px solid #E0E0E0' : 'none',
               textDecoration: 'none',
               transition: 'all 0.3s ease',
               '&:hover': {
@@ -100,10 +100,10 @@ export default function CategoriesSection() {
             >
               {category.name}
             </Typography>
-            <ArrowForward 
+            <ChevronRightIcon 
               className="category-arrow"
               sx={{ 
-                fontSize: '1rem', 
+                fontSize: '1.125rem', 
                 color: '#7B7B7B',
                 transition: 'all 0.3s ease',
               }} 

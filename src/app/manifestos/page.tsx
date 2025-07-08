@@ -30,13 +30,13 @@ export default function ManifestosPage() {
     <>
       <Header />
       
-      <Box sx={{ pt: { xs: '3.75rem', md: '3.75rem' }, pb: { xs: 6, md: 8 } }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, md: '2.5rem' } }}>
+      <Box sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: 6, md: 8 } }}>
+        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
           <Typography
             variant="h1"
             sx={{
-              fontSize: { xs: '24px', md: '48px' },
-              lineHeight: { xs: '28px', md: '60px' },
+              fontSize: { xs: '2.25rem', md: '3.375rem' },
+              lineHeight: { xs: '2.75rem', md: '4rem' },
               fontWeight: 700,
               mb: { xs: '48px', md: '72px' },
               color: 'grey.800'

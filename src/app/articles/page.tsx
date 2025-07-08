@@ -55,8 +55,8 @@ export default function ArticlesPage() {
       <Header />
       
       {/* Main Content */}
-      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ mx: 'auto', px: { xs: '1rem' } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
+        <Box sx={{ mx: 'auto' }}>
           
           {/* Page Header */}
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
@@ -86,8 +86,7 @@ export default function ArticlesPage() {
                 maxWidth: '50rem',
               }}
             >
-              Stay informed with the latest trends, insights, and best practices in the exhibition 
-              and events industry
+              Explore the latest exhibition stand trends, expert insights, and industry updates in our blog, featuring innovative designs and event solutions.
             </Typography>
           </Box>
 
@@ -115,7 +114,7 @@ export default function ArticlesPage() {
                 display: 'flex', 
                 flexDirection: { xs: 'column', md: 'row' },
                 gap: '2rem',
-                mb: { xs: '3rem', md: '4rem' },
+                mb: { xs: '0rem', md: '2.5rem' },
                 width: '100%'
               }}>
                 <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 auto' }, minWidth: 0 }}>
@@ -174,8 +173,12 @@ export default function ArticlesPage() {
               {/* Articles List - Mobile */}
               <Box
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: 'flex', md: 'none' },
                   width: '100%',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '0.25rem',
+                  mt: '1.5rem', // 24px margin from categories
                 }}
               >
                 {/* Top Articles heading */}
@@ -198,12 +201,10 @@ export default function ArticlesPage() {
                 <Box
                   sx={{
                     display: 'flex',
-                    pb: '0.5rem',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
-                    gap: '0.25rem',
+                    gap: '0.75rem',
                     alignSelf: 'stretch',
-                    borderBottom: '1px solid #E9E9E9',
                   }}
                 >
                   {articles.map((article, index) => (
