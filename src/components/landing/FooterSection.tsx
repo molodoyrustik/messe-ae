@@ -35,8 +35,8 @@ const InstagramSolid = () => (
       fill="#656CAF"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8 2a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h8a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6zm-.667 10a4.667 4.667 0 1 1 9.334 0 4.667 4.667 0 0 1-9.334 0m9.334-4.667A.943.943 0 1 0 18 6a.943.943 0 0 0-1.333 1.333"
       fill="#656CAF"
     />
