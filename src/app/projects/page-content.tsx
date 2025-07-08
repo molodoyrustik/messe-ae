@@ -25,10 +25,10 @@ import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
 
 const sizeRanges = [
-  { label: '< 50 m²', value: { min: 0, max: 50 } },
+  { label: '< 50 m²', value: { min: 0, max: 49 } },
   { label: '50 - 100 m²', value: { min: 50, max: 100 } },
   { label: '101 - 300 m²', value: { min: 101, max: 300 } },
-  { label: '> 300 m²', value: { min: 300, max: 999999 } },
+  { label: '> 300 m²', value: { min: 301, max: 999999 } },
 ];
 
 export default function ProjectsPageContent() {
