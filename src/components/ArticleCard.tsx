@@ -35,7 +35,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         data-id="article-card"
         sx={{
           display: 'flex',
-          width: { xs: '100%', md: '27rem' }, // 432px
+          width: '100%',
           flexDirection: 'column',
           alignItems: 'flex-start',
           gap: '0.75rem', // 12px

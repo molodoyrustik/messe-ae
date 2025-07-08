@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   Box,
   Container,
@@ -147,9 +148,10 @@ export default function CareersPage() {
           <Box 
             sx={{ 
               display: 'grid',
-              gridTemplateColumns: '24rem 1fr',
+              gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '2rem',
               alignItems: 'stretch',
+              mb: '3.375rem',
             }}
           >
             {/* Left Content Block */}
@@ -210,32 +212,25 @@ export default function CareersPage() {
               sx={{
                 position: 'relative',
                 width: '100%',
-                // maxWidth: '56rem',
+                gridColumn: 'span 2',
                 aspectRatio: '896 / 464',
                 borderRadius: '0.5rem',
                 overflow: 'hidden',
                 backgroundColor: '#F5F5F5',
               }}
             >
-              <Box
-                component="img"
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=896&h=464&fit=crop"
+              <Image
+                src="/careers.png"
                 alt="Join our team"
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
+                fill
+                style={{
                   objectFit: 'cover',
                 }}
+                priority
               />
             </Box>
           </Box>
-      </Container>
 
-      {/* Vacancies Section */}
-      <Container maxWidth="xl" sx={{ pb: { xs: 0, md: '6rem' }, px: { xs: '1rem', md: '2.5rem' } }}>
           <Typography
             sx={{
               fontFamily: 'Roboto',
@@ -244,25 +239,42 @@ export default function CareersPage() {
               lineHeight: { xs: '2rem', md: '2.5rem' },
               letterSpacing: '0.01em',
               color: '#262626',
-              mt: { xs: '1.5rem', md: 0 },
-              mb: { xs: '1rem', md: '3.375rem' },
+              mb: { xs: '1rem', md: '2rem' },
             }}
           >
             Our vacancies
           </Typography>
 
-          {/* Desktop Job Cards */}
+          {/* Desktop Job Cards Grid */}
           <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', md: 'grid' },
+              gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '2rem',
-              justifyContent: 'flex-start',
             }}
           >
             {jobs.map((job) => (
               <JobCard key={job.id} job={job} onClick={() => handleJobClick(job)} />
             ))}
           </Box>
+      </Container>
+
+      {/* Mobile Vacancies Section */}
+      <Container maxWidth="xl" sx={{ display: { xs: 'block', md: 'none' }, pb: 0, px: '1rem' }}>
+          <Typography
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 700,
+              fontSize: '1.5rem',
+              lineHeight: '2rem',
+              letterSpacing: '0.01em',
+              color: '#262626',
+              mt: '1.5rem',
+              mb: '1rem',
+            }}
+          >
+            Our vacancies
+          </Typography>
 
           {/* Mobile Job Cards */}
           <Box

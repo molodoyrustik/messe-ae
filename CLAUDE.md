@@ -159,6 +159,13 @@ Components are customized through the theme's `components` key, defining default
 - For menu underlines, use `transform: scaleX()` with `transformOrigin` for slide effects
 - Grayscale filters with opacity changes for image hover states
 
+### Card Components Adaptive Design (Established 2025-01-08)
+- **All card components must be responsive and stretch to full width of their containers**
+- Cards should use `width: '100%'` instead of fixed widths (e.g., not `width: '24rem'`)
+- Parent containers (grids, flexbox) control card sizing through columns/gaps
+- This applies to: job cards, article cards, project cards, category cards, and any other card components
+- Ensures cards adapt properly to different screen sizes and grid layouts
+
 ## Recent Changes Log
 
 ### Spacing and Typography Unification (2025-01-08)

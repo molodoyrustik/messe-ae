@@ -85,7 +85,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       )}
       
       <Box sx={{ display: 'flex', gap: 2.5, flexDirection: { xs: 'column', md: 'row' } }}>
-        <Box sx={{ width: { xs: '100%', md: 296 }, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Typography
               sx={{
@@ -140,7 +140,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </Box>
         </Box>
         
-        <Box sx={{ width: { xs: '100%', md: 116 }, display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, alignItems: 'center' }}>
           <Typography
             sx={{
               fontFamily: 'Roboto',
