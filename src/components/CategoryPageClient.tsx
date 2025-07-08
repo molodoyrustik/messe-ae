@@ -41,13 +41,14 @@ export default function CategoryPageClient({ categoryData }: CategoryPageClientP
       <Header />
       
       {/* Main Content */}
-      <Container maxWidth="xl" sx={{ pt: '3.75rem', pb: { xs: '3rem', md: '6rem' } }}>
-        <Box sx={{ mx: 'auto', px: { xs: '1rem' } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' } }}>
+        <Box sx={{ mx: 'auto' }}>
           
           {/* Page Header */}
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
               variant="h1"
+              data-id="category-page-title"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
@@ -62,6 +63,7 @@ export default function CategoryPageClient({ categoryData }: CategoryPageClientP
             </Typography>
             <Typography
               variant="body1"
+              data-id="category-page-description"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
@@ -72,20 +74,18 @@ export default function CategoryPageClient({ categoryData }: CategoryPageClientP
                 maxWidth: '50rem',
               }}
             >
-              Stay informed with the latest trends, insights, and best practices in the exhibition 
-              and events industry
+              {categoryData.description}
             </Typography>
           </Box>
 
           {/* Articles Grid - Desktop */}
           <Box
+            data-id="category-articles-grid"
             sx={{
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', md: 'grid' },
               width: '100%',
-              alignItems: 'center',
-              alignContent: 'center',
+              gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '2rem',
-              flexWrap: 'wrap',
             }}
           >
             {categoryData.articles.map((article) => (

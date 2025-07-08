@@ -15,6 +15,7 @@ export default function CategoriesSection() {
   })) || [];
   return (
     <Box
+      data-id="categories-section"
       sx={{
         position: 'relative',
         width: { xs: '100%', md: '20rem' }, // 320px
@@ -27,6 +28,7 @@ export default function CategoriesSection() {
     >
       {/* Title */}
       <Typography
+        data-id="categories-title"
         sx={{
           position: { xs: 'relative', md: 'absolute' },
           left: { xs: 0, md: '2rem' }, // 32px

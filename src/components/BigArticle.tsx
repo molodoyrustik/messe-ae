@@ -15,6 +15,7 @@ export default function BigArticle({ article }: BigArticleProps) {
       sx={{ textDecoration: 'none', display: 'block' }}
     >
       <Box
+        data-id="big-article-container"
         sx={{
           width: '100%',
           height: { xs: '20rem', md: '24rem' }, // 384px
@@ -74,6 +75,7 @@ export default function BigArticle({ article }: BigArticleProps) {
         >
           {/* Title */}
           <Typography
+            data-id="big-article-title"
             sx={{
               width: '100%',
               fontFamily: 'Roboto',

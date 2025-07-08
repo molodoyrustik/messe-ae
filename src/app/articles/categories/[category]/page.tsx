@@ -4,6 +4,7 @@ import { Article } from '@/components/ArticleCard';
 import { categoriesApi } from '@/lib/api/categories';
 import { articlesApi } from '@/lib/api/articles';
 import { notFound } from 'next/navigation';
+import { formatArticleDate } from '@/utils/date';
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
@@ -55,11 +56,7 @@ export default async function CategoryPage({ params }: PageProps) {
       slug: article.slug,
       title: article.title,
       excerpt: article.text.substring(0, 150) + '...',
-      publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-      }),
+      publishDate: formatArticleDate(article.createDate),
       readTime: '5 min',
       category: article.category?.title || categoryData.title,
       image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',

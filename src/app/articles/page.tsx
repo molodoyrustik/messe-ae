@@ -16,6 +16,7 @@ import CategoriesSection from '@/components/CategoriesSection';
 import ArticleListItem from '@/components/ArticleListItem';
 import { useArticles } from '@/hooks/use-articles';
 import { Article } from '@/types/api';
+import { formatArticleDate } from '@/utils/date';
 
 export default function ArticlesPage() {
   const [page, setPage] = useState(1);
@@ -24,7 +25,7 @@ export default function ArticlesPage() {
   
   const { data, isLoading, error } = useArticles({ 
     page, 
-    pageSize: page === 1 ? 6 : 5 // Load 6 on first page (1 for big + 5 for grid), 5 on subsequent pages
+    pageSize: page === 1 ? 7 : 6 // Load 7 on first page (1 for big + 6 for grid), 6 on subsequent pages
   });
 
   // Update articles when data changes
@@ -62,6 +63,7 @@ export default function ArticlesPage() {
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
               variant="h1"
+              data-id="articles-page-title"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
@@ -107,7 +109,7 @@ export default function ArticlesPage() {
           )}
 
           {/* Content */}
-          {!isLoading && !error && latestArticle && (
+          {latestArticle && (
             <>
               {/* Big Article and Categories Section */}
               <Box sx={{ 
@@ -117,23 +119,19 @@ export default function ArticlesPage() {
                 mb: { xs: '0rem', md: '2.5rem' },
                 width: '100%'
               }}>
-                <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 auto' }, minWidth: 0 }}>
+                <Box data-id="big-article-container" sx={{ flex: { xs: '1 1 100%', md: '1 1 auto' }, minWidth: 0 }}>
                   <BigArticle article={{
                     id: latestArticle.id,
                     slug: latestArticle.slug,
                     title: latestArticle.title,
                     excerpt: latestArticle.text.substring(0, 150) + '...',
-                    publishDate: new Date(latestArticle.createDate).toLocaleDateString('en-US', { 
-                      day: 'numeric', 
-                      month: 'long', 
-                      year: 'numeric' 
-                    }),
+                    publishDate: formatArticleDate(latestArticle.createDate),
                     readTime: '5 min',
                     category: latestArticle.category?.title || 'Articles',
                     image: latestArticle.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
                   }} />
                 </Box>
-                <Box sx={{ 
+                <Box data-id="categories-section-container" sx={{ 
                   flexShrink: 0,
                   width: { xs: '100%', md: '20rem' }
                 }}>
@@ -143,13 +141,12 @@ export default function ArticlesPage() {
 
               {/* Articles Grid - Desktop */}
               <Box
+                data-id="articles-grid-desktop"
                 sx={{
-                  display: { xs: 'none', md: 'flex' },
+                  display: { xs: 'none', md: 'grid' },
                   width: '100%',
-                  alignItems: 'center',
-                  alignContent: 'center',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
                   gap: '2rem',
-                  flexWrap: 'wrap',
                 }}
               >
                 {articles.map((article) => (
@@ -158,11 +155,7 @@ export default function ArticlesPage() {
                     slug: article.slug,
                     title: article.title,
                     excerpt: article.text.substring(0, 150) + '...',
-                    publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
-                      day: 'numeric', 
-                      month: 'long', 
-                      year: 'numeric' 
-                    }),
+                    publishDate: formatArticleDate(article.createDate),
                     readTime: '5 min',
                     category: article.category?.title || 'Articles',
                     image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
@@ -215,11 +208,7 @@ export default function ArticlesPage() {
                       slug: article.slug,
                       title: article.title,
                       excerpt: article.text.substring(0, 150) + '...',
-                      publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      }),
+                      publishDate: formatArticleDate(article.createDate),
                       readTime: '5 min',
                       category: article.category?.title || 'Articles',
                       image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
@@ -230,13 +219,19 @@ export default function ArticlesPage() {
                 </Box>
               </Box>
 
+              {/* Loading indicator for more articles */}
+              {isLoading && page > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '2rem', md: '2rem' } }}>
+                  <CircularProgress sx={{ color: '#656CAF' }} />
+                </Box>
+              )}
+
               {/* Load More Button */}
-              {hasMore && (
+              {hasMore && !isLoading && (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: '3rem', md: '3.75rem' } }}>
                   <Button
                     variant="outlined"
                     onClick={handleLoadMore}
-                    disabled={isLoading}
                     sx={{
                       color: '#656CAF',
                       borderColor: '#656CAF',
@@ -254,13 +249,9 @@ export default function ArticlesPage() {
                         color: '#FFFFFF',
                         borderColor: '#656CAF',
                       },
-                      '&:disabled': {
-                        borderColor: '#ccc',
-                        color: '#ccc',
-                      },
                     }}
                   >
-                    {isLoading ? 'Loading...' : 'Load more'}
+                    Load more
                   </Button>
                 </Box>
               )}

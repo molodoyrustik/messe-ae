@@ -3,6 +3,7 @@ import ArticlePageClient from '@/components/ArticlePageClient';
 import { Article } from '@/components/ArticleCard';
 import { articlesApi } from '@/lib/api/articles';
 import { notFound } from 'next/navigation';
+import { formatArticleDate } from '@/utils/date';
 
 // Generate static params for all articles (SSG)
 export async function generateStaticParams() {
@@ -90,11 +91,7 @@ export default async function ArticlePage({ params }: PageProps) {
         slug: a.slug,
         title: a.title,
         excerpt: a.text.substring(0, 150) + '...',
-        publishDate: new Date(a.createDate).toLocaleDateString('en-US', { 
-          day: 'numeric', 
-          month: 'long', 
-          year: 'numeric' 
-        }),
+        publishDate: formatArticleDate(a.createDate),
         readTime: '5 min',
         category: 'Design',
         image: a.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
@@ -106,11 +103,7 @@ export default async function ArticlePage({ params }: PageProps) {
       subtitle: article.subtitle, // Now using subtitle from API
       author: 'Messe.ae Team',
       authorRole: 'Exhibition Experts',
-      publishDate: new Date(article.createDate).toLocaleDateString('en-US', { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-      }),
+      publishDate: formatArticleDate(article.createDate),
       readTime: '5 min',
       category: 'Design',
       heroImage: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop',

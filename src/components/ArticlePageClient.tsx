@@ -312,15 +312,18 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
 
             {/* Next Articles Section */}
             <Box
+              data-id="next-articles-section"
               sx={{
                 width: { xs: '100%', md: '20rem' }, // 320px
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.75rem', // 12px
                 mt: { xs: '3rem', md: 0 },
+                overflow: 'hidden', // Fix title overflow
               }}
             >
               <Typography
+                data-id="next-articles-title"
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
@@ -336,21 +339,25 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '2rem', // 32px
+                  gap: '2rem', // Already correct gap
                 }}
               >
-                {relatedArticles.slice(0, 3).map((article) => (
+                {relatedArticles.slice(0, 3).map((article, index) => (
                   <Box
                     key={article.id}
+                    data-id={`next-article-card-${index}`}
                     sx={{
-                      width: '100%',
                       display: 'flex',
+                      width: '100%', // Изменено на 100% для правильной работы с родительским контейнером
+                      maxWidth: '19.75rem', // Максимальная ширина как в дизайне
                       flexDirection: 'column',
+                      alignItems: 'flex-start',
                       gap: '0.75rem',
                       overflow: 'hidden',
                     }}
                   >
                     <Box
+                      data-id={`next-article-image-${index}`}
                       sx={{
                         width: '100%',
                         height: '15rem', // 240px
@@ -371,15 +378,19 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                       />
                     </Box>
                     <Typography
+                      data-id={`next-article-title-${index}`}
                       sx={{
-                        fontFamily: 'Roboto',
-                        fontWeight: 400,
-                        fontSize: '1.5rem',
-                        lineHeight: '1.75rem',
-                        letterSpacing: '0.02rem',
-                        color: '#000',
-                        height: '4rem',
                         overflow: 'hidden',
+                        color: '#000',
+                        textOverflow: 'ellipsis',
+                        fontFamily: 'Roboto',
+                        fontSize: '1.5rem',
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        lineHeight: '1.75rem',
+                        letterSpacing: '0.015rem',
+                        height: '3.5rem', // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
+                        alignSelf: 'stretch',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',
@@ -389,37 +400,41 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                     </Typography>
                     <Box
                       sx={{
-                        display: 'flex',
+                        alignSelf: 'stretch',
+                        display: 'inline-flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}
                     >
                       <Typography
+                        data-id={`next-article-date-${index}`}
                         sx={{
-                          fontFamily: 'Roboto',
-                          fontWeight: 400,
-                          fontSize: '0.875rem',
-                          lineHeight: '1.125rem',
-                          letterSpacing: '0.02rem',
+                          justifyContent: 'flex-start',
                           color: '#000',
+                          fontFamily: 'Roboto',
+                          fontSize: '0.875rem', // 14px
+                          fontWeight: 400,
+                          lineHeight: '1rem', // leading-none
+                          letterSpacing: '0.025em', // tracking-tight
                         }}
                       >
                         {article.publishDate}
                       </Typography>
                       <Button
+                        data-id={`next-article-button-${index}`}
                         endIcon={<ArrowForward />}
                         href={`/articles/${article.slug}`}
                         sx={{
-                          height: '2rem',
-                          px: '0.3125rem',
-                          py: '0.25rem',
+                          height: '2rem', // 32px
+                          px: '0.3125rem', // 5px
+                          py: '0.25rem', // 4px
                           borderRadius: '0.5rem',
                           color: '#656CAF',
                           fontFamily: 'Roboto',
                           fontWeight: 400,
                           fontSize: '1rem',
                           lineHeight: '1.5rem',
-                          letterSpacing: '0.02rem',
+                          letterSpacing: '0.025em',
                           textTransform: 'none',
                           '&:hover': {
                             backgroundColor: 'rgba(101, 108, 175, 0.08)',
