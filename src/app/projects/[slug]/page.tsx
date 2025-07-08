@@ -36,6 +36,8 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     clientSlug: data?.data?.client?.slug,
     pageSize: 1, // We only need the count
   });
+  
+  const clientProjectsCount = clientProjectsData?.meta?.pagination?.total || 0;
 
   if (isLoading) {
     return (
@@ -111,7 +113,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 color: '#000000',
               }}
             >
-              {clientProjectsData?.meta?.pagination?.total || 0}
+              {clientProjectsCount}
             </Typography>
           </Box>
 

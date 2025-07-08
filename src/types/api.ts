@@ -18,6 +18,7 @@ export interface Client {
   name: string;
   slug: string;
   description: string;
+  projectCount?: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

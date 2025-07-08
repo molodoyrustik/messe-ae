@@ -21,7 +21,7 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
 import FilterIcon from '@/components/icons/FilterIcon';
 import { useProjects } from '@/hooks/use-projects';
-import { useClients } from '@/hooks/use-clients';
+import { useClients, useClientsWithProjectCounts } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
 
 const sizeRanges = [
@@ -118,7 +118,7 @@ export default function ProjectsPageContent() {
   }, [searchParams, pathname, router]);
 
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useProjects(filters);
-  const { data: clientsData, isLoading: clientsLoading } = useClients();
+  const { data: clientsData, isLoading: clientsLoading } = useClientsWithProjectCounts();
   
   // Sync filters with URL params when they're set initially
   useEffect(() => {
@@ -150,11 +150,33 @@ export default function ProjectsPageContent() {
     setFilters(newFilters);
   }, [initialParams.page, initialParams.clients, initialParams.sizes, initialParams.types]); // Dependencies for URL params
   
-  // Use all projects data directly
+  // Enrich projects with client project counts
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
-    return projectsData.data;
-  }, [projectsData]);
+    if (!clientsData?.data) return projectsData.data;
+    
+    // Create a map of client slugs to project counts
+    const clientProjectCounts = new Map<string, number>();
+    clientsData.data.forEach(client => {
+      if (client.projectCount !== undefined) {
+        clientProjectCounts.set(client.slug, client.projectCount);
+      }
+    });
+    
+    // Enrich each project's client with projectCount
+    return projectsData.data.map(project => {
+      if (project.client?.slug && clientProjectCounts.has(project.client.slug)) {
+        return {
+          ...project,
+          client: {
+            ...project.client,
+            projectCount: clientProjectCounts.get(project.client.slug)
+          }
+        };
+      }
+      return project;
+    });
+  }, [projectsData, clientsData]);
   
   // Use all clients for chips
   const filteredClientsForChips = useMemo(() => {
