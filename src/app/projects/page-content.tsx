@@ -21,7 +21,7 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import CombinedFilterPanel from '@/components/projects/CombinedFilterPanel';
 import FilterIcon from '@/components/icons/FilterIcon';
 import { useProjects } from '@/hooks/use-projects';
-import { useClients, useClientsWithProjectCounts } from '@/hooks/use-clients';
+import { useClientsWithProjectCounts } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
 
 const sizeRanges = [
