@@ -196,6 +196,7 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
       <Box
         component="form"
         onSubmit={handleSubmit}
+        suppressHydrationWarning={true}
         sx={{
           display: "flex",
           flexDirection: "column",
