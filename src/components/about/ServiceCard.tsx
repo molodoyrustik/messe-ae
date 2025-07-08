@@ -19,7 +19,10 @@ export default function ServiceCard(card: IServiceCard) {
     const { id, img, title, subtitle } = card;
 
     useEffect(() => {
-        if (isMobile) return;
+        if (isMobile) {
+            setOffset(0);
+            return;
+        }
 
         const handleScroll = () => {
             if (!cardRef.current) return;
@@ -37,11 +40,11 @@ export default function ServiceCard(card: IServiceCard) {
             const progress = (elementTop + rect.height / 2 - viewportHeight / 2) / viewportHeight;
             
             // Apply speed
-            const speed = 0.25;
+            const speed = 0.15; // Reduced speed for less movement
             let parallaxOffset = progress * viewportHeight * speed;
             
-            // Limit offset to prevent too much movement
-            const maxOffset = rect.height * 0.3; // Max 30% of card height
+            // Limit offset to prevent too much movement and clipping
+            const maxOffset = rect.height * 0.15; // Reduced to 15% of card height
             parallaxOffset = Math.max(-maxOffset, Math.min(maxOffset, parallaxOffset));
             
             setOffset(parallaxOffset);
@@ -66,7 +69,7 @@ export default function ServiceCard(card: IServiceCard) {
             position: 'relative',
             width: { xs: '100%', md: '41.5rem' },
             height: { xs: '12.5rem', md: '22.5rem' },
-            borderRadius: { xs: 0, md: 2 },
+            borderRadius: '0.5rem',
             overflow: 'hidden',
             backgroundColor: '#f5f5f5',
         }}>
@@ -75,14 +78,15 @@ export default function ServiceCard(card: IServiceCard) {
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    width: '140%',
-                    height: '140%',
+                    width: isMobile ? '105%' : '120%',
+                    height: isMobile ? '105%' : '120%',
                     transform: `translate(-50%, calc(-50% + ${offset}px))`,
                     backgroundImage: `url('/about/services/${img}.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     willChange: 'transform',
+                    borderRadius: '0.5rem',
                 }}
             />
         </Box>

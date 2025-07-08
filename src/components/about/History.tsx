@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useLayoutEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import HistoryItem from "./HistoryItem";
+import Image from "next/image";
 
 export default function History() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    
     const historyItems = [
         {
             id: 1,
@@ -120,6 +124,27 @@ export default function History() {
         window.addEventListener('resize', updateVertArrow);
         return () => window.removeEventListener('resize', updateVertArrow);
     }, [historyItems.length, thirdCellRef.current?.offsetHeight]);
+
+    if (isMobile) {
+        return (
+            <Box sx={{ 
+                width: '100%', 
+                display: 'flex', 
+                justifyContent: 'center',
+                mt: '1.63rem',
+                mb: 0,
+                p: 0
+            }}>
+                <Image
+                    src="/timeline.svg"
+                    alt="Company timeline"
+                    width={343}
+                    height={1200}
+                    style={{ width: '100%', height: 'auto', maxWidth: '343px' }}
+                />
+            </Box>
+        );
+    }
 
     return (
         <Box ref={containerRef} sx={{ position: 'relative', width: '100%' }}>
