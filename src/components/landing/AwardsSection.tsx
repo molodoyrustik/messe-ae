@@ -247,7 +247,7 @@ const AwardsSection = () => {
       show: 'Big 5',
       client: 'Belgium Pavilion',
       article: 'World Exhibition Stand Awards – The Winners Supplement',
-      link: '#',
+      link: 'https://viewer.joomag.com/world-exhibition-stand-awards-the-winners-2021/0204724001637744364/p36?short=',
     },
     {
       imageUrl: '/awards/award-03.png',
@@ -255,7 +255,7 @@ const AwardsSection = () => {
       show: 'ADIPEC',
       client: 'Siemens Energy',
       article: 'World Exhibition Stand Awards – The Winners Supplement',
-      link: '#',
+      link: 'https://viewer.joomag.com/world-exhibition-stand-awards-the-winners-2022/0577511001667816570/p56',
     },
     {
       imageUrl: '/awards/award-02.png',
@@ -263,7 +263,7 @@ const AwardsSection = () => {
       show: 'Interplastica',
       client: 'Sibur Holding PJSC',
       article: 'Exhibitor Magazine',
-      link: '#',
+      link: 'https://www.exhibitoronline.com/topics/article.asp?ID=3258&catID=72',
     },
     {
       imageUrl: '/awards/award-04.png',
@@ -271,7 +271,7 @@ const AwardsSection = () => {
       show: 'Dubai International Boat show',
       client: 'Amels',
       article: 'Exhibitor Magazine',
-      link: '#',
+      link: 'https://www.exhibitoronline.com/topics/article.asp?ID=3477&catID=72',
     },
   ];
 

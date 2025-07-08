@@ -37,6 +37,12 @@ When implementing features or fixes that establish new patterns for the entire c
 - Stand Size and Type filters combined in single horizontal row
 - No project search functionality - only client search
 
+### Data Attributes for Debugging (Established 2025-01-08)
+- Add descriptive data attributes to components for easier debugging
+- Use kebab-case format for data attribute values
+- Examples: `data-advantage-card="worldwide-recognition"`, `data-learn-more`
+- Helps identify elements in browser DevTools and automated testing
+
 ## Layout Guidelines
 
 ### Page Spacing and Alignment
