@@ -371,11 +371,11 @@ const ProjectsSection = () => {
       }
     });
     
-    // Multiply arrays that have exactly 2 items
+    // Multiply all categories by 3 to ensure smooth scrolling
     Object.keys(categorized).forEach(key => {
       const categoryProjects = categorized[key];
-      if (categoryProjects.length === 2) {
-        // For 2 items: multiply by 3 = 6 items
+      if (categoryProjects.length > 0) {
+        // Multiply by 3 for all categories
         const multipliedProjects: Project[] = [];
         
         for (let i = 0; i < 3; i++) {
@@ -388,7 +388,6 @@ const ProjectsSection = () => {
         
         categorized[key] = multipliedProjects;
       }
-      // For 1 item: leave as is (no scrolling needed)
     });
     
     return categorized;
@@ -476,7 +475,6 @@ const ProjectsSection = () => {
           pb: 2,
           mb: 3,
           scrollSnapType: 'x mandatory',
-          pl: '1rem', // Start padding to align first card
           '&::-webkit-scrollbar': {
             display: 'none',
           },
@@ -488,6 +486,7 @@ const ProjectsSection = () => {
             sx={{
               minWidth: '280px',
               scrollSnapAlign: 'start',
+              pl: index === 0 ? '1rem' : 0, // Padding for first card
               pr: index === projectCategories.length - 1 ? '1rem' : 0, // End padding for last card
             }}
           >
