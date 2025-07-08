@@ -34,8 +34,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     return '> 300';
   };
 
-  // Count projects for this client (in real app, this would come from API)
-  const projectCount = 1;
+  // Get project count from client data
+  const projectCount = project.client?.projectCount || 1;
 
   return (
     <Box
