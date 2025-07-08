@@ -445,6 +445,7 @@ export default function ProjectsPageContent() {
                     setFilters(newFilters);
                     setCurrentPage(1);
                   }}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     position: 'absolute',
                     left: 0,
@@ -518,6 +519,7 @@ export default function ProjectsPageContent() {
                       key={client.id}
                       label={client.name}
                       onClick={() => handleClientToggle(client.slug)}
+                      onMouseDown={(e) => e.preventDefault()}
                       sx={{
                         px: 1.5,
                         py: 1,
@@ -588,6 +590,7 @@ export default function ProjectsPageContent() {
                     setFilters(newFilters);
                     setCurrentPage(1);
                   }}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,
@@ -612,6 +615,7 @@ export default function ProjectsPageContent() {
                     key={range.label}
                     label={range.label}
                     onClick={() => handleSizeToggle(range.label)}
+                    onMouseDown={(e) => e.preventDefault()}
                     sx={{
                       px: 1.5,
                       py: 1,
@@ -635,6 +639,7 @@ export default function ProjectsPageContent() {
                 <Chip
                   label="Double-Deckers"
                   onClick={() => handleTypeToggle('double-decker')}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,
@@ -657,6 +662,7 @@ export default function ProjectsPageContent() {
                 <Chip
                   label="Events"
                   onClick={() => handleTypeToggle('events')}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,
