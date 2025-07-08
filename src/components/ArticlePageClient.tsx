@@ -389,7 +389,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                         fontWeight: 400,
                         lineHeight: '1.75rem',
                         letterSpacing: '0.015rem',
-                        height: '3.5rem', // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
+                        maxHeight: '3.5rem', // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
                         alignSelf: 'stretch',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,

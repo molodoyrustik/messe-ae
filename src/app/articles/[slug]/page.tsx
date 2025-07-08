@@ -5,18 +5,7 @@ import { articlesApi } from '@/lib/api/articles';
 import { notFound } from 'next/navigation';
 import { formatArticleDate } from '@/utils/date';
 
-// Generate static params for all articles (SSG)
-export async function generateStaticParams() {
-  try {
-    const response = await articlesApi.getArticles({ pageSize: 100 });
-    return response.data.map((article) => ({
-      slug: article.slug,
-    }));
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
-  }
-}
+// Using SSR instead of SSG
 
 // Helper function to strip markdown and get plain text
 function stripMarkdown(markdown: string): string {
