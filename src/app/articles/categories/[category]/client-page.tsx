@@ -14,6 +14,7 @@ import ArticleCard from '@/components/ArticleCard';
 import SmallArticleCard from '@/components/SmallArticleCard';
 import { useArticles } from '@/hooks/use-articles';
 import { formatArticleDate } from '@/utils/date';
+import { Article } from '@/types/api';
 
 interface CategoryClientPageProps {
   categorySlug: string;
@@ -25,7 +26,7 @@ interface CategoryClientPageProps {
 
 export default function CategoryClientPage({ categorySlug, categoryData }: CategoryClientPageProps) {
   const [page, setPage] = useState(1);
-  const [articles, setArticles] = useState<any[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   
   const { data, isLoading, error } = useArticles({ 
     page, 
