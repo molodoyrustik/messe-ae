@@ -1,4 +1,4 @@
-import { ClientsResponse, Client, ProjectsResponse } from '@/types/api';
+import { ClientsResponse } from '@/types/api';
 import { fetcher } from './config';
 import { projectsApi } from './projects';
 
