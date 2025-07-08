@@ -66,7 +66,7 @@ export default function AboutPage() {
               For over 20 years, messe.ae has been a trusted <b>exhibition stand designer in Dubai</b>, delivering turnkey solutions across Europe and the Middle East. As part of Expoglobal Group — Nook (custom furniture), 5D (stands in Europe), messe.ae (stands in the Middle East), and Hütt (modular homes) — we offer tailored solutions for different industries. Recognized among top exhibition design companies in Dubai, we create high-quality exhibition stands for Gulfood, The Big 5, Arab Health, and more, ensuring a seamless, at every trade show.
             </Typography>
           </Box>
-          <Box sx={{ py: '30px', mb: '90px' }}>
+          <Box sx={{ py: { xs: 0, md: '1.875rem' }, mb: { xs: '2.5rem', md: '5.625rem' } }}>
             <History />
           </Box>
           
