@@ -25,10 +25,10 @@ import { useClients } from '@/hooks/use-clients';
 import { ProjectsFilters } from '@/types/api';
 
 const sizeRanges = [
-  { label: '< 50 m²', value: { min: 0, max: 50 } },
+  { label: '< 50 m²', value: { min: 0, max: 49 } },
   { label: '50 - 100 m²', value: { min: 50, max: 100 } },
   { label: '101 - 300 m²', value: { min: 101, max: 300 } },
-  { label: '> 300 m²', value: { min: 300, max: 999999 } },
+  { label: '> 300 m²', value: { min: 301, max: 999999 } },
 ];
 
 export default function ProjectsPageContent() {
@@ -445,6 +445,7 @@ export default function ProjectsPageContent() {
                     setFilters(newFilters);
                     setCurrentPage(1);
                   }}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     position: 'absolute',
                     left: 0,
@@ -518,6 +519,7 @@ export default function ProjectsPageContent() {
                       key={client.id}
                       label={client.name}
                       onClick={() => handleClientToggle(client.slug)}
+                      onMouseDown={(e) => e.preventDefault()}
                       sx={{
                         px: 1.5,
                         py: 1,
@@ -588,6 +590,7 @@ export default function ProjectsPageContent() {
                     setFilters(newFilters);
                     setCurrentPage(1);
                   }}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,
@@ -612,6 +615,7 @@ export default function ProjectsPageContent() {
                     key={range.label}
                     label={range.label}
                     onClick={() => handleSizeToggle(range.label)}
+                    onMouseDown={(e) => e.preventDefault()}
                     sx={{
                       px: 1.5,
                       py: 1,
@@ -635,6 +639,7 @@ export default function ProjectsPageContent() {
                 <Chip
                   label="Double-Deckers"
                   onClick={() => handleTypeToggle('double-decker')}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,
@@ -657,6 +662,7 @@ export default function ProjectsPageContent() {
                 <Chip
                   label="Events"
                   onClick={() => handleTypeToggle('events')}
+                  onMouseDown={(e) => e.preventDefault()}
                   sx={{
                     px: 1.5,
                     py: 1,

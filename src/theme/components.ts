@@ -374,6 +374,10 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
         fontWeight: 400,
         letterSpacing: '1%',
         height: 'auto',
+        transition: 'none', // Disable transitions to prevent visual delays
+        '&:focus': {
+          outline: 'none',
+        },
         '&.MuiChip-sizeMedium': {
           fontSize: 24,
           lineHeight: '28px',
@@ -395,7 +399,8 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
           backgroundColor: colors.primary[500], // #4C53A2
         },
         '&:focus': {
-          backgroundColor: colors.primary[600], // #464B98
+          backgroundColor: colors.primary[400], // Keep same as default to prevent visual change
+          outline: 'none',
         },
         '&.Mui-disabled': {
           backgroundColor: colors.primary[200], // #A2A9D0
@@ -413,8 +418,9 @@ export const createComponents = (theme: Theme): Components<Theme> => ({
           borderColor: colors.primary[200],
         },
         '&:focus': {
-          backgroundColor: colors.primary[50],
-          borderColor: colors.primary[200],
+          backgroundColor: colors.primary[50], // Keep same as default
+          borderColor: colors.primary[50], // Keep same as default
+          outline: 'none',
         },
         '&.Mui-disabled': {
           backgroundColor: colors.primary[50],
