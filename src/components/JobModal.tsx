@@ -4,14 +4,9 @@ import {
   Drawer,
   IconButton,
   Typography,
-  Stack,
   Box,
-  Button,
-  Container,
-  Divider,
   Link,
 } from '@mui/material';
-import { LocationOn, Work } from '@mui/icons-material';
 import { Job } from './JobCard';
 
 interface JobModalProps {
@@ -23,11 +18,6 @@ interface JobModalProps {
 
 export default function JobModal({ job, open, onClose, isMobile }: JobModalProps) {
   const getJobContent = () => {
-    const baseCompanyDescription = [
-      'Messe.ae is a part of Expoglobal Group operating in the Middle East based in Dubai. With more than 20 years of experience in Design, Project Management, Exhibition Stand Building and Custom-Made Solutions we work with a wide range of customers in multiple sectors creating stands for small businesses as well as for international corporations.',
-      'Our service is guaranteed worldwide thanks to the convenient location of our offices in Antwerp and Dubai. We can extend our services to multiple countries and events with partners in Southeast Asia, India, South America, and South Africa.',
-      `Messe.ae is happy to offer the position of ${job.title}.`
-    ];
 
     const baseWhatWeProvide = [
       'You will work in a highly enthusiastic environment with passionate colleagues;',
