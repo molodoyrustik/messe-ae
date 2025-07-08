@@ -126,7 +126,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               }}
             >
               {(() => {
-                const description = project.description || 'Client description will be displayed here when available from the backend.';
+                const description = project.description || project.client?.description || '';
                 const clientName = project.client?.name || '';
                 
                 // Check if client name exists in description
@@ -317,7 +317,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                       color: '#000000',
                     }}
                   >
-                    {project.client?.name}
+                    {project.referringCompany || project.client?.name}
                   </Typography>
                 </Box>
               </Box>
