@@ -3,8 +3,9 @@ import ThemeProvider from "@/components/ThemeProvider";
 import QueryProvider from "@/components/QueryProvider";
 import EmotionRegistry from "@/lib/emotion-registry";
 import { MobileMenuProvider } from "@/contexts/MobileMenuContext";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Roboto } from "next/font/google";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Script from "next/script";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -94,6 +95,14 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body className={roboto.className}>
+        {/* HubSpot Script */}
+        <Script
+          id="hs-script-loader"
+          src="//js-eu1.hs-scripts.com/27038193.js"
+          strategy="afterInteractive"
+          async
+          defer
+        />
         <EmotionRegistry>
           <QueryProvider>
             <ThemeProvider>
