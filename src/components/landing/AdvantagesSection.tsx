@@ -2,19 +2,22 @@
 
 import { Box, Container, Typography, useTheme } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Link from 'next/link';
 import { IFESIcon, EUIcon, BoxesIcon, SupportIcon } from '@/components/icons/AdvantageIcons';
 
 interface AdvantageCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  href?: string;
 }
 
-const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
+const AdvantageCard = ({ icon, title, description, href }: AdvantageCardProps) => {
   const theme = useTheme();
 
-  return (
+  const cardContent = (
     <Box
+      data-advantage-card={title.toLowerCase().replace(/\s+/g, '-')}
       sx={{
         backgroundColor: '#F5F5F5',
         borderRadius: { xs: '0.5rem', md: '8px' },
@@ -28,7 +31,6 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         gap: { xs: '0.5rem', md: '1rem' },
         position: 'relative',
         overflow: 'hidden',
-        cursor: 'pointer',
         transition: 'all 0.3s ease',
         '& .advantage-icon': {
           filter: 'grayscale(100%)',
@@ -41,14 +43,12 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
             filter: 'grayscale(0%)',
             opacity: 1,
           },
-          '& .learn-more-btn': {
-            transform: 'scale(1.05)',
-          },
         },
       }}
     >
       <Box 
         className="advantage-icon"
+        data-icon
         sx={{ 
           width: '100%',
           height: { xs: '2.5rem', md: '3.5rem' },
@@ -78,6 +78,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       }}>
         <Typography
           variant="h5"
+          data-title
           sx={{
             fontWeight: 700,
             fontSize: { xs: '0.875rem', md: '1.5rem' },
@@ -97,6 +98,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
         }}>
           <Typography
             variant="body1"
+            data-description
             sx={{
               fontSize: { xs: '0.75rem', md: '1rem' },
               lineHeight: { xs: '1rem', md: '1.5rem' },
@@ -118,6 +120,7 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
 
       <Box
         className="learn-more-btn"
+        data-learn-more
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -127,6 +130,8 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
           transition: 'all 0.3s ease',
           marginTop: 'auto',
           flexShrink: 0,
+          alignSelf: 'flex-start',
+          cursor: href ? 'pointer' : 'default',
         }}
       >
         <Typography
@@ -148,6 +153,16 @@ const AdvantageCard = ({ icon, title, description }: AdvantageCardProps) => {
       </Box>
     </Box>
   );
+
+  if (href) {
+    return (
+      <Link href={href} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 
 const AdvantagesSection = () => {
@@ -157,27 +172,32 @@ const AdvantagesSection = () => {
       title: 'Worldwide recognition',
       description: 'As part of IFES, we uphold a strict Code of Conduct, ensuring quality and professionalism in every project',
       icon: <IFESIcon />,
+      href: '/articles/worldwide-recognition',
     },
     {
       title: 'Own production',
       description: 'Messe.ae boasts own production facilities in Dubai, allowing us to maintain full control over quality and timelines',
       icon: <BoxesIcon />,
+      href: '/articles/own-production',
     },
     {
       title: 'European standards',
       description: 'We deliver exceptional exhibition stands that meet the highest European benchmarks, ensuring your brand excels at every event',
       icon: <EUIcon />,
+      href: '/articles/european-standards',
     },
     {
       title: 'Trusted Support',
       description: 'Throughout every stage of your project our team is dedicated to providing clear communication, ensuring a seamless experience from start to finish',
       icon: <SupportIcon />,
+      href: '/articles/trusted-support',
     },
   ];
 
   return (
     <Box
       component="section"
+      data-section="advantages"
       sx={{
         pt: { xs: '1.25rem', md: '2.5rem' },
         pb: { xs: '1.25rem', md: '6.25rem' },
@@ -190,6 +210,7 @@ const AdvantagesSection = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 8 }, alignItems: 'center' }}>
           {/* Advantages Cards */}
           <Box
+            data-advantages-grid
             sx={{
               display: 'grid',
               gridTemplateColumns: { 
@@ -198,8 +219,7 @@ const AdvantagesSection = () => {
                 md: 'repeat(4, 1fr)' 
               },
               gap: { xs: '0.75rem', sm: '1.5rem', md: '2rem' },
-              width: { xs: 'calc(100% + 1rem)', sm: '100%', md: '100%' },
-              mx: { xs: '-0.5rem', sm: 0, md: 0 },
+              width: '100%',
             }}
           >
             {advantages.map((advantage, index) => (
