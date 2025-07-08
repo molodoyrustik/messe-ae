@@ -32,6 +32,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       sx={{ textDecoration: 'none' }}
     >
       <Box
+        data-id="article-card"
         sx={{
           display: 'flex',
           width: { xs: '100%', md: '27rem' }, // 432px
@@ -58,6 +59,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       >
         {/* Image */}
         <Box
+          data-id="article-card-image-container"
           sx={{
             width: '100%',
             height: { xs: '13.5rem', md: '15rem' }, // 240px
@@ -83,20 +85,23 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
         {/* Title */}
         <Box
+          data-id="article-card-title"
           sx={{
             alignSelf: 'stretch',
-            height: { xs: 'auto', md: '4rem' }, // 64px
+            height: { xs: 'auto', md: '3.5rem' }, // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
+            textOverflow: 'ellipsis',
             '& p': {
               fontFamily: 'Roboto',
               fontSize: { xs: '1.25rem', md: '1.5rem' }, // 24px
+              fontStyle: 'normal',
               fontWeight: 400,
               lineHeight: { xs: '1.5rem', md: '1.75rem' }, // 28px
-              letterSpacing: '0.01em',
-              color: '#7B7B7B',
+              letterSpacing: '0.015rem',
+              color: '#262626',
               margin: 0,
             },
             '& strong, & b': {
@@ -122,6 +127,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           }}
         >
           <Typography
+            data-id="article-card-date"
             sx={{
               fontFamily: 'Roboto',
               fontSize: '0.875rem', // 14px
@@ -135,6 +141,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </Typography>
 
           <Box
+            data-id="article-card-read-button"
             className="read-article"
             sx={{
               display: 'inline-flex',

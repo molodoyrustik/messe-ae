@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const LinkedInNotification = () => {
@@ -35,11 +35,12 @@ const LinkedInNotification = () => {
       sx={{
         position: 'fixed',
         top: 'calc(8rem + 0.75rem)',
-        left: 0,
-        right: 0,
+        left: '2.5rem', // Изменено с 0 на конкретную позицию
+        width: '27rem', // Ограничиваем ширину
         zIndex: 1400,
         display: { xs: 'none', md: 'block' },
         animation: 'slideDown 0.5s ease-out',
+        pointerEvents: 'none', // Делаем контейнер прозрачным для кликов
         '@keyframes slideDown': {
           '0%': {
             opacity: 0,
@@ -52,7 +53,6 @@ const LinkedInNotification = () => {
         },
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
         <Box
           sx={{
             position: 'relative',
@@ -60,6 +60,7 @@ const LinkedInNotification = () => {
             height: '15rem', // Увеличиваем чтобы поместился треугольник
             overflow: 'visible', // Позволяем треугольнику выходить за границы
             paddingTop: '12px', // Отступ для треугольника
+            pointerEvents: 'auto', // Включаем клики только для содержимого
           }}
         >
           {/* SVG Background */}
@@ -230,7 +231,6 @@ const LinkedInNotification = () => {
             </Box>
           </Box>
         </Box>
-      </Container>
     </Box>
   );
 };

@@ -11,35 +11,35 @@ import {
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import ArticleCard from '@/components/ArticleCard';
-import BigArticle from '@/components/BigArticle';
-import CategoriesSection from '@/components/CategoriesSection';
-import ArticleListItem from '@/components/ArticleListItem';
+import SmallArticleCard from '@/components/SmallArticleCard';
 import { useArticles } from '@/hooks/use-articles';
-import { Article } from '@/types/api';
 import { formatArticleDate } from '@/utils/date';
 
-export default function ArticlesPage() {
+interface CategoryClientPageProps {
+  categorySlug: string;
+  categoryData: {
+    title: string;
+    description: string;
+  };
+}
+
+export default function CategoryClientPage({ categorySlug, categoryData }: CategoryClientPageProps) {
   const [page, setPage] = useState(1);
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [latestArticle, setLatestArticle] = useState<Article | null>(null);
+  const [articles, setArticles] = useState<any[]>([]);
   
   const { data, isLoading, error } = useArticles({ 
     page, 
-    pageSize: page === 1 ? 7 : 6 // Load 7 on first page (1 for big + 6 for grid), 6 on subsequent pages
+    pageSize: 6,
+    categorySlug
   });
 
   // Update articles when data changes
   if (data && data.data.length > 0) {
-    if (page === 1 && !latestArticle) {
-      setLatestArticle(data.data[0]);
-      setArticles(data.data.slice(1));
-    } else if (page > 1) {
-      const newArticles = data.data.filter(
-        (article) => !articles.some((a) => a.id === article.id)
-      );
-      if (newArticles.length > 0) {
-        setArticles((prev) => [...prev, ...newArticles]);
-      }
+    const newArticles = data.data.filter(
+      (article) => !articles.some((a) => a.id === article.id)
+    );
+    if (newArticles.length > 0) {
+      setArticles((prev) => [...prev, ...newArticles]);
     }
   }
 
@@ -63,7 +63,7 @@ export default function ArticlesPage() {
           <Box sx={{ mb: { xs: '2rem', md: '3rem' } }}>
             <Typography
               variant="h1"
-              data-id="articles-page-title"
+              data-id="category-page-title"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 700,
@@ -74,10 +74,11 @@ export default function ArticlesPage() {
                 mb: { xs: '0.5rem', md: '0.75rem' },
               }}
             >
-              Messe.ae blog
+              {categoryData.title}
             </Typography>
             <Typography
               variant="body1"
+              data-id="category-page-description"
               sx={{
                 fontFamily: 'Roboto',
                 fontWeight: 400,
@@ -88,11 +89,11 @@ export default function ArticlesPage() {
                 maxWidth: '50rem',
               }}
             >
-              Explore the latest exhibition stand trends, expert insights, and industry updates in our blog, featuring innovative designs and event solutions.
+              {categoryData.description}
             </Typography>
           </Box>
 
-          {/* Loading state */}
+          {/* Loading state for first load */}
           {isLoading && page === 1 && (
             <Box sx={{ display: 'flex', justifyContent: 'center', py: '3rem' }}>
               <CircularProgress sx={{ color: '#656CAF' }} />
@@ -109,39 +110,11 @@ export default function ArticlesPage() {
           )}
 
           {/* Content */}
-          {latestArticle && (
+          {articles.length > 0 && (
             <>
-              {/* Big Article and Categories Section */}
-              <Box sx={{ 
-                display: 'flex', 
-                flexDirection: { xs: 'column', md: 'row' },
-                gap: '2rem',
-                mb: { xs: '0rem', md: '2.5rem' },
-                width: '100%'
-              }}>
-                <Box data-id="big-article-container" sx={{ flex: { xs: '1 1 100%', md: '1 1 auto' }, minWidth: 0 }}>
-                  <BigArticle article={{
-                    id: latestArticle.id,
-                    slug: latestArticle.slug,
-                    title: latestArticle.title,
-                    excerpt: latestArticle.text.substring(0, 150) + '...',
-                    publishDate: formatArticleDate(latestArticle.createDate),
-                    readTime: '5 min',
-                    category: latestArticle.category?.title || 'Articles',
-                    image: latestArticle.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
-                  }} />
-                </Box>
-                <Box data-id="categories-section-container" sx={{ 
-                  flexShrink: 0,
-                  width: { xs: '100%', md: '20rem' }
-                }}>
-                  <CategoriesSection />
-                </Box>
-              </Box>
-
               {/* Articles Grid - Desktop */}
               <Box
-                data-id="articles-grid-desktop"
+                data-id="category-articles-grid"
                 sx={{
                   display: { xs: 'none', md: 'grid' },
                   width: '100%',
@@ -157,66 +130,34 @@ export default function ArticlesPage() {
                     excerpt: article.text.substring(0, 150) + '...',
                     publishDate: formatArticleDate(article.createDate),
                     readTime: '5 min',
-                    category: article.category?.title || 'Articles',
+                    category: article.category?.title || categoryData.title,
                     image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
                   }} />
                 ))}
               </Box>
 
-              {/* Articles List - Mobile */}
+              {/* Articles Grid - Mobile */}
               <Box
                 sx={{
                   display: { xs: 'flex', md: 'none' },
                   width: '100%',
                   flexDirection: 'column',
                   alignItems: 'flex-start',
-                  gap: '0.25rem',
-                  mt: '1.5rem', // 24px margin from categories
+                  gap: '1.5rem',
                 }}
               >
-                {/* Top Articles heading */}
-                <Typography
-                  sx={{
-                    color: '#262626',
-                    fontFamily: 'Roboto',
-                    fontSize: '1rem',
-                    fontStyle: 'normal',
-                    fontWeight: 700,
-                    lineHeight: '1.5rem',
-                    letterSpacing: '0.02rem',
-                    mb: '1rem',
-                  }}
-                >
-                  Top Articles
-                </Typography>
-                
-                {/* Articles container */}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: '0.75rem',
-                    alignSelf: 'stretch',
-                  }}
-                >
-                  {articles.map((article, index) => (
-                  <ArticleListItem 
-                    key={article.id} 
-                    article={{
-                      id: article.id,
-                      slug: article.slug,
-                      title: article.title,
-                      excerpt: article.text.substring(0, 150) + '...',
-                      publishDate: formatArticleDate(article.createDate),
-                      readTime: '5 min',
-                      category: article.category?.title || 'Articles',
-                      image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
-                    }}
-                    isLast={index === articles.length - 1}
-                  />
-                  ))}
-                </Box>
+                {articles.map((article) => (
+                  <SmallArticleCard key={article.id} article={{
+                    id: article.id,
+                    slug: article.slug,
+                    title: article.title,
+                    excerpt: article.text.substring(0, 150) + '...',
+                    publishDate: formatArticleDate(article.createDate),
+                    readTime: '5 min',
+                    category: article.category?.title || categoryData.title,
+                    image: article.image?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
+                  }} />
+                ))}
               </Box>
 
               {/* Loading indicator for more articles */}
