@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://lovely-idea-e9a72cf425.strapiapp.com/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://lovely-idea-e9a72cf425.strapiapp.com/api';
 
 export const fetcher = async (url: string, options?: RequestInit) => {
   const fullUrl = `${API_BASE_URL}${url}`;
