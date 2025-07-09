@@ -3,7 +3,7 @@ import { projectsApi } from '@/lib/api/projects';
 import { articlesApi } from '@/lib/api/articles';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://messe.ae';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae';
   
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

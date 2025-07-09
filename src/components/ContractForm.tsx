@@ -154,8 +154,8 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
       },
     };
 
-    const formId = "b35e0e92-9eb1-4db7-9ed0-4d7a2ea3f582";
-    const portalId = "27038193";
+    const formId = process.env.NEXT_PUBLIC_HUBSPOT_FORM_ID || "b35e0e92-9eb1-4db7-9ed0-4d7a2ea3f582";
+    const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID || "27038193";
     const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
     try {

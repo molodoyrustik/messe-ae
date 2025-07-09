@@ -3,8 +3,8 @@ export const organizationSchema = {
   '@type': 'Organization',
   name: 'Messe.ae',
   alternateName: 'Messe Exhibition Services',
-  url: 'https://messe.ae',
-  logo: 'https://messe.ae/logo.png',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae',
+  logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/logo.png`,
   description: 'Leading exhibition stand builder and designer in UAE. We create innovative exhibition stands, trade show displays, and event solutions worldwide.',
   foundingDate: '2004',
   founders: [
@@ -40,7 +40,7 @@ export const organizationSchema = {
   parentOrganization: {
     '@type': 'Organization',
     name: 'ExpoGlobal',
-    url: 'https://www.expoglobal.com'
+    url: process.env.NEXT_PUBLIC_PARENT_COMPANY_URL || 'https://www.expoglobal.com'
   }
 };
 
@@ -48,12 +48,12 @@ export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Messe.ae',
-  url: 'https://messe.ae',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://messe.ae/search?q={search_term_string}'
+      urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/search?q={search_term_string}`
     },
     'query-input': 'required name=search_term_string'
   }
@@ -78,7 +78,7 @@ export const serviceSchema = {
     priceRange: '$$$',
     availableChannel: {
       '@type': 'ServiceChannel',
-      serviceUrl: 'https://messe.ae/contact',
+      serviceUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/contact`,
       servicePhone: '+971-4-548-5887',
       availableLanguage: ['English', 'Arabic']
     }
@@ -99,25 +99,25 @@ export function getArticleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || 'https://messe.ae/default-article-image.jpg',
+    image: article.image || `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/default-article-image.jpg`,
     datePublished: article.publishedDate,
     dateModified: article.modifiedDate || article.publishedDate,
     author: {
       '@type': 'Organization',
       name: 'Messe.ae',
-      url: 'https://messe.ae'
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'
     },
     publisher: {
       '@type': 'Organization',
       name: 'Messe.ae',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://messe.ae/logo.png'
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/logo.png`
       }
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://messe.ae/articles/${article.slug}`
+      '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://messe.ae'}/articles/${article.slug}`
     }
   };
 }
