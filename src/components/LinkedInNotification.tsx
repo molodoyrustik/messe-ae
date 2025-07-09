@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const LinkedInNotification = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +34,7 @@ const LinkedInNotification = () => {
       sx={{
         position: 'fixed',
         top: 'calc(8rem + 0.75rem)',
-        left: '2.5rem', // Изменено с 0 на конкретную позицию
+        left: { xs: '1rem', md: '2.5rem' }, // Align with header container padding
         width: '27rem', // Ограничиваем ширину
         zIndex: 1400,
         display: { xs: 'none', md: 'block' },
@@ -78,11 +77,6 @@ const LinkedInNotification = () => {
               height: '100%',
             }}
           >
-            {/* Треугольник-указатель на лого (сверху) */}
-            <path
-              d="M60 12 L80 0 L100 12 Z"
-              fill="#262626"
-            />
             {/* Основной прямоугольник нотификации */}
             <rect
               x="0"
@@ -93,6 +87,28 @@ const LinkedInNotification = () => {
               fill="#262626"
             />
           </svg>
+          
+          {/* Triangle pointer */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '-5px',
+              left: '48px',
+            }}
+          >
+            <svg 
+              width="20" 
+              height="21.68" 
+              viewBox="0 0 20 21.68" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon 
+                points="10,0 0,21.68 20,21.68" 
+                fill="#262626"
+              />
+            </svg>
+          </Box>
+          
           {/* Close button */}
           <Box
             component="button"
@@ -200,33 +216,25 @@ const LinkedInNotification = () => {
               </Typography>
               <Box
                 sx={{
-                  width: '1rem', // w-4
-                  height: '1.5rem', // h-6
-                  minHeight: '1.5rem', // min-h-6
-                  position: 'relative',
+                  width: '1.5rem',
+                  height: '1.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                <Box
-                  sx={{
-                    width: '1.5rem', // w-6
-                    height: '1.5rem', // h-6
-                    left: 0,
-                    top: 0,
-                    position: 'absolute',
-                    overflow: 'hidden',
-                  }}
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <ArrowForwardIcon
-                    sx={{
-                      width: '1.25rem', // w-5
-                      height: '1.25rem', // h-5
-                      position: 'absolute',
-                      left: '0.125rem', // left-[2px]
-                      top: '0.125rem', // top-[2px]
-                      color: '#656CAF',
-                    }}
+                  <path
+                    d="M19.7778 2C20.9881 2 22 3.01185 22 4.22222V19.7778C22 20.9881 20.9881 22 19.7778 22H4.22222C3.01185 22 2 20.9881 2 19.7778V4.22222C2 3.01185 3.01185 2 4.22222 2H19.7778ZM19.2222 19.2222V13.3333C19.2222 12.3727 18.8406 11.4513 18.1613 10.772C17.482 10.0927 16.5607 9.71111 15.6 9.71111C14.6556 9.71111 13.5556 10.2889 13.0222 11.1556V9.92222H9.92222V19.2222H13.0222V13.7444C13.0222 12.8889 13.7111 12.1889 14.5667 12.1889C14.9792 12.1889 15.3749 12.3528 15.6666 12.6445C15.9583 12.9362 16.1222 13.3319 16.1222 13.7444V19.2222H19.2222ZM6.31111 8.17778C6.80618 8.17778 7.28098 7.98111 7.63104 7.63104C7.98111 7.28098 8.17778 6.80618 8.17778 6.31111C8.17778 5.27778 7.34444 4.43333 6.31111 4.43333C5.81309 4.43333 5.33547 4.63117 4.98332 4.98332C4.63117 5.33547 4.43333 5.81309 4.43333 6.31111C4.43333 7.34444 5.27778 8.17778 6.31111 8.17778ZM7.85556 19.2222V9.92222H4.77778V19.2222H7.85556Z"
+                    fill="#656CAF"
                   />
-                </Box>
+                </svg>
               </Box>
             </Box>
           </Box>
