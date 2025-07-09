@@ -154,8 +154,8 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
       },
     };
 
-    const formId = "b35e0e92-9eb1-4db7-9ed0-4d7a2ea3f582";
-    const portalId = "27038193";
+    const formId = process.env.NEXT_PUBLIC_HUBSPOT_FORM_ID || "b35e0e92-9eb1-4db7-9ed0-4d7a2ea3f582";
+    const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID || "27038193";
     const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
     try {
@@ -200,7 +200,7 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: { xs: "1.25rem", md: "1.25rem" },
+          gap: { xs: "0.75rem", md: "0.75rem" },
           width: "100%",
         }}
       >
@@ -306,8 +306,9 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
           />
         </Box>
 
-        <FormGroup sx={{ mt: 1, mb: 1 }}>
+        <FormGroup>
           <FormControlLabel
+           sx={{ pr: '9px', pl:0, py: 0}}
             control={
               <Checkbox
                 checked={checkboxes.communications}
@@ -324,6 +325,7 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
             </Typography>
           )}
           <FormControlLabel
+            sx={{ pr: '9px', pl:0, py: 0}}
             control={
               <Checkbox
                 checked={checkboxes.personalData}

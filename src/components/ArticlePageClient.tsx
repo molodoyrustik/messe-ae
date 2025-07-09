@@ -7,12 +7,12 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { ArrowForward } from '@mui/icons-material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { Article } from '@/components/ArticleCard';
 import LinkedInNotification from '@/components/LinkedInNotification';
+import SmallArticleCard from '@/components/SmallArticleCard';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -128,8 +128,7 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
       </Box>
 
       {/* Article Content */}
-      <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' }, px: { xs: '1rem', md: 0 } }}>
-      <Box sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: '3rem', md: '3.75rem' }, pb: { xs: '3rem', md: '6rem' }, px: { xs: '1rem', md: '2.5rem' } }}>
           <Box sx={{ display: 'flex', gap: { xs: 0, md: '5rem' }, flexDirection: { xs: 'column', md: 'row' }, alignItems: 'flex-start', justifyContent: 'space-between' }}>
             {/* Article Body */}
             <Box
@@ -314,11 +313,11 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
             <Box
               data-id="next-articles-section"
               sx={{
-                width: { xs: '100%', md: '20rem' }, // 320px
+                width: { xs: '100%', md: '22rem' }, // Увеличено с 20rem до 22rem для лучшего размещения карточек
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.75rem', // 12px
-                mt: { xs: '3rem', md: 0 },
+                mt: { xs: '2rem', md: '2rem' },
                 overflow: 'hidden', // Fix title overflow
               }}
             >
@@ -327,10 +326,10 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                 sx={{
                   fontFamily: 'Roboto',
                   fontWeight: 700,
-                  fontSize: '2.25rem',
-                  lineHeight: '2.5rem',
+                  fontSize: '1rem',
+                  lineHeight: '1.5rem',
                   letterSpacing: '0.02rem',
-                  color: '#424242',
+                  color: '#262626',
                 }}
               >
                 Next articles
@@ -339,131 +338,26 @@ export default function ArticlePageClient({ articleData, relatedArticles }: Arti
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '2rem', // Already correct gap
+                  gap: '1.5rem', // Spacing between article blocks
                 }}
               >
-                {relatedArticles.slice(0, 3).map((article, index) => (
-                  <Box
-                    key={article.id}
-                    data-id={`next-article-card-${index}`}
-                    sx={{
-                      display: 'flex',
-                      width: '100%', // Изменено на 100% для правильной работы с родительским контейнером
-                      maxWidth: '19.75rem', // Максимальная ширина как в дизайне
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <Box
-                      data-id={`next-article-image-${index}`}
-                      sx={{
-                        width: '100%',
-                        height: '15rem', // 240px
-                        borderRadius: '0.25rem',
-                        overflow: 'hidden',
-                        backgroundColor: '#F5F5F5',
-                      }}
-                    >
-                      <Box
-                        component="img"
-                        src={article.image}
-                        alt={article.title}
-                        sx={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </Box>
-                    <Typography
-                      data-id={`next-article-title-${index}`}
-                      sx={{
-                        overflow: 'hidden',
-                        color: '#000',
-                        textOverflow: 'ellipsis',
-                        fontFamily: 'Roboto',
-                        fontSize: '1.5rem',
-                        fontStyle: 'normal',
-                        fontWeight: 400,
-                        lineHeight: '1.75rem',
-                        letterSpacing: '0.015rem',
-                        maxHeight: '3.5rem', // Изменено с 4rem на 3.5rem (2 строки * 1.75rem)
-                        alignSelf: 'stretch',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                      }}
-                    >
-                      {article.title}
-                    </Typography>
-                    <Box
-                      sx={{
-                        alignSelf: 'stretch',
-                        display: 'inline-flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Typography
-                        data-id={`next-article-date-${index}`}
-                        sx={{
-                          justifyContent: 'flex-start',
-                          color: '#000',
-                          fontFamily: 'Roboto',
-                          fontSize: '0.875rem', // 14px
-                          fontWeight: 400,
-                          lineHeight: '1rem', // leading-none
-                          letterSpacing: '0.025em', // tracking-tight
-                        }}
-                      >
-                        {article.publishDate}
-                      </Typography>
-                      <Button
-                        data-id={`next-article-button-${index}`}
-                        endIcon={<ArrowForward />}
-                        href={`/articles/${article.slug}`}
-                        sx={{
-                          height: '2rem', // 32px
-                          px: '0.3125rem', // 5px
-                          py: '0.25rem', // 4px
-                          borderRadius: '0.5rem',
-                          color: '#656CAF',
-                          fontFamily: 'Roboto',
-                          fontWeight: 400,
-                          fontSize: '1rem',
-                          lineHeight: '1.5rem',
-                          letterSpacing: '0.025em',
-                          textTransform: 'none',
-                          '&:hover': {
-                            backgroundColor: 'rgba(101, 108, 175, 0.08)',
-                          },
-                          '& .MuiButton-endIcon': {
-                            ml: '0.5rem',
-                            '& svg': {
-                              fontSize: '1rem',
-                            },
-                          },
-                        }}
-                      >
-                        Read article
-                      </Button>
-                    </Box>
-                  </Box>
+                {relatedArticles.slice(0, 3).map((article) => (
+                  <SmallArticleCard 
+                    key={article.id} 
+                    article={article} 
+                  />
                 ))}
               </Box>
             </Box>
           </Box>
-        </Box>
 
         {/* Start Your Project Button */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: { xs: 'center', md: 'flex-start' },
-            mt: { xs: '3rem', md: '3.75rem' },
-            px: { xs: '1rem', md: '2.5rem' },
+            display: { xs: 'none', md: 'flex' },
+            justifyContent: 'flex-start',
+            mt: '3.75rem',
+            px: '2.5rem',
           }}
         >
           <Button

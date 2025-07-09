@@ -139,7 +139,7 @@ const FooterSection = () => {
     { label: "About Us", href: "/about" },
     { label: "Articles", href: "/articles" },
     { label: "Manifestos", href: "/manifestos" },
-    { label: "Careers", href: "/careers" },
+    { label: "Career", href: "/careers" },
     { label: "Privacy policy", href: "/privacy-policy" },
     { label: "Cookie policy", href: "/cookie-policy" },
   ];
@@ -151,7 +151,7 @@ const FooterSection = () => {
       sx={{
         backgroundColor: "#F5F5F5",
         overflow: "hidden",
-        py: { xs: 4, md: 5 },
+        py: { xs: 2, md: 3.25 },
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: "1rem", md: "2.5rem" } }}>
@@ -171,6 +171,8 @@ const FooterSection = () => {
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
+              justifyContent: "space-between",
+              mt: { xs: 0, md: 2.5, lg: 2.5 },
               flexDirection: "column",
               gap: { xs: 3, md: 6 },
               maxWidth: "320px",
@@ -199,6 +201,7 @@ const FooterSection = () => {
                   }}
                 />
               </Box>
+              <Box sx={{ display: "flex", gap: 1, mt: { md: 3 }}}>
               <Typography
                 sx={{
                   fontSize: { xs: "3.87px", md: "10.5px" },
@@ -234,29 +237,31 @@ const FooterSection = () => {
                   ervices
                 </Box>
               </Typography>
+              </Box>
             </Box>
 
             {/* Company Info */}
             <Stack spacing={3}>
-              <Typography
-                sx={{
-                  fontSize: { xs: "10px", md: "14px" },
-                  lineHeight: { xs: "13px", md: "18px" },
-                  letterSpacing: { xs: "0.2px", md: "0.28px" },
-                  color: "#262626",
-                }}
-              >
-                the part of{" "}
-                <Box
-                  component="span"
-                  sx={{ fontWeight: 700, color: "#000000" }}
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "10px", md: "14px" },
+                    lineHeight: { xs: "13px", md: "18px" },
+                    letterSpacing: { xs: "0.2px", md: "0.28px" },
+                    color: "#262626",
+                  }}
                 >
-                  Expoglobal Group
-                </Box>
-              </Typography>
-
+                  the part of{" "}
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 700, color: "#000000" }}
+                  >
+                    Expoglobal Group
+                  </Box>
+                </Typography>
+              </Box>
               {/* Social Icons */}
-              <Stack direction="row" spacing={1}>
+              <Stack direction="row" spacing={1.5}>
                 <IconButton
                   component="a"
                   href="https://www.instagram.com/messe.ae/"
@@ -299,8 +304,8 @@ const FooterSection = () => {
                 </IconButton>
               </Stack>
 
-              {/* Contact Details */}
-              <Stack spacing={1.5}>
+
+
                 <Stack direction="row" spacing={0.5} alignItems="center">
                   <Phone
                     sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
@@ -375,7 +380,6 @@ const FooterSection = () => {
                   </Link>
                 </Stack>
               </Stack>
-            </Stack>
           </Box>
 
           {/* Middle Column - Navigation Menu */}
@@ -388,7 +392,7 @@ const FooterSection = () => {
               ml: { md: "auto", lg: 20 },
               mr: { md: 0, lg: 8 },
               alignSelf: { md: "start", lg: "end" },
-              pb: { md: 0, lg: 5 },
+              pb: { md: 1.5, lg: 0 },
               pt: { md: 12, lg: 0 },
             }}
           >
@@ -501,7 +505,6 @@ const FooterSection = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: { xs: 3, md: 2.5 },
               gridColumn: { xs: "1", md: "1 / -1", lg: "3" },
               justifySelf: { lg: "end" },
               width: { xs: "100%", md: "100%", lg: "auto" },
@@ -531,12 +534,12 @@ const FooterSection = () => {
               component="div"
               sx={{
                 width: { xs: "100%", lg: "664px" },
-                p: { xs: "12px", md: 4 },
+                p: { xs: "12px", md: 2.5 },
                 backgroundColor: "#FFFFFF",
                 borderRadius: "8px",
                 display: "flex",
                 flexDirection: "column",
-                gap: { xs: "20px", md: 2.5 },
+                gap: { xs: "20px", md: 1.5 },
                 mx: "auto",
               }}
             >
