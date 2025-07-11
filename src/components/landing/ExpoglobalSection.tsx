@@ -113,7 +113,7 @@ const ExpoglobalSection = () => {
               {' '}(customized furniture),{' '}
               <Box 
                 component="a"
-                href="https://fived.be/#solutions"
+                href="https://fived.be/"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{

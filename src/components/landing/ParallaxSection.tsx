@@ -107,7 +107,6 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
             display: { xs: 'none', md: 'block' },
             position: 'absolute',
             bottom: '3.75rem',
-            left: 0,
           }}
         >
           <Typography
@@ -136,7 +135,6 @@ export default function ParallaxSection({ className = '' }: ParallaxSectionProps
           style={isMobile ? {
             position: 'absolute',
             bottom: '3.75rem',
-            left: 0,
             opacity: textOpacity,
             y: mobileContentY, // Контент тоже участвует в параллаксе на мобильных
           } : {}}
