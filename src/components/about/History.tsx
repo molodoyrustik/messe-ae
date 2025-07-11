@@ -136,7 +136,7 @@ export default function History() {
                 p: 0
             }}>
                 <Image
-                    src="/timeline.svg"
+                    src="/company-chronology2x.png"
                     alt="Company timeline"
                     width={343}
                     height={1200}
