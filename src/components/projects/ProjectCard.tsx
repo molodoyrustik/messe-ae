@@ -27,8 +27,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
 
-  // Get project count from client data
-  const projectCount = project.client?.projectCount || 1;
 
   return (
     <Box

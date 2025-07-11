@@ -154,7 +154,7 @@ export default function ProjectsPageContent() {
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
     
-    let projects = [...projectsData.data];
+    const projects = [...projectsData.data];
     
     // Sort by publication date for mobile
     if (isMobile) {
