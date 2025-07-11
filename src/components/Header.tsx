@@ -214,7 +214,7 @@ const TopInfoBar = () => {
               the part of{' '}
               <Box 
                 component="a" 
-                href="https://www.expoglobal.com"
+                href="https://expoglobal.group"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{ 
@@ -557,7 +557,7 @@ const Header = () => {
               the part of{' '}
               <Box 
                 component="a"
-                href="https://www.expoglobal.com"
+                href="https://expoglobal.group"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{ 
