@@ -1,7 +1,9 @@
 'use client';
 
 import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef, useState } from 'react';
+import { ScrollParallax, ScrollParallaxHandle } from 'react-just-parallax';
+import Image from "next/image";
+import { useRef, useEffect } from 'react';
 
 interface IServiceCard {
     img: string,
@@ -13,50 +15,15 @@ interface IServiceCard {
 export default function ServiceCard(card: IServiceCard) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const [offset, setOffset] = useState(0);
-    const cardRef = useRef<HTMLDivElement>(null);
+    const scrollParallaxRef = useRef<ScrollParallaxHandle | null>(null);
   
     const { id, img, title, subtitle } = card;
-
+    
     useEffect(() => {
-        if (isMobile) {
-            setOffset(0);
-            return;
-        }
-
-        const handleScroll = () => {
-            if (!cardRef.current) return;
-            
-            const rect = cardRef.current.getBoundingClientRect();
-            
-            // Start parallax when element enters viewport (not just at center)
-            const viewportHeight = window.innerHeight;
-            const elementTop = rect.top;
-            
-            // Calculate progress through viewport (-1 to 1)
-            // -1 when element bottom is at viewport top
-            // 0 when element center is at viewport center  
-            // 1 when element top is at viewport bottom
-            const progress = (elementTop + rect.height / 2 - viewportHeight / 2) / viewportHeight;
-            
-            // Apply speed
-            const speed = 0.15; // Reduced speed for less movement
-            let parallaxOffset = progress * viewportHeight * speed;
-            
-            // Limit offset to prevent too much movement and clipping
-            const maxOffset = rect.height * 0.15; // Reduced to 15% of card height
-            parallaxOffset = Math.max(-maxOffset, Math.min(maxOffset, parallaxOffset));
-            
-            setOffset(parallaxOffset);
-        };
-
-        handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        scrollParallaxRef.current?.updateValues();
     }, [isMobile]);
 
     return <Card 
-        ref={cardRef}
         sx={{
             display: 'flex',
             flexDirection: {md: id % 2 ? 'row' : 'row-reverse', xs: 'column'},
@@ -73,22 +40,34 @@ export default function ServiceCard(card: IServiceCard) {
             overflow: 'hidden',
             backgroundColor: '#f5f5f5',
         }}>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    width: isMobile ? '105%' : '120%',
-                    height: isMobile ? '105%' : '120%',
-                    transform: `translate(-50%, calc(-50% + ${offset}px))`,
-                    backgroundImage: `url('/about/services/${img}.jpg')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    willChange: 'transform',
-                    borderRadius: '0.5rem',
-                }}
-            />
+            <ScrollParallax 
+                ref={scrollParallaxRef}
+                isAbsolutelyPositioned
+                strength={isMobile ? 0.25 : 0.4}
+                shouldPause={false}
+                lerpEase={0.5}
+                zIndex={1}
+            >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: isMobile ? '-25%' : '-20%',
+                        left: isMobile ? '-25%' : '-20%',
+                        width: isMobile ? '150%' : '160%',
+                        height: isMobile ? '150%' : '160%',
+                    }}
+                >
+                    <Image
+                        src={`/about/services/${img}.jpg`}
+                        alt={title}
+                        fill
+                        style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                        }}
+                    />
+                </Box>
+            </ScrollParallax>
         </Box>
         <Box sx={{
             flex: 1,
