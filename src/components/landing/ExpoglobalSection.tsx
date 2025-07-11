@@ -45,7 +45,7 @@ const ExpoglobalSection = () => {
             }}
           >
             <Image
-              src="/expoglobal-branding.svg"
+              src="/expoglobal-branding.png"
               alt="Expoglobal Group"
               width={320}
               height={144}
