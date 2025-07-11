@@ -1,9 +1,8 @@
 'use client';
 
 import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { ScrollParallax, ScrollParallaxHandle } from 'react-just-parallax';
-import Image from "next/image";
-import { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 interface IServiceCard {
     img: string,
@@ -15,15 +14,21 @@ interface IServiceCard {
 export default function ServiceCard(card: IServiceCard) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const scrollParallaxRef = useRef<ScrollParallaxHandle | null>(null);
+    const cardRef = useRef<HTMLDivElement>(null);
   
     const { id, img, title, subtitle } = card;
-    
-    useEffect(() => {
-        scrollParallaxRef.current?.updateValues();
-    }, [isMobile]);
+
+    // Параллакс эффект
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Движение изображения - реверсивный параллакс с большим размахом
+    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['15%', '-15%'] : ['30%', '-30%']);
 
     return <Card 
+        ref={cardRef}
         sx={{
             display: 'flex',
             flexDirection: {md: id % 2 ? 'row' : 'row-reverse', xs: 'column'},
@@ -40,34 +45,23 @@ export default function ServiceCard(card: IServiceCard) {
             overflow: 'hidden',
             backgroundColor: '#f5f5f5',
         }}>
-            <ScrollParallax 
-                ref={scrollParallaxRef}
-                isAbsolutelyPositioned
-                strength={isMobile ? 0.25 : 0.4}
-                shouldPause={false}
-                lerpEase={0.5}
-                zIndex={1}
-            >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: isMobile ? '-25%' : '-20%',
-                        left: isMobile ? '-25%' : '-20%',
-                        width: isMobile ? '150%' : '160%',
-                        height: isMobile ? '150%' : '160%',
-                    }}
-                >
-                    <Image
-                        src={`/about/services/${img}.jpg`}
-                        alt={title}
-                        fill
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </Box>
-            </ScrollParallax>
+            <Box
+                component={motion.div}
+                style={{
+                    y: imageY,
+                }}
+                sx={{
+                    position: 'absolute',
+                    top: isMobile ? '-20%' : '-25%',
+                    left: isMobile ? '-20%' : '-25%',
+                    width: isMobile ? '140%' : '150%',
+                    height: isMobile ? '140%' : '150%',
+                    backgroundImage: `url('/about/services/${img}.jpg')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            />
         </Box>
         <Box sx={{
             flex: 1,

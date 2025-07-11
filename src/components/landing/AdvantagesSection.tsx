@@ -57,10 +57,6 @@ const AdvantageCard = ({ icon, title, description, href }: AdvantageCardProps) =
           justifyContent: 'flex-start',
           overflow: 'hidden',
           '& img': {
-            width: 'auto',
-            height: '100%',
-            maxHeight: '100%',
-            objectFit: 'contain',
             objectPosition: { xs: 'left center', md: 'center' },
           },
         }}

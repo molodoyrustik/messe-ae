@@ -6,6 +6,7 @@ export const IFESIcon = () => (
     alt="IFES" 
     width={109} 
     height={40}
+    unoptimized
     style={{ width: 'auto', height: '100%', objectFit: 'contain' }}
   />
 );
@@ -16,6 +17,7 @@ export const EUIcon = () => (
     alt="EU" 
     width={40} 
     height={40}
+    unoptimized
     style={{ width: 'auto', height: '100%', objectFit: 'contain' }}
   />
 );
@@ -26,6 +28,7 @@ export const BoxesIcon = () => (
     alt="Own Production" 
     width={40} 
     height={40}
+    unoptimized
     style={{ width: 'auto', height: '100%', objectFit: 'contain' }}
   />
 );
@@ -36,6 +39,7 @@ export const SupportIcon = () => (
     alt="Trusted Support" 
     width={40} 
     height={40}
+    unoptimized
     style={{ width: 'auto', height: '100%', objectFit: 'contain' }}
   />
 );
