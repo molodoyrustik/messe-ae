@@ -8,7 +8,7 @@ const CookiePolicyPage = () => {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Header />
-      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '8rem', px: { xs: '1rem', md: '2.5rem' } }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: '2.5rem', px: { xs: '1rem', md: '2.5rem' } }}>
           {/* Page Header */}
           <Box sx={{ mb: { xs: '1.5rem', md: '2rem' } }}>
             <Typography
