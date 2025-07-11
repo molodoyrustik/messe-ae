@@ -14,7 +14,7 @@ const CarouselContainer = styled(Box, {
 })<{ $isMobile?: boolean }>(({ $isMobile = false }) => ({
   overflow: 'hidden',
   position: 'relative',
-  height: $isMobile ? '1.75rem' : '64px', // Mobile: 1.75rem (28px), Desktop: 64px
+  height: $isMobile ? '32px' : '64px', // Mobile: 32px for better quality, Desktop: 64px
   width: '100%',
   isolation: 'isolate',
   backfaceVisibility: 'hidden',
@@ -89,7 +89,7 @@ const LogoItem = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: $isMobile ? '28px' : '64px', // Match container height
+  height: $isMobile ? '32px' : '64px', // Increased mobile height for better quality
 }));
 
 const ClientsSection = () => {
@@ -287,23 +287,19 @@ const ClientsSection = () => {
               src={`/client-logos/${logo.filename}`}
               alt={logo.name}
               sx={{
+                height: { xs: '28px', sm: '36px', md: '48px' },
                 width: 'auto',
-                maxWidth: { xs: '140px', sm: '160px', md: '180px' },
-                maxHeight: { xs: '20px', sm: '36px', md: '48px' },
-                height: '100%',
+                maxWidth: { xs: '120px', sm: '160px', md: '180px' },
                 objectFit: 'contain',
-                filter: 'grayscale(100%)', // Grayscale by default for both mobile and desktop
-                opacity: { xs: 0.6, sm: 0.65, md: 0.7 },
+                filter: 'grayscale(100%) contrast(1.2)',
+                opacity: { xs: 0.9, sm: 0.7, md: 0.7 },
                 transition: 'all 0.3s ease',
+                imageRendering: 'high-quality',
+                WebkitImageRendering: 'high-quality',
                 '&:hover': {
-                  transform: 'scale(1.05)',
-                  filter: 'grayscale(0%)', // Color on hover for both mobile and desktop
+                  filter: 'grayscale(0%) contrast(1)',
                   opacity: 1,
                 },
-              }}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
               }}
             />
           </LogoItem>
