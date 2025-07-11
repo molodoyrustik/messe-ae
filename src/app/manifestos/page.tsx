@@ -30,7 +30,7 @@ export default function ManifestosPage() {
     <>
       <Header />
       
-      <Box sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: 6, md: 8 } }}>
+      <Box sx={{ pt: { xs: '1.5rem', md: '3.75rem' }, pb: { xs: '2.5rem', md: '4.25rem' } }}>
         <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
           <Typography
             variant="h1"
@@ -38,7 +38,7 @@ export default function ManifestosPage() {
               fontSize: { xs: '2.25rem', md: '3.375rem' },
               lineHeight: { xs: '2.75rem', md: '4rem' },
               fontWeight: 700,
-              mb: { xs: '48px', md: '72px' },
+              mb: { xs: '1rem', md: '0.75rem' },
               color: 'grey.800'
             }}
           >
@@ -48,7 +48,7 @@ export default function ManifestosPage() {
           <Typography
             variant="body1"
             sx={{
-              mb: { xs: '24px', md: '96px' },
+              mb: { xs: '1.5rem', md: '2.5rem' },
               color: 'grey.900',
               fontSize: { xs: '14px', md: '16px' },
               lineHeight: { xs: '16px', md: '24px' },
