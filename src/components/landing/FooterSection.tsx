@@ -524,7 +524,7 @@ const FooterSection = () => {
                 mb: 2,
               }}
             >
-              We&apos;re always happy to help
+              We are always happy to help
             </Typography>
 
             {/* Contact Form */}
