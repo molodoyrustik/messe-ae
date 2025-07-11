@@ -19,13 +19,14 @@ interface AwardCardProps {
 
 const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCardProps) => {
   const isHighCard = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
+  const isBottomRow = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
   
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: { xs:  'flex-start', md:  'center' },
-        alignItems: { xs: 'center', md: 'flex-start' },
+        alignItems: { xs: 'flex-start', md: 'flex-start' },
         width: '100%',
         height: 'auto',
         overflow: 'hidden',
@@ -37,7 +38,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
           display: 'flex',
           flexDirection: 'column',
           gap: { xs: '0.5rem', md: '1.25rem' },
-          width: { xs: '9rem', md: '100%' },
+          width: { xs: '100%', md: '100%' },
           maxWidth: { md: '320px' },
         }}
       >
@@ -45,15 +46,16 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
         <Box
           sx={{
             position: 'relative',
-            width: { xs: '5rem', md: '100%' },
+            width: { xs: '60%', md: '100%' },
             maxWidth: { md: '240px' },
-            height: { xs: isHighCard ? '9.25rem' : '7rem', md: '450px' },
+            aspectRatio: { xs: isBottomRow ? '20/37' : '2/3', md: 'unset' },
+            height: { xs: 'auto', md: '450px' },
             backgroundColor: 'transparent',
             borderRadius: '4px',
             overflow: 'hidden',
             flexShrink: 0,
             '& img': {
-              objectPosition: { xs: 'left center !important', md: 'center !important' },
+              width: 'auto !important',
             },
           }}
         >
@@ -62,7 +64,7 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
               src={imageUrl}
               alt={`${category} - ${client}`}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 320px"
               style={{
                 objectFit: 'contain',
               }}
@@ -242,7 +244,7 @@ const AwardsSection = () => {
   // Мобильная версия - исходный порядок
   const mobileAwards = [
     {
-      imageUrl: '/awards/award-01.png',
+      imageUrl: '/awards/award-01-mob.png',
       category: 'Best Pavilion',
       show: 'Big 5',
       client: 'Belgium Pavilion',
@@ -250,7 +252,7 @@ const AwardsSection = () => {
       link: 'https://viewer.joomag.com/world-exhibition-stand-awards-the-winners-2021/0204724001637744364/p36?short=',
     },
     {
-      imageUrl: '/awards/award-03.png',
+      imageUrl: '/awards/award-03-mob.png',
       category: 'Best Sustainable Stand',
       show: 'ADIPEC',
       client: 'Siemens Energy',
@@ -258,7 +260,7 @@ const AwardsSection = () => {
       link: 'https://viewer.joomag.com/world-exhibition-stand-awards-the-winners-2022/0577511001667816570/p56',
     },
     {
-      imageUrl: '/awards/award-02.png',
+      imageUrl: '/awards/award-02-mob.png',
       category: 'Double-Deck Exhibit',
       show: 'Interplastica',
       client: 'Sibur Holding PJSC',
@@ -266,7 +268,7 @@ const AwardsSection = () => {
       link: 'https://www.exhibitoronline.com/topics/article.asp?ID=3258&catID=72',
     },
     {
-      imageUrl: '/awards/award-04.png',
+      imageUrl: '/awards/award-04-mob.png',
       category: 'International Exhibit',
       show: 'Dubai International Boat show',
       client: 'Amels',
@@ -320,12 +322,20 @@ const AwardsSection = () => {
         backgroundColor: { xs: '#F5F5F5', md: '#FFFFFF' },
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' } }}>
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          px: { xs: '1rem', md: '2.5rem' },
+          display: { xs: 'flex', md: 'block' },
+          flexDirection: { xs: 'column', md: 'unset' },
+          gap: { xs: '1rem', md: 0 },
+        }}
+      >
         {/* Mobile Title */}
         <Box
           sx={{
             display: { xs: 'block', md: 'none' },
-            mb: 3,
+            mb: 0,
             px: 0,
             width: '100%',
           }}
@@ -350,9 +360,10 @@ const AwardsSection = () => {
         <Box
           sx={{
             display: { xs: 'grid', md: 'none' },
-            gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(2, 1fr)' },
-            gap: { xs: '0.5rem', sm: '1rem' },
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '0.75rem',
             width: '100%',
+            gridTemplateRows: 'repeat(2, auto)',
           }}
         >
           {mobileAwards.map((award, index) => (
