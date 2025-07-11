@@ -306,7 +306,7 @@ const FooterSection = () => {
 
 
 
-                <Stack direction="row" spacing={0.5} alignItems="center">
+                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="center">
                   <Phone
                     sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
                   />
@@ -328,7 +328,7 @@ const FooterSection = () => {
                   </Link>
                 </Stack>
 
-                <Stack direction="row" spacing={0.5} alignItems="center">
+                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="center">
                   <Email
                     sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
                   />
@@ -350,7 +350,7 @@ const FooterSection = () => {
                   </Link>
                 </Stack>
 
-                <Stack direction="row" spacing={0.5} alignItems="flex-start">
+                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="flex-start">
                   <LocationOn
                     sx={{
                       fontSize: { xs: 14, md: 20 },
