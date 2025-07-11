@@ -18,7 +18,7 @@ interface AwardCardProps {
 }
 
 const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCardProps) => {
-  const isHighCard = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
+  // const isHighCard = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
   const isBottomRow = category === 'Double-Deck Exhibit' || category === 'International Exhibit';
   
   return (
