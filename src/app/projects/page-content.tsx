@@ -366,24 +366,6 @@ export default function ProjectsPageContent() {
               </Box>
               . From tailored exhibition stands to creative display stand exhibition solutions, we bring innovation, quality, and expertise to every project. Recognized among top exhibitions companies in Dubai, messe.ae is your trusted exhibition stand contractor for outstanding exhibition design stand and impactful global presence.
             </Typography>
-            {hasActiveFilters && (
-              <Typography
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: { xs: '0.875rem', md: '1rem' },
-                  fontWeight: 400,
-                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
-                  letterSpacing: '0.02rem',
-                  color: '#000',
-                  mt: { xs: 0.5, md: 0.75 },
-                }}
-              >
-                <Box component="span" sx={{ fontWeight: 700 }}>
-                  {filteredProjects.length}
-                </Box>{' '}
-                {filteredProjects.length === 1 ? 'result' : 'results'} found
-              </Typography>
-            )}
           </Box>
           
           {/* Mobile Filter Button */}
