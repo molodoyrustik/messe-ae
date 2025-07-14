@@ -1,4 +1,7 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://lovely-idea-e9a72cf425.strapiapp.com/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+// Get the base Strapi URL without /api suffix
+export const STRAPI_BASE_URL = API_BASE_URL?.replace(/\/api$/, '');
 
 export const fetcher = async (url: string, options?: RequestInit) => {
   const fullUrl = `${API_BASE_URL}${url}`;

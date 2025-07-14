@@ -3,6 +3,7 @@
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 import { Project } from '@/types/api';
+import { STRAPI_BASE_URL } from '@/lib/api/config';
 
 interface ProjectCardProps {
   project: Project;
@@ -14,7 +15,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   
   // Strapi sometimes returns relative URLs, so we need to prepend the base URL
   const imageUrl = baseImageUrl && !baseImageUrl.startsWith('http') 
-    ? `https://lovely-idea-e9a72cf425.strapiapp.com${baseImageUrl}`
+    ? `${STRAPI_BASE_URL}${baseImageUrl}`
     : baseImageUrl;
 
   // Create SEO-friendly URL slug

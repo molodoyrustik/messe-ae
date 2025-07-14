@@ -74,6 +74,9 @@ export const projectsApi = {
       params.append('pagination[pageSize]', filters.pageSize.toString());
     }
     
+    // Add sorting by eventDate in descending order (newest first)
+    params.append('sort', 'eventDate:desc');
+    
     const queryString = params.toString();
     console.log('[Projects API] Query string:', queryString);
     
