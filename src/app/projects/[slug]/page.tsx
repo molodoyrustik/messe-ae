@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import { useProject, useProjects } from '@/hooks/use-projects';
 import { use } from 'react';
+import { STRAPI_BASE_URL } from '@/lib/api/config';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -343,7 +344,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                     component="img"
                     src={
                       image.url && !image.url.startsWith('http')
-                        ? `https://lovely-idea-e9a72cf425.strapiapp.com${image.url}`
+                        ? `${STRAPI_BASE_URL}${image.url}`
                         : image.url
                     }
                     alt={image.alternativeText || `${project.title} - Image ${index + 1}`}

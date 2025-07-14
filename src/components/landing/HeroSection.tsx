@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
 import { ClientOnly } from '@/components/ClientOnly';
+import { SafeVideoPlayer } from '@/components/SafeVideoPlayer';
 
 const HeroSection = () => {
   const [showButton, setShowButton] = useState(true);
@@ -54,42 +55,12 @@ const HeroSection = () => {
     >
       {/* Video Background */}
       <ClientOnly>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 0,
-            pointerEvents: 'none',
-            overflow: 'hidden',
-          }}
-        >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="poster.jpg"
-            preload="auto"
-            suppressHydrationWarning
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translateX(-50%) translateY(-50%)',
-              width: 'auto',
-              height: 'auto',
-              minHeight: '100%',
-              minWidth: '100%',
-              objectFit: 'cover',
-              opacity: 1,
-            }}
-          >
-            <source src="video.mp4" type="video/mp4" />
-          </video>
-        </Box>
+        <SafeVideoPlayer
+          src="/videos/hero-video-optimized.mp4"
+          mobileSrc="/videos/hero-video-mobile.mp4"
+          poster="/images/hero-poster.jpg"
+          mobilePoster="/images/hero-poster-mobile-cropped.jpg"
+        />
       </ClientOnly>
 
       {/* Gradient Overlay */}

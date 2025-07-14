@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
 import { Project } from '@/types/api';
+import { STRAPI_BASE_URL } from '@/lib/api/config';
 
 // Helper function to get full image URL
 const getImageUrl = (url: string) => {
@@ -20,7 +21,7 @@ const getImageUrl = (url: string) => {
     return url;
   }
   // For Strapi images that come with relative paths
-  return `https://lovely-idea-e9a72cf425.strapiapp.com${url}`;
+  return `${STRAPI_BASE_URL}${url}`;
 };
 
 // Project categories configuration
