@@ -214,7 +214,7 @@ const TopInfoBar = () => {
               the part of{' '}
               <Box 
                 component="a" 
-                href="https://www.expoglobal.com"
+                href="https://expoglobal.group"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{ 
@@ -557,7 +557,7 @@ const Header = () => {
               the part of{' '}
               <Box 
                 component="a"
-                href="https://www.expoglobal.com"
+                href="https://expoglobal.group"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{ 
@@ -692,7 +692,7 @@ const Header = () => {
               borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
             }}
           >
-            <Link href="/" style={{ textDecoration: 'none' }}>
+            <Link href="/" style={{ textDecoration: 'none' }} onClick={() => setDrawerOpen(false)}>
               <Box sx={{ width: '61px', height: '30px', position: 'relative' }}>
                 <Image
                   src="/messe-logo.png"

@@ -33,13 +33,20 @@ const LinkedInNotification = () => {
     <Box
       sx={{
         position: 'fixed',
-        top: 'calc(8rem + 0.75rem)',
-        left: { xs: '1rem', md: '2.5rem' }, // Align with header container padding
-        width: '27rem', // Ограничиваем ширину
+        top: { 
+          xs: 56 + 12, // Высота мобильного хедера + отступ
+          md: 128 + 12 // Высота десктопного хедера (36px topbar + 92px header) + отступ
+        },
+        left: {
+          xs: '1rem',
+          md: 'max(2.5rem, calc((100vw - 1536px) / 2 + 2.5rem))' // Точно выравниваемся с логотипом
+        },
+        width: '27rem',
+        maxWidth: 'calc(100vw - 2rem)', // Не выходим за границы экрана
         zIndex: 1400,
         display: { xs: 'none', md: 'block' },
         animation: 'slideDown 0.5s ease-out',
-        pointerEvents: 'none', // Делаем контейнер прозрачным для кликов
+        pointerEvents: 'none',
         '@keyframes slideDown': {
           '0%': {
             opacity: 0,
@@ -93,7 +100,7 @@ const LinkedInNotification = () => {
             sx={{
               position: 'absolute',
               top: '-5px',
-              left: '48px',
+              left: '50px', // Примерно по центру логотипа Messe.ae
             }}
           >
             <svg 

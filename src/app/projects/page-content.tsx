@@ -153,7 +153,19 @@ export default function ProjectsPageContent() {
   // Enrich projects with client project counts
   const filteredProjects = useMemo(() => {
     if (!projectsData?.data) return [];
-    if (!clientsData?.data) return projectsData.data;
+    
+    const projects = [...projectsData.data];
+    
+    // Sort by publication date for mobile
+    if (isMobile) {
+      projects.sort((a, b) => {
+        const dateA = new Date(a.publishedAt).getTime();
+        const dateB = new Date(b.publishedAt).getTime();
+        return dateB - dateA; // Newest first
+      });
+    }
+    
+    if (!clientsData?.data) return projects;
     
     // Create a map of client slugs to project counts
     const clientProjectCounts = new Map<string, number>();
@@ -164,7 +176,7 @@ export default function ProjectsPageContent() {
     });
     
     // Enrich each project's client with projectCount
-    return projectsData.data.map(project => {
+    return projects.map(project => {
       if (project.client?.slug && clientProjectCounts.has(project.client.slug)) {
         return {
           ...project,
@@ -176,7 +188,7 @@ export default function ProjectsPageContent() {
       }
       return project;
     });
-  }, [projectsData, clientsData]);
+  }, [projectsData, clientsData, isMobile]);
   
   // Use all clients for chips
   const filteredClientsForChips = useMemo(() => {
@@ -205,9 +217,8 @@ export default function ProjectsPageContent() {
   }, [selectedClients, selectedSizeRanges, selectedTypes, clientsData]);
 
   const handleClientToggle = (clientSlug: string) => {
-    const newClients = selectedClients.includes(clientSlug)
-      ? selectedClients.filter(slug => slug !== clientSlug)
-      : [...selectedClients, clientSlug];
+    // Single select - if clicking same client, deselect it
+    const newClients = selectedClients.includes(clientSlug) ? [] : [clientSlug];
     
     setSelectedClients(newClients);
     updateURL({ clients: newClients, page: 1 });
@@ -222,12 +233,12 @@ export default function ProjectsPageContent() {
   };
   
   const handleSizeToggle = (sizeLabel: string) => {
-    const newSizes = selectedSizeRanges.includes(sizeLabel)
-      ? selectedSizeRanges.filter(label => label !== sizeLabel)
-      : [...selectedSizeRanges, sizeLabel];
+    // Single select - if clicking same size, deselect it
+    const newSizes = selectedSizeRanges.includes(sizeLabel) ? [] : [sizeLabel];
     
     setSelectedSizeRanges(newSizes);
-    updateURL({ sizes: newSizes, page: 1 });
+    setSelectedTypes([]); // Clear types when selecting size
+    updateURL({ sizes: newSizes, types: [], page: 1 });
     
     const ranges = newSizes
       .map(label => sizeRanges.find(r => r.label === label))
@@ -236,6 +247,7 @@ export default function ProjectsPageContent() {
     const newFilters: ProjectsFilters = {
       ...filters,
       sizeRanges: ranges.length > 0 ? ranges.map(r => r!.value) : undefined,
+      constructionTypes: undefined, // Clear construction types
       page: 1,
     };
     setFilters(newFilters);
@@ -243,16 +255,17 @@ export default function ProjectsPageContent() {
   };
   
   const handleTypeToggle = (type: string) => {
-    const newTypes = selectedTypes.includes(type)
-      ? selectedTypes.filter(t => t !== type)
-      : [...selectedTypes, type];
+    // Single select - if clicking same type, deselect it
+    const newTypes = selectedTypes.includes(type) ? [] : [type];
     
     setSelectedTypes(newTypes);
-    updateURL({ types: newTypes, page: 1 });
+    setSelectedSizeRanges([]); // Clear sizes when selecting type
+    updateURL({ types: newTypes, sizes: [], page: 1 });
     
     const newFilters: ProjectsFilters = {
       ...filters,
       constructionTypes: newTypes.length > 0 ? newTypes : undefined,
+      sizeRanges: undefined, // Clear size ranges
       page: 1,
     };
     setFilters(newFilters);
@@ -353,24 +366,6 @@ export default function ProjectsPageContent() {
               </Box>
               . From tailored exhibition stands to creative display stand exhibition solutions, we bring innovation, quality, and expertise to every project. Recognized among top exhibitions companies in Dubai, messe.ae is your trusted exhibition stand contractor for outstanding exhibition design stand and impactful global presence.
             </Typography>
-            {hasActiveFilters && (
-              <Typography
-                sx={{
-                  fontFamily: 'Roboto',
-                  fontSize: { xs: '0.875rem', md: '1rem' },
-                  fontWeight: 400,
-                  lineHeight: { xs: '1.125rem', md: '1.5rem' },
-                  letterSpacing: '0.02rem',
-                  color: '#000',
-                  mt: { xs: 0.5, md: 0.75 },
-                }}
-              >
-                <Box component="span" sx={{ fontWeight: 700 }}>
-                  {filteredProjects.length}
-                </Box>{' '}
-                {filteredProjects.length === 1 ? 'result' : 'results'} found
-              </Typography>
-            )}
           </Box>
           
           {/* Mobile Filter Button */}
@@ -603,10 +598,12 @@ export default function ProjectsPageContent() {
                   label="All"
                   onClick={() => {
                     setSelectedSizeRanges([]);
-                    updateURL({ sizes: [], page: 1 });
+                    setSelectedTypes([]);
+                    updateURL({ sizes: [], types: [], page: 1 });
                     const newFilters: ProjectsFilters = {
                       ...filters,
                       sizeRanges: undefined,
+                      constructionTypes: undefined,
                       page: 1,
                     };
                     setFilters(newFilters);
@@ -616,8 +613,8 @@ export default function ProjectsPageContent() {
                   sx={{
                     px: 1.5,
                     py: 1,
-                    backgroundColor: selectedSizeRanges.length === 0 ? '#656CAF' : '#E9EAF4',
-                    color: selectedSizeRanges.length === 0 ? '#FFFFFF' : '#4C53A2',
+                    backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#FFFFFF' : '#4C53A2',
                     fontFamily: 'Roboto',
                     fontSize: '1.5rem',
                     fontWeight: 400,
@@ -625,7 +622,7 @@ export default function ProjectsPageContent() {
                     letterSpacing: '0.01em',
                     borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedSizeRanges.length === 0 ? '#4C53A2' : '#C7CAE3',
+                      backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#4C53A2' : '#C7CAE3',
                     },
                     '& .MuiChip-label': {
                       px: 0,

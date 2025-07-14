@@ -45,7 +45,7 @@ const ExpoglobalSection = () => {
             }}
           >
             <Image
-              src="/expoglobal-branding.svg"
+              src="/expoglobal-branding.png"
               alt="Expoglobal Group"
               width={320}
               height={144}
@@ -113,7 +113,7 @@ const ExpoglobalSection = () => {
               {' '}(customized furniture),{' '}
               <Box 
                 component="a"
-                href="https://fived.be/#solutions"
+                href="https://fived.be/"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{

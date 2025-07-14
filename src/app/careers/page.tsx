@@ -138,7 +138,7 @@ export default function CareersPage() {
       <Header />
       
       {/* Hero Section - Mobile */}
-      <Box sx={{ display: { xs: 'block', md: 'none' }, pt: '1.5rem', pb: '3rem' }}>
+      <Box sx={{ display: { xs: 'block', md: 'none' }, pt: '1.5rem' }}>
         {/* Title and Description */}
         <Box sx={{ mb: '2rem', px: '1rem' }}>
           <Typography
@@ -192,12 +192,12 @@ export default function CareersPage() {
             aspectRatio: '896 / 464',
             overflow: 'hidden',
             backgroundColor: '#F5F5F5',
-            mb: '2rem',
+            mb: '1.5rem',
           }}
         >
           <Box
             component="img"
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=896&h=464&fit=crop"
+            src="/careers.png"
             alt="Join our team"
             sx={{
               width: '100%',

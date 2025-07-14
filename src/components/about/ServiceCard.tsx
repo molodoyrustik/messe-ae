@@ -1,7 +1,8 @@
 'use client';
 
 import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 interface IServiceCard {
     img: string,
@@ -13,47 +14,18 @@ interface IServiceCard {
 export default function ServiceCard(card: IServiceCard) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const [offset, setOffset] = useState(0);
     const cardRef = useRef<HTMLDivElement>(null);
   
     const { id, img, title, subtitle } = card;
 
-    useEffect(() => {
-        if (isMobile) {
-            setOffset(0);
-            return;
-        }
+    // Параллакс эффект
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
 
-        const handleScroll = () => {
-            if (!cardRef.current) return;
-            
-            const rect = cardRef.current.getBoundingClientRect();
-            
-            // Start parallax when element enters viewport (not just at center)
-            const viewportHeight = window.innerHeight;
-            const elementTop = rect.top;
-            
-            // Calculate progress through viewport (-1 to 1)
-            // -1 when element bottom is at viewport top
-            // 0 when element center is at viewport center  
-            // 1 when element top is at viewport bottom
-            const progress = (elementTop + rect.height / 2 - viewportHeight / 2) / viewportHeight;
-            
-            // Apply speed
-            const speed = 0.15; // Reduced speed for less movement
-            let parallaxOffset = progress * viewportHeight * speed;
-            
-            // Limit offset to prevent too much movement and clipping
-            const maxOffset = rect.height * 0.15; // Reduced to 15% of card height
-            parallaxOffset = Math.max(-maxOffset, Math.min(maxOffset, parallaxOffset));
-            
-            setOffset(parallaxOffset);
-        };
-
-        handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [isMobile]);
+    // Движение изображения - реверсивный параллакс с большим размахом
+    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['15%', '-15%'] : ['30%', '-30%']);
 
     return <Card 
         ref={cardRef}
@@ -74,19 +46,20 @@ export default function ServiceCard(card: IServiceCard) {
             backgroundColor: '#f5f5f5',
         }}>
             <Box
+                component={motion.div}
+                style={{
+                    y: imageY,
+                }}
                 sx={{
                     position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    width: isMobile ? '105%' : '120%',
-                    height: isMobile ? '105%' : '120%',
-                    transform: `translate(-50%, calc(-50% + ${offset}px))`,
+                    top: isMobile ? '-20%' : '-25%',
+                    left: isMobile ? '-20%' : '-25%',
+                    width: isMobile ? '140%' : '150%',
+                    height: isMobile ? '140%' : '150%',
                     backgroundImage: `url('/about/services/${img}.jpg')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: 'center center',
                     backgroundRepeat: 'no-repeat',
-                    willChange: 'transform',
-                    borderRadius: '0.5rem',
                 }}
             />
         </Box>

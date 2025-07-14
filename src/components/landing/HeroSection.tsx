@@ -45,7 +45,7 @@ const HeroSection = () => {
     <Box
       sx={{
         width: '100vw',
-        height: { xs: '90dvh', md: '800px' },
+        height: { xs: '94dvh', md: 'calc(100vh - 128px)' },
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
@@ -79,10 +79,10 @@ const HeroSection = () => {
               top: '50%',
               left: '50%',
               transform: 'translateX(-50%) translateY(-50%)',
-              width: '100vw',
-              height: '56.25vw',
+              width: 'auto',
+              height: 'auto',
               minHeight: '100%',
-              minWidth: '177.78vh',
+              minWidth: '100%',
               objectFit: 'cover',
               opacity: 1,
             }}
@@ -113,97 +113,81 @@ const HeroSection = () => {
           zIndex: 2,
         }}
       >
-        {/* Desktop Layout - Keep as is */}
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        {/* Desktop Layout - Bottom Container */}
+        <Box 
+          sx={{ 
+            display: { xs: 'none', md: 'flex' },
+            position: 'absolute',
+            bottom: '2.5rem',
+            left: '2.5rem',
+            right: '2.5rem',
+            flexDirection: 'column',
+            gap: '1.5rem',
+          }}
+        >
           {/* Main Title */}
           <Typography
             variant="h1"
             sx={{
-              position: 'absolute',
-              left: '2.5rem',
-              top: '367px',
               maxWidth: '1084px',
               fontSize: '54px',
               fontWeight: 700,
               lineHeight: '60px',
               letterSpacing: 'normal',
               color: '#FFFFFF',
-              display: 'flex',
-              justifyContent: 'flex-start',
             }}
           >
             Exhibition Stand Builder & Designer in UAE and around the world
           </Typography>
 
           {/* Subtitle with mixed styling */}
-          <Box
+          <Typography
+            component="div"
             sx={{
-              position: 'absolute',
-              left: '2.5rem',
-              top: '511px',
-              maxWidth: '100%',
-              display: 'flex',
-              justifyContent: 'flex-start',
-              flexDirection: 'column',
+              fontSize: '34px',
+              fontWeight: 400,
+              lineHeight: '42px',
+              letterSpacing: '-0.025em',
+              color: '#FFFFFF',
+              maxWidth: '900px',
             }}
           >
+            <Box component="span">Your great </Box>
+            <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
+            <Box component="span"> starts here.</Box>
+            <Box component="span" sx={{ display: 'block' }}> </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
+            <Box component="span"> the </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
+            <Box component="span">, and we will handle the rest.</Box>
+          </Typography>
+
+          {/* "20 years" text */}
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '1rem', mt: '1rem' }}>
             <Typography
-              component="div"
+              sx={{
+                fontSize: '120px',
+                fontWeight: 700,
+                lineHeight: '140px',
+                color: '#FFFFFF',
+              }}
+            >
+              20
+            </Typography>
+            <Typography
               sx={{
                 fontSize: '34px',
                 fontWeight: 400,
                 lineHeight: '42px',
                 letterSpacing: '-0.025em',
                 color: '#FFFFFF',
+                alignSelf: 'center',
               }}
             >
-              <Box component="span">Your great </Box>
-              <Box component="span" sx={{ fontWeight: 700 }}>exhibition stand design</Box>
-              <Box component="span"> starts here.</Box>
-              <Box component="span" sx={{ display: 'block' }}> </Box>
-              <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>Fill in</Box>
-              <Box component="span"> the </Box>
-              <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>form</Box>
-              <Box component="span">, and we will handle the rest.</Box>
+              years of award winning expertise
             </Typography>
           </Box>
         </Box>
-
-
-        {/* "20" Large Number - Desktop Only */}
-        <Typography
-          sx={{
-            position: 'absolute',
-            left: '2.5rem',
-            top: '619px',
-            fontSize: '120px',
-            fontWeight: 700,
-            lineHeight: '140px',
-            color: '#FFFFFF',
-            display: { xs: 'none', md: 'flex' },
-            justifyContent: 'flex-start',
-          }}
-        >
-          20
-        </Typography>
-
-        {/* "years of award winning expertise" - Desktop Only */}
-        <Typography
-          sx={{
-            position: 'absolute',
-            left: 'calc(2.5rem + 150px)',
-            top: '669px',
-            fontSize: '34px',
-            fontWeight: 400,
-            lineHeight: '42px',
-            letterSpacing: '-0.025em',
-            color: '#FFFFFF',
-            display: { xs: 'none', md: 'flex' },
-            justifyContent: 'flex-start',
-          }}
-        >
-          years of award winning expertise
-        </Typography>
 
         {/* Discuss Your Project Button - Desktop Only */}
         <Button
@@ -212,7 +196,7 @@ const HeroSection = () => {
           sx={{
             position: 'absolute',
             right: '2.5rem',
-            top: '532px', // Centered with subtitle (511px + 42px/2)
+            bottom: '24dvh',
             width: '320px',
             height: '48px',
             backgroundColor: 'primary.main',
@@ -243,14 +227,12 @@ const HeroSection = () => {
         <Box
           sx={{
             position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
+            bottom: '0.5rem',
+            left: '1rem',
+            right: '1rem',
             display: { xs: 'flex', md: 'none' },
             flexDirection: 'column',
             alignItems: 'stretch',
-            px: '16px',
-            pb: '16px',
           }}
         >
           {/* Main Title - Mobile */}
@@ -329,7 +311,7 @@ const HeroSection = () => {
             onClick={() => setModalOpen(true)}
             sx={{
               position: 'fixed',
-              bottom: '18.5dvh',
+              bottom: '12.5dvh',
               left: '50%',
               transform: 'translateX(-50%)',
               width: 'calc(100% - 2rem)',

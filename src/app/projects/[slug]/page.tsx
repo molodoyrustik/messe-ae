@@ -72,7 +72,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <Header />
       
       <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
-        <Box sx={{ maxWidth: 1360, mx: 'auto' }}>
+       
           {/* Project Title - using client name */}
           <Typography
             component="h1"
@@ -358,9 +358,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               </Box>
             </Box>
           )}
-
-
-        </Box>
       </Container>
 
       <FooterSection />

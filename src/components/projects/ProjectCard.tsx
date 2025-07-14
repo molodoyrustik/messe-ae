@@ -26,16 +26,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     return `/projects/${clientSlug}-${size}-${project.documentId}`;
   };
 
-  const formatSize = (size: number) => {
-    if (size < 50) return '< 50';
-    if (size <= 100) return '50 - 100';
-    if (size <= 150) return 'up to 150';
-    if (size <= 300) return '101 - 300';
-    return '> 300';
-  };
 
-  // Get project count from client data
-  const projectCount = project.client?.projectCount || 1;
 
   return (
     <Box
@@ -84,7 +75,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </Box>
       )}
       
-      <Box sx={{ display: 'flex', gap: 2.5, flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box sx={{ display: 'flex', gap: 2.5, flexDirection: 'row' }}>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Typography
@@ -122,7 +113,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 color: '#000000',
               }}
             >
-              Number of projects:
+              {project.eventType === 'exhibition' ? 'Exhibition' : 'Event'}:
             </Typography>
             <Typography
               sx={{
@@ -135,12 +126,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 flex: 1,
               }}
             >
-              {projectCount}
+              {project.eventName || 'N/A'}
             </Typography>
           </Box>
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <Typography
             sx={{
               fontFamily: 'Roboto',
@@ -149,10 +140,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               lineHeight: '24px',
               letterSpacing: '0.02em',
               color: '#000000',
-              textAlign: { xs: 'left', md: 'right' },
+              textAlign: 'right',
             }}
           >
-            {formatSize(project.totalSize)} m<sup>2</sup>
+            {project.totalSize} m<sup>2</sup>
           </Typography>
         </Box>
       </Box>
