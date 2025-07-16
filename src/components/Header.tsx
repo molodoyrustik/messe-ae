@@ -300,7 +300,7 @@ const Header = () => {
       <Box
         sx={{
           width: '100%',
-          height: { xs: 56, md: 128 }, // Mobile header height: 56px
+          height: { xs: '2.5rem', md: 128 }, // Mobile header height: 2.5rem (40px)
           position: 'relative',
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(10px)',
@@ -316,7 +316,7 @@ const Header = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: { xs: 56, md: 92 }, // Mobile: 56px, Desktop: 92px
+              height: { xs: '2.5rem', md: 92 }, // Mobile: 2.5rem (40px), Desktop: 92px
               position: 'relative',
               width: '100%',
             }}
