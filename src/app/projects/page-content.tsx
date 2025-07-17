@@ -237,8 +237,8 @@ export default function ProjectsPageContent() {
     const newSizes = selectedSizeRanges.includes(sizeLabel) ? [] : [sizeLabel];
     
     setSelectedSizeRanges(newSizes);
-    setSelectedTypes([]); // Clear types when selecting size
-    updateURL({ sizes: newSizes, types: [], page: 1 });
+    // Keep types when changing size
+    updateURL({ sizes: newSizes, types: selectedTypes, page: 1 });
     
     const ranges = newSizes
       .map(label => sizeRanges.find(r => r.label === label))
@@ -247,7 +247,7 @@ export default function ProjectsPageContent() {
     const newFilters: ProjectsFilters = {
       ...filters,
       sizeRanges: ranges.length > 0 ? ranges.map(r => r!.value) : undefined,
-      constructionTypes: undefined, // Clear construction types
+      constructionTypes: selectedTypes.length > 0 ? selectedTypes : undefined, // Keep types
       page: 1,
     };
     setFilters(newFilters);
@@ -259,13 +259,17 @@ export default function ProjectsPageContent() {
     const newTypes = selectedTypes.includes(type) ? [] : [type];
     
     setSelectedTypes(newTypes);
-    setSelectedSizeRanges([]); // Clear sizes when selecting type
-    updateURL({ types: newTypes, sizes: [], page: 1 });
+    // Don't clear size ranges when selecting type - keep existing size filter
+    updateURL({ types: newTypes, sizes: selectedSizeRanges, page: 1 });
+    
+    const ranges = selectedSizeRanges
+      .map(label => sizeRanges.find(r => r.label === label))
+      .filter(Boolean);
     
     const newFilters: ProjectsFilters = {
       ...filters,
       constructionTypes: newTypes.length > 0 ? newTypes : undefined,
-      sizeRanges: undefined, // Clear size ranges
+      sizeRanges: ranges.length > 0 ? ranges.map(r => r!.value) : undefined, // Keep size ranges
       page: 1,
     };
     setFilters(newFilters);
@@ -598,12 +602,12 @@ export default function ProjectsPageContent() {
                   label="All"
                   onClick={() => {
                     setSelectedSizeRanges([]);
-                    setSelectedTypes([]);
-                    updateURL({ sizes: [], types: [], page: 1 });
+                    // Keep types when clicking All
+                    updateURL({ sizes: [], types: selectedTypes, page: 1 });
                     const newFilters: ProjectsFilters = {
                       ...filters,
                       sizeRanges: undefined,
-                      constructionTypes: undefined,
+                      constructionTypes: selectedTypes.length > 0 ? selectedTypes : undefined, // Keep types
                       page: 1,
                     };
                     setFilters(newFilters);
@@ -613,8 +617,8 @@ export default function ProjectsPageContent() {
                   sx={{
                     px: 1.5,
                     py: 1,
-                    backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#656CAF' : '#E9EAF4',
-                    color: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#FFFFFF' : '#4C53A2',
+                    backgroundColor: selectedSizeRanges.length === 0 ? '#656CAF' : '#E9EAF4',
+                    color: selectedSizeRanges.length === 0 ? '#FFFFFF' : '#4C53A2',
                     fontFamily: 'Roboto',
                     fontSize: '1.5rem',
                     fontWeight: 400,
@@ -622,7 +626,7 @@ export default function ProjectsPageContent() {
                     letterSpacing: '0.01em',
                     borderRadius: '8px',
                     '&:hover': {
-                      backgroundColor: selectedSizeRanges.length === 0 && selectedTypes.length === 0 ? '#4C53A2' : '#C7CAE3',
+                      backgroundColor: selectedSizeRanges.length === 0 ? '#4C53A2' : '#C7CAE3',
                     },
                     '& .MuiChip-label': {
                       px: 0,

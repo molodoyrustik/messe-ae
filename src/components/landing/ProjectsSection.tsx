@@ -1,30 +1,16 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Button,
-  Skeleton,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
-import { useProjects } from '@/hooks/use-projects';
-import { Project } from '@/types/api';
-import { STRAPI_BASE_URL } from '@/lib/api/config';
-
-// Helper function to get full image URL
-const getImageUrl = (url: string) => {
-  if (!url) return '';
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    return url;
-  }
-  // For Strapi images that come with relative paths
-  return `${STRAPI_BASE_URL}${url}`;
-};
 
 // Project categories configuration
 const projectCategoriesConfig = [
@@ -65,36 +51,27 @@ interface ProjectCategory {
   subtitle: string;
   slug: string;
   filterUrl: string;
-  projects: Project[];
 }
 
+// Static image mapping for categories
+const categoryImageMap: Record<string, string> = {
+  small: '/projects/projects_01.jpg',
+  medium: '/projects/projects_02.jpg',
+  large: '/projects/projects_03.jpg',
+  double: '/projects/projects_04.jpg',
+};
+
 // Project Card Component
-const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
-  category: ProjectCategory;
-  currentIndex: number;
-  onNavigate: (direction: 'prev' | 'next') => void;
-  isLoading?: boolean;
-}) => {
+const ProjectCard = ({ category }: { category: ProjectCategory }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: { xs: '280px', sm: '340px', md: '480px' },
-        transition: 'all 0.3s ease',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <Link href={category.filterUrl} style={{ display: 'block', width: '100%' }}>
       <Box
         sx={{
           position: 'relative',
           width: '100%',
-          height: '100%',
-          borderRadius: '4px',
+          height: { xs: '280px', sm: '340px', md: '480px' },
           overflow: 'hidden',
           cursor: 'pointer',
           transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
@@ -112,313 +89,63 @@ const ProjectCard = ({ category, currentIndex, onNavigate, isLoading }: {
             zIndex: 1,
           },
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-      {/* Background Images with Slide Animation */}
-      <Link href={category.filterUrl} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-        {isLoading ? (
-          <Skeleton 
-            variant="rectangular" 
-            width="100%" 
-            height="100%" 
-            sx={{ 
-              bgcolor: '#E0E0E0',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: '-100%',
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-                animation: 'shimmer 2s infinite',
-              },
-              '@keyframes shimmer': {
-                '0%': { left: '-100%' },
-                '100%': { left: '100%' },
-              },
-            }} 
-          />
-        ) : category.projects.length > 0 ? (
-          category.projects.map((project, index) => {
-            const projectsCount = category.projects.length;
-            // Calculate relative position for smooth circular animation
-            let relativePos = index - currentIndex;
-            
-            // Handle wrapping for circular effect
-            if (relativePos > projectsCount / 2) {
-              relativePos -= projectsCount;
-            } else if (relativePos < -projectsCount / 2) {
-              relativePos += projectsCount;
-            }
-            
-            // Only render projects that are visible or adjacent
-            const isVisible = Math.abs(relativePos) <= 1;
-            
-            return (
-              <Box
-                key={project.id}
-                sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  opacity: isVisible ? 1 : 0,
-                  transform: `translateX(${relativePos * 100}%)`,
-                  transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                  pointerEvents: relativePos === 0 ? 'auto' : 'none',
-                }}
-              >
-                {project.images && project.images.length > 0 ? (
-                  <Image
-                    src={getImageUrl(project.images[0].url)}
-                    alt={project.eventName || 'Project image'}
-                    fill
-                    priority={index === currentIndex}
-                    sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center',
-                    }}
-                  />
-                ) : (
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#E0E0E0',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Typography variant="h6" color="text.secondary">
-                      {project.eventName || `Project ${project.id}`}
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-            );
-          })
-        ) : (
-          <Box
+        {/* Static Background Image */}
+        <Image
+          src={categoryImageMap[category.id] || '/projects/placeholder.svg'}
+          alt={`${category.title} projects`}
+          fill
+          priority
+          sizes="(max-width: 768px) 280px, (max-width: 1024px) 300px, 400px"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
+
+        {/* Title */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: { xs: '12px', md: '20px' },
+            left: { xs: '12px', md: '20px' },
+            zIndex: 2,
+          }}
+        >
+          <Typography
             sx={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: '#E0E0E0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              fontSize: { xs: '16px', md: '36px' },
+              fontWeight: 700,
+              lineHeight: { xs: '24px', md: '40px' },
+              letterSpacing: { xs: '0.02em', md: '-0.02em' },
+              color: '#FFFFFF',
             }}
           >
-            <Typography variant="h6" color="text.secondary">
-              No projects
-            </Typography>
-          </Box>
-        )}
-      </Link>
-
-      {/* Title */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: { xs: '12px', md: '20px' },
-          left: { xs: '12px', md: '20px' },
-          zIndex: 4,
-          pointerEvents: 'none',
-        }}
-      >
-        {isLoading ? (
-          <Box>
-            <Skeleton 
-              width={200} 
-              height={40}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                display: { xs: 'none', md: 'block' }
-              }}
-            />
-            <Skeleton 
-              width={100} 
-              height={24}
-              sx={{ 
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                display: { xs: 'block', md: 'none' }
-              }}
-            />
-          </Box>
-        ) : (
-        <Typography
-          sx={{
-            fontSize: { xs: '16px', md: '36px' },
-            fontWeight: 700,
-            lineHeight: { xs: '24px', md: '40px' },
-            letterSpacing: { xs: '0.02em', md: '-0.02em' },
-            color: '#FFFFFF',
-          }}
-        >
-          {category.title}
-          {category.subtitle && (
-            <Typography
-              component="sup"
-              sx={{
-                fontSize: { xs: '10px', md: '20px' },
-                verticalAlign: 'super',
-              }}
-            >
-              {category.subtitle}
-            </Typography>
-          )}
-        </Typography>
-        )}
-      </Box>
-
-
-      </Box>
-      
-      {/* Navigation Buttons - Outside the scaling container */}
-      {!isLoading && category.projects.length > 1 && (
-      <>
-        <Box
-          onClick={(e) => {
-            e.stopPropagation();
-            onNavigate('prev');
-          }}
-          sx={{
-            position: 'absolute',
-            left: 0,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '48px',
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 3,
-          }}
-        >
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <path d="M30 36L18 24L30 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+            {category.title}
+            {category.subtitle && (
+              <Typography
+                component="sup"
+                sx={{
+                  fontSize: { xs: '10px', md: '20px' },
+                  verticalAlign: 'super',
+                }}
+              >
+                {category.subtitle}
+              </Typography>
+            )}
+          </Typography>
         </Box>
-
-        <Box
-          onClick={(e) => {
-            e.stopPropagation();
-            onNavigate('next');
-          }}
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '48px',
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 3,
-          }}
-        >
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <path d="M18 36L30 24L18 12" stroke="white" strokeWidth={isHovered ? "3" : "2"} strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </Box>
-      </>
-      )}
-    </Box>
+      </Box>
+    </Link>
   );
 };
 
 const ProjectsSection = () => {
-  // Track current project index for each category
-  const [currentIndices, setCurrentIndices] = useState<Record<string, number>>(
-    projectCategoriesConfig.reduce((acc, cat) => ({ ...acc, [cat.id]: 0 }), {})
-  );
-  
   // Modal state from context
   const { isModalOpen, setModalOpen } = useMobileMenu();
-  
-  // Fetch projects from API
-  const { data: projectsData, isLoading } = useProjects({ pageSize: 50 });
-  
-  
-  // Group projects by category
-  const categorizedProjects = useMemo(() => {
-    if (!projectsData?.data) return {};
-    
-    const projects = projectsData.data;
-    const categorized: Record<string, Project[]> = {
-      small: [],
-      medium: [],
-      large: [],
-      double: [],
-    };
-    
-    projects.forEach((project) => {
-      // Add double-decker to its own category
-      if (project.constructionType === 'double-decker') {
-        categorized.double.push(project);
-      }
-      
-      // ALSO categorize by size (including double-deckers)
-      const size = Number(project.totalSize) || 0;
-      
-      if (size > 0 && size < 100) {
-        categorized.small.push(project);
-      } else if (size >= 100 && size <= 300) {
-        categorized.medium.push(project);
-      } else if (size > 300) {
-        categorized.large.push(project);
-      }
-    });
-    
-    // Multiply all categories by 3 to ensure smooth scrolling
-    Object.keys(categorized).forEach(key => {
-      const categoryProjects = categorized[key];
-      if (categoryProjects.length > 0) {
-        // Multiply by 3 for all categories
-        const multipliedProjects: Project[] = [];
-        
-        for (let i = 0; i < 3; i++) {
-          multipliedProjects.push(...categoryProjects.map((p) => ({
-            ...p,
-            // Add unique ID for duplicates
-            id: p.id * 1000 + i
-          })));
-        }
-        
-        categorized[key] = multipliedProjects;
-      }
-    });
-    
-    return categorized;
-  }, [projectsData]);
 
-  // Create categories with real project data
-  const projectCategories = useMemo(() => {
-    return projectCategoriesConfig.map(config => ({
-      ...config,
-      projects: categorizedProjects[config.id] || [],
-    }));
-  }, [categorizedProjects]);
-
-  const handleNavigate = (categoryId: string, direction: 'prev' | 'next') => {
-    const category = projectCategories.find(cat => cat.id === categoryId);
-    if (!category) return;
-
-    const currentIndex = currentIndices[categoryId] || 0;
-    const projectCount = category.projects.length;
-    let newIndex = currentIndex;
-
-    if (direction === 'next') {
-      newIndex = (currentIndex + 1) % projectCount;
-    } else {
-      newIndex = currentIndex === 0 ? projectCount - 1 : currentIndex - 1;
-    }
-
-
-    setCurrentIndices(prev => ({ ...prev, [categoryId]: newIndex }));
-  };
 
   return (
     <Box
@@ -455,13 +182,10 @@ const ProjectsSection = () => {
             mb: { sm: 6, md: 8 },
           }}
         >
-          {projectCategories.map((category) => (
+          {projectCategoriesConfig.map((category) => (
             <ProjectCard
               key={category.id}
               category={category}
-              currentIndex={currentIndices[category.id] || 0}
-              onNavigate={(direction) => handleNavigate(category.id, direction)}
-              isLoading={isLoading}
             />
           ))}
         </Box>
@@ -481,21 +205,18 @@ const ProjectsSection = () => {
           },
         }}
       >
-        {projectCategories.map((category, index) => (
+        {projectCategoriesConfig.map((category, index) => (
           <Box
             key={category.id}
             sx={{
               minWidth: '280px',
               scrollSnapAlign: 'start',
               pl: index === 0 ? '1rem' : 0, // Padding for first card
-              pr: index === projectCategories.length - 1 ? '1rem' : 0, // End padding for last card
+              pr: index === projectCategoriesConfig.length - 1 ? '1rem' : 0, // End padding for last card
             }}
           >
             <ProjectCard
               category={category}
-              currentIndex={currentIndices[category.id] || 0}
-              onNavigate={(direction) => handleNavigate(category.id, direction)}
-              isLoading={isLoading}
             />
           </Box>
         ))}

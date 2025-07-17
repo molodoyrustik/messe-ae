@@ -76,30 +76,34 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
       sx={{
         maxWidth: 'none',
         mx: 'auto',
-        p: '2rem',
+        p: isMobile ? 0 : '2rem',
         overflowX: 'auto',
       }}
     >
-      <Typography
-        variant="h1"
-        sx={{
-          fontFamily: 'Roboto',
-          fontWeight: 700,
-          fontSize: '2rem',
-          lineHeight: '2.5rem',
-          color: '#262626',
-          mb: '1rem',
-        }}
-      >
-        {job.title} position
-      </Typography>
+      {!isMobile && (
+        <>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: 'Roboto',
+              fontWeight: 700,
+              fontSize: '2rem',
+              lineHeight: '2.5rem',
+              color: '#262626',
+              mb: '1rem',
+            }}
+          >
+            {job.title} position
+          </Typography>
+          
+          <Box sx={{ mb: '2rem' }}>
+            {/* Empty div equivalent to gallery-bg-objects */}
+            <Box sx={{ height: 0, overflow: 'hidden' }}>&nbsp;</Box>
+          </Box>
+        </>
+      )}
       
-      <Box sx={{ mb: '2rem' }}>
-        {/* Empty div equivalent to gallery-bg-objects */}
-        <Box sx={{ height: 0, overflow: 'hidden' }}>&nbsp;</Box>
-      </Box>
-      
-      <Box sx={{ className: 'text text-page-content vacancy-text' }}>
+      <Box sx={{ className: 'text text-page-content vacancy-text', mt: isMobile ? 0 : 0 }}>
         <Typography
           variant="h2"
           sx={{
@@ -109,6 +113,7 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
             lineHeight: '1.75rem',
             color: '#262626',
             mb: '1rem',
+            mt: isMobile ? '1rem' : 0,
           }}
         >
           Company Description
@@ -418,19 +423,89 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
         anchor="bottom"
         open={open}
         onClose={onClose}
+        hideBackdrop
         sx={{
           '& .MuiDrawer-paper': {
-            borderTopLeftRadius: '1rem',
-            borderTopRightRadius: '1rem',
-            maxHeight: '90vh',
-            height: 'auto',
-            px: '1rem',
-            py: '1.5rem',
-            pb: 'max(env(safe-area-inset-bottom), 1.5rem)',
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            height: 'calc(100vh - 2.5rem)',
+            maxHeight: 'calc(100vh - 2.5rem)',
+            top: '2.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            p: 0,
           },
         }}
       >
-        {content}
+        {/* Header with back arrow */}
+        <Box
+          sx={{
+            position: 'sticky',
+            top: 0,
+            left: 0,
+            right: 0,
+            display: 'inline-flex',
+            height: '2.5rem',
+            padding: '0.5rem 0.875rem 0.5rem 0.5rem',
+            alignItems: 'flex-start',
+            gap: '0.25rem',
+            flexShrink: 0,
+            borderBottom: '1px solid #E9E9E9',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 10,
+          }}
+        >
+          <IconButton
+            onClick={onClose}
+            sx={{
+              p: 0,
+              width: '1.5rem',
+              height: '1.5rem',
+              color: '#262626',
+              ml: '0.5rem',
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path 
+                d="M15 18L9 12L15 6" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </IconButton>
+          <Typography
+            sx={{
+              fontSize: '1rem',
+              fontWeight: 700,
+              lineHeight: '1.5rem',
+              letterSpacing: '0.02em',
+              color: '#262626',
+              fontFamily: 'Roboto',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              flex: 1,
+            }}
+          >
+            {job.title} position
+          </Typography>
+        </Box>
+        
+        {/* Content */}
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            px: '1rem',
+            pt: '0.5rem',
+            pb: 'max(env(safe-area-inset-bottom), 1.5rem)',
+          }}
+        >
+          {content}
+        </Box>
       </Drawer>
     );
   }
