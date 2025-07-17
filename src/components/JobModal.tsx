@@ -501,7 +501,7 @@ export default function JobModal({ job, open, onClose, isMobile }: JobModalProps
             overflowY: 'auto',
             px: '1rem',
             pt: '0.5rem',
-            pb: 'max(env(safe-area-inset-bottom), 1.5rem)',
+            pb: 'max(env(safe-area-inset-bottom), 3.75rem)',
           }}
         >
           {content}
