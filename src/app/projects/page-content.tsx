@@ -156,10 +156,10 @@ export default function ProjectsPageContent() {
     
     const projects = [...projectsData.data];
     
-    // Sort by publication date (newest first)
+    // Sort by event date (newest first)
     projects.sort((a, b) => {
-      const dateA = new Date(a.publishedAt).getTime();
-      const dateB = new Date(b.publishedAt).getTime();
+      const dateA = new Date(a.eventDate).getTime();
+      const dateB = new Date(b.eventDate).getTime();
       return dateB - dateA; // Newest first
     });
     
