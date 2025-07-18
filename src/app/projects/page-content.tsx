@@ -156,15 +156,6 @@ export default function ProjectsPageContent() {
     
     const projects = [...projectsData.data];
     
-    // Sort by publication date for mobile
-    if (isMobile) {
-      projects.sort((a, b) => {
-        const dateA = new Date(a.publishedAt).getTime();
-        const dateB = new Date(b.publishedAt).getTime();
-        return dateB - dateA; // Newest first
-      });
-    }
-    
     if (!clientsData?.data) return projects;
     
     // Create a map of client slugs to project counts

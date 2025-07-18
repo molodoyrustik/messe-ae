@@ -761,7 +761,7 @@ const Header = () => {
                 sx={{ py: 1.5, px: 3 }}
               >
                 <ListItemText
-                  primary="Careers"
+                  primary="Career"
                   primaryTypographyProps={{
                     fontSize: '1.125rem',
                     fontWeight: 500,
