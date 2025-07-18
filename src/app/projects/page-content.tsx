@@ -156,13 +156,6 @@ export default function ProjectsPageContent() {
     
     const projects = [...projectsData.data];
     
-    // Sort by event date (newest first)
-    projects.sort((a, b) => {
-      const dateA = new Date(a.eventDate).getTime();
-      const dateB = new Date(b.eventDate).getTime();
-      return dateB - dateA; // Newest first
-    });
-    
     if (!clientsData?.data) return projects;
     
     // Create a map of client slugs to project counts
