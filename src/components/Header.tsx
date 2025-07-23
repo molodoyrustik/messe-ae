@@ -300,7 +300,7 @@ const Header = () => {
       <Box
         sx={{
           width: '100%',
-          height: { xs: '2.5rem', md: 128 }, // Mobile header height: 2.5rem (40px)
+          height: { md: 128 }, // Mobile header height: 4rem (64px)
           position: 'relative',
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(10px)',
@@ -316,7 +316,7 @@ const Header = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: { xs: '2.5rem', md: 92 }, // Mobile: 2.5rem (40px), Desktop: 92px
+              height: { xs: '4rem', md: 92 }, // Mobile: 4rem (64px), Desktop: 92px
               position: 'relative',
               width: '100%',
             }}
@@ -372,7 +372,7 @@ const Header = () => {
                 sx={{
                   position: 'absolute',
                   left: { xs: 0, md: 0 },
-                  top: { xs: 28, md: 72 }, // Mobile: 28px, Desktop: 72px
+                  top: { xs: 36, md: 72 }, // Mobile: 44px, Desktop: 72px
                   justifyContent: 'flex-start',
                   display: { xs: 'flex', md: 'none' },
                   flexWrap: 'wrap',
@@ -545,7 +545,7 @@ const Header = () => {
               sx={{
                 position: 'absolute',
                 left: '105px',
-                top: '19px',
+                top: '27px',
                 fontSize: '12px',
                 fontWeight: 400,
                 lineHeight: '16px',

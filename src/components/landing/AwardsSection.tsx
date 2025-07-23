@@ -46,10 +46,10 @@ const AwardCard = ({ imageUrl, category, show, client, article, link }: AwardCar
         <Box
           sx={{
             position: 'relative',
-            width: { xs: '60%', md: '100%' },
-            maxWidth: { md: '240px' },
+            width: { xs: '100%', md: '100%' },
+            maxWidth: { md: '200px' },
             aspectRatio: { xs: isBottomRow ? '20/37' : '2/3', md: 'unset' },
-            height: { xs: 'auto', md: '450px' },
+            height: { xs: 'auto', md: '300px' },
             backgroundColor: 'transparent',
             borderRadius: '4px',
             overflow: 'hidden',
