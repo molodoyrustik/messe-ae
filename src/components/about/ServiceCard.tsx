@@ -24,8 +24,11 @@ export default function ServiceCard(card: IServiceCard) {
         offset: ["start end", "end start"]
     });
 
-    // Движение изображения - реверсивный параллакс с большим размахом
-    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['15%', '-15%'] : ['30%', '-30%']);
+    // Движение изображения как viewport - создаёт эффект что контент скользит позади картинок
+    const imageY = useTransform(scrollYProgress, [0, 1], ['-50%', '50%']);
+    
+    // Контент остаётся на месте
+    const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '0%']);
 
     return <Card 
         ref={cardRef}
@@ -40,7 +43,9 @@ export default function ServiceCard(card: IServiceCard) {
         <Box sx={{
             position: 'relative',
             width: { xs: '100%', md: '41.5rem' },
-            height: { xs: '12.5rem', md: '22.5rem' },
+            height: { xs: '18.75rem', md: '22.5rem' },
+            minHeight: '18.75rem',
+            aspectRatio: '720/516',
             borderRadius: '0.5rem',
             overflow: 'hidden',
             backgroundColor: '#f5f5f5',
@@ -52,10 +57,10 @@ export default function ServiceCard(card: IServiceCard) {
                 }}
                 sx={{
                     position: 'absolute',
-                    top: isMobile ? '-20%' : '-25%',
-                    left: isMobile ? '-20%' : '-25%',
-                    width: isMobile ? '140%' : '150%',
-                    height: isMobile ? '140%' : '150%',
+                    top: '-15%',
+                    left: '-15%',
+                    width: '130%',
+                    height: '130%',
                     backgroundImage: `url('/about/services/${img}.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center center',
@@ -63,17 +68,20 @@ export default function ServiceCard(card: IServiceCard) {
                 }}
             />
         </Box>
-        <Box sx={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: { md: 'center' },
-            alignItems: 'center'
-        }}>
+        <Box
+            sx={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: { md: 'center' },
+                alignItems: 'center'
+            }}
+        >
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                width: { md: 'min(510px, 80%)' }
+                width: { md: 'min(510px, 80%)' },
+                gap: { xs: '0.25rem', md: '0.5rem' }
             }}>
                 <Typography variant="h4" 
                     sx={{
@@ -82,7 +90,6 @@ export default function ServiceCard(card: IServiceCard) {
                         fontSize: { xs: 16, md: 34 },
                         lineHeight: { xs: '24px', md: '42px' },
                         color: '#262626',
-                        mb: { xs: 0.5, md: 1 },
                     }}
                 >
                     {title}

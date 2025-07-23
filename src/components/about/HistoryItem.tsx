@@ -68,7 +68,7 @@ export default function HistoryItem({ img, html, year, index, arrowWidth = 0, ar
                 }}
             >
                 <Image
-                    src={`/about/history/${img}.svg`} 
+                    src={img === '1' ? '/ecg_logo.svg' : `/about/history/${img}.svg`} 
                     alt={img}
                     width={50}
                     height={164}
