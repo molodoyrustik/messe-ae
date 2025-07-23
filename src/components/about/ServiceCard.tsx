@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
