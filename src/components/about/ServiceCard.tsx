@@ -12,8 +12,6 @@ interface IServiceCard {
 }
 
 export default function ServiceCard(card: IServiceCard) {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const cardRef = useRef<HTMLDivElement>(null);
   
     const { id, img, title, subtitle } = card;
@@ -26,9 +24,6 @@ export default function ServiceCard(card: IServiceCard) {
 
     // Движение изображения как viewport - создаёт эффект что контент скользит позади картинок
     const imageY = useTransform(scrollYProgress, [0, 1], ['-50%', '50%']);
-    
-    // Контент остаётся на месте
-    const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '0%']);
 
     return <Card 
         ref={cardRef}

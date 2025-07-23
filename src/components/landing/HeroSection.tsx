@@ -17,8 +17,7 @@ import { SafeVideoPlayer } from '@/components/SafeVideoPlayer';
 const HeroSection = () => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [showButtonDueToContactForm, setShowButtonDueToContactForm] = useState(true);
-  const [showButtonDueToHeader, setShowButtonDueToHeader] = useState(true);
-  const { isDrawerOpen, isModalOpen, setModalOpen } = useMobileMenu();
+  const { isModalOpen, setModalOpen } = useMobileMenu();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const heroRef = useRef<HTMLDivElement>(null);
@@ -43,26 +42,10 @@ const HeroSection = () => {
       }
     );
 
-    const heroButtonObserver = new IntersectionObserver(
-      () => {
-        const header = document.querySelector('header');
-        if (header && heroButtonRef.current) {
-          const headerRect = header.getBoundingClientRect();
-          const buttonRect = heroButtonRef.current.getBoundingClientRect();
-          
-          const isIntersecting = buttonRect.top < headerRect.bottom;
-          setShowButtonDueToHeader(!isIntersecting);
-        }
-      },
-      {
-        threshold: 0,
-        rootMargin: '0px'
-      }
-    );
+    const currentButtonRef = heroButtonRef.current;
 
-    if (heroButtonRef.current) {
-      heroButtonObserverForFloating.observe(heroButtonRef.current);
-      heroButtonObserver.observe(heroButtonRef.current);
+    if (currentButtonRef) {
+      heroButtonObserverForFloating.observe(currentButtonRef);
     }
 
     const handleScroll = () => {
@@ -88,13 +71,6 @@ const HeroSection = () => {
         const shouldShowFloating = buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset;
         setShowFloatingButton(shouldShowFloating);
         
-        // Check header intersection
-        const header = document.querySelector('header');
-        if (header) {
-          const headerRect = header.getBoundingClientRect();
-          const isIntersecting = buttonRect.top < headerRect.bottom;
-          setShowButtonDueToHeader(!isIntersecting);
-        }
       }
     };
 
@@ -103,9 +79,8 @@ const HeroSection = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (heroButtonRef.current) {
-        heroButtonObserverForFloating.unobserve(heroButtonRef.current);
-        heroButtonObserver.unobserve(heroButtonRef.current);
+      if (currentButtonRef) {
+        heroButtonObserverForFloating.unobserve(currentButtonRef);
       }
     };
   }, [isMobile]);
@@ -393,8 +368,8 @@ const HeroSection = () => {
               lineHeight: '24px',
               letterSpacing: '0.02em',
               zIndex: 9999,
-              opacity: showFloatingButton && showButtonDueToContactForm ? 1 : 0,
-              visibility: showFloatingButton && showButtonDueToContactForm ? 'visible' : 'hidden',
+              opacity: showFloatingButton && showButtonDueToContactForm && !isModalOpen ? 1 : 0,
+              visibility: showFloatingButton && showButtonDueToContactForm && !isModalOpen ? 'visible' : 'hidden',
               transition: 'opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease',
               
               '&:hover': {
