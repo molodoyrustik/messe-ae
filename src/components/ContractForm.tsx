@@ -356,14 +356,13 @@ export const ContractForm = ({ onClose }: { onClose: () => void }) => {
             textTransform: "none",
             fontWeight: 400,
             borderRadius: "0.5rem",
-            backgroundColor: "#656CAF",
-            boxShadow:
-              "0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+            backgroundColor: "#A64B66",
+            boxShadow: "0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.20)",
             mb: { xs: "0.75rem", md: 0 },
             // Force exact padding values
             padding: { xs: "0.375rem 1rem !important", md: "0.5rem 1.25rem" },
             "&:hover": {
-              backgroundColor: "#4C53A2",
+              backgroundColor: "#8B3E56",
             },
           }}
         >

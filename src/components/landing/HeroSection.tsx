@@ -8,19 +8,46 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ContactFormModal } from '@/components/ContactFormModal';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
 import { ClientOnly } from '@/components/ClientOnly';
 import { SafeVideoPlayer } from '@/components/SafeVideoPlayer';
 
 const HeroSection = () => {
-  const [showButton, setShowButton] = useState(true);
-  const { isDrawerOpen, isModalOpen, setModalOpen } = useMobileMenu();
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const [showButtonDueToContactForm, setShowButtonDueToContactForm] = useState(true);
+  const { isModalOpen, setModalOpen } = useMobileMenu();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const heroRef = useRef<HTMLDivElement>(null);
+  const heroButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (!isMobile) return;
+
+    const heroButtonObserverForFloating = new IntersectionObserver(
+      () => {
+        if (heroButtonRef.current) {
+          const buttonRect = heroButtonRef.current.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const offset = 64; // 4rem = 64px
+          const shouldShowFloating = buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset;
+          setShowFloatingButton(shouldShowFloating);
+        }
+      },
+      {
+        threshold: 0,
+        rootMargin: '0px'
+      }
+    );
+
+    const currentButtonRef = heroButtonRef.current;
+
+    if (currentButtonRef) {
+      heroButtonObserverForFloating.observe(currentButtonRef);
+    }
+
     const handleScroll = () => {
       const contactForm = document.getElementById('contact-form');
       if (contactForm) {
@@ -31,22 +58,40 @@ const HeroSection = () => {
         
         const shouldHideButton = formTop < (windowHeight - buttonBottom + 120);
         
-        setShowButton(!shouldHideButton);
+        setShowButtonDueToContactForm(!shouldHideButton);
+      }
+
+      // Additional checks on scroll
+      if (heroButtonRef.current) {
+        const buttonRect = heroButtonRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const offset = 64; // 4rem = 64px
+        
+        // Check for floating button visibility (viewport - 4rem offset)
+        const shouldShowFloating = buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset;
+        setShowFloatingButton(shouldShowFloating);
+        
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (currentButtonRef) {
+        heroButtonObserverForFloating.unobserve(currentButtonRef);
+      }
+    };
+  }, [isMobile]);
 
 
   return (
     <Box
+      ref={heroRef}
       sx={{
         width: '100vw',
-        height: { xs: '94dvh', md: 'calc(100vh - 128px)' },
+        height: { xs: 'calc(100vh - 3.375rem)', md: 'calc(100vh - 128px)' },
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
@@ -242,11 +287,36 @@ const HeroSection = () => {
             <Box component="span">, and we will handle the rest.</Box>
           </Typography>
 
-          {/* Spacer for button */}
-          <Box sx={{ height: '48px', mt: '1.5rem', mb: '1.5rem' }} />
+          {/* Static Connect Button - Mobile */}
+          <Button
+            ref={heroButtonRef}
+            variant="contained"
+            fullWidth
+            onClick={() => setModalOpen(true)}
+            sx={{
+              width: '100%',
+              height: '48px',
+              backgroundColor: '#656CAF',
+              borderRadius: '8px',
+              boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '24px',
+              letterSpacing: '0.02em',
+              mt: '2rem',
+              mb: '1.5rem',
+              
+              '&:hover': {
+                backgroundColor: '#4C53A2',
+              },
+            }}
+          >
+            Connect with us
+          </Button>
           
           {/* "20 years" text for mobile */}
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px', mt: '1.5rem' }}>
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
             <Typography
               sx={{
                 fontSize: '60px',
@@ -273,16 +343,17 @@ const HeroSection = () => {
         </Box>
       </Container>
       
-      {/* Fixed CTA Button - Mobile */}
+      {/* Floating CTA Button - Mobile */}
       <ClientOnly>
         {isMobile && (
           <Button
             variant="contained"
             fullWidth
             onClick={() => setModalOpen(true)}
+            data-id="floating-button"
             sx={{
               position: 'fixed',
-              bottom: '12.5dvh',
+              bottom: 'calc(0dvh + 20px)',
               left: '50%',
               transform: 'translateX(-50%)',
               width: 'calc(100% - 2rem)',
@@ -297,9 +368,9 @@ const HeroSection = () => {
               lineHeight: '24px',
               letterSpacing: '0.02em',
               zIndex: 9999,
-              opacity: showButton && !isDrawerOpen && !isModalOpen ? 1 : 0,
-              visibility: showButton && !isDrawerOpen && !isModalOpen ? 'visible' : 'hidden',
-              transition: 'opacity 0.3s ease, visibility 0.3s ease',
+              opacity: showFloatingButton && showButtonDueToContactForm && !isModalOpen ? 1 : 0,
+              visibility: showFloatingButton && showButtonDueToContactForm && !isModalOpen ? 'visible' : 'hidden',
+              transition: 'opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease',
               
               '&:hover': {
                 backgroundColor: '#4C53A2',
