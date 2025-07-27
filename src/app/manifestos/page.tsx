@@ -49,9 +49,9 @@ export default function ManifestosPage() {
             variant="body1"
             sx={{
               mb: { xs: '1.5rem', md: '2.5rem' },
-              color: 'grey.900',
+              color: '#000000',
               fontSize: { xs: '14px', md: '16px' },
-              lineHeight: { xs: '16px', md: '24px' },
+              lineHeight: { xs: '18px', md: '24px' },
               letterSpacing: '0.02em'
             }}
           >

@@ -179,7 +179,7 @@ export default function ProjectsPageContent() {
       }
       return project;
     });
-  }, [projectsData, clientsData, isMobile]);
+  }, [projectsData, clientsData]);
   
   // Use all clients for chips
   const filteredClientsForChips = useMemo(() => {
