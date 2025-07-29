@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
@@ -13,6 +13,8 @@ interface IServiceCard {
 
 export default function ServiceCard(card: IServiceCard) {
     const cardRef = useRef<HTMLDivElement>(null);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
     const { id, img, title, subtitle } = card;
 
@@ -23,7 +25,8 @@ export default function ServiceCard(card: IServiceCard) {
     });
 
     // Движение изображения как viewport - создаёт эффект что контент скользит позади картинок
-    const imageY = useTransform(scrollYProgress, [0, 1], ['-50%', '50%']);
+    // На мобайле сдвигаем выше чтобы убрать пробел снизу
+    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['-70%', '30%'] : ['-50%', '50%']);
 
     return <Card 
         ref={cardRef}
@@ -37,10 +40,10 @@ export default function ServiceCard(card: IServiceCard) {
         }}>
         <Box sx={{
             position: 'relative',
-            width: { xs: '100%', md: '41.5rem' },
-            height: { xs: '18.75rem', md: '22.5rem' },
-            minHeight: '18.75rem',
-            aspectRatio: '720/516',
+            width: { xs: '100%', md: '45rem' },
+            height: { xs: '18.75rem', md: '31.875rem' },
+            minHeight: { xs: '18.75rem', md: '18.75rem' },
+            aspectRatio: { xs: '720/516', md: '720/511' },
             borderRadius: '0.5rem',
             overflow: 'hidden',
             backgroundColor: '#f5f5f5',
@@ -52,10 +55,10 @@ export default function ServiceCard(card: IServiceCard) {
                 }}
                 sx={{
                     position: 'absolute',
-                    top: '-15%',
-                    left: '-15%',
-                    width: '130%',
-                    height: '130%',
+                    top: { xs: '15%', md: -40 },
+                    left: { xs: '-15%', md: 0 },
+                    width: { xs: '130%', md: '125%' },
+                    height: { xs: '150%', md: '135%' },
                     backgroundImage: `url('/about/services/${img}.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center center',
