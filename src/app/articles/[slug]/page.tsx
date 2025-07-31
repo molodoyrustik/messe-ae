@@ -5,6 +5,9 @@ import { articlesApi } from '@/lib/api/articles';
 import { notFound } from 'next/navigation';
 import { formatArticleDate } from '@/utils/date';
 
+// ISR - revalidate every 60 seconds
+export const revalidate = 60;
+
 // Using SSR instead of SSG
 
 // Helper function to strip markdown and get plain text
@@ -55,6 +58,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: 'Article Not Found',
       description: 'The requested article could not be found.',
     };
+  }
+}
+
+export async function generateStaticParams() {
+  try {
+    // Generate paths for first 50 articles
+    const response = await articlesApi.getArticles({ pageSize: 50 });
+    return response.data.map((article) => ({
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params for articles:', error);
+    return [];
   }
 }
 

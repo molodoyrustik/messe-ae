@@ -1,18 +1,78 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import {
   Box,
   Container,
   Typography,
-  CircularProgress,
-  Alert,
 } from '@mui/material';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
-import { useProject, useProjects } from '@/hooks/use-projects';
-import { use } from 'react';
+import { projectsApi } from '@/lib/api/projects';
+import { notFound } from 'next/navigation';
 import { STRAPI_BASE_URL } from '@/lib/api/config';
+import { ProjectResponse } from '@/types/api';
+
+// ISR - revalidate every 300 seconds (5 minutes)
+export const revalidate = 300;
+
+// Generate static params for popular projects
+export async function generateStaticParams() {
+  try {
+    // Generate paths for first 50 projects
+    const response = await projectsApi.getProjects({ pageSize: 50 });
+    console.log('generateStaticParams: Projects count:', response.data.length);
+    
+    const validProjects = response.data.filter(project => {
+      const hasSlug = Boolean(project.slug && project.slug.trim());
+      if (!hasSlug) {
+        console.warn('Project missing slug:', { id: project.id, documentId: project.documentId, title: project.title });
+      }
+      return hasSlug;
+    });
+    
+    console.log('generateStaticParams: Valid projects with slugs:', validProjects.length);
+    
+    return validProjects.map((project) => ({
+      slug: project.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params for projects:', error);
+    return [];
+  }
+}
+
+// Generate metadata
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  
+  try {
+    // Extract documentId from slug
+    const extractDocumentId = (slug: string) => {
+      const parts = slug.split('-');
+      return parts[parts.length - 1];
+    };
+    
+    const documentId = extractDocumentId(slug);
+    const response = await projectsApi.getProjectById(documentId);
+    const project = response.data;
+    
+    return {
+      title: `${project.client?.name || 'Project'} - Exhibition Stand | Messe.ae`,
+      description: project.description || `Exhibition stand project for ${project.client?.name || 'client'} at ${project.eventName || 'exhibition'}`,
+      openGraph: {
+        title: `${project.client?.name || 'Project'} - Exhibition Stand | Messe.ae`,
+        description: project.description || `Exhibition stand project for ${project.client?.name || 'client'}`,
+        images: project.images?.length ? [{ url: project.images[0].url }] : [],
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching project metadata:', error);
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project could not be found.',
+    };
+  }
+}
 
 interface ProjectPageProps {
   params: Promise<{
@@ -20,8 +80,8 @@ interface ProjectPageProps {
   }>;
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const resolvedParams = use(params);
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params;
   
   // Extract documentId from the slug (format: client-name-150m2-documentId)
   const extractDocumentId = (slug: string) => {
@@ -29,41 +89,36 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     return parts[parts.length - 1]; // documentId is always the last part
   };
   
-  const documentId = extractDocumentId(resolvedParams.slug);
-  const { data, isLoading, error } = useProject(documentId);
+  const documentId = extractDocumentId(slug);
   
-  // Fetch client projects count
-  const { data: clientProjectsData } = useProjects({
-    clientSlug: data?.data?.client?.slug,
-    pageSize: 1, // We only need the count
-  });
-  
-  const clientProjectsCount = clientProjectsData?.meta?.pagination?.total || 0;
+  let data: ProjectResponse | null = null;
+  let clientProjectsCount = 0;
+  let error: unknown = null;
 
-  if (isLoading) {
-    return (
-      <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
-        <Header />
-        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-            <CircularProgress />
-          </Box>
-        </Container>
-      </Box>
-    );
+  try {
+    // Fetch the main project
+    data = await projectsApi.getProjectById(documentId);
+    
+    // Fetch client projects count if client exists
+    if (data.data.client?.slug) {
+      try {
+        const clientProjectsData = await projectsApi.getProjects({
+          clientSlug: data.data.client.slug,
+          pageSize: 1, // We only need the count
+        });
+        clientProjectsCount = clientProjectsData.meta.pagination.total || 0;
+      } catch (clientError) {
+        console.error('Error fetching client projects count:', clientError);
+        // Non-fatal error, continue with count = 0
+      }
+    }
+  } catch (e) {
+    error = e;
+    console.error('Error loading project:', e);
   }
 
   if (error || !data) {
-    return (
-      <Box sx={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
-        <Header />
-        <Container maxWidth="xl" sx={{ px: { xs: '1rem', md: '2.5rem' }, pt: { xs: '1.5rem', md: '3.75rem' }, pb: 8 }}>
-          <Alert severity="error">
-            Project not found. Please check the URL and try again.
-          </Alert>
-        </Container>
-      </Box>
-    );
+    notFound();
   }
 
   const project = data.data;
