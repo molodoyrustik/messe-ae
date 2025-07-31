@@ -26,7 +26,7 @@ export default function ServiceCard(card: IServiceCard) {
 
     // Движение изображения как viewport - создаёт эффект что контент скользит позади картинок
     // На мобайле сдвигаем выше чтобы убрать пробел снизу
-    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['-70%', '30%'] : ['-50%', '50%']);
+    const imageY = useTransform(scrollYProgress, [0, 1], isMobile ? ['-35%', '25%'] : ['-50%', '50%']);
 
     return <Card 
         ref={cardRef}
@@ -55,10 +55,10 @@ export default function ServiceCard(card: IServiceCard) {
                 }}
                 sx={{
                     position: 'absolute',
-                    top: { xs: '15%', md: -40 },
-                    left: { xs: '-15%', md: 0 },
-                    width: { xs: '130%', md: '125%' },
-                    height: { xs: '150%', md: '135%' },
+                    top: { xs: '-10%', md: -40 },
+                    left: 0,
+                    width: { xs: '125%', md: '125%' },
+                    height: { xs: '125%', md: '135%' },
                     backgroundImage: `url('/about/services/${img}.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center center',
