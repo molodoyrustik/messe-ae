@@ -54,8 +54,18 @@ export default function Services() {
                 }}>
                 Our Services
             </Typography>
-            <Grid container spacing={{xs: 3, md: 4}}>
-                {cards.map(card => <ServiceCard key={card.id} {...card} />)}
+            <Grid 
+                container 
+                spacing={{xs: 3, md: 4}}
+                sx={{
+                    '--Grid-rowSpacing': { xs: '24px', md: '8px' },
+                }}
+            >
+                {cards.map(card => (
+                    <Grid key={card.id} item xs={12}>
+                        <ServiceCard {...card} />
+                    </Grid>
+                ))}
             </Grid>
         </Box>
     );
