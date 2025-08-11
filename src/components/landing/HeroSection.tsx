@@ -32,7 +32,10 @@ const HeroSection = () => {
           const buttonRect = heroButtonRef.current.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
           const offset = 64; // 4rem = 64px
-          const shouldShowFloating = buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset;
+          const scrollY = window.scrollY || window.pageYOffset;
+          
+          // ВАЖНО: показываем только если прокрутили больше 200px
+          const shouldShowFloating = scrollY > 200 && (buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset);
           setShowFloatingButton(shouldShowFloating);
         }
       },
@@ -66,9 +69,10 @@ const HeroSection = () => {
         const buttonRect = heroButtonRef.current.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         const offset = 64; // 4rem = 64px
+        const scrollY = window.scrollY || window.pageYOffset;
         
         // Check for floating button visibility (viewport - 4rem offset)
-        const shouldShowFloating = buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset;
+        const shouldShowFloating = scrollY > 200 && (buttonRect.top > (viewportHeight - offset) || buttonRect.bottom < offset);
         setShowFloatingButton(shouldShowFloating);
         
       }

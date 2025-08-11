@@ -401,7 +401,7 @@ const Header = () => {
                   }}
                   component="span"
                 >
-                  arketing and{' '}
+                  arketing&nbsp;and&nbsp;
                 </Typography>
                 <Typography
                   sx={{
@@ -425,7 +425,7 @@ const Header = () => {
                   }}
                   component="span"
                 >
-                  xhibition{' '}
+                  xhibition&nbsp;
                 </Typography>
                 <Typography
                   sx={{

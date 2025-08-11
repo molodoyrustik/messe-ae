@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ServiceCard from "./ServiceCard";
 
 export default function Services() {
@@ -54,9 +54,17 @@ export default function Services() {
                 }}>
                 Our Services
             </Typography>
-            <Grid container spacing={{xs: 3, md: 4}}>
-                {cards.map(card => <ServiceCard key={card.id} {...card} />)}
-            </Grid>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: { xs: '1.5rem', md: '0.5rem' },
+                }}
+            >
+                {cards.map(card => (
+                    <ServiceCard key={card.id} {...card} />
+                ))}
+            </Box>
         </Box>
     );
 }
