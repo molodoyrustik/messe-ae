@@ -253,6 +253,7 @@ const ProjectsSection = () => {
             <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>standout</Box>
             <Box component="span"> exhibition </Box>
             <Box component="span" sx={{ fontWeight: 700, color: '#656CAF' }}>experience</Box>
+            <Box component="span">.</Box>
           </Typography>
 
           {/* CTA Button */}
