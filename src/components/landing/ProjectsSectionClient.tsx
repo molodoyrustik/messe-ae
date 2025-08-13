@@ -321,15 +321,18 @@ const ProjectsSectionClient = ({ projects }: ProjectsSectionClientProps) => {
       if (project.constructionType === 'double-decker') {
         categorized.double.push(project);
       } else {
-        // Categorize by size
+        // Categorize by size - only if totalSize is defined
         const size = project.totalSize;
-        if (size < 100) {
-          categorized.small.push(project);
-        } else if (size >= 100 && size <= 300) {
-          categorized.medium.push(project);
-        } else if (size > 300) {
-          categorized.large.push(project);
+        if (!!size) {
+          if (size < 100) {
+            categorized.small.push(project);
+          } else if (size >= 100 && size <= 300) {
+            categorized.medium.push(project);
+          } else if (size > 300) {
+            categorized.large.push(project);
+          }
         }
+        // Projects without totalSize are skipped from size categories
       }
     });
     
