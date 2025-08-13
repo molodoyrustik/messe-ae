@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import { projectsApi } from '@/lib/api/projects';
@@ -418,22 +419,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 }}
               >
                 {project.images.slice(0, 3).map((image, index) => (
-                  <Box
-                    key={image.id || index}
-                    component="img"
-                    src={
-                      image.url && !image.url.startsWith('http')
-                        ? `${STRAPI_BASE_URL}${image.url}`
-                        : image.url
-                    }
-                    alt={image.alternativeText || `${project.title} - Image ${index + 1}`}
-                    sx={{
-                      width: '100%',
-                      height: { xs: '15rem', sm: '18rem', md: '19.75rem' },
-                      objectFit: 'cover',
-                      borderRadius: '0.5rem',
-                    }}
-                  />
+                  <Box key={image.id || index} sx={{ position: 'relative' }}>
+                    <Image
+                      src={
+                        image.url && !image.url.startsWith('http')
+                          ? `${STRAPI_BASE_URL}${image.url}`
+                          : image.url
+                      }
+                      alt={image.alternativeText || `${project.title} - Image ${index + 1}`}
+                      width={400}
+                      height={316}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={85}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '0.5rem',
+                        objectFit: 'cover',
+                      }}
+                      priority={index === 0}
+                    />
+                  </Box>
                 ))}
               </Box>
             </Box>

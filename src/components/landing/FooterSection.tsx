@@ -513,6 +513,7 @@ const FooterSection = () => {
           >
             {/* Title - Hidden on mobile */}
             <Typography
+              component="h2"
               variant="h4"
               sx={{
                 display: { xs: "none", md: "block" },
