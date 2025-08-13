@@ -18,6 +18,7 @@ export interface Client {
   name: string;
   slug: string;
   description: string;
+  link?: string;
   projectCount?: number;
   createdAt: string;
   updatedAt: string;
@@ -74,9 +75,9 @@ export interface Project {
   eventType: 'exhibition' | 'event';
   eventName: string;
   eventDate: string;
-  firstFloorSize: number;
-  secondFloorSize: number;
-  totalSize: number;
+  firstFloorSize?: number;
+  secondFloorSize?: number;
+  totalSize?: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

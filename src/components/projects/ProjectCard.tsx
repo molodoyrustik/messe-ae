@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 import { Project } from '@/types/api';
 import { STRAPI_BASE_URL } from '@/lib/api/config';
+import { formatProjectSizeDisplay, formatTotalSizeForUrl, hasDisplaySize } from '@/utils/projectSizes';
 
 interface ProjectCardProps {
   project: Project;
@@ -23,9 +24,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     const clientSlug = project.client?.name
       ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
       : 'client';
-    const formattedSize = Number.isInteger(project.totalSize) 
-      ? project.totalSize.toString() 
-      : project.totalSize.toFixed(1);
+    const formattedSize = formatTotalSizeForUrl(project);
     const size = `${formattedSize}m2`;
     return `/projects/${clientSlug}-${size}-${project.documentId}`;
   };
@@ -135,21 +134,23 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </Box>
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <Typography
-            sx={{
-              fontFamily: 'Roboto',
-              fontSize: 16,
-              fontWeight: 700,
-              lineHeight: '24px',
-              letterSpacing: '0.02em',
-              color: '#000000',
-              textAlign: 'right',
-            }}
-          >
-            {Number.isInteger(project.totalSize) ? project.totalSize : project.totalSize.toFixed(1)} m<sup>2</sup>
-          </Typography>
-        </Box>
+        {hasDisplaySize(project) && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Typography
+              sx={{
+                fontFamily: 'Roboto',
+                fontSize: 16,
+                fontWeight: 700,
+                lineHeight: '24px',
+                letterSpacing: '0.02em',
+                color: '#000000',
+                textAlign: 'right',
+              }}
+            >
+              {formatProjectSizeDisplay(project)} m<sup>2</sup>
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );
