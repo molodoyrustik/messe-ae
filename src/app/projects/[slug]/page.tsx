@@ -29,9 +29,11 @@ export async function generateStaticParams() {
       const clientSlug = project.client?.name
         ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
         : 'client';
-      const formattedSize = Number.isInteger(project.totalSize) 
-        ? project.totalSize.toString() 
-        : project.totalSize.toFixed(1);
+      const formattedSize = project.totalSize 
+        ? (Number.isInteger(project.totalSize) 
+            ? project.totalSize.toString() 
+            : project.totalSize.toFixed(1))
+        : '0';
       const slug = `${clientSlug}-${formattedSize}m2-${project.documentId}`;
       
       return { slug };
@@ -357,7 +359,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           color: '#000000',
                         }}
                       >
-                        {Number.isInteger(project.totalSize) ? project.totalSize : project.totalSize.toFixed(1)} m
+                        {project.totalSize 
+                          ? (Number.isInteger(project.totalSize) 
+                              ? project.totalSize 
+                              : project.totalSize.toFixed(1))
+                          : '0'
+                        } m
                       </Typography>
                       <Typography
                         sx={{
