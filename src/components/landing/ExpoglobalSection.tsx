@@ -14,6 +14,7 @@ const ExpoglobalSection = () => {
   return (
     <Box
       component="section"
+      id="expoglobal"
       sx={{
         pt: { xs: 6, md: 0 },
         pb: { xs: 6, md: '3.75rem' },

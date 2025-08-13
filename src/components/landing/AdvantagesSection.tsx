@@ -168,7 +168,7 @@ const AdvantagesSection = () => {
       title: 'Worldwide recognition',
       description: 'As part of IFES, we uphold a strict Code of Conduct, ensuring quality and professionalism in every project',
       icon: <IFESIcon />,
-      href: '/articles/worldwide-recognition',
+      href: 'https://www.ifesnet.com/messe-ae/',
     },
     {
       title: 'Own production',
@@ -180,7 +180,7 @@ const AdvantagesSection = () => {
       title: 'European standards',
       description: 'We deliver exceptional exhibition stands that meet the highest European benchmarks, ensuring your brand excels at every event',
       icon: <EUIcon />,
-      href: '/articles/european-standards',
+      href: '#expoglobal',
     },
     {
       title: 'Trusted Support',

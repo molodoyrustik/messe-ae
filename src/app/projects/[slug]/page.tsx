@@ -5,6 +5,7 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import FooterSection from '@/components/landing/FooterSection';
 import { projectsApi } from '@/lib/api/projects';
@@ -187,38 +188,56 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 const description = project.description || project.client?.description || '';
                 const clientName = project.client?.name || '';
                 
-                // Check if client name exists in description
-                if (clientName && description.includes(clientName)) {
-                  const parts = description.split(clientName);
+                // Check if client name exists in description (case-insensitive)
+                if (clientName && description.toLowerCase().includes(clientName.toLowerCase())) {
+                  // Find the actual client name in description with original casing
+                  const regex = new RegExp(`(${clientName})`, 'gi');
+                  const parts = description.split(regex);
                   return (
                     <>
-                      {parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {index > 0 && (
-                            <Typography
-                              component="span"
-                              sx={{
-                                fontWeight: 700,
-                                color: '#656CAF',
-                                textDecoration: 'underline',
-                                textDecorationStyle: 'solid',
-                                textDecorationSkipInk: 'none',
-                              }}
-                            >
-                              {clientName}
-                            </Typography>
-                          )}
-                          <Typography
-                            component="span"
-                            sx={{
-                              fontWeight: 400,
-                              color: '#000000',
-                            }}
-                          >
-                            {part}
-                          </Typography>
-                        </React.Fragment>
-                      ))}
+                      {parts.map((part, index) => {
+                        // Check if this part matches the client name (case-insensitive)
+                        const isClientName = part.toLowerCase() === clientName.toLowerCase();
+                        
+                        return (
+                          <React.Fragment key={index}>
+                            {isClientName ? (
+                              <Link 
+                                href={`/projects?clients=${project.client?.slug}`}
+                                style={{ textDecoration: 'none' }}
+                              >
+                                <Typography
+                                  component="span"
+                                  sx={{
+                                    fontWeight: 700,
+                                    color: '#656CAF',
+                                    textDecoration: 'underline',
+                                    textDecorationStyle: 'solid',
+                                    textDecorationSkipInk: 'none',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                      color: '#4C53A2',
+                                      textDecorationColor: '#4C53A2',
+                                    },
+                                  }}
+                                >
+                                  {part}
+                                </Typography>
+                              </Link>
+                            ) : (
+                              <Typography
+                                component="span"
+                                sx={{
+                                  fontWeight: 400,
+                                  color: '#000000',
+                                }}
+                              >
+                                {part}
+                              </Typography>
+                            )}
+                          </React.Fragment>
+                        );
+                      })}
                     </>
                   );
                 } else {
@@ -309,48 +328,50 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.25 }}>
-                  <Typography
-                    sx={{
-                      fontFamily: 'Roboto',
-                      fontWeight: 700,
-                      fontSize: { xs: '1.25rem', md: '1.5rem' },
-                      lineHeight: { xs: '1.5rem', md: '1.75rem' },
-                      letterSpacing: '0.02em',
-                      color: '#656CAF',
-                    }}
-                  >
-                    Space:
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+                {project.totalSize && (
+                  <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.25 }}>
                     <Typography
                       sx={{
                         fontFamily: 'Roboto',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: { xs: '1.25rem', md: '1.5rem' },
                         lineHeight: { xs: '1.5rem', md: '1.75rem' },
                         letterSpacing: '0.02em',
-                        color: '#000000',
+                        color: '#656CAF',
                       }}
                     >
-                      {project.totalSize} m
+                      Space:
                     </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: 'Roboto',
-                        fontWeight: 400,
-                        fontSize: { xs: '0.875rem', md: '1.05rem' },
-                        lineHeight: 1,
-                        color: '#000000',
-                        verticalAlign: 'super',
-                        position: 'relative',
-                        top: '-0.3em',
-                      }}
-                    >
-                      2
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+                      <Typography
+                        sx={{
+                          fontFamily: 'Roboto',
+                          fontWeight: 400,
+                          fontSize: { xs: '1.25rem', md: '1.5rem' },
+                          lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                          letterSpacing: '0.02em',
+                          color: '#000000',
+                        }}
+                      >
+                        {project.totalSize} m
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontFamily: 'Roboto',
+                          fontWeight: 400,
+                          fontSize: { xs: '0.875rem', md: '1.05rem' },
+                          lineHeight: 1,
+                          color: '#000000',
+                          verticalAlign: 'super',
+                          position: 'relative',
+                          top: '-0.3em',
+                        }}
+                      >
+                        2
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
+                )}
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
                   <Typography
