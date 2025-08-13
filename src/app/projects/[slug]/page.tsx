@@ -194,7 +194,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 // Check if client name exists in description (case-insensitive)
                 if (clientName && description.toLowerCase().includes(clientName.toLowerCase())) {
                   // Find the actual client name in description with original casing
-                  const regex = new RegExp(`(${clientName})`, 'gi');
+                  // Escape special regex characters in client name
+                  const escapedClientName = clientName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const regex = new RegExp(`(${escapedClientName})`, 'gi');
                   const parts = description.split(regex);
                   return (
                     <>
