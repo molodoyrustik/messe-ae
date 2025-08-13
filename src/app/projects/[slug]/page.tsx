@@ -13,6 +13,7 @@ import { projectsApi } from '@/lib/api/projects';
 import { notFound } from 'next/navigation';
 import { STRAPI_BASE_URL } from '@/lib/api/config';
 import { ProjectResponse } from '@/types/api';
+import { formatProjectSizeDisplay, formatTotalSizeForUrl, hasDisplaySize } from '@/utils/projectSizes';
 
 // ISR - revalidate every 300 seconds (5 minutes)
 export const revalidate = 300;
@@ -29,11 +30,7 @@ export async function generateStaticParams() {
       const clientSlug = project.client?.name
         ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
         : 'client';
-      const formattedSize = project.totalSize 
-        ? (Number.isInteger(project.totalSize) 
-            ? project.totalSize.toString() 
-            : project.totalSize.toFixed(1))
-        : '0';
+      const formattedSize = formatTotalSizeForUrl(project);
       const slug = `${clientSlug}-${formattedSize}m2-${project.documentId}`;
       
       return { slug };
@@ -208,10 +205,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         return (
                           <React.Fragment key={index}>
                             {isClientName ? (
-                              <Link 
-                                href={`/projects?clients=${project.client?.slug}`}
-                                style={{ textDecoration: 'none' }}
-                              >
+                              project.client?.link?.trim() ? (
+                                <Link 
+                                  href={project.client.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{ textDecoration: 'none' }}
+                                >
+                                  <Typography
+                                    component="span"
+                                    sx={{
+                                      fontWeight: 700,
+                                      color: '#656CAF',
+                                      textDecoration: 'underline',
+                                      textDecorationStyle: 'solid',
+                                      textDecorationSkipInk: 'none',
+                                      cursor: 'pointer',
+                                      '&:hover': {
+                                        color: '#4C53A2',
+                                        textDecorationColor: '#4C53A2',
+                                      },
+                                    }}
+                                  >
+                                    {part}
+                                  </Typography>
+                                </Link>
+                              ) : (
                                 <Typography
                                   component="span"
                                   sx={{
@@ -220,16 +239,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                                     textDecoration: 'underline',
                                     textDecorationStyle: 'solid',
                                     textDecorationSkipInk: 'none',
-                                    cursor: 'pointer',
-                                    '&:hover': {
-                                      color: '#4C53A2',
-                                      textDecorationColor: '#4C53A2',
-                                    },
                                   }}
                                 >
                                   {part}
                                 </Typography>
-                              </Link>
+                              )
                             ) : (
                               <Typography
                                 component="span"
@@ -334,7 +348,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </Typography>
                 </Box>
 
-                {project.totalSize && (
+                {hasDisplaySize(project) && (
                   <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.25 }}>
                     <Typography
                       sx={{
@@ -359,12 +373,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           color: '#000000',
                         }}
                       >
-                        {project.totalSize 
-                          ? (Number.isInteger(project.totalSize) 
-                              ? project.totalSize 
-                              : project.totalSize.toFixed(1))
-                          : '0'
-                        } m
+                        {formatProjectSizeDisplay(project)} m
                       </Typography>
                       <Typography
                         sx={{
