@@ -595,7 +595,7 @@ const Header = () => {
                   key={item.href}
                   size="medium"
                   href={item.href}
-                  selected={pathname === item.href}
+                  selected={item.href === '/articles' ? pathname.startsWith('/articles') : item.href === '/projects' ? pathname.startsWith('/projects') : pathname === item.href}
                 >
                   {item.label}
                 </CustomMenuItem>
@@ -724,7 +724,7 @@ const Header = () => {
                   component={Link}
                   href={item.href}
                   onClick={() => setDrawerOpen(false)}
-                  selected={pathname === item.href}
+                  selected={item.href === '/articles' ? pathname.startsWith('/articles') : item.href === '/projects' ? pathname.startsWith('/projects') : pathname === item.href}
                   sx={{
                     py: 2,
                     px: 3,
