@@ -23,19 +23,22 @@ export async function generateStaticParams() {
     const response = await projectsApi.getProjects({ pageSize: 50 });
     console.log('generateStaticParams: Projects count:', response.data.length);
     
-    const validProjects = response.data.filter(project => {
-      const hasSlug = Boolean(project.slug && project.slug.trim());
-      if (!hasSlug) {
-        console.warn('Project missing slug:', { id: project.id, documentId: project.documentId, title: project.title });
-      }
-      return hasSlug;
+    // Generate slugs dynamically since projects don't have a slug field in Strapi
+    const slugs = response.data.map(project => {
+      const clientSlug = project.client?.name
+        ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+        : 'client';
+      const formattedSize = Number.isInteger(project.totalSize) 
+        ? project.totalSize.toString() 
+        : project.totalSize.toFixed(1);
+      const slug = `${clientSlug}-${formattedSize}m2-${project.documentId}`;
+      
+      return { slug };
     });
     
-    console.log('generateStaticParams: Valid projects with slugs:', validProjects.length);
+    console.log('generateStaticParams: Generated slugs for', slugs.length, 'projects');
     
-    return validProjects.map((project) => ({
-      slug: project.slug,
-    }));
+    return slugs;
   } catch (error) {
     console.error('Error generating static params for projects:', error);
     return [];
