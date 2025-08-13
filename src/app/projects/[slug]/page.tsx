@@ -353,7 +353,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           color: '#000000',
                         }}
                       >
-                        {project.totalSize} m
+                        {Number.isInteger(project.totalSize) ? project.totalSize : project.totalSize.toFixed(1)} m
                       </Typography>
                       <Typography
                         sx={{

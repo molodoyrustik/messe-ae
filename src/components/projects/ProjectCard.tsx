@@ -23,7 +23,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     const clientSlug = project.client?.name
       ? project.client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
       : 'client';
-    const size = `${project.totalSize}m2`;
+    const formattedSize = Number.isInteger(project.totalSize) 
+      ? project.totalSize.toString() 
+      : project.totalSize.toFixed(1);
+    const size = `${formattedSize}m2`;
     return `/projects/${clientSlug}-${size}-${project.documentId}`;
   };
 
@@ -144,7 +147,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               textAlign: 'right',
             }}
           >
-            {project.totalSize} m<sup>2</sup>
+            {Number.isInteger(project.totalSize) ? project.totalSize : project.totalSize.toFixed(1)} m<sup>2</sup>
           </Typography>
         </Box>
       </Box>
