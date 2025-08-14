@@ -19,7 +19,8 @@ import {
   LocationOn,
 } from "@mui/icons-material";
 import Image from "next/image";
-import { ContractForm } from "../ContractForm";
+// import { ContractForm } from "../ContractForm";
+import HubSpotForm from "../HubspotForm";
 
 // Custom SVG Icons for mobile footer
 const InstagramSolid = () => (
@@ -201,42 +202,42 @@ const FooterSection = () => {
                   }}
                 />
               </Box>
-              <Box sx={{ display: "flex", gap: 1, mt: { md: 3 }}}>
-              <Typography
-                sx={{
-                  fontSize: { xs: "3.87px", md: "10.5px" },
-                  lineHeight: { xs: "4.43px", md: "12px" },
-                  color: "#000000",
-                }}
-              >
-                <Box
-                  component="span"
-                  sx={{ color: "#656CAF", fontWeight: 700 }}
+              <Box sx={{ display: "flex", gap: 1, mt: { md: 3 } }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "3.87px", md: "10.5px" },
+                    lineHeight: { xs: "4.43px", md: "12px" },
+                    color: "#000000",
+                  }}
                 >
-                  M
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
-                  arketing and{" "}
-                </Box>
-                <Box
-                  component="span"
-                  sx={{ color: "#656CAF", fontWeight: 700 }}
-                >
-                  E
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
-                  xhibition{" "}
-                </Box>
-                <Box
-                  component="span"
-                  sx={{ color: "#656CAF", fontWeight: 700 }}
-                >
-                  S
-                </Box>
-                <Box component="span" sx={{ fontWeight: 500 }}>
-                  ervices
-                </Box>
-              </Typography>
+                  <Box
+                    component="span"
+                    sx={{ color: "#656CAF", fontWeight: 700 }}
+                  >
+                    M
+                  </Box>
+                  <Box component="span" sx={{ fontWeight: 500 }}>
+                    arketing and{" "}
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{ color: "#656CAF", fontWeight: 700 }}
+                  >
+                    E
+                  </Box>
+                  <Box component="span" sx={{ fontWeight: 500 }}>
+                    xhibition{" "}
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{ color: "#656CAF", fontWeight: 700 }}
+                  >
+                    S
+                  </Box>
+                  <Box component="span" sx={{ fontWeight: 500 }}>
+                    ervices
+                  </Box>
+                </Typography>
               </Box>
             </Box>
 
@@ -304,82 +305,92 @@ const FooterSection = () => {
                 </IconButton>
               </Stack>
 
-
-
-                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="center">
-                  <Phone
-                    sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
-                  />
-                  <Link
-                    href="tel:+97145485887"
-                    sx={{
-                      fontSize: { xs: "10px", md: "14px" },
-                      lineHeight: { xs: "13px", md: "18px" },
-                      letterSpacing: { xs: "0.2px", md: "0.28px" },
-                      color: "#262626",
-                      textDecoration: "none",
-                      "&:hover": {
-                        color: "#656CAF",
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    +971 4 548 5887
-                  </Link>
-                </Stack>
-
-                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="center">
-                  <Email
-                    sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
-                  />
-                  <Link
-                    href="mailto:hello@messe.ae"
-                    sx={{
-                      fontSize: { xs: "10px", md: "14px" },
-                      lineHeight: { xs: "13px", md: "18px" },
-                      letterSpacing: { xs: "0.2px", md: "0.28px" },
-                      color: "#262626",
-                      textDecoration: "none",
-                      "&:hover": {
-                        color: "#656CAF",
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    hello@messe.ae
-                  </Link>
-                </Stack>
-
-                <Stack direction="row" spacing={{ xs: 0.5, md: '0.5rem' }} alignItems="flex-start">
-                  <LocationOn
-                    sx={{
-                      fontSize: { xs: 14, md: 20 },
-                      color: "#262626",
-                      mt: 0.25,
-                    }}
-                  />
-                  <Link
-                    href="https://maps.google.com/?q=UAE,+Dubai,+Dubai+Industrial+City,+KJ+Autopart+complex,+Office+building,+ground+floor,+left+wing.+PO+box+118995"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      fontSize: { xs: "10px", md: "14px" },
-                      lineHeight: { xs: "13px", md: "18px" },
-                      letterSpacing: { xs: "0.2px", md: "0.28px" },
-                      color: "#262626",
-                      flex: 1,
-                      textDecoration: "none",
-                      "&:hover": {
-                        color: "#656CAF",
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    UAE, Dubai, Dubai Industrial City, KJ Autopart complex,
-                    Office building, ground floor, left wing. PO box 118995
-                  </Link>
-                </Stack>
+              <Stack
+                direction="row"
+                spacing={{ xs: 0.5, md: "0.5rem" }}
+                alignItems="center"
+              >
+                <Phone
+                  sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
+                />
+                <Link
+                  href="tel:+97145485887"
+                  sx={{
+                    fontSize: { xs: "10px", md: "14px" },
+                    lineHeight: { xs: "13px", md: "18px" },
+                    letterSpacing: { xs: "0.2px", md: "0.28px" },
+                    color: "#262626",
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: "#656CAF",
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
+                  +971 4 548 5887
+                </Link>
               </Stack>
+
+              <Stack
+                direction="row"
+                spacing={{ xs: 0.5, md: "0.5rem" }}
+                alignItems="center"
+              >
+                <Email
+                  sx={{ fontSize: { xs: 14, md: 20 }, color: "#262626" }}
+                />
+                <Link
+                  href="mailto:hello@messe.ae"
+                  sx={{
+                    fontSize: { xs: "10px", md: "14px" },
+                    lineHeight: { xs: "13px", md: "18px" },
+                    letterSpacing: { xs: "0.2px", md: "0.28px" },
+                    color: "#262626",
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: "#656CAF",
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
+                  hello@messe.ae
+                </Link>
+              </Stack>
+
+              <Stack
+                direction="row"
+                spacing={{ xs: 0.5, md: "0.5rem" }}
+                alignItems="flex-start"
+              >
+                <LocationOn
+                  sx={{
+                    fontSize: { xs: 14, md: 20 },
+                    color: "#262626",
+                    mt: 0.25,
+                  }}
+                />
+                <Link
+                  href="https://maps.google.com/?q=UAE,+Dubai,+Dubai+Industrial+City,+KJ+Autopart+complex,+Office+building,+ground+floor,+left+wing.+PO+box+118995"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    fontSize: { xs: "10px", md: "14px" },
+                    lineHeight: { xs: "13px", md: "18px" },
+                    letterSpacing: { xs: "0.2px", md: "0.28px" },
+                    color: "#262626",
+                    flex: 1,
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: "#656CAF",
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
+                  UAE, Dubai, Dubai Industrial City, KJ Autopart complex, Office
+                  building, ground floor, left wing. PO box 118995
+                </Link>
+              </Stack>
+            </Stack>
           </Box>
 
           {/* Middle Column - Navigation Menu */}
@@ -544,7 +555,8 @@ const FooterSection = () => {
                 mx: "auto",
               }}
             >
-              <ContractForm onClose={() => {}} />
+              {/* <ContractForm onClose={() => {}} /> */}
+              <HubSpotForm type="footer" />
             </Paper>
           </Box>
         </Box>

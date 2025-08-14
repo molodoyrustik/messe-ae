@@ -352,7 +352,6 @@ const AwardsSection = () => {
       component="section"
       sx={{
         pt: { xs: 4, md: 0 },
-        pb: { xs: 4, md: "6.25rem" },
         backgroundColor: { xs: "#F5F5F5", md: "#FFFFFF" },
       }}
     >
