@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { ContactFormModal } from "@/components/ContactFormModal";
-import { useMobileMenu } from "@/contexts/MobileMenuContext";
 import { ClientOnly } from "@/components/ClientOnly";
 import { SafeVideoPlayer } from "@/components/SafeVideoPlayer";
 
@@ -18,7 +17,8 @@ const HeroSection = () => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [showButtonDueToContactForm, setShowButtonDueToContactForm] =
     useState(true);
-  const { isModalOpen, setModalOpen } = useMobileMenu();
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const heroRef = useRef<HTMLDivElement>(null);
@@ -46,7 +46,7 @@ const HeroSection = () => {
       {
         threshold: 0,
         rootMargin: "0px",
-      },
+      }
     );
 
     const currentButtonRef = heroButtonRef.current;
@@ -233,7 +233,7 @@ const HeroSection = () => {
         {/* Discuss Your Project Button - Desktop Only */}
         <Button
           variant="contained"
-          onClick={() => setModalOpen(true)}
+          onClick={() => setContactModalOpen(true)}
           sx={{
             position: "absolute",
             right: "2.5rem",
@@ -324,7 +324,7 @@ const HeroSection = () => {
             ref={heroButtonRef}
             variant="contained"
             fullWidth
-            onClick={() => setModalOpen(true)}
+            onClick={() => setContactModalOpen(true)}
             sx={{
               width: "100%",
               height: "48px",
@@ -382,7 +382,7 @@ const HeroSection = () => {
           <Button
             variant="contained"
             fullWidth
-            onClick={() => setModalOpen(true)}
+            onClick={() => setContactModalOpen(true)}
             data-id="floating-button"
             sx={{
               position: "fixed",
@@ -403,11 +403,15 @@ const HeroSection = () => {
               letterSpacing: "0.02em",
               zIndex: 9999,
               opacity:
-                showFloatingButton && showButtonDueToContactForm && !isModalOpen
+                showFloatingButton &&
+                showButtonDueToContactForm &&
+                !contactModalOpen
                   ? 1
                   : 0,
               visibility:
-                showFloatingButton && showButtonDueToContactForm && !isModalOpen
+                showFloatingButton &&
+                showButtonDueToContactForm &&
+                !contactModalOpen
                   ? "visible"
                   : "hidden",
               transition:
@@ -425,8 +429,8 @@ const HeroSection = () => {
 
       {/* Contact Form Modal */}
       <ContactFormModal
-        open={isModalOpen}
-        onClose={() => setModalOpen(false)}
+        open={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
       />
     </Box>
   );
