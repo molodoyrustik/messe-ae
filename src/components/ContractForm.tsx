@@ -64,8 +64,7 @@ export const ContractForm = ({ type }: { type: "modal" | "footer" }) => {
             letterSpacing: "tight",
           }}
         >
-          Have a project to discuss? Fill the form below and our experts will
-          contact you within 24 hours.
+          Fill the form below and our experts will contact you within 24 hours.
         </Typography>
 
         <Script
