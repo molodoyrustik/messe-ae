@@ -83,7 +83,8 @@ export const ContactFormModal = ({ open, onClose }: ContactFormModalProps) => {
       maxWidth={false}
       PaperProps={{
         sx: {
-          width: "41.5rem",
+          width: "50rem",
+          height: "43rem",
           maxWidth: "90vw",
           borderRadius: "0.5rem",
           p: "1.5rem 2rem",
