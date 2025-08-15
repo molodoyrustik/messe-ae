@@ -5,7 +5,6 @@ import {
   Container,
   Typography,
   Stack,
-  Paper,
   IconButton,
   Link,
 } from "@mui/material";
@@ -19,8 +18,7 @@ import {
   LocationOn,
 } from "@mui/icons-material";
 import Image from "next/image";
-// import { ContractForm } from "../ContractForm";
-import HubSpotForm from "../HubspotForm";
+import { ContractForm } from "../ContractForm";
 
 // Custom SVG Icons for mobile footer
 const InstagramSolid = () => (
@@ -540,24 +538,7 @@ const FooterSection = () => {
             </Typography>
 
             {/* Contact Form */}
-            <Paper
-              id="contact-form"
-              elevation={0}
-              component="div"
-              sx={{
-                width: { xs: "100%", lg: "664px" },
-                p: { xs: "12px", md: 2.5 },
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                display: "flex",
-                flexDirection: "column",
-                gap: { xs: "20px", md: 1.5 },
-                mx: "auto",
-              }}
-            >
-              {/* <ContractForm onClose={() => {}} /> */}
-              <HubSpotForm type="footer" />
-            </Paper>
+            <ContractForm type="footer" />
           </Box>
         </Box>
       </Container>
